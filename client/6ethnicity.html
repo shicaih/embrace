@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+    <title>
+        Culture Humility Form
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+  
+<body>
+  
+    <!-- Create Form -->
+    <form name="economics" id="economicsForm" onsubmit="return SubmitForm()" action="\7score.html" method="get">
+ 
+        <!-- Details -->
+        <div class="form-control">
+            <progress id="bar" value="70" max="100"> 70% </progress>
+            <h1>Which of the following best represents your ethnic heritage?</h1>
+ 
+            <!-- choose location from dropdown list -->
+            <select name="location" id="mainInput">
+                <option value="">Choose your ethnicity</option>
+                <option value="East Asian">East Asian</option>
+	              <option value="Southeast Asian">Southeast Asian</option>
+                <option value="South Asian">South Asian</option>
+                <option value="Central Asian">Central Asian</option>
+                <option value="North Asian">North Asian</option>
+                <option value="West Asian">West Asian</option>
+                <option value="Hipanic/Latinx">Hipanic/Latinx</option>
+                <option value="First Peoples/Indigneous">First Peoples/Indigneous</option>
+                <option value="Native Hawaiian/Pacific Islander">Native Hawaiian/Pacific Islander</option>
+                <option value="North African">North African</option>
+                <option value="African/African American/Afro-Caribbean/Afro-Latinx/Black">African/African American/Afro-Caribbean/Afro-Latinx/Black</option>
+                <option value="White/Caucasian/North American/South American/European">White/Caucasian/North American/South American/European</option>
+                <option value="Other">Other (Specify below)</option>
+                <option value="PreferNotToSay">Prefer not to say</option>
+            </select>
+
+
+            <input type="text"
+                   id="otherInput"
+                   placeholder="Enter your answer"
+                   style="display: none;">
+            <input type="checkbox" name="notToShow" id="notToShow" value="no">
+            <label for="notToShow" style="display: inline">Don't show this to others</label>
+        </div>
+        <button type="submit" value="submit">
+            Next
+        </button>
+    </form>
+  
+    <!-- this script relates to current form content -->
+    <script>
+        let dataEle = document.getElementById('mainInput'); 
+        dataEle.addEventListener("change", (event) => {
+            let otherInput = document.getElementById("otherInput");
+            if(dataEle.value === "Other") {
+              otherInput.style.display = "block";
+            } else {
+              otherInput.style.display = "none";
+            }
+        })
+    </script>
+  
+    <!-- this script only relates to submit process -->
+    <script>
+        const FORMINDEX = 6;
+        let myStorage = window.localStorage;
+        console.log(myStorage);
+        let formName = myStorage.getItem('forms').split(',')[FORMINDEX];
+        console.log(formName);
+      
+      
+        function SubmitForm() {
+            let dataEle, isOther = false;
+            if  (document.getElementById("mainInput").value === "Other") {
+                dataEle = document.getElementById("otherInput");
+                isOther.true;
+            } else {
+                dataEle = document.getElementById("mainInput");
+            };
+            let notToShowEle = document.getElementById("notToShow");
+            let data = [];
+            data.push(dataEle.value.trim());
+            data.push(!notToShowEle.checked);
+            data.push(isOther);
+            myStorage.setItem(formName, data);
+            return Validate(dataEle);
+        }
+      
+      
+        function Validate(dataEle) {
+          if (dataEle.value.trim() === "") {
+            window.alert("Please enter your answer.");
+            dataEle.focus();
+            return false;
+          }
+          return true;
+        };
+    </script>
+
+</body>
+  
+</html>

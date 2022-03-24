@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+    <title>
+        test
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+  
+<body>
+  
+    <!-- Create Form -->
+    <form name="score" id="scoreForm" onsubmit="return SubmitForm()" action="\8wheel.html">
+ 
+        <!-- Details -->
+        <div class="form-control">
+            <progress id="bar" value="80" max="100"> 80% </progress>
+            <h1>Importance Evaluation</h1>
+            <label>
+                Enter how important you think each category is in expressing your culture identity.
+            </label>
+            <table>
+              <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+              </tr>
+              <tr>
+                <td>Not at all important</td>
+                <td>Slightly important</td>
+                <td>Moderately important</td>
+                <td>Very important</td>
+                <td>Extremely important</td>
+              </tr>
+            </table>
+ 
+            <!-- choose location from dropdown list -->
+            <label class="category">Music</label>
+            <input type="number"
+                   inputmode="decimal"
+                   id="musicP"
+                   placeholder="integer 1-5"
+                   min="1"
+                   max="5"><br>
+            <label class="category">Food</label>
+            <input 
+                   type="number"
+                   inputmode="decimal"
+                   id="foodP"
+                   placeholder="integer 1-5"
+                   min="1"
+                   max="5"><br>
+            <label class="category">Hobby</label>
+            <input 
+                   type="number"
+                   inputmode="decimal"
+                   id="hobbyP"
+                   placeholder="integer 1-5"
+                   min="1"
+                   max="5"><br>
+            <label class="category">Location</label>
+            <input 
+                   type="number"
+                   inputmode="decimal"
+                   id="locationP"
+                   placeholder="integer 1-5"
+                   min="1"
+                   max="5"><br>
+            <label class="category">Economics</label>
+            <input
+                   type="number"
+                   inputmode="decimal"
+                   id="economicsP"
+                   placeholder="integer 1-5"
+                   min="1"
+                   max="5"><br>
+            <label class="category">Ethnicity</label>
+            <input 
+                   type="number"
+                   inputmode="decimal"
+                   id="ethnicityP"
+                   placeholder="integer 1-5"
+                   min="1"
+                   max="5"><br>
+
+        </div>
+        <button type="submit" value="submit">
+            Generate My Wheel
+        </button>
+    </form>
+  
+    <!-- this script only relates to submit process -->
+    <script>
+        function SubmitForm() {
+            myStorage = window.localStorage;
+            let featureNames = myStorage.getItem('forms').split(',');
+            let dataEle;
+            let data = [];
+            for (let step = 1; step < featureNames.length; step++) {
+                console.log(featureNames[step]);
+                
+                dataEle = document.getElementById(featureNames[step] + 'P')
+                if (Validate(dataEle) === false) {
+                  return false;
+                };
+            }
+            for (let step = 1; step < featureNames.length; step++) {
+                dataEle = document.getElementById(featureNames[step] + 'P')
+                data.push(dataEle.value.trim());
+            }
+            myStorage.setItem("scores", data);
+            return true;
+        };
+      
+      
+        function Validate(dataEle) {
+            if (dataEle.value === "") {
+                window.alert("Please enter your answer.");
+                dataEle.focus();
+                return false;
+            }
+            return true;
+        };
+    </script>
+
+</body>
+  
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+    <title>
+        test
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+  
+<body>
+    <h1>Build your own culture wheel survey</h1>
+  
+    <!-- Create Form -->
+    <form name="religion" id="religionForm" onsubmit="return SubmitForm()" action="\score.html" method="get">
+ 
+        <!-- Details -->
+        <div class="form-control">
+            <label>
+                How do you identify yourself religiously?
+            </label>
+ 
+            <!-- choose location from dropdown list -->
+            <select name="location" id="mainInput">
+                <option value="Catholic">Catholic</option>
+                <option value="Christian">Christian</option>
+                <option value="Mormon">Mormon</option>
+                <option value="Unaffiliated">Unaffiliated</option>
+                <option value="Atheist">Atheist</option>
+                <option value="Agnostic">Agnostic</option>
+                <option value="Jewish">Jewish</option>
+                <option value="Muslim">Muslim</option>
+                <option value="Buddhist">Buddhist</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Other">Other (Specify below)</option>
+                <option value="null">Prefer not to say</option>
+            </select>
+            <input type="text"
+                   id="otherInput"
+                   placeholder="Enter your answer"
+                   style="display: none;">
+            <input type="checkbox" name="notToShow" id="notToShow" value="no">
+            <label for="notToShow" style="display: inline">Don't show this to others</label>
+        </div>
+        <button type="submit" value="submit">
+            Submit
+        </button>
+    </form>
+  
+    <!-- this script relates to current form content -->
+    <script>
+        let dataEle = document.getElementById('mainInput'); 
+        dataEle.addEventListener("change", (event) => {
+            let otherInput = document.getElementById("otherInput");
+            if(dataEle.value === "Other") {
+              otherInput.style.display = "block";
+            } else {
+              otherInput.style.display = "none";
+            };
+        });
+    </script>
+  
+    <!-- this script only relates to submit process -->
+    <script>
+        const FORMINDEX = 9;
+        let myStorage = window.localStorage;
+        console.log(myStorage);
+        let formName = myStorage.getItem('forms').split(',')[FORMINDEX];
+        console.log(formName);
+      
+      
+        function SubmitForm() {
+            let dataEle;
+            if  (document.getElementById("mainInput").value === "Other") {
+                dataEle = document.getElementById("otherInput");
+            } else {
+                dataEle = document.getElementById("mainInput");
+            };
+            let notToShowEle = document.getElementById("notToShow");
+            let data = [];
+            data.push(dataEle.value.trim());
+            data.push(!notToShowEle.checked);
+            myStorage.setItem(formName, data);
+            return Validate(dataEle);
+        };
+      
+      
+        function Validate(dataEle) {
+          if (dataEle.value.trim() === "") {
+            window.alert("Please enter your answer.");
+            dataEle.focus();
+            return false;
+          }
+          return true;
+        };
+    </script>
+
+</body>
+  
+</html>
