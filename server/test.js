@@ -1,6 +1,6 @@
 const http = require('http');
 
-const hostname = 'embrace.etc.cmu.edu/look';
+const hostname = 'embrace.etc.cmu.edu/home/embrace-user/server/embrace/server';
 const port = 6000;
 
 const server = http.createServer((req, res) => {
