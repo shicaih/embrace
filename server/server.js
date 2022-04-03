@@ -1,5 +1,5 @@
 // import uuid module. We call uuid() to generate a new uuid
-import { v4 as uuidGen } from "uuid";
+const { v4 : uuidGen } = require("uuid");
 // server
 var server = require('http').createServer();
 // options for websocket  
