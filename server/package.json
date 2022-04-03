@@ -1,5 +1,4 @@
 {
-  "type":"module",
   "name": "embrace",
   "version": "1.0.0",
   "description": "A simple Node app built on express, instantly up and running.",
