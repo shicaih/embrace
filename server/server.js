@@ -7,7 +7,7 @@ const httpsOptions = {
 };
 
 // server
-var server = require('https').createServer(httpsOptions);
+var server = require('http').createServer();
 // options for websocket  
 var socketOptions = {
     cors: true,
