@@ -12,3 +12,4 @@ http.createServer(function (req, res) {
         res.end(data);
     });
 }).listen(9000);
+console.log(__dirname);
