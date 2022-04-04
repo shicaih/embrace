@@ -726,4 +726,4 @@ io.sockets.on('connection', function(socket) {
 }*/
 
 console.log ('Server started');
-server.listen(9000);
+server.listen(6000);
