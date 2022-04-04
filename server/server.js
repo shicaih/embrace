@@ -1,7 +1,13 @@
 // import uuid module. We call uuid() to generate a new uuid
 const { v4 : uuidGen } = require("uuid");
+const fs = require("fs");
+const httpsOptions = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+};
+
 // server
-var server = require('http').createServer();
+var server = require('https').createServer(httpsOptions);
 // options for websocket  
 var socketOptions = {
     cors: true,
