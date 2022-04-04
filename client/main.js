@@ -385,7 +385,7 @@ class Lobby extends Phaser.Scene {
     this.createUI();
   }
 
-  update() {
+  update(time, delta) {
     if (isMobile) {
       let x = Phaser.Math.Clamp(this.joyStick.forceX, -100, 100);
       let y = Phaser.Math.Clamp(this.joyStick.forceY, -100, 100);
@@ -394,12 +394,17 @@ class Lobby extends Phaser.Scene {
         y * gameOptions.speed
       );
       if (inited) {
-        this.socket.emit("positionUpdate", {
-        uuid: this.mainPlayer.uuid,
-        x: this.mainPlayer.gameObject.x,
-        y: this.mainPlayer.gameObject.y,
-        });
-      }
+        this.frameTime += delta;
+        if (this.frameTime > 40) {
+          this.frameTime = 0;
+          this.socket.emit("positionUpdate", {
+            uuid: this.mainPlayer.uuid,
+            x: this.mainPlayer.gameObject.x,
+            y: this.mainPlayer.gameObject.y,
+          });
+        }
+        }
+
 
     }
   }
