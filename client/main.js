@@ -312,7 +312,7 @@ class Lobby extends Phaser.Scene {
     }
 
     // Networking, may be put into another file afterwards
-    let socket = io.connect("http://embrace.etc.cmu.edu:6000/");
+    let socket = io.connect("http://embrace.etc.cmu.edu:443/");
     this.socket = socket;
     socket.phase = phase;
 
