@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+    <title>
+        Culture Humility Form
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+  
+<body>
+  
+    <!-- Create Form -->
+    <form name="hobby" id="hobbyForm" onsubmit="return SubmitForm()" action="\4economics.html" method="get">
+ 
+        <!-- Details -->
+        <div class="form-control">
+            <progress id="bar" value="40" max="100" class="drop"> 40% </progress>
+            <h1>What is your favorite hobby?</h1>
+ 
+            <!-- choose hobby from dropdown list -->
+            <select name="hobby" id="mainInput" class="drop">
+                <option value="">Choose your hobby</option>
+                <option value="Collecting">Collecting</option>
+                <option value="Arts">Arts</option>
+                <option value="Games">Games</option>
+                <option value="Model & Electronic">Model & Electronic</option>
+                <option value="Sports & Outdoors">Sports & Outdoors</option>
+                <option value="Performing Arts">Performing Arts</option>
+                <option value="Music">Music</option>
+                <option value="Spiritual & Mental">Spiritual & Mental</option>
+                <option value="Food & Drinks">Food & Drinks</option>
+                <option value="Pets">Pets</option>
+                <option value="Other">Other (Specify below)</option>
+                <option value="PreferNotToSay">Prefer not to say</option>
+            </select>
+            <input type="text"
+                   id="otherInput"
+                   placeholder="Enter your answer"
+                   style="display: none;">
+            <input type="checkbox" name="notToShow" id="notToShow" value="no">
+            <label for="notToShow" style="display: inline">Don't show this to others</label>
+        </div>
+        <button type="submit" value="submit">
+            Next
+        </button>
+    </form>
+  
+    <!-- this script relates to current form content -->
+    <script>
+        let dataEle = document.getElementById('mainInput'); 
+        dataEle.addEventListener("change", (event) => {
+            let otherInput = document.getElementById("otherInput");
+            if(dataEle.value === "Other") {
+              otherInput.style.display = "block";
+            } else {
+              otherInput.style.display = "none";
+            }
+        })
+    </script>
+  
+    <!-- this script only relates to submit process -->
+    <script>
+        const FORMINDEX = 3;
+        let myStorage = window.sessionStorage;
+        console.log(myStorage);
+        let formName = myStorage.getItem('forms').split(',')[FORMINDEX];
+        console.log(formName);
+      
+      
+        function SubmitForm() {
+            let dataEle, isOther = false;
+            if  (document.getElementById("mainInput").value === "Other") {
+                dataEle = document.getElementById("otherInput");
+                isOther = true;
+            } else {
+                dataEle = document.getElementById("mainInput");
+            };
+            let notToShowEle = document.getElementById("notToShow");
+            let data = [];
+            data.push(dataEle.value.trim());
+            data.push(!notToShowEle.checked);
+            data.push(isOther);
+            myStorage.setItem(formName, data);
+            return Validate(dataEle);
+        }
+      
+      
+        function Validate(dataEle) {
+          if (dataEle.value.trim() === "") {
+            window.alert("Please enter your answer.");
+            dataEle.focus();
+            return false;
+          }
+          return true;
+        };
+    </script>
+
+</body>
+  
+</html>
