@@ -1,7 +1,7 @@
 const http = require('http');
 
 const hostname = 'embrace.etc.cmu.edu';
-const port = 6000;
+const port = 9000;
 
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
