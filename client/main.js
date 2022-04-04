@@ -159,6 +159,7 @@ class Lobby extends Phaser.Scene {
     })
     inited = false;
     this.initialized = false;
+    this.frameTime = 0;
     let self = this;
     let mainPlayerInfo = {};
     this.createdPlayers = [];
@@ -404,8 +405,6 @@ class Lobby extends Phaser.Scene {
           });
         }
         }
-
-
     }
   }
 
@@ -957,7 +956,7 @@ class Lobby extends Phaser.Scene {
 let gameconfig = {
   type: Phaser.AUTO,
   backgroundColor: 0x222222,
-  fps: {target: 24},
+  fps: {target: 25},
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
