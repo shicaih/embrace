@@ -732,4 +732,4 @@ io.sockets.on('connection', function(socket) {
 }*/
 
 console.log ('Server started');
-server.listen(6000);
+server.listen(443);
