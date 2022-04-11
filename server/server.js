@@ -12,7 +12,7 @@ var io = require('socket.io')(server, socketOptions);
 var options = {
     cultures: ['music', 'food', 'hobby', 'finances', 'home', 'ethnicity'],
     roomMaxPlayers: [2, 4, 6, 8],  
-    levelTime: [10, 60, 90, 90], // seconds
+    levelTime: [60, 60, 90, 90], // seconds
     nLevel: 4
 };
 // an object containing all the lobby players. key: uuid, value: Player object
@@ -818,6 +818,7 @@ io.sockets.on('connection', function(socket) {
 
 
     socket.on('startPuzzle', function() {
+        curLevel += 1;
         if (curLevel == options.roomMaxPlayers.length) {
             generateReportData();
             puzzleRooms.forEach(room => {
@@ -828,7 +829,6 @@ io.sockets.on('connection', function(socket) {
             return;
         }
         console.log("Puzzle Started");
-        curLevel += 1;
         initPuzzles();
         console.log("init finished");
         for (let i = 0; i < puzzleRooms.length; i++) {
