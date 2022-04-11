@@ -1,14 +1,7 @@
 var fs = require('fs'),
-    http = require('http');
-
+    http = require('http')
+    staticS = require("node-static");
+var file = new(staticS.Server)(__dirname);
 http.createServer(function (req, res) {
-    fs.readFile(__dirname + req.url, function (err,data) {
-        if (err) {
-            res.writeHead(404);
-            res.end(JSON.stringify(err));
-            return;
-        }
-        res.writeHead(200);
-        res.end(data);
-    });
+    file.serve(req, res);
 }).listen(9000);
