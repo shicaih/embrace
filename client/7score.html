@@ -16,12 +16,16 @@
 <body>
   
     <!-- Create Form -->
-    <form name="score" id="scoreForm" onsubmit="return SubmitForm()" action="\8wheel.html" method="post">
+    <form name="score" id="scoreForm" onsubmit="return SubmitForm()" action="\8wheel.html">
  
         <!-- Details -->
         <div class="form-control">
             <progress id="bar" value="80" max="100"> 80% </progress>
             <h1>Importance Evaluation</h1>
+            <p>
+              Your background is influenced by the cultures you were raised in, but who you are does not have to be defined by any one culture you fall under. You may feel more strongly about one identity than another.
+              <br><br>For each of the 6 cultural identities, rate how important you feel that aspect is about who you are on a day to day basis.
+            </p>
             <label>
                 Enter how important you think each category is in expressing your culture identity.
             </label>
@@ -57,7 +61,7 @@
             </div>
 
             <label class="category">Food</label>
-            <input 
+            <input class="range"
                    type="range"
                    inputmode="decimal"
                    id="foodP"

@@ -1,0 +1,1385 @@
+{
+	"textures": [
+		{
+			"image": "Confetti.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 3922,
+				"h": 3284
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Confetti+Text_00051.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 8,
+						"w": 581,
+						"h": 585
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 581,
+						"h": 585
+					}
+				},
+				{
+					"filename": "Confetti+Text_00052.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 8,
+						"w": 581,
+						"h": 585
+					},
+					"frame": {
+						"x": 1,
+						"y": 588,
+						"w": 581,
+						"h": 585
+					}
+				},
+				{
+					"filename": "Confetti+Text_00050.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 11,
+						"w": 581,
+						"h": 582
+					},
+					"frame": {
+						"x": 1,
+						"y": 1175,
+						"w": 581,
+						"h": 582
+					}
+				},
+				{
+					"filename": "Confetti+Text_00038.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 16,
+						"w": 566,
+						"h": 579
+					},
+					"frame": {
+						"x": 1,
+						"y": 1759,
+						"w": 566,
+						"h": 579
+					}
+				},
+				{
+					"filename": "Confetti+Text_00039.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 16,
+						"w": 566,
+						"h": 579
+					},
+					"frame": {
+						"x": 1,
+						"y": 2340,
+						"w": 566,
+						"h": 579
+					}
+				},
+				{
+					"filename": "Confetti+Text_00024.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 88,
+						"w": 501,
+						"h": 361
+					},
+					"frame": {
+						"x": 1,
+						"y": 2921,
+						"w": 501,
+						"h": 361
+					}
+				},
+				{
+					"filename": "Confetti+Text_00023.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 100,
+						"w": 501,
+						"h": 337
+					},
+					"frame": {
+						"x": 504,
+						"y": 2921,
+						"w": 501,
+						"h": 337
+					}
+				},
+				{
+					"filename": "Confetti+Text_00000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 504,
+						"y": 3260,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "Confetti+Text_00037.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 16,
+						"w": 566,
+						"h": 577
+					},
+					"frame": {
+						"x": 569,
+						"y": 1759,
+						"w": 566,
+						"h": 577
+					}
+				},
+				{
+					"filename": "Confetti+Text_00049.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 18,
+						"w": 581,
+						"h": 575
+					},
+					"frame": {
+						"x": 569,
+						"y": 2338,
+						"w": 581,
+						"h": 575
+					}
+				},
+				{
+					"filename": "Confetti+Text_00022.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 112,
+						"w": 501,
+						"h": 313
+					},
+					"frame": {
+						"x": 1007,
+						"y": 2915,
+						"w": 501,
+						"h": 313
+					}
+				},
+				{
+					"filename": "Confetti+Text_00006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 273,
+						"y": 269,
+						"w": 52,
+						"h": 52
+					},
+					"frame": {
+						"x": 1007,
+						"y": 3230,
+						"w": 52,
+						"h": 52
+					}
+				},
+				{
+					"filename": "Confetti+Text_00005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 276,
+						"y": 274,
+						"w": 48,
+						"h": 47
+					},
+					"frame": {
+						"x": 1061,
+						"y": 3230,
+						"w": 48,
+						"h": 47
+					}
+				},
+				{
+					"filename": "Confetti+Text_00003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 279,
+						"y": 278,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1111,
+						"y": 3230,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Confetti+Text_00004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 279,
+						"y": 278,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1156,
+						"y": 3230,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Confetti+Text_00002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 286,
+						"y": 285,
+						"w": 28,
+						"h": 29
+					},
+					"frame": {
+						"x": 1201,
+						"y": 3230,
+						"w": 28,
+						"h": 29
+					}
+				},
+				{
+					"filename": "Confetti+Text_00001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 287,
+						"y": 287,
+						"w": 25,
+						"h": 25
+					},
+					"frame": {
+						"x": 1231,
+						"y": 3230,
+						"w": 25,
+						"h": 25
+					}
+				},
+				{
+					"filename": "Confetti+Text_00036.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 16,
+						"w": 566,
+						"h": 570
+					},
+					"frame": {
+						"x": 584,
+						"y": 1,
+						"w": 566,
+						"h": 570
+					}
+				},
+				{
+					"filename": "Confetti+Text_00048.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 26,
+						"w": 580,
+						"h": 567
+					},
+					"frame": {
+						"x": 584,
+						"y": 573,
+						"w": 580,
+						"h": 567
+					}
+				},
+				{
+					"filename": "Confetti+Text_00035.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 16,
+						"w": 561,
+						"h": 562
+					},
+					"frame": {
+						"x": 1152,
+						"y": 1,
+						"w": 561,
+						"h": 562
+					}
+				},
+				{
+					"filename": "Confetti+Text_00047.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 36,
+						"w": 580,
+						"h": 557
+					},
+					"frame": {
+						"x": 584,
+						"y": 1142,
+						"w": 580,
+						"h": 557
+					}
+				},
+				{
+					"filename": "Confetti+Text_00053.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 8,
+						"w": 581,
+						"h": 552
+					},
+					"frame": {
+						"x": 1137,
+						"y": 1701,
+						"w": 581,
+						"h": 552
+					}
+				},
+				{
+					"filename": "Confetti+Text_00009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 258,
+						"y": 249,
+						"w": 82,
+						"h": 76
+					},
+					"frame": {
+						"x": 1137,
+						"y": 2255,
+						"w": 82,
+						"h": 76
+					}
+				},
+				{
+					"filename": "Confetti+Text_00054.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 8,
+						"w": 577,
+						"h": 552
+					},
+					"frame": {
+						"x": 1152,
+						"y": 2333,
+						"w": 577,
+						"h": 552
+					}
+				},
+				{
+					"filename": "Confetti+Text_00008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 264,
+						"y": 256,
+						"w": 70,
+						"h": 67
+					},
+					"frame": {
+						"x": 1221,
+						"y": 2255,
+						"w": 70,
+						"h": 67
+					}
+				},
+				{
+					"filename": "Confetti+Text_00025.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 76,
+						"w": 501,
+						"h": 385
+					},
+					"frame": {
+						"x": 1510,
+						"y": 2887,
+						"w": 501,
+						"h": 385
+					}
+				},
+				{
+					"filename": "Confetti+Text_00007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 269,
+						"y": 263,
+						"w": 59,
+						"h": 59
+					},
+					"frame": {
+						"x": 1293,
+						"y": 2255,
+						"w": 59,
+						"h": 59
+					}
+				},
+				{
+					"filename": "Confetti+Text_00055.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 8,
+						"w": 559,
+						"h": 552
+					},
+					"frame": {
+						"x": 1166,
+						"y": 565,
+						"w": 559,
+						"h": 552
+					}
+				},
+				{
+					"filename": "Confetti+Text_00056.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 8,
+						"w": 559,
+						"h": 552
+					},
+					"frame": {
+						"x": 1715,
+						"y": 1,
+						"w": 559,
+						"h": 552
+					}
+				},
+				{
+					"filename": "Confetti+Text_00034.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 16,
+						"w": 549,
+						"h": 552
+					},
+					"frame": {
+						"x": 1166,
+						"y": 1119,
+						"w": 549,
+						"h": 552
+					}
+				},
+				{
+					"filename": "Confetti+Text_00057.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 8,
+						"w": 548,
+						"h": 552
+					},
+					"frame": {
+						"x": 1717,
+						"y": 1119,
+						"w": 548,
+						"h": 552
+					}
+				},
+				{
+					"filename": "Confetti+Text_00058.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 8,
+						"w": 542,
+						"h": 552
+					},
+					"frame": {
+						"x": 1727,
+						"y": 555,
+						"w": 542,
+						"h": 552
+					}
+				},
+				{
+					"filename": "Confetti+Text_00046.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 47,
+						"w": 580,
+						"h": 546
+					},
+					"frame": {
+						"x": 1720,
+						"y": 1673,
+						"w": 580,
+						"h": 546
+					}
+				},
+				{
+					"filename": "Confetti+Text_00011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 245,
+						"y": 232,
+						"w": 108,
+						"h": 99
+					},
+					"frame": {
+						"x": 1720,
+						"y": 2221,
+						"w": 108,
+						"h": 99
+					}
+				},
+				{
+					"filename": "Confetti+Text_00045.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 52,
+						"w": 575,
+						"h": 543
+					},
+					"frame": {
+						"x": 2267,
+						"y": 1109,
+						"w": 575,
+						"h": 543
+					}
+				},
+				{
+					"filename": "Confetti+Text_00042.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 52,
+						"w": 566,
+						"h": 543
+					},
+					"frame": {
+						"x": 2271,
+						"y": 555,
+						"w": 566,
+						"h": 543
+					}
+				},
+				{
+					"filename": "Confetti+Text_00043.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 52,
+						"w": 566,
+						"h": 543
+					},
+					"frame": {
+						"x": 2276,
+						"y": 1,
+						"w": 566,
+						"h": 543
+					}
+				},
+				{
+					"filename": "Confetti+Text_00044.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 52,
+						"w": 562,
+						"h": 543
+					},
+					"frame": {
+						"x": 2839,
+						"y": 546,
+						"w": 562,
+						"h": 543
+					}
+				},
+				{
+					"filename": "Confetti+Text_00032.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 37,
+						"y": 16,
+						"w": 518,
+						"h": 530
+					},
+					"frame": {
+						"x": 3403,
+						"y": 1,
+						"w": 518,
+						"h": 530
+					}
+				},
+				{
+					"filename": "Confetti+Text_00033.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 31,
+						"y": 16,
+						"w": 533,
+						"h": 542
+					},
+					"frame": {
+						"x": 2844,
+						"y": 1,
+						"w": 533,
+						"h": 542
+					}
+				},
+				{
+					"filename": "Confetti+Text_00031.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 45,
+						"y": 19,
+						"w": 510,
+						"h": 515
+					},
+					"frame": {
+						"x": 3403,
+						"y": 533,
+						"w": 510,
+						"h": 515
+					}
+				},
+				{
+					"filename": "Confetti+Text_00030.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 25,
+						"w": 501,
+						"h": 497
+					},
+					"frame": {
+						"x": 3403,
+						"y": 1050,
+						"w": 501,
+						"h": 497
+					}
+				},
+				{
+					"filename": "Confetti+Text_00059.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 134,
+						"w": 542,
+						"h": 426
+					},
+					"frame": {
+						"x": 2844,
+						"y": 1091,
+						"w": 542,
+						"h": 426
+					}
+				},
+				{
+					"filename": "Confetti+Text_00040.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 55,
+						"w": 566,
+						"h": 540
+					},
+					"frame": {
+						"x": 1731,
+						"y": 2322,
+						"w": 566,
+						"h": 540
+					}
+				},
+				{
+					"filename": "Confetti+Text_00026.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 65,
+						"w": 501,
+						"h": 408
+					},
+					"frame": {
+						"x": 2013,
+						"y": 2864,
+						"w": 501,
+						"h": 408
+					}
+				},
+				{
+					"filename": "Confetti+Text_00010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 252,
+						"y": 241,
+						"w": 94,
+						"h": 86
+					},
+					"frame": {
+						"x": 1830,
+						"y": 2221,
+						"w": 94,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Confetti+Text_00029.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 33,
+						"w": 501,
+						"h": 477
+					},
+					"frame": {
+						"x": 2844,
+						"y": 1519,
+						"w": 501,
+						"h": 477
+					}
+				},
+				{
+					"filename": "Confetti+Text_00041.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 55,
+						"w": 566,
+						"h": 540
+					},
+					"frame": {
+						"x": 3347,
+						"y": 1549,
+						"w": 566,
+						"h": 540
+					}
+				},
+				{
+					"filename": "Confetti+Text_00028.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 43,
+						"w": 501,
+						"h": 454
+					},
+					"frame": {
+						"x": 2302,
+						"y": 1654,
+						"w": 501,
+						"h": 454
+					}
+				},
+				{
+					"filename": "Confetti+Text_00027.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 53,
+						"w": 501,
+						"h": 432
+					},
+					"frame": {
+						"x": 2805,
+						"y": 1998,
+						"w": 501,
+						"h": 432
+					}
+				},
+				{
+					"filename": "Confetti+Text_00021.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 124,
+						"w": 501,
+						"h": 290
+					},
+					"frame": {
+						"x": 2302,
+						"y": 2110,
+						"w": 501,
+						"h": 290
+					}
+				},
+				{
+					"filename": "Confetti+Text_00020.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 136,
+						"w": 501,
+						"h": 268
+					},
+					"frame": {
+						"x": 2299,
+						"y": 2402,
+						"w": 501,
+						"h": 268
+					}
+				},
+				{
+					"filename": "Confetti+Text_00015.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 212,
+						"y": 193,
+						"w": 172,
+						"h": 164
+					},
+					"frame": {
+						"x": 2299,
+						"y": 2672,
+						"w": 172,
+						"h": 164
+					}
+				},
+				{
+					"filename": "Confetti+Text_00014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 221,
+						"y": 203,
+						"w": 155,
+						"h": 146
+					},
+					"frame": {
+						"x": 2473,
+						"y": 2672,
+						"w": 155,
+						"h": 146
+					}
+				},
+				{
+					"filename": "Confetti+Text_00019.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 148,
+						"w": 501,
+						"h": 250
+					},
+					"frame": {
+						"x": 3308,
+						"y": 2091,
+						"w": 501,
+						"h": 250
+					}
+				},
+				{
+					"filename": "Confetti+Text_00018.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 160,
+						"w": 501,
+						"h": 238
+					},
+					"frame": {
+						"x": 3308,
+						"y": 2343,
+						"w": 501,
+						"h": 238
+					}
+				},
+				{
+					"filename": "Confetti+Text_00017.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 171,
+						"w": 501,
+						"h": 227
+					},
+					"frame": {
+						"x": 2802,
+						"y": 2432,
+						"w": 501,
+						"h": 227
+					}
+				},
+				{
+					"filename": "Confetti+Text_00016.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 182,
+						"w": 501,
+						"h": 216
+					},
+					"frame": {
+						"x": 3305,
+						"y": 2583,
+						"w": 501,
+						"h": 216
+					}
+				},
+				{
+					"filename": "Confetti+Text_00060.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 192,
+						"w": 501,
+						"h": 206
+					},
+					"frame": {
+						"x": 2802,
+						"y": 2661,
+						"w": 501,
+						"h": 206
+					}
+				},
+				{
+					"filename": "Confetti+Text_00013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 230,
+						"y": 214,
+						"w": 138,
+						"h": 128
+					},
+					"frame": {
+						"x": 2630,
+						"y": 2672,
+						"w": 138,
+						"h": 128
+					}
+				},
+				{
+					"filename": "Confetti+Text_00012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 238,
+						"y": 223,
+						"w": 122,
+						"h": 113
+					},
+					"frame": {
+						"x": 2630,
+						"y": 2802,
+						"w": 122,
+						"h": 113
+					}
+				},
+				{
+					"filename": "Confetti+Text_00061.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 192,
+						"w": 501,
+						"h": 206
+					},
+					"frame": {
+						"x": 3305,
+						"y": 2801,
+						"w": 501,
+						"h": 206
+					}
+				},
+				{
+					"filename": "Confetti+Text_00062.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 192,
+						"w": 501,
+						"h": 206
+					},
+					"frame": {
+						"x": 2754,
+						"y": 2869,
+						"w": 501,
+						"h": 206
+					}
+				},
+				{
+					"filename": "Confetti+Text_00063.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 192,
+						"w": 501,
+						"h": 206
+					},
+					"frame": {
+						"x": 2516,
+						"y": 3077,
+						"w": 501,
+						"h": 206
+					}
+				},
+				{
+					"filename": "Confetti+Text_00064.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 600,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 192,
+						"w": 501,
+						"h": 206
+					},
+					"frame": {
+						"x": 3019,
+						"y": 3077,
+						"w": 501,
+						"h": 206
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:ca9776786a5d2ac469af018759106d7d:2339992e010c24f8bf6374d085f1bb5b:42d6388b9b8652ad0fc8521576e9133b$"
+	}
+}

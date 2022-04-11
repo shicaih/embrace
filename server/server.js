@@ -1,23 +1,18 @@
 // import uuid module. We call uuid() to generate a new uuid
 const { v4 : uuidGen } = require("uuid");
-const fs = require("fs");
-const httpsOptions = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-};
-
 // server
-var server = require('http').createServer();
+var server = require('http').createServer();  
 // options for websocket  
 var socketOptions = {
     cors: true,
-}
+} 
 // websocket object 
 var io = require('socket.io')(server, socketOptions);
-// server options for the game
+// server options for the game 
 var options = {
     cultures: ['music', 'food', 'hobby', 'finances', 'home', 'ethnicity'],
-    roomMaxPlayers: [2, 4, 6, 8],
+    roomMaxPlayers: [2, 4, 6, 8],  
+    levelTime: [10, 60, 90, 90], // seconds
     nLevel: 4
 };
 // an object containing all the lobby players. key: uuid, value: Player object
@@ -26,21 +21,25 @@ var goneLobbyPlayers = {};
 // an object containing all the puzzle players. key: uuid, value: Player object
 var puzzlePlayers = {};
 var gonePuzzlePlayers = {};
+var activePlayers = {};
 var lobbyRooms = [{}];
 // an array of all the Room objects. Array index is the id of Room.
 var puzzleRooms = [];
+var roomSolved = [];
 var ht = null;
 var firstGroup = null;
-var curLevel = 0;
-/**
+var curLevel = -1;
+var posIndex = 0; 
+var bigscreenSid = null;
+/** 
  *
  * @param uuid
  * @param wheelInfo
- * @constructor
+ * @constructor 
  */
 function Player (uuid, wheelInfo, scores) {
     this.uuid = uuid;
-    this.wheelInfo = wheelInfo;
+    this.wheelInfo = wheelInfo; 
     this.scores = scores;
     this.x = 0;
     this.y = 0;
@@ -64,12 +63,16 @@ function Player (uuid, wheelInfo, scores) {
     while (i < scoreRanks.length && scoreRanks[i] == scoreRanks[i-1]) {
         this.importantAspectIndices.push(scoreRanks[i++])
     }
+    this.playerReport = new PersonalReportData()
+    this.teammates = new Set();
+    this.thumbsToPlayers = new Set();
+    this.thumbsFromPlayers = new Set();
 }
 
 function Room (id) {
     this.id = id;
-    this.players = {};
-    this.puzzleOptions = {};
+    this.players = {}; 
+    this.puzzleOptions = {}; 
     this.realtimePoints = [];
     this.level = 0;
 }
@@ -85,7 +88,60 @@ function PuzzleOptions () {
     this.cultures = [];
     this.values = [];
     this.points = [];
+    this.expectedPlayerIds = []; // 2D array
 }
+
+function PersonalReportData () {
+  // personal
+  this.nickname = "Jeff"
+  this.nPlayerMet = 123
+  this.nTeammate = 123
+  this.timeSpentMin = 3 // min
+  this.timeSpentSec = 26 // sec
+  this.nPuzzlesSolved = 123
+  this.speedRank = 9 //top n%
+  this.nThumbToOthers = 17 //gave thumb-up to n different players
+  this.nThumbFromOthers = 8 // recieved thumb-up from n different players
+  this.nMutualThumb = 5 // had mutual thumb-up with 3 different players
+  
+  // location
+  this.location = "Asia" 
+  this.nPlayerSameLocation = 5
+  this.locationIsImportant = true
+  this.nPlayerLocationImportant = 23
+  this.importantLocationExamples = ["Asia", "Europe", "Texas"]
+  this.nImportantLocations = 10 // players who think their locations are important are from n different places
+  
+  // ethnicity
+  this.ethnicityIsImportant= true
+  this.nPlayerEthnicityImportant = 20
+  this.importantEthnicityExamples = ["East Asian", "Caucasian", "African"]
+  this.nImportantEthnicities = 3 // players who think their ethnicities are important are from n different ethnicities
+  
+  // music
+  this.music = "Jazz", 
+  this.nPlayerSameMusic = 0 // n "other" playeres also enjoy the same music
+  this.nSameMusicLocation = 3 // players from n countries also enjoy the same music
+  this.multiMusicLocation = true
+  this.sameMusicLocationExamples = ["Asia", "Europe", "Texas"] // if nPlayerSameMusic is 0, this should be an array containing only the player's location
+  
+  //
+  this.food = "Japanese"
+  this.nPlayerSameFood = 8  // n "other" playeres also enjoy the same food
+  this.nSameFoodLocation = 3 // players from n countries also enjoy the same music
+  this.multiFoodLocation = false
+  this.sameFoodLocationExamples = ["Asia", "Europe", "Texas"] // if nPlayerSameFood is 0, this should be an array containing only the player's location
+}
+
+let globalReportData = {
+  // global
+  nPlayer: 0,
+  nCountries: 5,
+  nStates: 20,
+  nEthnicity: 8,
+  nCountriesStates: 999,
+}
+
 
 let puzzleGenerated = false;
 
@@ -135,23 +191,18 @@ class HashTable{
 
 }
 
-//const HT = new HashTable();
-
-function onPlayerJoin() {
-
-}
-
 function initPuzzles() {
-    
-    if (curLevel === 0) {
-      ht = generateHash(lobbyPlayers);
-      firstGroup = generateFirstGroup(ht, lobbyPlayers);
-     // console.log(firstGroup);
-    } else {
-      ht = generateHash(puzzlePlayers);
-      firstGroup = generateFirstGroup(ht, puzzlePlayers);
-     // console.log(firstGroup);
+    activePlayers = {};
+    let idList = Object.keys(lobbyPlayers);
+    for (let i = 0; i < idList.length; i++) {
+      activePlayers[idList[i]] = lobbyPlayers[idList[i]];
     }
+    idList = Object.keys(puzzlePlayers);
+    for (let i = 0; i < idList.length; i++) {
+      activePlayers[idList[i]] = puzzlePlayers[idList[i]];
+    }
+    ht = generateHash(activePlayers);
+    firstGroup = generateFirstGroup(ht, activePlayers);
     console.log(curLevel);
     let puzzleGroups = generateGroups(firstGroup, options.roomMaxPlayers[curLevel]);
     //console.log(puzzleGroups);
@@ -181,7 +232,7 @@ function initPuzzles() {
             puzzleRooms[i].realtimePoints.push(0); // init the real time bucket points array
         }
     }
-    curLevel += 1;
+    
 }
 
 function generatePuzzle(room) {
@@ -272,7 +323,7 @@ function generateFirstGroup(ht, players){
 }
 
 function queue(firstGroup, checklist, n){
-    n = n / 2;
+    n = n / 2; 
     var intervalId = window.setInteravl(function(){
         let group = new Array();
         while(checklist.length >= n){
@@ -288,7 +339,7 @@ function queue(firstGroup, checklist, n){
 }
 
 function generateGroups(firstGroup, n){
-    if(n === 2)  {
+    if(n === 2)  { 
       return firstGroup;
     }
 
@@ -309,11 +360,8 @@ function generateGroups(firstGroup, n){
             num++;
         }
     }
-    console.log(num);
-    console.log(n);
-    console.log(firstGroup.length);
     //if(firstGroup.length % n !== 0){
-    if(firstGroup.length - num <= (n/2)){
+    if(firstGroup.length - num <= (n/2) && group.length != 0){
       for(let i = 0; num+i < firstGroup.length; i++){
         //group[(i+1) % group.length] = group[(i+1) % group.length].concat(firstGroup[num+i]);
         for(let j = 0; j < firstGroup[num+i].length; j++){
@@ -322,7 +370,7 @@ function generateGroups(firstGroup, n){
                 //console.log(`l: ${group.length}, l1: ${group[i].length}`);
             }
       }
-    }
+    } 
     else{
       group.push(new Array());
       for(let i = 0; num+i < firstGroup.length; i++){
@@ -361,11 +409,7 @@ function analyzeData(idList, cultures) {
     let cultureNum = cultures.length;
     for (let i = 0; i < idList.length; i++) {
         let info;
-        if (curLevel === 0) {
-          info = lobbyPlayers[idList[i]].wheelInfo;
-        } else {
-          info = puzzlePlayers[idList[i]].wheelInfo;
-        }
+        info = activePlayers[idList[i]].wheelInfo;
         
         for (let j = 0; j < cultureNum; j++) {
             let culture = cultures[j];
@@ -403,6 +447,10 @@ function checkSolved(room) {
         }
     }
     io.to("Room" + room.id).emit("solved");
+    if (!roomSolved.includes(room.id)) {
+      roomSolved.push(room.id);
+      io.to(bigscreenSid).emit("roomStateUpdate", roomSolved.length, puzzleRooms.length, false);
+    }
 }
 
 function getRandom(arr, n) {
@@ -449,7 +497,7 @@ function generatePuzzle2(room) {
     let data = analyzeData(playerIds, cultures);
 
     let usedAspectIndices = new Set();
-    let players = curLevel === 0? lobbyPlayers: puzzlePlayers; 
+    let players = activePlayers; 
     data = sortData(data)
     for (let k = data.length-1; k >= 0 && commonPlayerIds.length > 0; k--) {
         if (usedAspectIndices.has(cultures.indexOf(data[k].culture))) {
@@ -458,9 +506,11 @@ function generatePuzzle2(room) {
 
         let pNum = 0;
         let i = 0;
+        let expectedPlayerIds = [];
         while (i < commonPlayerIds.length) {
             if (players[commonPlayerIds[i]].wheelInfo[data[k].culture] == data[k].value) {
                 pNum += 1;
+                expectedPlayerIds.push(commonPlayerIds[i])
                 commonPlayerIds.splice(i, 1);
             } else {
                 i++
@@ -470,6 +520,7 @@ function generatePuzzle2(room) {
         puzzleOptions.cultures.push(data[k].culture)
         puzzleOptions.values.push(data[k].value)
         puzzleOptions.points.push(pNum)
+        puzzleOptions.expectedPlayerIds.push(expectedPlayerIds)
         usedAspectIndices.add(cultures.indexOf(data[k].culture))
     }
 
@@ -486,7 +537,8 @@ function generatePuzzle2(room) {
   
 
     uniquePlayerIds.forEach(id => {
-        let players = curLevel === 0? lobbyPlayers: puzzlePlayers;  
+        //let players = curLevel === 0? lobbyPlayers: puzzlePlayers;  
+        let players = activePlayers;
         let player = players[id]
         player.importantAspectIndices.sort((i, j) => aspectCounts[j] - aspectCounts[i])
         let selectedAspectInd = 0
@@ -508,6 +560,7 @@ function generatePuzzle2(room) {
         puzzleOptions.cultures.push(cultures[selectedAspectInd])
         puzzleOptions.values.push(player.wheelInfo[cultures[selectedAspectInd]])
         puzzleOptions.points.push(1)
+        puzzleOptions.expectedPlayerIds.push(new Array(id))
     })
 
     /*commonPlayerIds.forEach(id => {
@@ -545,21 +598,122 @@ function generatePuzzle2(room) {
     return puzzleOptions;
 }
 
+function generateReportData() {
+  globalReportData.nPlayer = Object.keys(gonePuzzlePlayers).length;
+  globalReportData.nCountries = 0
+  globalReportData.nStates = 20
+  globalReportData.nCountriesStates = 999
+  globalReportData.nEthnicity = 8
+  
+  
+  
+  let importantLocations = [], importantEthnicities = []
+  let nPlayerLocationImportant = 0, nPlayerEthnicityImportant = 0;
+  let importantLocationFreq = {}, importantEthnicityFreq = {};
+  let locationFrequency = {}, ethnicityFrequency = {}, foodToLocation = {}, musicToLocation = {};
+  
+  for (let playerId in puzzlePlayers) {
+    let player = puzzlePlayers[playerId]
+    locationFrequency[player.wheelInfo['home']] = 1 + (locationFrequency[player.wheelInfo['home']] || 0)
+    ethnicityFrequency[player.wheelInfo['ethnicity']] = 1 + (ethnicityFrequency[player.wheelInfo['ethnicity']] || 0)
+    
+    if (musicToLocation[player.wheelInfo['music']]) {
+      musicToLocation[player.wheelInfo['music']].push(player.wheelInfo['home'])
+    } else {
+      musicToLocation[player.wheelInfo['music']] = [player.wheelInfo['home']]
+    }
+    if (foodToLocation[player.wheelInfo['food']]) {
+      foodToLocation[player.wheelInfo['food']].push(player.wheelInfo['home'])
+    } else {
+      foodToLocation[player.wheelInfo['food']] = [player.wheelInfo['home']]
+    }
+    
+    nPlayerLocationImportant += player.scores[4] > 3 ? 1 : 0
+    nPlayerEthnicityImportant += player.scores[5] > 3 ? 1 : 0
+    
+    if (player.scores[4] > 3) importantLocationFreq[player.wheelInfo['home']] = (importantLocationFreq[player.wheelInfo['home']] || 0) + 1;
+    if (player.scores[5] > 3) importantEthnicityFreq[player.wheelInfo['ethnicity']] = (importantEthnicityFreq[player.wheelInfo['ethnicity']] || 0) + 1;
+  }
+  
+  globalReportData.nEthnicity = Object.keys(ethnicityFrequency).length - 1
+  globalReportData.nCountriesStates = Object.keys(locationFrequency).length
+  
+  importantLocations = Object.entries(importantLocationFreq).map(([key, value]) => key)
+  importantEthnicities = Object.entries(importantEthnicityFreq).map(([key, value]) => key)
+  
+  for (let music in musicToLocation) {
+    musicToLocation[music] = Array.from(new Set(musicToLocation[music]))
+  }
+  for (let food in foodToLocation) {
+    foodToLocation[food] = Array.from(new Set(foodToLocation[food]))
+  }
+  
+  for (let playerId in puzzlePlayers) {
+    let player = puzzlePlayers[playerId]
+    let data = player.playerReport
+    data.nTeammate = player.teammates.size
+    data.nThumbToOthers = player.thumbsToPlayers.size
+    data.nThumbFromOthers = player.thumbsFromPlayers.size
+    data.nMutualThumb = [...player.thumbsToPlayers].filter(x => player.thumbsFromPlayers.has(x)).length
+    data.location = player.wheelInfo['home']
+    data.nPlayerSameLocation = locationFrequency[player.wheelInfo['home']] - 1
+    data.locationIsImportant = player.scores[4] > 3
+    data.nPlayerLocationImportant = nPlayerLocationImportant - (data.locationIsImportant ? 1 : 0)
+  
+    let othersImportantLocationFreq = Object.assign({}, importantLocationFreq)
+    if (data.locationIsImportant) othersImportantLocationFreq[player.wheelInfo['home']] -= 1
+    data.importantLocationExamples = Object.keys(othersImportantLocationFreq)
+    data.nImportantLocations = data.importantLocationExamples.length
+    data.importantLocationExamples = data.importantLocationExamples.slice(0, 3)
+     
+      
+    data.ethnicityIsImportant = player.scores[5] > 3
+    data.nPlayerEthnicityImportant = nPlayerEthnicityImportant - (data.ethnicityIsImportant ? 1 : 0)
+      
+    let othersImportantEthnicityFreq = Object.assign({}, importantEthnicityFreq)
+    if (data.ethnicityIsImportant) othersImportantEthnicityFreq[player.wheelInfo['ethnicity']] -= 1
+    data.importantEthnicityExamples = Object.keys(othersImportantEthnicityFreq)
+    data.nImportantEthnicities = data.importantEthnicityExamples.length
+    data.importantEthnicityExamples = data.importantEthnicityExamples.slice(0, 3)
+    
+    data.music = player.wheelInfo['music']
+    data.nPlayerSameMusic = musicToLocation[data.music].length - 1
+    let musicLocationTypes = musicToLocation[data.music].map(x=>x)
+    data.multiMusicLocation = musicLocationTypes.length > 1
+    musicLocationTypes.splice(musicLocationTypes.indexOf(data.location), 1)
+    data.sameMusicLocationExamples = musicLocationTypes.slice(0, 3)
+    
+    data.food = player.wheelInfo['food']
+    data.nPlayerSameFood = foodToLocation[data.food].length - 1
+    let foodLocationTypes = foodToLocation[data.food].map(x=>x)
+    data.multiFoodLocation = foodLocationTypes.length > 1
+    foodLocationTypes.splice(foodLocationTypes.indexOf(data.location), 1)
+    data.sameFoodLocationExamples = foodLocationTypes.slice(0, 3)
+    console.log(puzzlePlayers[playerId])
+  } 
+} 
+  
 io.sockets.on('connection', function(socket) {
     console.log('A user has logged in');
-
     socket.on ('init', function (data) {
         socket.phase = data.phase;
         socket.clientType = data.clientType;
-        var newPlayer;
-        console.log("Phase is " + data.phase);
+        socket.curLevel = data.curLevel;
+        socket.roomNumber = data.roomNumber; // roomNumber can be null
+        console.log("phase is " + socket.phase);
         console.log("uuid is: " + data.uuid);
+        console.log("curLevel is: " + socket.curLevel);
+        console.log("Room number is: " + socket.roomNumber); 
+      
+        var newPlayer;
         if (data.uuid === null) {
             // Creates a new player object with a unique ID number.
             let uuid = uuidGen();
             data.uuid = uuid;
             socket.uuid = uuid;
-            socket.emit("uuid", uuid);
+            let positionIndex = posIndex % 16;
+            posIndex++;
+            socket.emit("uuid", uuid, positionIndex);
             newPlayer = new Player(uuid, data.info, data.scores);
         } else {
             if (goneLobbyPlayers[data.uuid] === undefined) {
@@ -571,42 +725,42 @@ io.sockets.on('connection', function(socket) {
             socket.uuid = data.uuid;
         }
         newPlayer.sid = socket.id;
-      
-
-        socket.roomNumber = data.roomNumber; // roomNumber can be null
-        console.log(socket.roomNumber); 
-        if (socket.roomNumber !== null) { 
+        
+        if (socket.phase === 1 && socket.roomNumber !== null) { 
             socket.join("Room" + socket.roomNumber);
         }
         // Adds the newly created player to the array according to its phase state.
         // Sends the connecting client his unique ID, and data about the other players already connected.
         // Sends everyone except the connecting player data about the new player.
         if(socket.phase === 0) { 
-          
- 
             lobbyPlayers[data.uuid] = newPlayer;
             delete goneLobbyPlayers[data.uuid];
-
             socket.emit('playerData', {uuid: data.uuid, players: lobbyPlayers});
-            socket.join("lobby");
+            socket.join("lobby"); 
             socket.to("lobby").emit("playerJoined", newPlayer)
-        } else {
+        } else if (eval(socket.curLevel) === curLevel) {
             puzzlePlayers[data.uuid] = newPlayer;
-            let players = puzzleRooms[data.roomNumber].players;
-            players[data.uuid] = newPlayer;
-            socket.emit('playerData', {uuid: data.uuid, players: players});
-            socket.join("Room"+data.roomNumber);
-            socket.to("Room"+data.roomNumber).emit("playerJoined", newPlayer)
+            if (socket.roomNumber < puzzleRooms.length) {
+              let players = puzzleRooms[data.roomNumber].players;
+              players[data.uuid] = newPlayer;
+              socket.emit('playerData', {uuid: data.uuid, players: players});
+              socket.join("Room"+data.roomNumber);
+              socket.to("Room"+data.roomNumber).emit("playerJoined", newPlayer)
+            } else {
+              socket.emit("reconnect", 0);
+            } 
+        } else {
+          socket.emit("reconnect", 0);
         }
- 
+  
         socket.on('disconnect',function(){
-            if (socket.phase === 0) { 
+            if (socket.phase === 0) { // disconnect in Lobby
                 if(!lobbyPlayers[socket.uuid]) return;
                 // Update clients with the new player killed
                 goneLobbyPlayers[socket.uuid] = lobbyPlayers[socket.uuid];
                 delete lobbyPlayers[socket.uuid];
-                socket.to("lobby").emit('playerLeft', socket.uuid);
-            } else {
+                socket.to("lobby").emit('playerLeft', socket.uuid); 
+            } else { // disconnect in Puzzle
                 gonePuzzlePlayers[socket.uuid] = puzzlePlayers[socket.uuid];
                 if (socket.roomNumber < puzzleRooms.length) {
                   let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
@@ -614,21 +768,30 @@ io.sockets.on('connection', function(socket) {
                   if(socket.uuid === undefined || !players[socket.uuid]) return;
                   delete players[socket.uuid];
                 }
-
-
-                // Update clients with the new player killed
-                /*
-                if(players[socket.uuid].wheelInfo[puzzleOptions.cultures[data.index]] === puzzleOptions.values[data.index]) {
-                    puzzleRooms[socket.roomNumber].realtimePoints[data.index] -= 1;
-                    checkSolved(puzzleRooms[socket.roomNumber]);
+              
+                /* check for bucket points */
+                if (socket.inBucket > -1) { 
+                  io.to("Room" + socket.roomNumber).emit("subWheel", socket.inBucket);
+                  if (socket.roomNumber >= puzzleRooms.length) return;
+                  let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
+                  let players = puzzleRooms[socket.roomNumber].players;
+                  if(!players[socket.uuid]) return;
+                  if(players[socket.uuid].wheelInfo[puzzleOptions.cultures[socket.inBucket]] === puzzleOptions.values[socket.inBucket]) {
+                    puzzleRooms[socket.roomNumber].realtimePoints[socket.inBucket] -= 1;
+                    if (puzzleOptions.expectedPlayerIds[socket.inBucket].includes(socket.uuid)) {
+                      io.to("Room" + socket.roomNumber).emit("subPoint", socket.inBucket, true);
+                      checkSolved(puzzleRooms[socket.roomNumber]);
+                    } else {
+                      io.to("Room" + socket.roomNumber).emit("subPoint", socket.inBucket, false);
+                    }
+                  }
                 }
-                */
                 socket.to("Room" + socket.roomNumber).emit('playerLeft', socket.uuid);
                 
                 delete puzzlePlayers[socket.uuid];
                 
             }
-        });
+        }); 
     });
 
     socket.on ('positionUpdate', function (data) {
@@ -648,88 +811,138 @@ io.sockets.on('connection', function(socket) {
             }
 
         } else {
-            socket.emit("reconnect");
+            socket.emit("reconnect", 1);
         };
     }); 
 
 
 
     socket.on('startPuzzle', function() {
+        if (curLevel == options.roomMaxPlayers.length) {
+            generateReportData();
+            puzzleRooms.forEach(room => {
+              for (let playerID in room.players) {
+                io.to(room.players[playerID].sid).emit("startReport")
+              }
+            })
+            return;
+        }
         console.log("Puzzle Started");
+        curLevel += 1;
         initPuzzles();
         console.log("init finished");
-        console.log(puzzleRooms);
         for (let i = 0; i < puzzleRooms.length; i++) {
             let players = puzzleRooms[i].players;
             let idList = Object.keys(players);
             for (let j = 0; j < idList.length; j++) {
-                io.to(players[idList[j]].sid).emit("startPuzzle", puzzleRooms[i].puzzleOptions, i)
+                for (let k = j+1; k < idList.length; k++) {
+                    players[idList[j]].teammates.add(idList[k])
+                    players[idList[k]].teammates.add(idList[j])
+                }
+                io.to(players[idList[j]].sid).emit("startPuzzle", puzzleRooms[i].puzzleOptions, i, curLevel, options.levelTime[curLevel])
             }
         }
+        io.to(bigscreenSid).emit("roomStateUpdate", roomSolved.length, puzzleRooms.length, true, options.levelTime[curLevel]);
+        
     });
+   
+    socket.on("timeUp", () => {
+      for (let i = 0; i < puzzleRooms.length; i++) {
+        io.to("Room" + i).emit("timeUp");
+      }
+    })
+  
+    socket.on("timeUpdate", (time) => {
+      for (let i = 0; i < puzzleRooms.length; i++) {
+        io.to("Room" + i).emit("timeUpdate", time);
+      }
+    })
+    socket.on('startIns', () => {
+      console.log("Instruction Started");
+      io.to('lobby').emit('startIns');
+    })
 
-    socket.on("admin", function() {
+    socket.on("admin", function() { 
+        bigscreenSid = socket.id;
         console.log("deleting bigscreen player");
         delete lobbyPlayers[socket.uuid];
         socket.to("lobby").emit('playerLeft',socket.uuid);
     });
 
-    socket.on ("bucketIn", (data) => {
+    socket.on ("bucketIn", (data) => {   
         if (socket.roomNumber !== undefined) {
+            socket.inBucket = data.index;
+            io.to("Room" + socket.roomNumber).emit("addWheel", data.index);
             let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
             let players = puzzleRooms[socket.roomNumber].players;
             if(players[socket.uuid].wheelInfo[puzzleOptions.cultures[data.index]] === puzzleOptions.values[data.index]) {
                 puzzleRooms[socket.roomNumber].realtimePoints[data.index] += 1;
-                io.to("Room" + socket.roomNumber).emit("addPoint", data.index);
-                checkSolved(puzzleRooms[socket.roomNumber]);
-            }
+                if (puzzleOptions.expectedPlayerIds[data.index] === undefined) {
+                  return null;
+                }
+                if (puzzleOptions.expectedPlayerIds[data.index].includes(socket.uuid)) {
+                  io.to("Room" + socket.roomNumber).emit("addPoint", data.index, true);
+                  checkSolved(puzzleRooms[socket.roomNumber]);
+                } else {
+                  io.to("Room" + socket.roomNumber).emit("addPoint", data.index, false);
+                }
+            } 
         } else { 
             console.log("Someone dropped off after connection, need reconnect");
-        }
+        }  
 
-    });
+    });  
 
-    socket.on ("bucketOut", (data) => { 
+    socket.on ("bucketOut", (data) => {       
         if (socket.roomNumber !== undefined) {
+            socket.inBucket = -1;
+            io.to("Room" + socket.roomNumber).emit("subWheel", data.index);
             let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
             let players = puzzleRooms[socket.roomNumber].players;
             if(players[socket.uuid].wheelInfo[puzzleOptions.cultures[data.index]] === puzzleOptions.values[data.index]) {
                 puzzleRooms[socket.roomNumber].realtimePoints[data.index] -= 1;
-                io.to("Room" + socket.roomNumber).emit("subPoint", data.index);
-                checkSolved(puzzleRooms[socket.roomNumber]);
+                if (puzzleOptions.expectedPlayerIds[data.index].includes(socket.uuid)) {
+                  io.to("Room" + socket.roomNumber).emit("subPoint", data.index, true);
+                  checkSolved(puzzleRooms[socket.roomNumber]);
+                } else {
+                  io.to("Room" + socket.roomNumber).emit("subPoint", data.index, false);
+                }
             }
-        } else {
+        } else { 
             console.log("Someone dropped off after connection, need reconnect");
         }
-    });
+    });  
   
     socket.on ("thumbUp", (uuid) => {
       console.log(socket.roomNumber);
-      if (socket.roomNumber !== null) {
+      if (socket.roomNumber !== null && socket.phase === 1) {
           socket.to("Room" + socket.roomNumber).emit("thumbUp", uuid);
+          for (let playerId in puzzleRooms[socket.roomNumber].players) {
+            if (playerId === uuid) continue;
+            puzzlePlayers[playerId].thumbsFromPlayers.add(uuid)
+            puzzlePlayers[uuid].thumbsToPlayers.add(playerId)
+          }
+          //console.log(`player[${uuid}] gave thumbs to ${puzzlePlayers[uuid].thumbsToPlayers.size} players`)
       } else {
           console.log("thumbUp received" + uuid);
           socket.to("lobby").emit("thumbUp", uuid);
+          for (let playerId in lobbyPlayers) {
+            if (playerId === uuid) continue;
+            lobbyPlayers[playerId].thumbsFromPlayers.add(uuid)
+            lobbyPlayers[uuid].thumbsToPlayers.add(playerId)
+          }
+          //console.log(`player[${uuid}] gave thumbs to ${lobbyPlayers[uuid].thumbsToPlayers.size} players`)
       }
     })
-});
-
-/*for (var i = 0; i < 10; i++) {
-  let id = uuidGen();
-  let a = new Array(options.cultures.length)
-  lobbyPlayers[id] = new Player(
-    id,
-    {
-      'music': '123',
-      'food': '22324',
-      'hobby': '1321342',
-      'ethnicity': '1231423',
-      'finance': '12314134',
-      'location': '123141341'
-    },
-    a.map(() => Math.round(Math.random() * 5))
-  )
-}*/
+  
+    socket.on("initReport", (uuid) => {
+      console.log(`accept player: ${uuid}'s report request`);
+      socket.emit("playerReport", { 
+        ...globalReportData,
+        ...gonePuzzlePlayers[uuid].playerReport,
+      });  
+    })  
+}); 
 
 console.log ('Server started');
-server.listen(443);
+server.listen(3000);

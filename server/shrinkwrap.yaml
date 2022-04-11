@@ -1,7 +1,8 @@
 dependencies:
   chart.js: 3.7.1
-  express: 4.17.2
+  express: 4.17.3
   socket.io: 4.4.1
+  uuid: 8.3.2
 packages:
   /@socket.io/base64-arraybuffer/1.0.2:
     dev: false
@@ -44,29 +45,29 @@ packages:
       node: ^4.5.0 || >= 5.9
     resolution:
       integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==
-  /body-parser/1.19.1:
+  /body-parser/1.19.2:
     dependencies:
-      bytes: 3.1.1
+      bytes: 3.1.2
       content-type: 1.0.4
       debug: 2.6.9
       depd: 1.1.2
       http-errors: 1.8.1
       iconv-lite: 0.4.24
       on-finished: 2.3.0
-      qs: 6.9.6
-      raw-body: 2.4.2
+      qs: 6.9.7
+      raw-body: 2.4.3
       type-is: 1.6.18
     dev: false
     engines:
       node: '>= 0.8'
     resolution:
-      integrity: sha512-8ljfQi5eBk8EJfECMrgqNGWPEY5jWP+1IzkzkGdFFEwFQZZyaZ21UqdaHktgiMlH0xLHqIFtE/u2OYE5dOtViA==
-  /bytes/3.1.1:
+      integrity: sha512-SAAwOxgoCKMGs9uUAUFHygfLAyaniaoun6I8mFY9pRAJL9+Kec34aU+oIjDhTycub1jozEfEwx1W1IuOYxVSFw==
+  /bytes/3.1.2:
     dev: false
     engines:
       node: '>= 0.8'
     resolution:
-      integrity: sha512-dWe4nWO/ruEOY7HkUJ5gFt1DCFV9zPRoJr8pV0/ASQermOZjtq8jMjOprC0Kd10GLN+l7xaUPvxzJFWtxGu8Fg==
+      integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==
   /chart.js/3.7.1:
     dev: false
     resolution:
@@ -93,12 +94,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-4wOogrNCzD7oylE6eZmXNNqzriw=
-  /cookie/0.4.1:
-    dev: false
-    engines:
-      node: '>= 0.6'
-    resolution:
-      integrity: sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==
   /cookie/0.4.2:
     dev: false
     engines:
@@ -183,14 +178,14 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
-  /express/4.17.2:
+  /express/4.17.3:
     dependencies:
       accepts: 1.3.8
       array-flatten: 1.1.1
-      body-parser: 1.19.1
+      body-parser: 1.19.2
       content-disposition: 0.5.4
       content-type: 1.0.4
-      cookie: 0.4.1
+      cookie: 0.4.2
       cookie-signature: 1.0.6
       debug: 2.6.9
       depd: 1.1.2
@@ -205,7 +200,7 @@ packages:
       parseurl: 1.3.3
       path-to-regexp: 0.1.7
       proxy-addr: 2.0.7
-      qs: 6.9.6
+      qs: 6.9.7
       range-parser: 1.2.1
       safe-buffer: 5.2.1
       send: 0.17.2
@@ -219,7 +214,7 @@ packages:
     engines:
       node: '>= 0.10.0'
     resolution:
-      integrity: sha512-oxlxJxcQlYwqPWKVJJtvQiwHgosH/LrLSPA+H4UxpyvSS6jC5aH+5MoHFM+KABgTOt0APue4w66Ha8jCUo9QGg==
+      integrity: sha512-yuSQpz5I+Ch7gFrPCk4/c+dIBKlQUxtgwqzph132bsT6qhuzss6I8cLJQz7B3rFblzd6wtcI0ZbGltH/C4LjUg==
   /finalhandler/1.1.2:
     dependencies:
       debug: 2.6.9
@@ -298,6 +293,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-5y8A56jg7XVQx2mbv1lu49NR4dokRnhZYTtL+KGfaa27uq4pSTXkwQkFJl4pkRMyNFz/EtYDSkiiEHx3F7UN6g==
+  /mime-db/1.52.0:
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==
   /mime-types/2.1.34:
     dependencies:
       mime-db: 1.51.0
@@ -306,6 +307,14 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==
+  /mime-types/2.1.35:
+    dependencies:
+      mime-db: 1.52.0
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==
   /mime/1.6.0:
     dev: false
     engines:
@@ -364,21 +373,21 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==
-  /qs/6.9.6:
+  /qs/6.9.7:
     dev: false
     engines:
       node: '>=0.6'
     resolution:
-      integrity: sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
+      integrity: sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==
   /range-parser/1.2.1:
     dev: false
     engines:
       node: '>= 0.6'
     resolution:
       integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
-  /raw-body/2.4.2:
+  /raw-body/2.4.3:
     dependencies:
-      bytes: 3.1.1
+      bytes: 3.1.2
       http-errors: 1.8.1
       iconv-lite: 0.4.24
       unpipe: 1.0.0
@@ -386,7 +395,7 @@ packages:
     engines:
       node: '>= 0.8'
     resolution:
-      integrity: sha512-RPMAFUJP19WIet/99ngh6Iv8fzAbqum4Li7AD6DtGaW2RpMB/11xDoalPiJMTbu6I3hkbMVkATvZrqb9EEqeeQ==
+      integrity: sha512-UlTNLIcu0uzb4D2f4WltY6cVjLi+/jEN4lgEUj3E04tpMDpUlkBo/eSn6zou9hum2VMNpCCUone0O0WeJim07g==
   /safe-buffer/5.2.1:
     dev: false
     resolution:
@@ -472,7 +481,7 @@ packages:
   /type-is/1.6.18:
     dependencies:
       media-typer: 0.3.0
-      mime-types: 2.1.34
+      mime-types: 2.1.35
     dev: false
     engines:
       node: '>= 0.6'
@@ -490,6 +499,11 @@ packages:
       node: '>= 0.4.0'
     resolution:
       integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+  /uuid/8.3.2:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
   /vary/1.1.2:
     dev: false
     engines:
@@ -510,5 +524,6 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   chart.js: ^3.7.0
-  express: ^4.17.2
+  express: ^4.17.3
   socket.io: ^4.4.1
+  uuid: ^8.3.2

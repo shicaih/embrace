@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Signika+Negative:300,400&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap");
 *,
 *:before,
 *:after {
@@ -7,30 +7,42 @@
   letter-spacing: 0.04em;
 }
 body {
-  font-family: "Signika Negative", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 300;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+  color: #372B24;
+  background: #F9F1DC;
+  margin: 0;
 }
 .section {
   height: 100vh;
-  width: 100%;
   position: relative;
-  padding: 0;
-  text-align: center;
+  padding: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 425px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .bg1 {
-  background-color: #ccc;
+  background-color: #F9F1DC;
 }
 .bg2 {
-  background-color: #333;
+  background-color: #372B24;
+  color: #F9F1DC;
 }
 h1 {
-  font-size: 40px;
-  line-height: 1.2;
-  margin: 0;
+font-style: normal;
+font-weight: 700;
+font-size: 28px;
+line-height: 38px;
+margin-bottom: 2rem;
+padding-left: 0.5rem;
 }
 .revealUp {
   opacity: 0;
@@ -39,4 +51,15 @@ h1 {
 .spacer {
   height: 50vh;
   background-color: #000;
+}
+
+.reportText {
+
+align-items: center;
+text-align: center;
+}
+
+.highlight {
+  font-weight: 700;
+  font-size: 24px;
 }

@@ -10,88 +10,115 @@
         Here is your report
     </title>
     <link rel="stylesheet" href="styles/trans.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <!---<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">--->
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js?r=5426" defer></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js" defer></script>
     <script src="/scripts/transition.js" defer></script>
-    
+    <script
+            src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+            integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+            crossorigin="anonymous"
+    ></script>
+    <script src="/report.js" defer></script>
 </head>
+
 <body>
-<div class="section" style="font-size: 36px">
-  <p>
-    Today, <b style="font-size: 60px">396</b> incoming Tartans at Dietrich college joined the “Embrace” activity.<br>   
+<div class="section bg1">
+  <div>
+  <h1>
+    Hi <span id="nickname">[nickname]</span>,  
+  </h1>
+  <p class="reportText">
+    Today, <span class="highlight nPlayer">396</span> incoming Tartans at Dietrich college joined the “Embrace” activity.<br>   
     <br>You didn’t know each other, and you weren’t able to talk to each other, 
     but together you have accomplished something amazing!
   </p>
+    
+  </div>
 </div>
 
-<div class="section bg1" style="font-size: 36px">
-  <h1 class="revealUp">
-    Throughout the activity, you met <b style="font-size: 60px">105</b> folks in total, 
-    and you and <b style="font-size: 60px">7</b> of them went through the challenges all the way to the end. 
-  </h1>
-</div>
-
-<div class="section bg1" style="font-size: 36px">
-  <h1 class="revealUp">
-    You spent <b style="font-size: 60px">4</b> minutes in total
-    to solve the <b style="font-size: 60px">4</b> challenges, 
-    which was the top <b style="font-size: 60px">10%</b> quickest.
-  </h1>
-</div>
-  
-<div class="section bg3" style="font-size: 36px">
-  <h1 class="revealUp">
-    You are an encouraging person. You gave thumbs up to <b style="font-size: 60px">10</b> people. 
-    You must [also] be a helpful person. You received <b style="font-size: 60px">20</b> thumbs up from others.
-    You and <b style="font-size: 60px">10</b> folks gave thumbs up to each other. 
-    You have made friends without seeing and talking to them!
-  </h1>
+<div class="section bg2">
+  <div class="revealUp">
+    <p class="reportText">
+      Throughout the activity, you met <span class="highlight"  id="nPlayerMet">105</span> folks in total, 
+      and you and <span class="highlight" id="nTeammate">7</span> of them went through the challenges all the way to the end. 
+    </p>
+    <p class="reportText">
+      You spent <span class="highlight" id="timeSpent">4 minutes 26 seconds</span> in total
+    to solve the <span class="highlight" id="nPuzzlesSolved">4</span> challenges, 
+    which was the top <span class="highlight" id="speedRank">10%</span> quickest.
+    </p>
+  </div>
 </div>
   
-<div class="section bg4" style="font-size: 36px">
-  <h1 class="revealUp">
+<div class="section bg1">
+  <p class="revealUp reportText">
+    <span id="encouragingPerson">You are an encouraging person. You gave thumbs up to <span class="highlight" id="nThumbToOthers">10</span> people. </span>
+    <span id="helpfulPerson">You must <span id="alsoHelpful">also</span> be a helpful person. You received <span class="highlight" id="nThumbFromOthers">20</span> thumbs up from others.</span>
+    <span id="mutualThumb">You and <span class="highlight" id="nMutualThumb">10</span> folks gave thumbs up to each other. </span>
+    <span id="madeFriends">You have made friends without seeing and talking to them!</span>
+  </p>
+</div>
+  
+<div class="section bg2">
+  <p class="revealUp reportText">
     You folks are from different places around the country and the world. 
-    You are from <b style="font-size: 60px">20</b> different countries 
-    and <b style="font-size: 60px">40</b> different states.<br>
-    And Like you, Y people are also from X!<br>
-    (if the player ranks location as important)
-    [And like you,]  M people [also] consider their home as an important identity for themselves, 
-    and they are from [Example 1], [Example 2], [Example 3] and other N more!
-  </h1>
+    You are from <span class="highlight" id="nCountriesStates">20</span> different countries or states,
+    <!--- and <span class="highlight" id="nStates">40</span> different states. --->
+    <br>
+    <span id="uniqueLocation">and you are the only one from <span class="highlight location">X</span>!</span>
+    <span id="commonLocation">and Like you, <span class="highlight" id="nPlayerSameLocation">Y</span> people are also from <span class="highlight location">X</span>!</span>
+    <br>
+    <span class="locationIsImportant">And like you, </span><span class="highlight" id="nPlayerLocationImportant">M</span> people <span class="locationIsImportant">also </span>consider their home as an important identity for themselves, 
+    and they are from <span class="highlight" id="importantLocationExamples">[Example 1], [Example 2], [Example 3]</span><span id="moreThanThreeLocationExamples"> and other <span class="highlight" id="nImportantLocations">N</span> more places</span>!
+  </p>
 </div>
   
-<div class="section bg5" style="font-size: 36px">
-  <h1 class="revealUp">
-    Folks are from <b style="font-size: 60px">5</b> ethnic groups different from you.<br> 
-    (if the player ranks ethnicity as important)<br>
-    [And like you,] <b style="font-size: 60px">15</b> people [also] consider ethnicity 
+<div class="section bg1">
+  <p class="revealUp reportText">
+    Folks are from <span class="highlight" id="nEthnicity">5</span> ethnic groups different from you.<br>
+    <span class="ethnicityIsImportant">And like you, </span><span class="highlight" id="nPlayerEthnicityImportant">15</span> people <span class="ethnicityIsImportant">also </span>consider ethnicity 
     as an important identity for themselves, 
-    and they are <b style="font-size: 60px">Ralph, Mike, Jeffrey</b> and other 12 more!
-  </h1>
+    and they are <span class="highlight" id="importantEthnicityExamples">Ralph, Mike, Jeffrey</span><span id="moreThanThreeEthnicityExamples"> and other <span class="highlight" id="nImportantEthnicities">12</span> more</span>!
+  </p>
 </div>
   
-<div class="section bg5" style="font-size: 36px">
-  <h1 class="revealUp">
-    [You have a unique taste in music!] (or) [Many people share the same preference for music with you!] 
-    You enjoy X music together with other N people from M different countries/states
-    and 2 different ethnic groups.
-  </h1>
+<div class="section bg2">
+  <p class="revealUp reportText">
+    <span id="uniqueMusic">You have a unique taste in music! <br>Among <span class="highlight nPlayer">N</span> students, you are the only person who chose <span class="highlight music">X</span> as your music identity.</span>
+    <span id="commonMusic">
+      Many people share the same preference for music with you!
+      <span id="multiMusicLocationSentence">
+        <br>You enjoy <span class="highlight music">X</span> music together with other <span class="highlight nPlayerSameMusic">N</span> people from <span class="highlight" id="nSameMusicLocation">M</span> different countries/states such as <span class="highlight" id="sameMusicLocationExamples">x,y,z</span>.
+      </span> 
+      <span id="singleMusicLocationSentence">
+        <br>You enjoy <span class="highlight music">X</span> music together with other <span class="highlight nPlayerSameMusic">N</span> people, and you are all from <span class="highlight" id="singleMusicLocation">X</span>!
+      </span>
+    </span>
+  </p>
 </div>
   
-<div class="section bg5" style="font-size: 36px">
-  <h1 class="revealUp">
-    [You have a unique taste in food!] (or) <br>
-    [Many people value the same cuisine as you do!] You enjoy X food together with other N people from M different countries/states and O different ethnic groups.
-  </h1>
+<div class="section bg1">
+  <p class="revealUp reportText">
+    <span id="uniqueFood">You have a unique taste in food! <br>Among <span class="highlight nPlayer">N</span> students, you are the only person who chose <span class="highlight food">X</span> as your food identity.</span>
+    <span id="commonFood">
+      Many people value the same cuisine as you do!
+      <span id="multiFoodLocationSentence">
+        <br>You enjoy <span class="highlight food">X</span> food together with other <span class="highlight nPlayerSameFood">N</span> people from <span class="highlight" id="nSameFoodLocation">M</span> different countries/states such as <span class="highlight" id="sameFoodLocationExamples">x,y,z</span>.
+      </span>
+      <span id="singleFoodLocationSentence">
+        <br>You enjoy <span class="highlight food">X</span> food together with other <span class="highlight nPlayerSameFood">N</span> people, and you are all from <span class="highlight" id="singleFoodLocation">X</span>!
+      </span>
+    </span>
+  </p>
 </div>
   
-<div class="section bg5" style="font-size: 36px">
-  <h1 class="revealUp">
+<!---<div class="section bg1">
+  <p class="revealUp">
     [You have a special hobby!] (or) <br>
     [Many people share the same hobby as you do!] You enjoy X food together with other N people.
-  </h1>
-</div>
+  </p>
+</div>--->
   
 
 <div class="spacer"></div>
