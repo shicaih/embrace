@@ -630,7 +630,7 @@ class Lobby extends Phaser.Scene {
             fixedWidth: 200,
             align: "center",
           })
-        this.timerText.setScrollFactor(0);
+        this.timerText.setScrollFactor(0).setDepth(100);
         this.insText = this.add.text(
           gameOptions.viewportWidth / 2 - 500,
           50,
