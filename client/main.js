@@ -711,6 +711,10 @@ class Lobby extends Phaser.Scene {
       this.portal.setDepth(100);
       this.portal.setInteractive().on("pointerdown", (pointer) => {
         this.socket.emit("startPuzzle");
+        if (this.timer1 !== null) {
+            this.time.removeEvent(this.timer1);
+            this.time.removeEvent(this.timer2);
+        }
         this.insText.text = "Each bucket requires a specific number of players\nwith certain identities to stand on.\n Try to solve the puzzle by fulfilling all the buckets\nat once with your teammates.";
       });
     
