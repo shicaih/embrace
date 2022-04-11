@@ -38,7 +38,7 @@ var inited = false;
 var sovledIndeed = false;
 var playersCount = 0;
 let devicePixelRatio = window.devicePixelRatio;
-//devicePixelRatio = 1.5; // just for testing
+devicePixelRatio = 1.5; // just for testing
 
 let isMobile = clientType === 1;
 let isLobby = phase === 0;
@@ -630,7 +630,7 @@ class Lobby extends Phaser.Scene {
             fixedWidth: 200,
             align: "center",
           })
-        this.timerText.setScrollFactor(0).setDepth(100);
+        this.timerText.setScrollFactor(0).setDepth(500);
         this.insText = this.add.text(
           gameOptions.viewportWidth / 2 - 500,
           50,
