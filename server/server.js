@@ -40,18 +40,18 @@ var firstGroup = null;
 var curLevel = -1; 
 var posIndex = 0;   
 var bigscreenSid = null;
-/** 
+/**  
  *
  * @param uuid
  * @param wheelInfo
  * @constructor 
- */
+ */ 
 function Player (uuid, wheelInfo, scores, star=0) {
     this.uuid = uuid;
     this.wheelInfo = wheelInfo; 
     this.scores = scores;
     this.star = star;
-    this.point = 0;
+    this.point = 0; 
     this.x = 0;
     this.y = 0;
     this.gameObject = null;
@@ -63,7 +63,7 @@ function Player (uuid, wheelInfo, scores, star=0) {
     let scoreRanks = [...Array(this.scores.length).keys()]
     let i = 0
     while (i < scoreRanks.length) {
-        if (this.wheelInfo[options.cultures[i]] == "PreferNotToSay" || this.wheelInfo[options.cultures[i]] == "⊘") {
+        if (this.wheelInfo[options.cultures[i]] == "Prefer not to say" || this.wheelInfo[options.cultures[i]] == "⊘") {
             scoreRanks.splice(i, 1)
         } else {
             i++
@@ -83,7 +83,7 @@ function Player (uuid, wheelInfo, scores, star=0) {
 
 function Room (id) {
     this.id = id;
-    this.players = {};
+    this.players = {}; 
     this.playerPositionInfo = {};
     this.puzzleOptions = {};  
     this.realtimePoints = []; 
@@ -239,15 +239,15 @@ function initPuzzles() {
         console.log(puzzlePlayers);
         puzzleRooms = dividePlayers(puzzlePlayers, curLevel);
     }*/
-    
      
-    for (let i = 0; i < puzzleRooms.length; i++) {
-        puzzleRooms[i].puzzleOptions = generatePuzzle2(puzzleRooms[i]);
+     
+    for (let i = 0; i < puzzleRooms.length; i++) { 
+        //puzzleRooms[i].puzzleOptions = generatePuzzle2(puzzleRooms[i]);
         puzzleRooms[i].assignmentGenerator = new AssignmentGenerator(Object.keys(puzzleRooms[i].players));
         puzzleRooms[i].freq = analyzeData(Object.keys(puzzleRooms[i].players), options.cultures)
-        for (let j = 0; j < puzzleRooms[i].puzzleOptions.cultures.length; j++) {
+        /*for (let j = 0; j < puzzleRooms[i].puzzleOptions.cultures.length; j++) {
             puzzleRooms[i].realtimePoints.push(0); // init the real time bucket points array
-        }
+        }*/
     }
      
 }
@@ -261,7 +261,7 @@ function generatePuzzle(room) {
     let sameCount = playerCount - uniqueCount;
 
     for (let i = 0; i < uniqueCount; i++) {
-        if(playerIds.length !== 0) {
+        if(playerIds.length !== 0) { 
             let data = analyzeData(playerIds, cultures);
             puzzleOptions.cultures.push(data[0].culture);
             puzzleOptions.values.push(data[0].value);
@@ -422,22 +422,20 @@ function dividePlayers(players, index) {
 
 function analyzeData(idList, cultures) {
     let data = {};
-    let values = [];
     let cultureNum = cultures.length;
     console.log(`Analyze data id list: ${idList}`)
     for (let i = 0; i < idList.length; i++) {
         let info;
         info = activePlayers[idList[i]].wheelInfo;
-
-        for (let j = 0; j < cultureNum; j++) {
+        
+        for (let j = 0; j < cultureNum; j++) { 
             let culture = cultures[j];
             let value = info[culture];
             if (value == "Prefer not to say" || value == "⊘") continue;
             if (value in data) {
                 data[value].point += 1;
-                data[value].ids.push(idList[i]);
+                data[value].ids.push(idList[i]); 
             } else {
-                values.push(value);
                 data[value] = new DataEntry(culture, value, 1);
                 data[value].ids.push(idList[i]);
             }
@@ -636,13 +634,13 @@ function generatePuzzle2(room) {
         }
       })
     }
-    return puzzleOptions;
+    return puzzleOptions; 
 }
 
 function generateReportData() {
-  globalReportData.nPlayer = Object.keys(gonePuzzlePlayers).length;
+  globalReportData.nPlayer = Object.keys(Object.assign(lobbyPlayers, goneLobbyPlayers)).length;
   globalReportData.nCountries = 0
-  globalReportData.nStates = 20
+  globalReportData.nStates = 20 
   globalReportData.nCountriesStates = 999
   globalReportData.nEthnicity = 8
   
@@ -676,6 +674,10 @@ function generateReportData() {
     if (player.scores[5] > 3) importantEthnicityFreq[player.wheelInfo['ethnicity']] = (importantEthnicityFreq[player.wheelInfo['ethnicity']] || 0) + 1;
   }
   
+  delete ethnicityFrequency['Prefer not to say']
+  delete ethnicityFrequency['⊘']
+  delete locationFrequency['Prefer not to say']
+  delete locationFrequency['⊘']
   globalReportData.nEthnicity = Object.keys(ethnicityFrequency).length - 1
   globalReportData.nCountriesStates = Object.keys(locationFrequency).length
   
@@ -784,66 +786,65 @@ class AssignmentGenerator {
     } 
     return false
   }
-
-    getAssignmentForPlayer(playerId, roomPlayerIds, freq, nTargetMax, nTargetMin) {
-        let identities = []
-        let aspects = []
-        let ids = new Set()
-        let nTarget = 0
-        console.log(freq)
-        let tempFreq = Object.assign({}, freq)
-        this.playerTargetHistory[playerId].forEach(identity => {
-            delete tempFreq[identity]
-        })
-        let freqArr = shuffle(Object.entries(tempFreq))
-        let player = activePlayers[playerId]
-        let success = false
-        let s = []
-        success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
-        if (!success) {
-            s = []
-            freqArr = shuffle(Object.entries(freq))
-            success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
-        }
-        console.log(s)
-        /*while (nTarget < nTargetMin) {
-          let randIndex = Math.floor(Math.random() * freqArr.length)
-          let thisNTarget = 0;
-          if (freqArr[randIndex][0] == player.wheelInfo[freqArr[randIndex][1].culture]) {
-              thisNTarget = freqArr[randIndex][1].point - 1
-          } else {
-            thisNTarget = freqArr[randIndex][1].point
-          }
-
-          if (thisNTarget > 0 && (nTarget + thisNTarget) < nTargetMax) {
-            identities.push(freqArr[randIndex][0])
-            ids = ids.concat(freqArr[randIndex][1].ids)
-            nTarget += thisNTarget
-          }
-          console.log(thisNTarget)
-        }*/
-        if (!success) {
-            console.log(player)
-            console.log(freqArr)
-            console.log('-------- Failed to generate assignment!!!!! ----------')
-            return null
-        }
-        s.forEach(ind => {
-            identities.push(freqArr[ind][0])
-            aspects.push(freqArr[ind][1].culture)
-            this.playerTargetHistory[playerId].add(freqArr[ind][0])
-            //ids = ids.concat(freqArr[ind][1].ids)
-            ids = new Set([...ids, ...freqArr[ind][1].ids]);
-
-        })
-        ids.delete(playerId)
-        ids = [...ids]
-        console.log(identities)
-        console.log(ids)
-
-        return {identities, aspects, ids}
+  
+  getAssignmentForPlayer(playerId, roomPlayerIds, freq, nTargetMax, nTargetMin) {
+    let identities = []
+    let aspects = []
+    let ids = new Set()
+    let nTarget = 0
+    let tempFreq = Object.assign({}, freq)
+    this.playerTargetHistory[playerId].forEach(identity => {
+      delete tempFreq[identity]
+    })
+    let freqArr = shuffle(Object.entries(tempFreq))
+    let player = activePlayers[playerId]
+    let success = false
+    let s = []
+    console.log("before backtracking")
+    success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
+    if (!success) {
+      s = []
+      freqArr = shuffle(Object.entries(freq))
+      success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
     }
-
+    console.log(s)
+    /*while (nTarget < nTargetMin) {
+      let randIndex = Math.floor(Math.random() * freqArr.length)
+      let thisNTarget = 0;
+      if (freqArr[randIndex][0] == player.wheelInfo[freqArr[randIndex][1].culture]) {
+          thisNTarget = freqArr[randIndex][1].point - 1 
+      } else {
+        thisNTarget = freqArr[randIndex][1].point
+      }   
+     
+      if (thisNTarget > 0 && (nTarget + thisNTarget) < nTargetMax) {
+        identities.push(freqArr[randIndex][0])
+        ids = ids.concat(freqArr[randIndex][1].ids)
+        nTarget += thisNTarget
+      }
+      console.log(thisNTarget)    
+    }*/
+    if (!success) {
+      console.log(player)
+      console.log(freqArr)
+      console.log('-------- Failed to generate assignment!!!!! ----------')
+      return null
+    }
+    s.forEach(ind => {
+        identities.push(freqArr[ind][0])
+        aspects.push(freqArr[ind][1].culture)
+        this.playerTargetHistory[playerId].add(freqArr[ind][0])
+        //ids = ids.concat(freqArr[ind][1].ids)
+        ids = new Set([...ids, ...freqArr[ind][1].ids]);
+        
+      })
+    ids.delete(playerId)
+    ids = [...ids]
+    console.log(identities)
+    console.log(ids)
+    
+    return {identities, aspects, ids}
+  }
 }  
   
 io.sockets.on('connection', function(socket) {
@@ -893,18 +894,18 @@ io.sockets.on('connection', function(socket) {
             socket.to("lobby").emit("playerJoined", newPlayer)
         } else if (eval(socket.curLevel) === curLevel) {
             puzzlePlayers[data.uuid] = newPlayer;
-            if (socket.roomNumber < puzzleRooms.length) {
+            if (socket.roomNumber < puzzleRooms.length) {  
               let players = puzzleRooms[data.roomNumber].players;
               let firstPlayers = puzzleRooms[data.roomNumber].firstPlayers;
               let activePlayers = puzzleRooms[data.roomNumber].activePlayers;
               let freq = data.uuid in firstPlayers ? analyzeData(Object.keys(activePlayers), options.cultures) : puzzleRooms[data.roomNumber].freq
               let assignment = puzzleRooms[data.roomNumber].assignmentGenerator.getAssignmentForPlayer(newPlayer.uuid, 
                   data.uuid in firstPlayers ? Object.keys(activePlayers) : Object.keys(players),
-                  freq,
-                  100, 1)
+                  freq,  
+                  100, 1) 
               players[data.uuid] = newPlayer;
               socket.emit('playerData', {uuid: data.uuid, players: players, posIndex: posIndex});
-              posIndex++;
+              posIndex++; 
               if (!Object.keys(firstPlayers).includes(socket.uuid)) {
                 firstPlayers[socket.uuid] = newPlayer;
               }
@@ -914,28 +915,28 @@ io.sockets.on('connection', function(socket) {
               socket.to("Room" + data.roomNumber).emit("playerJoined", newPlayer)
             } else {   
               socket.emit("reconnect", 0);
-            }
+            }  
         } else {   
           socket.emit("reconnect", 0);
-        }
-
+        }    
+      
         socket.on("seekFinished", (isSuccess) => {
             console.log("Seek Finished");
             let players = puzzleRooms[data.roomNumber].players;
             let activePlayers = puzzleRooms[socket.roomNumber].activePlayers;
             let curPlayer = activePlayers[socket.uuid];
             let freq = analyzeData(Object.keys(activePlayers), options.cultures)
-
+              
             let assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(activePlayers), freq, 100, 1);
             freq = analyzeData(Object.keys(players), options.cultures)
             if (assignment == null || assignment == undefined) assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(players), freq, 100, 1);
             if(isSuccess) {
-                curPlayer.star += 1;
+              curPlayer.star += 1;
             }
             socket.emit('startAssignment', assignment, options.seekTime);
-        });
-
-
+        }); 
+      
+      
         socket.on('disconnect',function(){ 
             if (socket.phase === 0) { // disconnect in Lobby
                 if(!lobbyPlayers[socket.uuid]) return;
@@ -943,7 +944,7 @@ io.sockets.on('connection', function(socket) {
                 goneLobbyPlayers[socket.uuid] = lobbyPlayers[socket.uuid];
                 delete lobbyPlayers[socket.uuid]; 
                 socket.to("lobby").emit('playerLeft', socket.uuid); 
-            } else { // disconnect in Puzzle
+            } else { // disconnect in Puzzle 
                 gonePuzzlePlayers[socket.uuid] = puzzlePlayers[socket.uuid];
                 console.log("player left during puzzle");
                 if(puzzleRooms[socket.roomNumber] === undefined) return;
@@ -951,11 +952,11 @@ io.sockets.on('connection', function(socket) {
                 let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
                 let players = puzzleRooms[socket.roomNumber].players;
                 /* check for bucket points */ 
-                if (socket.inBucket > -1) { 
+                if (socket.inBucket > -1) {  
                   io.to("Room" + socket.roomNumber).emit("subWheel", socket.inBucket);
                   if (socket.roomNumber >= puzzleRooms.length) return;
                   if(!players[socket.uuid]) { 
-                    console.log("cannot find the uuid in players");
+                    console.log("cannot find the uuid in players"); 
                     return}; 
                   if (players[socket.uuid].wheelInfo[puzzleOptions.cultures[socket.inBucket]] === puzzleOptions.values[socket.inBucket]) {
                     console.log("wheelinfo matched");
@@ -981,9 +982,9 @@ io.sockets.on('connection', function(socket) {
         if(socket.phase === 0) {
             if(!lobbyPlayers[id]) return;
             lobbyPlayers[id].x = data.x; 
-            lobbyPlayers[id].y = data.y;
+            lobbyPlayers[id].y = data.y; 
             if (!Object.keys(lobbyPositionInfo).includes(id)) {
-                lobbyPositionInfo[id] = {x: 0, y: 0};
+              lobbyPositionInfo[id] = {x: 0, y: 0};
             }
             lobbyPositionInfo[id].x = data.x;
             lobbyPositionInfo[id].y = data.y;
@@ -995,14 +996,12 @@ io.sockets.on('connection', function(socket) {
                 }
                 posInfo[id].x = data.x;
                 posInfo[id].y = data.y;
-
             }
-
         } else {
             socket.emit("reconnect", 1);
         };
     }); 
- 
+  
     socket.on('startPuzzle', function() {
         curLevel += 1; 
         if (curLevel == options.roomMaxPlayers.length) {
@@ -1162,7 +1161,7 @@ io.sockets.on('connection', function(socket) {
         });
       }
     })
-});
+}); 
 setInterval(() => {
     io.to("lobby").emit('playerMoved', lobbyPositionInfo);
     lobbyPositionInfo = {};
