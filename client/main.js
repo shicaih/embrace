@@ -42,6 +42,7 @@ var sovledIndeed = false;
 var playersCount = 0;
 let devicePixelRatio = window.innerWidth / window.screen.availWidth; //window.devicePixelRatio;
 let worldSize = 8000;
+let bigScreenRatio = 2;
 console.log(window.devicePixelRatio);
 console.log(window.innerWidth);
 console.log(window.innerHeight);
@@ -657,7 +658,7 @@ class Lobby extends Phaser.Scene {
     this.bgImage = this.add.tileSprite(0, 0, worldSize, worldSize, 'BG');
     this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.bgWheel = this.add.image(gameOptions.viewportWidth / 2, gameOptions.viewportHeight / 2, "bgWheel");
-    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99);
+    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(2);
     //this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1);
     //this.bgImage.setDepth(-100);
 
@@ -1060,18 +1061,14 @@ class Lobby extends Phaser.Scene {
       "Let's compose a circle!",
       {
         fontFamily: gameOptions.playerTextFont,
-        fontSize: 600 * devicePixelRatio / 3,
+        fontSize: 600 * bigScreenRatio,
         lineSpacing: 50,
         fixedWidth: 3600,
         color: "#946854",
         align: "left",
       }
     );
-    this.insText.setPosition(
-      gameOptions.viewportWidth / 2 - this.insText.width / 2,
-      1000
-    );
-    this.insText.setDepth(-98);
+    this.insText.setDepth(200);
 
     this.timerText = this.add
       .text(gameOptions.viewportWidth / 2 - 1000, 900, 0, {
@@ -1092,13 +1089,13 @@ class Lobby extends Phaser.Scene {
     this.QR.setDepth(1000);
 
     this.countText = this.add.text(
-        gameOptions.viewportWidth - 1600,
-        gameOptions.viewportHeight - 1000,
+        gameOptions.viewportWidth - 600 * bigScreenRatio  - 600 * bigScreenRatio / 2,
+        gameOptions.viewportHeight - 1000 * bigScreenRatio,
         "Players: " + playersCount,
         {
           fontFamily: gameOptions.playerTextFont,
-          fontSize: 96,
-          fixedWidth: 2000,
+          fontSize: 96 * bigScreenRatio,
+          fixedWidth: 2000 * bigScreenRatio,
           color: "#000000",
           align: "center",
         }
@@ -1106,11 +1103,11 @@ class Lobby extends Phaser.Scene {
 
     // puzzle portal
     this.toggleQR = this.add.rexRoundRectangle(
-        gameOptions.viewportWidth  - 600,
-        gameOptions.viewportHeight - 800,
-        600,
-        150,
-        50,
+        gameOptions.viewportWidth  - 600 * bigScreenRatio,
+        gameOptions.viewportHeight - 800 * bigScreenRatio,
+        600 * bigScreenRatio,
+        150 * bigScreenRatio,
+        50 * bigScreenRatio,
         0x946854,
         1,
     );
@@ -1119,13 +1116,13 @@ class Lobby extends Phaser.Scene {
       this.QR.setVisible(!this.QR.visible);
     });
     this.toggleText = this.add.text(
-        gameOptions.viewportWidth - 1100,
-        gameOptions.viewportHeight - 850,
+        this.toggleQR.x - 1000 * bigScreenRatio / 2,
+        this.toggleQR.y - 100 * bigScreenRatio / 2,
         "Hide Code",
         {
           fontFamily: gameOptions.playerTextFont,
-          fontSize: 100,
-          fixedWidth: 1000,
+          fontSize: 100 * bigScreenRatio,
+          fixedWidth: 1000 * bigScreenRatio,
           color: "#ffffff",
           align: "center",
         })
@@ -1134,10 +1131,10 @@ class Lobby extends Phaser.Scene {
 
     // puzzle portal
     this.portal = this.add.rexRoundRectangle(
-      gameOptions.viewportWidth  - 600,
-      gameOptions.viewportHeight - 600,
-      600,
-      150,
+      gameOptions.viewportWidth  - 600 * bigScreenRatio,
+      gameOptions.viewportHeight - 600 * bigScreenRatio,
+      600 * bigScreenRatio,
+      150 * bigScreenRatio,
       50,
       0x946854,
       1,
@@ -1151,13 +1148,13 @@ class Lobby extends Phaser.Scene {
       }
     });
     this.portalText = this.add.text(
-        gameOptions.viewportWidth - 1100,
-        gameOptions.viewportHeight - 650,
+        this.portal.x - 1000 * bigScreenRatio / 2,
+        this.portal.y - 100 * bigScreenRatio / 2,
         "Next",
         {
           fontFamily: gameOptions.playerTextFont,
-          fontSize: 100,
-          fixedWidth: 1000,
+          fontSize: 100 * bigScreenRatio,
+          fixedWidth: 1000 * bigScreenRatio,
           color: "#ffffff",
           align: "center",
         })
