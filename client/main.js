@@ -22,7 +22,7 @@
  */
 
 import { default as shuffle } from "./scripts/utility.js";
-// import WebFontFile from './scripts/WebFontFile.js';
+import WebFontFile from './scripts/WebFontFile.js';
 //import * as pluralize from './scripts/pluralize.js'
 let settings;
 fetch("./settings.json")
