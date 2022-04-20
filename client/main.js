@@ -1059,7 +1059,7 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportWidth / 2 - this.insText.width / 2,
       1000
     );
-    this.insText.setDepth(100);
+    this.insText.setDepth(-2000);
 
     this.timerText = this.add
       .text(gameOptions.viewportWidth / 2 - 1000, 900, 0, {
@@ -1092,8 +1092,6 @@ class Lobby extends Phaser.Scene {
         this.time.removeEvent(this.timer1);
         this.time.removeEvent(this.timer2);
       }
-      this.insText.text =
-        "Each bucket requires a specific number of players\nwith certain identities to stand on.\n Try to solve the puzzle by fulfilling all the buckets\nat once with your teammates.";
     });
 
 
