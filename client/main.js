@@ -1056,19 +1056,17 @@ class Lobby extends Phaser.Scene {
     
     this.insText = this.add.text(
       worldSize / 2 - 1800,
-      worldSize / 2 - 300,
-      1000,
+      worldSize / 2 - 300 * bigScreenRatio,
       "Let's compose a circle!",
       {
         fontFamily: gameOptions.playerTextFont,
-        fontSize: 600 * bigScreenRatio,
-        lineSpacing: 50,
+        fontSize: 300 * bigScreenRatio,
         fixedWidth: 3600,
         color: "#946854",
-        align: "left",
+        align: "center",
       }
     );
-    this.insText.setDepth(200);
+    this.insText.setDepth(-98);
 
     this.timerText = this.add
       .text(gameOptions.viewportWidth / 2 - 1000, 900, 0, {
@@ -1089,7 +1087,7 @@ class Lobby extends Phaser.Scene {
     this.QR.setDepth(1000);
 
     this.countText = this.add.text(
-        gameOptions.viewportWidth - 600 * bigScreenRatio  - 600 * bigScreenRatio / 2,
+        gameOptions.viewportWidth - 600 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
         gameOptions.viewportHeight - 1000 * bigScreenRatio,
         "Players: " + playersCount,
         {
