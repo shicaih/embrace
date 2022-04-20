@@ -83,7 +83,8 @@ function Player (uuid, wheelInfo, scores, star=0) {
 
 function Room (id) {
     this.id = id;
-    this.players = {}; 
+    this.players = {};
+    this.playerPositionInfo = {};
     this.puzzleOptions = {};  
     this.realtimePoints = []; 
     this.level = 0;
@@ -982,11 +983,13 @@ io.sockets.on('connection', function(socket) {
             lobbyPositionInfo[id].y = data.y;
         } else if (socket.phase === 1) {
             if (socket.roomNumber < puzzleRooms.length) {
-                let players = puzzleRooms[socket.roomNumber].players;
-                if(!players[id]) return;
-                players[id].x = data.x;
-                players[id].y = data.y;
-                socket.to("Room" + socket.roomNumber).emit('playerMoved', data);
+                let posInfo = puzzleRooms[socket.roomNumber].playerPositionInfo;
+                if(!posInfo[id]) {
+                    posInfo[id] = {x: 0, y: 0};
+                }
+                posInfo[id].x = data.x;
+                posInfo[id].y = data.y;
+
             }
 
         } else {
@@ -1157,6 +1160,10 @@ io.sockets.on('connection', function(socket) {
 setInterval(() => {
     io.to("lobby").emit('playerMoved', lobbyPositionInfo);
     lobbyPositionInfo = {};
+    for (let i = 0; i < puzzleRooms.length; i++) {
+        io.to("Room" + i).emit('playerMoved', puzzleRooms[i].playerPositionInfo);
+        puzzleRooms[i].playerPositionInfo = {};
+    }
 }, 50)
 console.log ('Server started');
 server.listen(443);
