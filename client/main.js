@@ -1080,12 +1080,40 @@ class Lobby extends Phaser.Scene {
     this.QR.setDepth(1000);
 
     // puzzle portal
+    this.toggleQR = this.add.rexRoundRectangle(
+        gameOptions.viewportWidth  - 1000,
+        gameOptions.viewportHeight - 1000,
+        600,
+        150,
+        50,
+        0x946854,
+        1,
+    );
+    this.toggleQR.setDepth(1000);
+    this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
+      this.QR.setVisible(!this.QR.visible);
+    });
+    this.toggleText = this.add.text(
+        gameOptions.viewportWidth - 1500,
+        gameOptions.viewportHeight - 1050,
+        "Hide Code",
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: 100,
+          fixedWidth: 1000,
+          color: "#ffffff",
+          align: "center",
+        })
+    this.toggleText.setDepth(2001);
+
+
+    // puzzle portal
     this.portal = this.add.rexRoundRectangle(
       gameOptions.viewportWidth  - 1000,
-      gameOptions.viewportHeight - 1000,
-      300,
-      100,
-      20,
+      gameOptions.viewportHeight - 1200,
+      600,
+      150,
+      50,
       0x946854,
       1,
     );
@@ -1098,14 +1126,14 @@ class Lobby extends Phaser.Scene {
       }
     });
     this.portalText = this.add.text(
-        gameOptions.viewportWidth - 2000,
-        gameOptions.viewportHeight - 1100,
+        gameOptions.viewportWidth - 1500,
+        gameOptions.viewportHeight - 1250,
         "Next",
         {
           fontFamily: gameOptions.playerTextFont,
-          fontSize: 200,
-          fixedWidth: 2000,
-          color: "#000000",
+          fontSize: 100,
+          fixedWidth: 1000,
+          color: "#ffffff",
           align: "center",
         })
     this.portalText.setDepth(2001);
@@ -1128,7 +1156,7 @@ class Lobby extends Phaser.Scene {
 
     this.countText = this.add.text(
       gameOptions.viewportWidth - 2000,
-      gameOptions.viewportHeight - 1000,
+      gameOptions.viewportHeight - 2000,
       "Players: " + playersCount,
       {
         fontFamily: gameOptions.playerTextFont,
