@@ -1,16 +1,30 @@
 /* Styling the Body element i.e. Color,
 Font, Alignment */
-
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap");
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  position: relative;
+  letter-spacing: 0.1em;
+}
 body {
-    background-color: #f8f0dd;
-    font-family: Verdana;
-    text-align: center;
+  font-family: "Nunito", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 40px;
+  color: #372B24;
+  background: #F9F1DC;
+  margin: 0;
+  background-color: #f8f0dd;
+  text-align: center;
 }
 
 /* Styling the Form (Color, Padding, Shadow) */
 form {
     max-width: 80%;
-    margin: auto;
+  margin: auto;
     height: 100%;
 }
 

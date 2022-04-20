@@ -1,6 +1,7 @@
 {
-  "name": "embrace",
-  "version": "1.0.0",
+  "type": "module",
+  "name": "glitch-mvp-node",
+  "version": "0.0.1",
   "description": "A simple Node app built on express, instantly up and running.",
   "main": "server.js",
   "scripts": {
@@ -16,10 +17,12 @@
     "node": "16.x"
   },
   "repository": {
+    "url": "https://glitch.com/edit/#!/glitch-mvp-node"
   },
   "license": "MIT",
   "keywords": [
     "node",
+    "glitch",
     "express"
   ]
 }

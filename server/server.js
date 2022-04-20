@@ -1,23 +1,31 @@
 // import uuid module. We call uuid() to generate a new uuid
-const { v4 : uuidGen } = require("uuid");
+import {shuffle} from './utility.js'  
+import { v4 as uuidGen } from 'uuid';  
+//const { v4 : uuidGen } = require("uuid");
 // server
-var server = require('http').createServer();  
+import {createServer} from 'http';
+//var server = require('http').createServer();  
+var server = createServer();
 // options for websocket  
 var socketOptions = {
-    cors: true,
-} 
-// websocket object 
-var io = require('socket.io')(server, socketOptions);
-// server options for the game 
-var options = {
+    cors: true, 
+}  
+// websocket object   
+//var io = require('socket.io')(server, socketOptions);
+import { Server } from "socket.io";
+const io = new Server(server, socketOptions);
+
+// server options for the game  
+var options = { 
     cultures: ['music', 'food', 'hobby', 'finances', 'home', 'ethnicity'],
-    roomMaxPlayers: [2, 4, 6, 8],  
-    levelTime: [60, 60, 90, 90], // seconds
-    nLevel: 4
+    roomMaxPlayers: [10, 20, 30],  
+    levelTime: [60, 60, 90], // seconds
+    seekTime: 30, //seconds
+    nLevel: 3
 };
 // an object containing all the lobby players. key: uuid, value: Player object
-var lobbyPlayers = {};
-var goneLobbyPlayers = {};
+var lobbyPlayers = {}; 
+var goneLobbyPlayers = {}; 
 // an object containing all the puzzle players. key: uuid, value: Player object
 var puzzlePlayers = {};
 var gonePuzzlePlayers = {};
@@ -26,10 +34,10 @@ var lobbyRooms = [{}];
 // an array of all the Room objects. Array index is the id of Room.
 var puzzleRooms = [];
 var roomSolved = [];
-var ht = null;
+var ht = null; 
 var firstGroup = null;
-var curLevel = -1;
-var posIndex = 0; 
+var curLevel = -1; 
+var posIndex = 0;   
 var bigscreenSid = null;
 /** 
  *
@@ -37,15 +45,18 @@ var bigscreenSid = null;
  * @param wheelInfo
  * @constructor 
  */
-function Player (uuid, wheelInfo, scores) {
+function Player (uuid, wheelInfo, scores, star=0) {
     this.uuid = uuid;
     this.wheelInfo = wheelInfo; 
     this.scores = scores;
+    this.star = star;
+    this.point = 0;
     this.x = 0;
     this.y = 0;
     this.gameObject = null;
     this.text = null;
     this.sid = null;
+    //this.star = 0;
     this.importantAspectIndices = [];
 
     let scoreRanks = [...Array(this.scores.length).keys()]
@@ -56,7 +67,7 @@ function Player (uuid, wheelInfo, scores) {
         } else {
             i++
         }
-    }
+    } 
     scoreRanks.sort((a,b) => this.scores[b] - this.scores[a])
     i = options.nLevel
     this.importantAspectIndices = scoreRanks.slice(0, i)
@@ -72,9 +83,11 @@ function Player (uuid, wheelInfo, scores) {
 function Room (id) {
     this.id = id;
     this.players = {}; 
-    this.puzzleOptions = {}; 
-    this.realtimePoints = [];
+    this.puzzleOptions = {};  
+    this.realtimePoints = []; 
     this.level = 0;
+    this.firstPlayers = {};
+    this.activePlayers = {};
 }
 
 function DataEntry (culture, value, point) {
@@ -83,13 +96,13 @@ function DataEntry (culture, value, point) {
     this.point = point;
     this.ids = [];
 }
-
+ 
 function PuzzleOptions () {
     this.cultures = [];
     this.values = [];
     this.points = [];
     this.expectedPlayerIds = []; // 2D array
-}
+} 
 
 function PersonalReportData () {
   // personal
@@ -152,7 +165,7 @@ class HashTable{
     constructor() {
         this.table = new Array(15);
         //this.size = 0;
-        for (var i = 0; i < this.table.length; i++) {
+        for (var i = 0; i < this.table.length; i++) { 
             this.table[i] = new Array();
         }
     }
@@ -203,7 +216,7 @@ function initPuzzles() {
     }
     ht = generateHash(activePlayers);
     firstGroup = generateFirstGroup(ht, activePlayers);
-    console.log(curLevel);
+    console.log(curLevel);  
     let puzzleGroups = generateGroups(firstGroup, options.roomMaxPlayers[curLevel]);
     //console.log(puzzleGroups);
     console.log("Puzzle Groups finished");
@@ -225,14 +238,15 @@ function initPuzzles() {
         puzzleRooms = dividePlayers(puzzlePlayers, curLevel);
     }*/
     
-    
+     
     for (let i = 0; i < puzzleRooms.length; i++) {
         puzzleRooms[i].puzzleOptions = generatePuzzle2(puzzleRooms[i]);
+        puzzleRooms[i].assignmentGenerator = new AssignmentGenerator(Object.keys(puzzleRooms[i].players));
         for (let j = 0; j < puzzleRooms[i].puzzleOptions.cultures.length; j++) {
             puzzleRooms[i].realtimePoints.push(0); // init the real time bucket points array
         }
     }
-    
+     
 }
 
 function generatePuzzle(room) {
@@ -318,7 +332,7 @@ function generateFirstGroup(ht, players){
     if(idList.length % 2 !== 0){
         firstGroup[0].push(playerList[k]);
     }
-    console.log(firstGroup);
+    //console.log(firstGroup);
     return firstGroup;
 }
 
@@ -337,11 +351,11 @@ function queue(firstGroup, checklist, n){
         return group;
     }, 5000)
 }
-
+ 
 function generateGroups(firstGroup, n){
     if(n === 2)  { 
       return firstGroup;
-    }
+    } 
 
     n = n / 2;
     let len = Math.floor(firstGroup.length / n);
@@ -356,9 +370,9 @@ function generateGroups(firstGroup, n){
                // console.log(`i: ${i}, j: ${j}, num: ${num}, n: ${n}, len: ${len}, `);
                 group[i].push(firstGroup[num][j]);
                 //console.log(`l: ${group.length}, l1: ${group[i].length}`);
-            }
+            } 
             num++;
-        }
+        } 
     }
     //if(firstGroup.length % n !== 0){
     if(firstGroup.length - num <= (n/2) && group.length != 0){
@@ -370,7 +384,7 @@ function generateGroups(firstGroup, n){
                 //console.log(`l: ${group.length}, l1: ${group[i].length}`);
             }
       }
-    } 
+    }  
     else{
       group.push(new Array());
       for(let i = 0; num+i < firstGroup.length; i++){
@@ -380,10 +394,10 @@ function generateGroups(firstGroup, n){
                 group[group.length-1].push(firstGroup[num+i][j]);
                 //console.log(`l: ${group.length}, l1: ${group[i].length}`);
             }
-      }
+      }  
     }
    //}
-    console.log(group);
+    //console.log(group);
     return group;
 }
 
@@ -401,12 +415,13 @@ function dividePlayers(players, index) {
         rooms[roomNumber].players[idList[i]] = players[idList[i]];
     }
     return rooms;   
-} 
+}  
 
 function analyzeData(idList, cultures) {
     let data = {};
     let values = [];
     let cultureNum = cultures.length;
+    console.log(`Analyze data id list: ${idList}`)
     for (let i = 0; i < idList.length; i++) {
         let info;
         info = activePlayers[idList[i]].wheelInfo;
@@ -552,6 +567,7 @@ function generatePuzzle2(room) {
             puzzleOptions.cultures.push(randLitAspect)
             puzzleOptions.values.push(player.wheelInfo[randLitAspect])
             puzzleOptions.points.push(1)
+            puzzleOptions.expectedPlayerIds.push(new Array(id))
             return;
         }
         player.importantAspectIndices.splice(player.importantAspectIndices.indexOf(selectedAspectInd), 1)
@@ -591,9 +607,31 @@ function generatePuzzle2(room) {
                 puzzleOptions.cultures.splice(j, 1)
                 puzzleOptions.values.splice(j, 1)
                 puzzleOptions.points.splice(j, 1)
+                puzzleOptions.expectedPlayerIds[i] = puzzleOptions.expectedPlayerIds[i].concat(puzzleOptions.expectedPlayerIds[j])
+                puzzleOptions.expectedPlayerIds.splice(j, 1)
             }
             else j++;
         }
+    }
+  
+    // validation
+    for (let i = 0; i < puzzleOptions.values.length; i++) {
+      if (puzzleOptions.points[i] != puzzleOptions.expectedPlayerIds[i].length) {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("expectedPlayerIds length not matching points")
+        console.log(puzzleOptions)
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+      }
+      puzzleOptions.expectedPlayerIds[i].forEach(id => {
+        let player = players[id]
+        if (players[id].wheelInfo[puzzleOptions.cultures[i]] != puzzleOptions.values[i]) {
+          console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+          console.log("expectedPlayer's identity doesn't match with bucket")
+          console.log(player)
+          console.log(puzzleOptions)
+          console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        }
+      })
     }
     return puzzleOptions;
 }
@@ -605,15 +643,15 @@ function generateReportData() {
   globalReportData.nCountriesStates = 999
   globalReportData.nEthnicity = 8
   
-  
+  let allPlayers = Object.assign(goneLobbyPlayers, lobbyPlayers);
   
   let importantLocations = [], importantEthnicities = []
   let nPlayerLocationImportant = 0, nPlayerEthnicityImportant = 0;
   let importantLocationFreq = {}, importantEthnicityFreq = {};
   let locationFrequency = {}, ethnicityFrequency = {}, foodToLocation = {}, musicToLocation = {};
   
-  for (let playerId in puzzlePlayers) {
-    let player = puzzlePlayers[playerId]
+  for (let playerId in allPlayers) {
+    let player = allPlayers[playerId]
     locationFrequency[player.wheelInfo['home']] = 1 + (locationFrequency[player.wheelInfo['home']] || 0)
     ethnicityFrequency[player.wheelInfo['ethnicity']] = 1 + (ethnicityFrequency[player.wheelInfo['ethnicity']] || 0)
     
@@ -641,17 +679,18 @@ function generateReportData() {
   importantLocations = Object.entries(importantLocationFreq).map(([key, value]) => key)
   importantEthnicities = Object.entries(importantEthnicityFreq).map(([key, value]) => key)
   
-  for (let music in musicToLocation) {
+  /*for (let music in musicToLocation) {
     musicToLocation[music] = Array.from(new Set(musicToLocation[music]))
   }
   for (let food in foodToLocation) {
     foodToLocation[food] = Array.from(new Set(foodToLocation[food]))
-  }
+  }*/
   
-  for (let playerId in puzzlePlayers) {
-    let player = puzzlePlayers[playerId]
+  for (let playerId in allPlayers) {
+    let player = allPlayers[playerId]
     let data = player.playerReport
     data.nTeammate = player.teammates.size
+    data.nStar = player.star
     data.nThumbToOthers = player.thumbsToPlayers.size
     data.nThumbFromOthers = player.thumbsFromPlayers.size
     data.nMutualThumb = [...player.thumbsToPlayers].filter(x => player.thumbsFromPlayers.has(x)).length
@@ -661,7 +700,12 @@ function generateReportData() {
     data.nPlayerLocationImportant = nPlayerLocationImportant - (data.locationIsImportant ? 1 : 0)
   
     let othersImportantLocationFreq = Object.assign({}, importantLocationFreq)
-    if (data.locationIsImportant) othersImportantLocationFreq[player.wheelInfo['home']] -= 1
+    if (data.locationIsImportant) {
+      if (othersImportantLocationFreq[player.wheelInfo['home']] = 1) {
+        delete othersImportantLocationFreq[player.wheelInfo['home']]
+      }
+      othersImportantLocationFreq[player.wheelInfo['home']] -= 1
+    }
     data.importantLocationExamples = Object.keys(othersImportantLocationFreq)
     data.nImportantLocations = data.importantLocationExamples.length
     data.importantLocationExamples = data.importantLocationExamples.slice(0, 3)
@@ -671,7 +715,12 @@ function generateReportData() {
     data.nPlayerEthnicityImportant = nPlayerEthnicityImportant - (data.ethnicityIsImportant ? 1 : 0)
       
     let othersImportantEthnicityFreq = Object.assign({}, importantEthnicityFreq)
-    if (data.ethnicityIsImportant) othersImportantEthnicityFreq[player.wheelInfo['ethnicity']] -= 1
+    if (data.ethnicityIsImportant) {
+      if (othersImportantEthnicityFreq[player.wheelInfo['ethnicity']] == 1) {
+        delete othersImportantEthnicityFreq[player.wheelInfo['ethnicity']]
+      }
+      else othersImportantEthnicityFreq[player.wheelInfo['ethnicity']] -= 1
+    }
     data.importantEthnicityExamples = Object.keys(othersImportantEthnicityFreq)
     data.nImportantEthnicities = data.importantEthnicityExamples.length
     data.importantEthnicityExamples = data.importantEthnicityExamples.slice(0, 3)
@@ -679,19 +728,120 @@ function generateReportData() {
     data.music = player.wheelInfo['music']
     data.nPlayerSameMusic = musicToLocation[data.music].length - 1
     let musicLocationTypes = musicToLocation[data.music].map(x=>x)
-    data.multiMusicLocation = musicLocationTypes.length > 1
     musicLocationTypes.splice(musicLocationTypes.indexOf(data.location), 1)
+    musicLocationTypes = Array.from(new Set(musicLocationTypes))
+    data.multiMusicLocation = musicLocationTypes.length > 1
+    data.nSameMusicLocation = musicLocationTypes.length
     data.sameMusicLocationExamples = musicLocationTypes.slice(0, 3)
     
     data.food = player.wheelInfo['food']
     data.nPlayerSameFood = foodToLocation[data.food].length - 1
     let foodLocationTypes = foodToLocation[data.food].map(x=>x)
-    data.multiFoodLocation = foodLocationTypes.length > 1
     foodLocationTypes.splice(foodLocationTypes.indexOf(data.location), 1)
+    foodLocationTypes = Array.from(new Set(foodLocationTypes))
+    data.multiFoodLocation = foodLocationTypes.length > 1
+    data.nSameFoodLocation = foodLocationTypes.length
     data.sameFoodLocationExamples = foodLocationTypes.slice(0, 3)
-    console.log(puzzlePlayers[playerId])
-  } 
-} 
+    console.log(allPlayers[playerId])
+  }  
+}
+
+class AssignmentGenerator {
+  constructor(playerIds) {
+    this.playerIds = playerIds
+    this.playerTargetHistory = {}
+    playerIds.forEach(id => {
+      this.playerTargetHistory[id] = new Set()
+    })
+  }
+  
+  backtracking(player, s, i, freqArr, nTarget, nTargetMax, nTargetMin) {
+    console.log(`backtracking i: ${i}`)
+    if (nTarget < nTargetMax && nTarget >= nTargetMin) {
+      return true
+    }
+    if (nTarget > nTargetMax) return false
+    if (i == freqArr.length) return false
+    
+    let incre;
+    if (freqArr[i][0] == player.wheelInfo[freqArr[i][1].culture]) {
+      incre = freqArr[i][1].point - 1 
+    } else {
+      incre = freqArr[i][1].point
+    }    
+    if (incre !== 0) {
+      s.push(i)
+      if (this.backtracking(player, s, i+1, freqArr, nTarget + incre, nTargetMax, nTargetMin)) {
+        return true
+      }
+      s.pop()
+    }
+    if (this.backtracking(player, s, i+1, freqArr, nTarget, nTargetMax, nTargetMin)) {
+      return true
+    } 
+    return false
+  }
+  
+  getAssignmentForPlayer(playerId, roomPlayerIds, nTargetMax, nTargetMin) {
+    let identities = []
+    let aspects = []
+    let ids = new Set()
+    let nTarget = 0
+    let freq = analyzeData(roomPlayerIds, options.cultures)
+    console.log(freq)
+    let tempFreq = Object.assign({}, freq)
+    this.playerTargetHistory[playerId].forEach(identity => {
+      delete tempFreq[identity]
+    })
+    let freqArr = shuffle(Object.entries(tempFreq))
+    let player = activePlayers[playerId]
+    let success = false
+    let s = []
+    success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
+    if (!success) {
+      s = []
+      freqArr = shuffle(Object.entries(freq))
+      success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
+    }
+    console.log(s)
+    /*while (nTarget < nTargetMin) {
+      let randIndex = Math.floor(Math.random() * freqArr.length)
+      let thisNTarget = 0;
+      if (freqArr[randIndex][0] == player.wheelInfo[freqArr[randIndex][1].culture]) {
+          thisNTarget = freqArr[randIndex][1].point - 1 
+      } else {
+        thisNTarget = freqArr[randIndex][1].point
+      }   
+     
+      if (thisNTarget > 0 && (nTarget + thisNTarget) < nTargetMax) {
+        identities.push(freqArr[randIndex][0])
+        ids = ids.concat(freqArr[randIndex][1].ids)
+        nTarget += thisNTarget
+      }
+      console.log(thisNTarget)    
+    }*/
+    if (!success) {
+      console.log(player)
+      console.log(freqArr)
+      console.log('-------- Failed to generate assignment!!!!! ----------')
+      return null
+    }
+    s.forEach(ind => {
+        identities.push(freqArr[ind][0])
+        aspects.push(freqArr[ind][1].culture)
+        this.playerTargetHistory[playerId].add(freqArr[ind][0])
+        //ids = ids.concat(freqArr[ind][1].ids)
+        ids = new Set([...ids, ...freqArr[ind][1].ids]);
+        
+      })
+    ids.delete(playerId)
+    ids = [...ids]
+    console.log(identities)
+    console.log(ids)
+    
+    return {identities, aspects, ids}
+  }
+}  
   
 io.sockets.on('connection', function(socket) {
     console.log('A user has logged in');
@@ -710,73 +860,97 @@ io.sockets.on('connection', function(socket) {
             // Creates a new player object with a unique ID number.
             let uuid = uuidGen();
             data.uuid = uuid;
-            socket.uuid = uuid;
-            let positionIndex = posIndex % 16;
-            posIndex++;
-            socket.emit("uuid", uuid, positionIndex);
+            socket.uuid = uuid; 
+            socket.emit("uuid", uuid);
+            
             newPlayer = new Player(uuid, data.info, data.scores);
-        } else {
+        } else { 
             if (goneLobbyPlayers[data.uuid] === undefined) {
                 console.log("no player found, should be dubugging");
-                newPlayer = new Player(data.uuid, data.info, data.scores);
+                newPlayer = new Player(data.uuid, data.info, data.scores, data.star);
                 goneLobbyPlayers[data.uuid] = newPlayer;
             }
             newPlayer = goneLobbyPlayers[data.uuid];
             socket.uuid = data.uuid;
         }
         newPlayer.sid = socket.id;
-        
+         
         if (socket.phase === 1 && socket.roomNumber !== null) { 
             socket.join("Room" + socket.roomNumber);
         }
         // Adds the newly created player to the array according to its phase state.
         // Sends the connecting client his unique ID, and data about the other players already connected.
         // Sends everyone except the connecting player data about the new player.
-        if(socket.phase === 0) { 
+        if(socket.phase === 0) {  
             lobbyPlayers[data.uuid] = newPlayer;
             delete goneLobbyPlayers[data.uuid];
-            socket.emit('playerData', {uuid: data.uuid, players: lobbyPlayers});
+            socket.emit('playerData', {uuid: data.uuid, players: lobbyPlayers, posIndex: posIndex});
+            posIndex++;
             socket.join("lobby"); 
             socket.to("lobby").emit("playerJoined", newPlayer)
         } else if (eval(socket.curLevel) === curLevel) {
             puzzlePlayers[data.uuid] = newPlayer;
             if (socket.roomNumber < puzzleRooms.length) {
               let players = puzzleRooms[data.roomNumber].players;
+              let firstPlayers = puzzleRooms[data.roomNumber].firstPlayers;
+              let activePlayers = puzzleRooms[data.roomNumber].activePlayers;
+              let assignment = puzzleRooms[data.roomNumber].assignmentGenerator.getAssignmentForPlayer(newPlayer.uuid, 
+                  data.uuid in firstPlayers ? Object.keys(activePlayers) : Object.keys(players),                                                            
+              100, 1)
               players[data.uuid] = newPlayer;
-              socket.emit('playerData', {uuid: data.uuid, players: players});
-              socket.join("Room"+data.roomNumber);
-              socket.to("Room"+data.roomNumber).emit("playerJoined", newPlayer)
-            } else {
+              socket.emit('playerData', {uuid: data.uuid, players: players, posIndex: posIndex});
+              posIndex++;
+              if (!Object.keys(firstPlayers).includes(socket.uuid)) {
+                firstPlayers[socket.uuid] = newPlayer;
+              }
+              activePlayers[socket.uuid] = newPlayer;
+              socket.emit('startAssignment', assignment, options.seekTime);
+              socket.join("Room" + data.roomNumber);
+              socket.to("Room" + data.roomNumber).emit("playerJoined", newPlayer)
+            } else {   
               socket.emit("reconnect", 0);
-            } 
-        } else {
+            }  
+        } else {   
           socket.emit("reconnect", 0);
-        }
-  
-        socket.on('disconnect',function(){
+        }    
+      
+        socket.on("seekFinished", (isSuccess) => {
+            console.log("Seek Finished");
+            let players = puzzleRooms[data.roomNumber].players;
+            let activePlayers = puzzleRooms[socket.roomNumber].activePlayers;
+            let curPlayer = activePlayers[socket.uuid];
+            let assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(activePlayers), 100, 1);
+            if (assignment == null || assignment == undefined) assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(players), 100, 1);
+            if(isSuccess) {
+              curPlayer.star += 1;
+            }
+            socket.emit('startAssignment', assignment, options.seekTime);
+        }); 
+      
+      
+        socket.on('disconnect',function(){ 
             if (socket.phase === 0) { // disconnect in Lobby
                 if(!lobbyPlayers[socket.uuid]) return;
                 // Update clients with the new player killed
                 goneLobbyPlayers[socket.uuid] = lobbyPlayers[socket.uuid];
-                delete lobbyPlayers[socket.uuid];
+                delete lobbyPlayers[socket.uuid]; 
                 socket.to("lobby").emit('playerLeft', socket.uuid); 
             } else { // disconnect in Puzzle
                 gonePuzzlePlayers[socket.uuid] = puzzlePlayers[socket.uuid];
-                if (socket.roomNumber < puzzleRooms.length) {
-                  let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
-                  let players = puzzleRooms[socket.roomNumber].players;
-                  if(socket.uuid === undefined || !players[socket.uuid]) return;
-                  delete players[socket.uuid];
-                }
-              
-                /* check for bucket points */
+                console.log("player left during puzzle");
+                if(puzzleRooms[socket.roomNumber] === undefined) return;
+                console.log("player left during puzzle after");
+                let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
+                let players = puzzleRooms[socket.roomNumber].players;
+                /* check for bucket points */ 
                 if (socket.inBucket > -1) { 
                   io.to("Room" + socket.roomNumber).emit("subWheel", socket.inBucket);
                   if (socket.roomNumber >= puzzleRooms.length) return;
-                  let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
-                  let players = puzzleRooms[socket.roomNumber].players;
-                  if(!players[socket.uuid]) return;
-                  if(players[socket.uuid].wheelInfo[puzzleOptions.cultures[socket.inBucket]] === puzzleOptions.values[socket.inBucket]) {
+                  if(!players[socket.uuid]) { 
+                    console.log("cannot find the uuid in players");
+                    return}; 
+                  if (players[socket.uuid].wheelInfo[puzzleOptions.cultures[socket.inBucket]] === puzzleOptions.values[socket.inBucket]) {
+                    console.log("wheelinfo matched");
                     puzzleRooms[socket.roomNumber].realtimePoints[socket.inBucket] -= 1;
                     if (puzzleOptions.expectedPlayerIds[socket.inBucket].includes(socket.uuid)) {
                       io.to("Room" + socket.roomNumber).emit("subPoint", socket.inBucket, true);
@@ -786,20 +960,20 @@ io.sockets.on('connection', function(socket) {
                     }
                   }
                 }
+                //delete players[socket.uuid];
                 socket.to("Room" + socket.roomNumber).emit('playerLeft', socket.uuid);
-                
+                delete puzzleRooms[socket.roomNumber].activePlayers[socket.uuid];
                 delete puzzlePlayers[socket.uuid];
-                
             }
-        }); 
+        });  
     });
 
     socket.on ('positionUpdate', function (data) {
         let id = data.uuid;
         if(socket.phase === 0) {
             if(!lobbyPlayers[id]) return;
-            lobbyPlayers[id].x = data.x;
-            lobbyPlayers[id].y = data.y;
+            lobbyPlayers[id].x = data.x; 
+            lobbyPlayers[id].y = data.y; 
             socket.to("lobby").emit('playerMoved', data);
         } else if (socket.phase === 1) {
             if (socket.roomNumber < puzzleRooms.length) {
@@ -814,41 +988,48 @@ io.sockets.on('connection', function(socket) {
             socket.emit("reconnect", 1);
         };
     }); 
-
-
-
+ 
     socket.on('startPuzzle', function() {
-        curLevel += 1;
+        curLevel += 1; 
         if (curLevel == options.roomMaxPlayers.length) {
             generateReportData();
-            puzzleRooms.forEach(room => {
+            let allPlayers = Object.assign(goneLobbyPlayers, lobbyPlayers);
+            for (let playerId in allPlayers) {
+              io.to(allPlayers[playerId].sid).emit("startReport")
+            }
+            /*puzzleRooms.forEach(room => {
               for (let playerID in room.players) {
                 io.to(room.players[playerID].sid).emit("startReport")
               }
-            })
+            })*/
             return;
         }
         console.log("Puzzle Started");
+
         initPuzzles();
         console.log("init finished");
         for (let i = 0; i < puzzleRooms.length; i++) {
             let players = puzzleRooms[i].players;
             let idList = Object.keys(players);
-            for (let j = 0; j < idList.length; j++) {
+            
+          
+            for (let j = 0; j < idList.length; j++) { 
                 for (let k = j+1; k < idList.length; k++) {
                     players[idList[j]].teammates.add(idList[k])
                     players[idList[k]].teammates.add(idList[j])
                 }
+                
                 io.to(players[idList[j]].sid).emit("startPuzzle", puzzleRooms[i].puzzleOptions, i, curLevel, options.levelTime[curLevel])
-            }
-        }
+            } 
+        } 
+        roomSolved = [];
         io.to(bigscreenSid).emit("roomStateUpdate", roomSolved.length, puzzleRooms.length, true, options.levelTime[curLevel]);
         
     });
    
     socket.on("timeUp", () => {
       for (let i = 0; i < puzzleRooms.length; i++) {
-        io.to("Room" + i).emit("timeUp");
+        io.to("Room" + i).emit("timeUp"); 
       }
     })
   
@@ -857,6 +1038,7 @@ io.sockets.on('connection', function(socket) {
         io.to("Room" + i).emit("timeUpdate", time);
       }
     })
+  
     socket.on('startIns', () => {
       console.log("Instruction Started");
       io.to('lobby').emit('startIns');
@@ -867,7 +1049,7 @@ io.sockets.on('connection', function(socket) {
         console.log("deleting bigscreen player");
         delete lobbyPlayers[socket.uuid];
         socket.to("lobby").emit('playerLeft',socket.uuid);
-    });
+    });  
 
     socket.on ("bucketIn", (data) => {   
         if (socket.roomNumber !== undefined) {
@@ -875,32 +1057,52 @@ io.sockets.on('connection', function(socket) {
             io.to("Room" + socket.roomNumber).emit("addWheel", data.index);
             let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
             let players = puzzleRooms[socket.roomNumber].players;
+            if (players[socket.uuid] === undefined) {
+              console.log("!!!!!!!!!!!!!!!!!!!!!!!!!! players cannot be found")
+              console.log(players);
+              console.log(socket.uuid);
+              console.log("!!!!!!!!!!!!!!!!!!!!!!!!!! players cannot be found end")
+              return;
+            }
             if(players[socket.uuid].wheelInfo[puzzleOptions.cultures[data.index]] === puzzleOptions.values[data.index]) {
                 puzzleRooms[socket.roomNumber].realtimePoints[data.index] += 1;
                 if (puzzleOptions.expectedPlayerIds[data.index] === undefined) {
-                  return null;
+                  return null; 
                 }
+                console.log(puzzleOptions.expectedPlayerIds[data.index]);
                 if (puzzleOptions.expectedPlayerIds[data.index].includes(socket.uuid)) {
                   io.to("Room" + socket.roomNumber).emit("addPoint", data.index, true);
                   checkSolved(puzzleRooms[socket.roomNumber]);
                 } else {
                   io.to("Room" + socket.roomNumber).emit("addPoint", data.index, false);
-                }
+                } 
             } 
         } else { 
             console.log("Someone dropped off after connection, need reconnect");
         }  
+ 
+    });   
 
-    });  
-
-    socket.on ("bucketOut", (data) => {       
+    socket.on ("bucketOut", (data) => {          
         if (socket.roomNumber !== undefined) {
             socket.inBucket = -1;
             io.to("Room" + socket.roomNumber).emit("subWheel", data.index);
             let puzzleOptions = puzzleRooms[socket.roomNumber].puzzleOptions;
             let players = puzzleRooms[socket.roomNumber].players;
+            if (players[socket.uuid] === undefined) {
+              console.log("!!!!!!!!!!!!!!!!!!!!!!!!!! players cannot be found")
+              console.log(players);
+              console.log(socket.uuid);
+              console.log("!!!!!!!!!!!!!!!!!!!!!!!!!! players cannot be found end")
+              return;
+            }
             if(players[socket.uuid].wheelInfo[puzzleOptions.cultures[data.index]] === puzzleOptions.values[data.index]) {
                 puzzleRooms[socket.roomNumber].realtimePoints[data.index] -= 1;
+                if (puzzleOptions.expectedPlayerIds[data.index] === undefined) {
+                  console.log(puzzleOptions.expectedPlayerIds);
+                  console.log(data.index);
+                  return null;
+                }
                 if (puzzleOptions.expectedPlayerIds[data.index].includes(socket.uuid)) {
                   io.to("Room" + socket.roomNumber).emit("subPoint", data.index, true);
                   checkSolved(puzzleRooms[socket.roomNumber]);
@@ -913,16 +1115,16 @@ io.sockets.on('connection', function(socket) {
         }
     });  
   
-    socket.on ("thumbUp", (uuid) => {
+    socket.on ("thumbUp", (uuid) => { 
       console.log(socket.roomNumber);
       if (socket.roomNumber !== null && socket.phase === 1) {
           socket.to("Room" + socket.roomNumber).emit("thumbUp", uuid);
-          for (let playerId in puzzleRooms[socket.roomNumber].players) {
+          for (let playerId in puzzleRooms[socket.roomNumber].activePlayers) {
             if (playerId === uuid) continue;
-            puzzlePlayers[playerId].thumbsFromPlayers.add(uuid)
-            puzzlePlayers[uuid].thumbsToPlayers.add(playerId)
+            puzzleRooms[socket.roomNumber].activePlayers[playerId].thumbsFromPlayers.add(uuid) 
+            puzzleRooms[socket.roomNumber].activePlayers[uuid].thumbsToPlayers.add(playerId)
           }
-          //console.log(`player[${uuid}] gave thumbs to ${puzzlePlayers[uuid].thumbsToPlayers.size} players`)
+          console.log(`player[${uuid}] gave thumbs to ${puzzlePlayers[uuid].thumbsToPlayers.size} players`)
       } else {
           console.log("thumbUp received" + uuid);
           socket.to("lobby").emit("thumbUp", uuid);
@@ -934,15 +1136,19 @@ io.sockets.on('connection', function(socket) {
           //console.log(`player[${uuid}] gave thumbs to ${lobbyPlayers[uuid].thumbsToPlayers.size} players`)
       }
     })
-  
-    socket.on("initReport", (uuid) => {
+   
+    socket.on("initReport", (uuid) => { 
       console.log(`accept player: ${uuid}'s report request`);
-      socket.emit("playerReport", { 
-        ...globalReportData,
-        ...gonePuzzlePlayers[uuid].playerReport,
-      });  
-    })  
+      if (gonePuzzlePlayers[uuid] !== undefined || goneLobbyPlayers[uuid] !== undefined) {
+        console.log(`Player: ${uuid} is in gone pool`);
+        let player = gonePuzzlePlayers[uuid] ? gonePuzzlePlayers[uuid] : goneLobbyPlayers[uuid] 
+        socket.emit("playerReport", {
+          ...globalReportData,
+          ...player.playerReport,
+        });
+      }
+    })
 }); 
 
 console.log ('Server started');
-server.listen(443);
+server.listen(3000);

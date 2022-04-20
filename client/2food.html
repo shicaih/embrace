@@ -9,19 +9,30 @@
     <title>
         Culture Humility Form
     </title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/survey.css">
     
 </head>
   
 <body>
-  
+  <div class="section">  
+    <image class="bg-bottom-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"></image>
     <!-- Create Form -->
     <form name="food" id="foodForm" onsubmit="return SubmitForm()" action="\3hobby.html" method="get">
- 
+          <div class="progress">
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+          </div>
         <!-- Details -->
         <div class="form-control">
-            <progress id="bar" value="30" max="100"> 30% </progress>
-            <h1>What is your favorite cuisine?</h1>
+          <h2>Food</h2>
+            <h3>What is your favorite cuisine?</h3>
  
             <!-- choose food from dropdown list -->
             <select name="food" id="mainInput" class="drop">
@@ -44,13 +55,17 @@
                    id="otherInput"
                    placeholder="Enter your answer"
                    style="display: none;">
+          <div class="comment">
             <input type="checkbox" name="notToShow" id="notToShow" value="no">
             <label for="notToShow" style="display: inline">Don't show this to others</label>
+          </div>
         </div>
         <button type="submit" value="submit">
             Next
         </button>
     </form>
+        
+  </div>
   
     <!-- this script relates to current form content -->
     <script>
