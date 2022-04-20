@@ -783,66 +783,66 @@ class AssignmentGenerator {
     } 
     return false
   }
-  
-  getAssignmentForPlayer(playerId, roomPlayerIds, nTargetMax, nTargetMin) {
-    let identities = []
-    let aspects = []
-    let ids = new Set()
-    let nTarget = 0
-    let freq = analyzeData(roomPlayerIds, options.cultures)
-    console.log(freq)
-    let tempFreq = Object.assign({}, freq)
-    this.playerTargetHistory[playerId].forEach(identity => {
-      delete tempFreq[identity]
-    })
-    let freqArr = shuffle(Object.entries(tempFreq))
-    let player = activePlayers[playerId]
-    let success = false
-    let s = []
-    success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
-    if (!success) {
-      s = []
-      freqArr = shuffle(Object.entries(freq))
-      success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
+
+    getAssignmentForPlayer(playerId, roomPlayerIds, freq, nTargetMax, nTargetMin) {
+        let identities = []
+        let aspects = []
+        let ids = new Set()
+        let nTarget = 0
+        console.log(freq)
+        let tempFreq = Object.assign({}, freq)
+        this.playerTargetHistory[playerId].forEach(identity => {
+            delete tempFreq[identity]
+        })
+        let freqArr = shuffle(Object.entries(tempFreq))
+        let player = activePlayers[playerId]
+        let success = false
+        let s = []
+        success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
+        if (!success) {
+            s = []
+            freqArr = shuffle(Object.entries(freq))
+            success = this.backtracking(player, s, 0, freqArr, 0, nTargetMax, nTargetMin)
+        }
+        console.log(s)
+        /*while (nTarget < nTargetMin) {
+          let randIndex = Math.floor(Math.random() * freqArr.length)
+          let thisNTarget = 0;
+          if (freqArr[randIndex][0] == player.wheelInfo[freqArr[randIndex][1].culture]) {
+              thisNTarget = freqArr[randIndex][1].point - 1
+          } else {
+            thisNTarget = freqArr[randIndex][1].point
+          }
+
+          if (thisNTarget > 0 && (nTarget + thisNTarget) < nTargetMax) {
+            identities.push(freqArr[randIndex][0])
+            ids = ids.concat(freqArr[randIndex][1].ids)
+            nTarget += thisNTarget
+          }
+          console.log(thisNTarget)
+        }*/
+        if (!success) {
+            console.log(player)
+            console.log(freqArr)
+            console.log('-------- Failed to generate assignment!!!!! ----------')
+            return null
+        }
+        s.forEach(ind => {
+            identities.push(freqArr[ind][0])
+            aspects.push(freqArr[ind][1].culture)
+            this.playerTargetHistory[playerId].add(freqArr[ind][0])
+            //ids = ids.concat(freqArr[ind][1].ids)
+            ids = new Set([...ids, ...freqArr[ind][1].ids]);
+
+        })
+        ids.delete(playerId)
+        ids = [...ids]
+        console.log(identities)
+        console.log(ids)
+
+        return {identities, aspects, ids}
     }
-    console.log(s)
-    /*while (nTarget < nTargetMin) {
-      let randIndex = Math.floor(Math.random() * freqArr.length)
-      let thisNTarget = 0;
-      if (freqArr[randIndex][0] == player.wheelInfo[freqArr[randIndex][1].culture]) {
-          thisNTarget = freqArr[randIndex][1].point - 1 
-      } else {
-        thisNTarget = freqArr[randIndex][1].point
-      }   
-     
-      if (thisNTarget > 0 && (nTarget + thisNTarget) < nTargetMax) {
-        identities.push(freqArr[randIndex][0])
-        ids = ids.concat(freqArr[randIndex][1].ids)
-        nTarget += thisNTarget
-      }
-      console.log(thisNTarget)    
-    }*/
-    if (!success) {
-      console.log(player)
-      console.log(freqArr)
-      console.log('-------- Failed to generate assignment!!!!! ----------')
-      return null
-    }
-    s.forEach(ind => {
-        identities.push(freqArr[ind][0])
-        aspects.push(freqArr[ind][1].culture)
-        this.playerTargetHistory[playerId].add(freqArr[ind][0])
-        //ids = ids.concat(freqArr[ind][1].ids)
-        ids = new Set([...ids, ...freqArr[ind][1].ids]);
-        
-      })
-    ids.delete(playerId)
-    ids = [...ids]
-    console.log(identities)
-    console.log(ids)
-    
-    return {identities, aspects, ids}
-  }
+
 }  
   
 io.sockets.on('connection', function(socket) {
@@ -893,43 +893,48 @@ io.sockets.on('connection', function(socket) {
         } else if (eval(socket.curLevel) === curLevel) {
             puzzlePlayers[data.uuid] = newPlayer;
             if (socket.roomNumber < puzzleRooms.length) {
-              let players = puzzleRooms[data.roomNumber].players;
-              let firstPlayers = puzzleRooms[data.roomNumber].firstPlayers;
-              let activePlayers = puzzleRooms[data.roomNumber].activePlayers;
-              let assignment = puzzleRooms[data.roomNumber].assignmentGenerator.getAssignmentForPlayer(newPlayer.uuid, 
-                  data.uuid in firstPlayers ? Object.keys(activePlayers) : Object.keys(players),                                                            
-              100, 1)
-              players[data.uuid] = newPlayer;
-              socket.emit('playerData', {uuid: data.uuid, players: players, posIndex: posIndex});
-              posIndex++;
-              if (!Object.keys(firstPlayers).includes(socket.uuid)) {
-                firstPlayers[socket.uuid] = newPlayer;
-              }
-              activePlayers[socket.uuid] = newPlayer;
-              socket.emit('startAssignment', assignment, options.seekTime);
-              socket.join("Room" + data.roomNumber);
-              socket.to("Room" + data.roomNumber).emit("playerJoined", newPlayer)
-            } else {   
-              socket.emit("reconnect", 0);
-            }  
+                let players = puzzleRooms[data.roomNumber].players;
+                let firstPlayers = puzzleRooms[data.roomNumber].firstPlayers;
+                let activePlayers = puzzleRooms[data.roomNumber].activePlayers;
+                let freq = analyzeData(data.uuid in firstPlayers ? Object.keys(activePlayers) : Object.keys(players), options.cultures)
+                let assignment = puzzleRooms[data.roomNumber].assignmentGenerator.getAssignmentForPlayer(newPlayer.uuid,
+                    data.uuid in firstPlayers ? Object.keys(activePlayers) : Object.keys(players),
+                    freq,
+                    100, 1)
+                players[data.uuid] = newPlayer;
+                socket.emit('playerData', {uuid: data.uuid, players: players, posIndex: posIndex});
+                posIndex++;
+                if (!Object.keys(firstPlayers).includes(socket.uuid)) {
+                    firstPlayers[socket.uuid] = newPlayer;
+                }
+                activePlayers[socket.uuid] = newPlayer;
+                socket.emit('startAssignment', assignment, options.seekTime);
+                socket.join("Room" + data.roomNumber);
+                socket.to("Room" + data.roomNumber).emit("playerJoined", newPlayer)
+            } else {
+                socket.emit("reconnect", 0);
+            }
         } else {   
           socket.emit("reconnect", 0);
-        }    
-      
+        }
+
         socket.on("seekFinished", (isSuccess) => {
             console.log("Seek Finished");
             let players = puzzleRooms[data.roomNumber].players;
             let activePlayers = puzzleRooms[socket.roomNumber].activePlayers;
             let curPlayer = activePlayers[socket.uuid];
-            let assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(activePlayers), 100, 1);
-            if (assignment == null || assignment == undefined) assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(players), 100, 1);
+            let freq = analyzeData(Object.keys(activePlayers), options.cultures)
+
+            let assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(activePlayers), freq, 100, 1);
+            freq = analyzeData(Object.keys(players), options.cultures)
+            if (assignment == null || assignment == undefined) assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(players), freq, 100, 1);
             if(isSuccess) {
-              curPlayer.star += 1;
+                curPlayer.star += 1;
             }
             socket.emit('startAssignment', assignment, options.seekTime);
-        }); 
-      
-      
+        });
+
+
         socket.on('disconnect',function(){ 
             if (socket.phase === 0) { // disconnect in Lobby
                 if(!lobbyPlayers[socket.uuid]) return;
