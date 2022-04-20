@@ -1226,7 +1226,8 @@ class Lobby extends Phaser.Scene {
         this.players[uuid].gameObject.x = data[uuid].x;
         this.players[uuid].gameObject.y = data[uuid].y;
     }
-  }
+    }
+  };
 
   // backup function that is not using now
   moveMainPlayer() {
