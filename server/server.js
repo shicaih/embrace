@@ -244,7 +244,7 @@ function initPuzzles() {
     for (let i = 0; i < puzzleRooms.length; i++) {
         puzzleRooms[i].puzzleOptions = generatePuzzle2(puzzleRooms[i]);
         puzzleRooms[i].assignmentGenerator = new AssignmentGenerator(Object.keys(puzzleRooms[i].players));
-        puzzleRooms[i].freq = analyzeData(Object.keys(puzzleRooms[i].players, [...options.cultures]))
+        puzzleRooms[i].freq = analyzeData(Object.keys(puzzleRooms[i].players), options.cultures)
         for (let j = 0; j < puzzleRooms[i].puzzleOptions.cultures.length; j++) {
             puzzleRooms[i].realtimePoints.push(0); // init the real time bucket points array
         }
