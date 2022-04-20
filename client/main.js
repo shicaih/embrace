@@ -211,6 +211,10 @@ class Lobby extends Phaser.Scene {
       "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/BG.png?v=1647550334928"
     );
     this.load.image(
+        "bgWheel",
+        "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/1080p%20X%201080p.png?v=1650493360164"
+    )
+    this.load.image(
       "selectWheel",
       "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Wheel%20-%206%20%2B%20I%20%2B%20H.png?v=1648568574661"
     );
@@ -650,8 +654,10 @@ class Lobby extends Phaser.Scene {
 
   createUI() {
     // background
-    this.bgImage = this.add.tileSprite(0, 0, worldSize / 2, worldSize / 2, 'BG');
+    this.bgImage = this.add.tileSprite(0, 0, worldSize, worldSize, 'BG');
     this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
+    this.bgWheel = this.add.image(gameOptions.viewportWidth / 2, gameOptions.viewportHeight / 2);
+    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99);
     //this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1);
     //this.bgImage.setDepth(-100);
 
@@ -1048,9 +1054,10 @@ class Lobby extends Phaser.Scene {
     this.socket.emit("admin");
     
     this.insText = this.add.text(
-      300,
+      worldSize / 2 - 1800,
+      worldSize / 2 - 300,
       1000,
-      "A comprehensive concept that encompasses \nthe norms, values, customs, traditions, habits, \nskills, knowledge, beliefs, and the whole \nway of life of a group of people. \nCultures can be small or large and can \ncontinuously evolve. ",
+      "Let's compose a circle!",
       {
         fontFamily: gameOptions.playerTextFont,
         fontSize: 600 * devicePixelRatio / 3,
