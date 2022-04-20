@@ -41,6 +41,7 @@ var inited = false;
 var sovledIndeed = false;
 var playersCount = 0;
 let devicePixelRatio = window.innerWidth / window.screen.availWidth; //window.devicePixelRatio;
+let worldSize = 8000;
 console.log(window.devicePixelRatio);
 console.log(window.innerWidth);
 console.log(window.innerHeight);
@@ -73,7 +74,7 @@ var gameOptions = {
     "#7755b5",
   ],
   paleColors: [0xe1a3be, 0xe6b7a2, 0xebcf9a, 0xc0d0aa, 0xa7d7dc, 0xb6a6d5],
-  puzzleWorldSizes: [2200, 2500, 3000],
+  puzzleWorldSizes: [3000, 3500, 4000],
   colorMapping: {
     music: 0xcc3f8d,
     food: 0xd15947,
@@ -85,10 +86,10 @@ var gameOptions = {
   iconPlaceHolder: "      ",
   spinDuration: 500, // milliseconds
   speed: 0.13,
-  viewportWidth: isMobile ? window.innerWidth : 4000,
-  viewportHeight: isMobile ? window.innerHeight : 4000,
-  worldWidth: 4000,
-  worldHeight: 4000,
+  viewportWidth: isMobile ? window.innerWidth : worldSize,
+  viewportHeight: isMobile ? window.innerHeight : worldSize,
+  worldWidth: worldSize,
+  worldHeight: worldSize,
   wheelRadius: 50 * devicePixelRatio,
   buttonRadius: 50,
   buttonPadding: 50,
@@ -649,10 +650,10 @@ class Lobby extends Phaser.Scene {
 
   createUI() {
     // background
-    //this.bgImage = this.add.tileSprite(0, 0, window.innerWidth * 3, window.innerHeight * 3, 'BG');
-    //this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
-    this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1);
-    this.bgImage.setDepth(-100);
+    this.bgImage = this.add.tileSprite(0, 0, worldSize / 2, worldSize / 2, 'BG');
+    this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
+    //this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1);
+    //this.bgImage.setDepth(-100);
 
     // if mobile device
     if (isMobile) {
