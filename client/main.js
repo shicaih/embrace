@@ -1107,7 +1107,7 @@ class Lobby extends Phaser.Scene {
       this.QR.setVisible(!this.QR.visible);
     });
     this.toggleText = this.add.text(
-        gameOptions.viewportWidth - 600,
+        gameOptions.viewportWidth - 1100,
         gameOptions.viewportHeight - 850,
         "Hide Code",
         {
