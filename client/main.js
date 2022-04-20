@@ -658,7 +658,7 @@ class Lobby extends Phaser.Scene {
     this.bgImage = this.add.tileSprite(0, 0, worldSize, worldSize, 'BG');
     this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.bgWheel = this.add.image(gameOptions.viewportWidth / 2, gameOptions.viewportHeight / 2, "bgWheel");
-    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(2);
+    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(3);
     //this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1);
     //this.bgImage.setDepth(-100);
 
@@ -1056,12 +1056,12 @@ class Lobby extends Phaser.Scene {
     
     this.insText = this.add.text(
       worldSize / 2 - 1800,
-      worldSize / 2 - 300 * bigScreenRatio,
-      "Let's compose a circle!",
+      worldSize / 2 - 300 * bigScreenRatio * 2,
+      "Let's compose\na circle!",
       {
         fontFamily: gameOptions.playerTextFont,
         fontSize: 300 * bigScreenRatio,
-        fixedWidth: 3600,
+        fixedWidth: worldSize - 2000,
         color: "#946854",
         align: "center",
       }
@@ -1088,7 +1088,7 @@ class Lobby extends Phaser.Scene {
 
     this.countText = this.add.text(
         gameOptions.viewportWidth - 600 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
-        gameOptions.viewportHeight - 1000 * bigScreenRatio,
+        gameOptions.viewportHeight - 1100 * bigScreenRatio,
         "Players: " + playersCount,
         {
           fontFamily: gameOptions.playerTextFont,
@@ -1133,7 +1133,7 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportHeight - 600 * bigScreenRatio,
       600 * bigScreenRatio,
       150 * bigScreenRatio,
-      50,
+      50 * bigScreenRatio,
       0x946854,
       1,
     );
