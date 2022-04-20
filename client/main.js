@@ -1079,10 +1079,23 @@ class Lobby extends Phaser.Scene {
     this.QR.setScale(1);
     this.QR.setDepth(1000);
 
+    this.countText = this.add.text(
+        gameOptions.viewportWidth - 1600,
+        gameOptions.viewportHeight - 1500,
+        "Players: " + playersCount,
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: 96,
+          fixedWidth: 2000,
+          color: "#000000",
+          align: "center",
+        }
+    );
+
     // puzzle portal
     this.toggleQR = this.add.rexRoundRectangle(
-        gameOptions.viewportWidth  - 1000,
-        gameOptions.viewportHeight - 1000,
+        gameOptions.viewportWidth  - 600,
+        gameOptions.viewportHeight - 800,
         600,
         150,
         50,
@@ -1094,8 +1107,8 @@ class Lobby extends Phaser.Scene {
       this.QR.setVisible(!this.QR.visible);
     });
     this.toggleText = this.add.text(
-        gameOptions.viewportWidth - 1500,
-        gameOptions.viewportHeight - 1050,
+        gameOptions.viewportWidth - 600,
+        gameOptions.viewportHeight - 850,
         "Hide Code",
         {
           fontFamily: gameOptions.playerTextFont,
@@ -1109,8 +1122,8 @@ class Lobby extends Phaser.Scene {
 
     // puzzle portal
     this.portal = this.add.rexRoundRectangle(
-      gameOptions.viewportWidth  - 1000,
-      gameOptions.viewportHeight - 1200,
+      gameOptions.viewportWidth  - 600,
+      gameOptions.viewportHeight - 600,
       600,
       150,
       50,
@@ -1126,8 +1139,8 @@ class Lobby extends Phaser.Scene {
       }
     });
     this.portalText = this.add.text(
-        gameOptions.viewportWidth - 1500,
-        gameOptions.viewportHeight - 1250,
+        gameOptions.viewportWidth - 1100,
+        gameOptions.viewportHeight - 650,
         "Next",
         {
           fontFamily: gameOptions.playerTextFont,
@@ -1154,18 +1167,7 @@ class Lobby extends Phaser.Scene {
       }
     });
 
-    this.countText = this.add.text(
-      gameOptions.viewportWidth - 2000,
-      gameOptions.viewportHeight - 1500,
-      "Players: " + playersCount,
-      {
-        fontFamily: gameOptions.playerTextFont,
-        fontSize: 96,
-        fixedWidth: 2000,
-        color: "#000000",
-        align: "center",
-      }
-    );
+
 
   }
 
