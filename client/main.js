@@ -227,7 +227,7 @@ class Lobby extends Phaser.Scene {
     );
     this.load.image(
       "QRCode",
-      "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/QRCode.png?v=1647873061693"
+      "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/ETC%20server%20qr%20code.png?v=1650485696995"
     );
     this.load.atlas(
       "anim",
@@ -585,7 +585,7 @@ class Lobby extends Phaser.Scene {
           this.startTimer(time);
         } 
         */
-        this.levelText.text = `Puzzle Solved Team: ${i}/${j}`;
+
       }
     });
     this.createUI();
@@ -1041,18 +1041,6 @@ class Lobby extends Phaser.Scene {
 
   createBigScreenUI() {
     this.socket.emit("admin");
-    this.titleText = this.add.text(
-    300,
-    200,
-    "Culture",
-    {
-        fontFamily: gameOptions.playerTextFont,
-        fontSize: 800 * devicePixelRatio / 3,
-        lineSpacing: 50,
-        fixedWidth: 3600,
-        color: "#946854",
-        align: "left",
-    })
     
     this.insText = this.add.text(
       300,
@@ -1081,15 +1069,15 @@ class Lobby extends Phaser.Scene {
         color: "#000000",
         align: "center",
       })
-      .setDepth(100);
+      .setDepth(-2000);
 
     this.QR = this.add.sprite(
       gameOptions.viewportWidth / 2,
       gameOptions.viewportHeight / 2,
       "QRCode"
     );
-    this.QR.setScale(5);
-    this.QR.setDepth(-1000);
+    this.QR.setScale(1);
+    this.QR.setDepth(1000);
 
     // puzzle portal
     this.portal = this.add.sprite(
@@ -1108,28 +1096,6 @@ class Lobby extends Phaser.Scene {
         "Each bucket requires a specific number of players\nwith certain identities to stand on.\n Try to solve the puzzle by fulfilling all the buckets\nat once with your teammates.";
     });
 
-    this.insButton = this.add.circle(
-      gameOptions.viewportWidth / 2,
-      gameOptions.viewportHeight / 2 + 1300,
-      150,
-      0x888888
-    );
-    this.insButtonText = this.add.text(
-      gameOptions.viewportWidth / 2 - 100,
-      gameOptions.viewportHeight / 2 + 1252,
-      "Ins",
-      {
-        fontFamily: "Helvetica",
-        fontSize: 96,
-        fixedWidth: 200,
-        color: "#ffffff",
-        align: "center",
-      }
-    );
-    this.insButton.setInteractive().on("pointerdown", (pointer) => {
-      this.socket.emit("startIns");
-      this.insText.text = "Read the instructions carefully.";
-    });
 
     this.pauseButton = this.add.circle(
       gameOptions.viewportWidth / 2,
@@ -1148,10 +1114,10 @@ class Lobby extends Phaser.Scene {
 
     this.countText = this.add.text(
       gameOptions.viewportWidth - 2000,
-      gameOptions.viewportHeight - 400,
+      gameOptions.viewportHeight - 1000,
       "Players: " + playersCount,
       {
-        fontFamily: "Helvetica",
+        fontFamily: gameOptions.playerTextFont,
         fontSize: 96,
         fixedWidth: 2000,
         color: "#000000",
@@ -1159,18 +1125,7 @@ class Lobby extends Phaser.Scene {
       }
     );
 
-    this.levelText = this.add.text(
-      0,
-      gameOptions.viewportHeight - 400,
-      "Lobby",
-      {
-        fontFamily: "Helvetica",
-        fontSize: 96,
-        fixedWidth: 2000,
-        color: "#000000",
-        align: "center",
-      }
-    );
+
   }
 
   // data.id is the id of the current socket,
