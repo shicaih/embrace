@@ -1056,11 +1056,11 @@ class Lobby extends Phaser.Scene {
     
     this.insText = this.add.text(
       worldSize / 2 - (worldSize - 2000) / 2,
-      worldSize / 2 - 300 * bigScreenRatio,
-      "Let's compose\na circle!",
+      worldSize / 2 - 250 * bigScreenRatio / 1.5,
+      "Let's\ncompose\na circle!",
       {
         fontFamily: gameOptions.playerTextFont,
-        fontSize: 300 * bigScreenRatio,
+        fontSize: 250 * bigScreenRatio,
         fixedWidth: worldSize - 2000,
         color: "#946854",
         align: "center",
