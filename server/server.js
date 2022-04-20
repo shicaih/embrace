@@ -244,6 +244,7 @@ function initPuzzles() {
     for (let i = 0; i < puzzleRooms.length; i++) {
         puzzleRooms[i].puzzleOptions = generatePuzzle2(puzzleRooms[i]);
         puzzleRooms[i].assignmentGenerator = new AssignmentGenerator(Object.keys(puzzleRooms[i].players));
+        puzzleRooms[i].freq = analyzeData(Object.keys(puzzleRooms[i].players, [...options.cultures]))
         for (let j = 0; j < puzzleRooms[i].puzzleOptions.cultures.length; j++) {
             puzzleRooms[i].realtimePoints.push(0); // init the real time bucket points array
         }
@@ -893,26 +894,26 @@ io.sockets.on('connection', function(socket) {
         } else if (eval(socket.curLevel) === curLevel) {
             puzzlePlayers[data.uuid] = newPlayer;
             if (socket.roomNumber < puzzleRooms.length) {
-                let players = puzzleRooms[data.roomNumber].players;
-                let firstPlayers = puzzleRooms[data.roomNumber].firstPlayers;
-                let activePlayers = puzzleRooms[data.roomNumber].activePlayers;
-                let freq = analyzeData(data.uuid in firstPlayers ? Object.keys(activePlayers) : Object.keys(players), options.cultures)
-                let assignment = puzzleRooms[data.roomNumber].assignmentGenerator.getAssignmentForPlayer(newPlayer.uuid,
-                    data.uuid in firstPlayers ? Object.keys(activePlayers) : Object.keys(players),
-                    freq,
-                    100, 1)
-                players[data.uuid] = newPlayer;
-                socket.emit('playerData', {uuid: data.uuid, players: players, posIndex: posIndex});
-                posIndex++;
-                if (!Object.keys(firstPlayers).includes(socket.uuid)) {
-                    firstPlayers[socket.uuid] = newPlayer;
-                }
-                activePlayers[socket.uuid] = newPlayer;
-                socket.emit('startAssignment', assignment, options.seekTime);
-                socket.join("Room" + data.roomNumber);
-                socket.to("Room" + data.roomNumber).emit("playerJoined", newPlayer)
-            } else {
-                socket.emit("reconnect", 0);
+              let players = puzzleRooms[data.roomNumber].players;
+              let firstPlayers = puzzleRooms[data.roomNumber].firstPlayers;
+              let activePlayers = puzzleRooms[data.roomNumber].activePlayers;
+              let freq = data.uuid in firstPlayers ? analyzeData(Object.keys(activePlayers), options.cultures) : puzzleRooms[data.roomNumber].freq
+              let assignment = puzzleRooms[data.roomNumber].assignmentGenerator.getAssignmentForPlayer(newPlayer.uuid, 
+                  data.uuid in firstPlayers ? Object.keys(activePlayers) : Object.keys(players),
+                  freq,
+                  100, 1)
+              players[data.uuid] = newPlayer;
+              socket.emit('playerData', {uuid: data.uuid, players: players, posIndex: posIndex});
+              posIndex++;
+              if (!Object.keys(firstPlayers).includes(socket.uuid)) {
+                firstPlayers[socket.uuid] = newPlayer;
+              }
+              activePlayers[socket.uuid] = newPlayer;
+              socket.emit('startAssignment', assignment, options.seekTime);
+              socket.join("Room" + data.roomNumber);
+              socket.to("Room" + data.roomNumber).emit("playerJoined", newPlayer)
+            } else {   
+              socket.emit("reconnect", 0);
             }
         } else {   
           socket.emit("reconnect", 0);
