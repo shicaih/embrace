@@ -1081,13 +1081,13 @@ class Lobby extends Phaser.Scene {
 
     // puzzle portal
     this.portal = this.add.rexRoundRectangle(
-      gameOptions.viewportWidth - 2000,
-      gameOptions.viewportHeight - 2000,
+      gameOptions.viewportWidth/2,
+      gameOptions.viewportHeight/2,
       1000,
       200,
       0x946854,
     );
-    this.portal.setDepth(100);
+    this.portal.setDepth(1000);
     this.portal.setInteractive().on("pointerdown", (pointer) => {
       this.socket.emit("startPuzzle");
       if (this.timer1 !== null) {
