@@ -1080,10 +1080,12 @@ class Lobby extends Phaser.Scene {
     this.QR.setDepth(1000);
 
     // puzzle portal
-    this.portal = this.add.sprite(
-      gameOptions.viewportWidth / 2,
-      gameOptions.viewportHeight / 2 + 1000,
-      "portal"
+    this.portal = this.add.rexRoundRectangle(
+      gameOptions.viewportWidth - 2000,
+      gameOptions.viewportHeight - 2000,
+      1000,
+      200,
+      0x946854,
     );
     this.portal.setDepth(100);
     this.portal.setInteractive().on("pointerdown", (pointer) => {
@@ -1093,7 +1095,17 @@ class Lobby extends Phaser.Scene {
         this.time.removeEvent(this.timer2);
       }
     });
-
+    this.portalText = this.add.text(
+        gameOptions.viewportWidth - 3000,
+        gameOptions.viewportHeight - 2100,
+        "Next",
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: 200,
+          fixedWidth: 2000,
+          color: "#000000",
+          align: "center",
+        })
 
     this.pauseButton = this.add.circle(
       gameOptions.viewportWidth / 2,
@@ -1101,6 +1113,7 @@ class Lobby extends Phaser.Scene {
       150,
       0xffffff
     );
+    this.pauseButton.setDepth(-2000);
 
     this.pauseButton.setInteractive().on("pointerdown", (pointer) => {
       this.socket.emit("pauseTimer");
@@ -1122,7 +1135,7 @@ class Lobby extends Phaser.Scene {
         align: "center",
       }
     );
-
+    this.countText.setFontFamily("Nunito");
 
   }
 
