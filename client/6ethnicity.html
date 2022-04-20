@@ -40,20 +40,22 @@
             <!-- choose location from dropdown list -->
             <select name="location" id="mainInput" class="drop">
                 <option value="">Tap to choose your ethnicity</option>
+                <option value="Multi">Multiethnic (Please specify)</option>
+                <option value="Nonethnic">Nonethnic</option>
                 <option value="Asian">Asian</option>
                 <option value="Hipanic/Latinx">Hipanic/Latinx</option>
                 <option value="Indigneous">Indigneous</option>
                 <option value="Pacific Islander">Pacific Islander</option>
                 <option value="Black">Black</option>
                 <option value="White">White</option>
-                <option value="Other">Others or Multi-racial(specify below)</option>
-                <option value="PreferNotToSay">Prefer not to say</option>
+                <option value="Other">Others...</option>
+                <option value="Prefer not to say">Prefer not to say</option>
             </select>
 
 
             <input type="text"
                    id="otherInput"
-                   placeholder="Enter your answer"
+                   placeholder="Please specify here"
                    style="display: none;">
           <div class="comment">
             <input type="checkbox" name="notToShow" id="notToShow" value="no">
@@ -71,7 +73,7 @@
         let dataEle = document.getElementById('mainInput'); 
         dataEle.addEventListener("change", (event) => {
             let otherInput = document.getElementById("otherInput");
-            if(dataEle.value === "Other") {
+            if(dataEle.value === "Other" || dataEle.value === "Multi") {
               otherInput.style.display = "block";
             } else {
               otherInput.style.display = "none";
@@ -90,7 +92,7 @@
       
         function SubmitForm() {
             let dataEle, isOther = false;
-            if  (document.getElementById("mainInput").value === "Other") {
+            if  (document.getElementById("mainInput").value === "Other" || document.getElementById("mainInput").value === "Multi") {
                 dataEle = document.getElementById("otherInput");
                 isOther.true;
             } else {
