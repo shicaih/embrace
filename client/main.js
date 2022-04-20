@@ -22,6 +22,7 @@
  */
 
 import { default as shuffle } from "./scripts/utility.js";
+import WebFontFile from './scripts/WebFontFile';
 //import * as pluralize from './scripts/pluralize.js'
 let settings;
 fetch("./settings.json")
@@ -199,6 +200,9 @@ class Lobby extends Phaser.Scene {
       "rexGestures",
       "rexGestures"
     );
+
+    // load font
+    this.load.addFile(new WebFontFile(this.load, 'Nunito'))
 
     // art asset
     this.load.image(
