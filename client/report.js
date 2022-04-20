@@ -28,7 +28,7 @@ const swiper = new Swiper('.swiper', {
   },
 });
 
-let socket = io.connect("https://embrace-lobby-server.glitch.me");
+let socket = io.connect("http://embrace.etc.cmu.edu:443");
 
 
 socket.emit("initReport", window.sessionStorage.getItem("uuid"));
