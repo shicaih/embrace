@@ -1221,8 +1221,10 @@ class Lobby extends Phaser.Scene {
 
   movePlayer(data) {
     if (this.initialized) {
-      this.players[data.uuid].gameObject.x = data.x;
-      this.players[data.uuid].gameObject.y = data.y;
+      for (let uuid in data) {
+        if (uuid === this.mainPlayer.uuid) continue;
+        this.players[uuid].gameObject.x = data[uuid].x;
+        this.players[uuid].gameObject.y = data[uuid].y;
     }
   }
 

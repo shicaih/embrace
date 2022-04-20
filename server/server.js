@@ -31,6 +31,7 @@ var puzzlePlayers = {};
 var gonePuzzlePlayers = {};
 var activePlayers = {};
 var lobbyRooms = [{}];
+var lobbyPositionInfo = {};
 // an array of all the Room objects. Array index is the id of Room.
 var puzzleRooms = [];
 var roomSolved = [];
@@ -973,8 +974,12 @@ io.sockets.on('connection', function(socket) {
         if(socket.phase === 0) {
             if(!lobbyPlayers[id]) return;
             lobbyPlayers[id].x = data.x; 
-            lobbyPlayers[id].y = data.y; 
-            socket.to("lobby").emit('playerMoved', data);
+            lobbyPlayers[id].y = data.y;
+            if (!Object.keys(lobbyPositionInfo).includes(id)) {
+                lobbyPositionInfo[id] = {x: 0, y: 0};
+            }
+            lobbyPositionInfo[id].x = data.x;
+            lobbyPositionInfo[id].y = data.y;
         } else if (socket.phase === 1) {
             if (socket.roomNumber < puzzleRooms.length) {
                 let players = puzzleRooms[socket.roomNumber].players;
@@ -1148,7 +1153,10 @@ io.sockets.on('connection', function(socket) {
         });
       }
     })
-}); 
-
+});
+setInterval(() => {
+    io.to("lobby").emit('playerMoved', lobbyPositionInfo);
+    lobbyPositionInfo = {};
+}, 50)
 console.log ('Server started');
 server.listen(443);
