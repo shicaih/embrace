@@ -923,6 +923,10 @@ io.sockets.on('connection', function(socket) {
       
         socket.on("seekFinished", (isSuccess) => {
             if (!isTransitting) {
+                if (socket.roomNumber >= puzzleRooms.length) {
+                    console.log("wrong room index");
+                    return;
+                }
                 console.log("Seek Finished");
                 let players = puzzleRooms[data.roomNumber].players;
                 let activePlayers = puzzleRooms[socket.roomNumber].activePlayers;
@@ -1042,6 +1046,8 @@ io.sockets.on('connection', function(socket) {
         roomSolved = [];
         io.to(bigscreenSid).emit("roomStateUpdate", roomSolved.length, puzzleRooms.length, true, options.levelTime[curLevel]);
         isTransitting = true;
+        console.log("!!!!!!!!!!!!!!");
+        console.log("Everyone informed!");
     });
    
     socket.on("timeUp", () => {
