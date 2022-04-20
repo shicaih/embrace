@@ -1085,7 +1085,9 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportHeight/2,
       1000,
       200,
+      20,
       0x946854,
+        1,
     );
     this.portal.setDepth(1000);
     this.portal.setInteractive().on("pointerdown", (pointer) => {
