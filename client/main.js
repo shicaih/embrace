@@ -658,7 +658,7 @@ class Lobby extends Phaser.Scene {
     this.bgImage = this.add.tileSprite(0, 0, worldSize, worldSize, 'BG');
     this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.bgWheel = this.add.image(gameOptions.viewportWidth / 2, gameOptions.viewportHeight / 2, "bgWheel");
-    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(3);
+    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(5);
     //this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1);
     //this.bgImage.setDepth(-100);
 
@@ -1055,8 +1055,8 @@ class Lobby extends Phaser.Scene {
     this.socket.emit("admin");
     
     this.insText = this.add.text(
-      worldSize / 2 - 1800,
-      worldSize / 2 - 300 * bigScreenRatio * 2,
+      worldSize / 2 - (worldSize - 2000) / 2,
+      worldSize / 2 - 300 * bigScreenRatio,
       "Let's compose\na circle!",
       {
         fontFamily: gameOptions.playerTextFont,
