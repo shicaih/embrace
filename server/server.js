@@ -23,6 +23,7 @@ var options = {
     seekTime: 30, //seconds
     nLevel: 3
 };
+var isTransitting = false;
 // an object containing all the lobby players. key: uuid, value: Player object
 var lobbyPlayers = {}; 
 var goneLobbyPlayers = {}; 
@@ -921,19 +922,21 @@ io.sockets.on('connection', function(socket) {
         }    
       
         socket.on("seekFinished", (isSuccess) => {
-            console.log("Seek Finished");
-            let players = puzzleRooms[data.roomNumber].players;
-            let activePlayers = puzzleRooms[socket.roomNumber].activePlayers;
-            let curPlayer = activePlayers[socket.uuid];
-            let freq = analyzeData(Object.keys(activePlayers), options.cultures)
-              
-            let assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(activePlayers), freq, 100, 1);
-            freq = analyzeData(Object.keys(players), options.cultures)
-            if (assignment == null || assignment == undefined) assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(players), freq, 100, 1);
-            if(isSuccess) {
-              curPlayer.star += 1;
+            if (!isTransitting) {
+                console.log("Seek Finished");
+                let players = puzzleRooms[data.roomNumber].players;
+                let activePlayers = puzzleRooms[socket.roomNumber].activePlayers;
+                let curPlayer = activePlayers[socket.uuid];
+                let freq = analyzeData(Object.keys(activePlayers), options.cultures)
+
+                let assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(activePlayers), freq, 100, 1);
+                freq = analyzeData(Object.keys(players), options.cultures)
+                if (assignment == null || assignment == undefined) assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(players), freq, 100, 1);
+                if(isSuccess) {
+                    curPlayer.star += 1;
+                }
+                socket.emit('startAssignment', assignment, options.seekTime);
             }
-            socket.emit('startAssignment', assignment, options.seekTime);
         }); 
       
       
@@ -1003,6 +1006,7 @@ io.sockets.on('connection', function(socket) {
     }); 
   
     socket.on('startPuzzle', function() {
+        isTransitting = true;
         curLevel += 1; 
         if (curLevel == options.roomMaxPlayers.length) {
             generateReportData();
@@ -1037,7 +1041,7 @@ io.sockets.on('connection', function(socket) {
         } 
         roomSolved = [];
         io.to(bigscreenSid).emit("roomStateUpdate", roomSolved.length, puzzleRooms.length, true, options.levelTime[curLevel]);
-        
+        isTransitting = true;
     });
    
     socket.on("timeUp", () => {
