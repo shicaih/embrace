@@ -1085,7 +1085,7 @@ class Lobby extends Phaser.Scene {
 
     this.countText = this.add.text(
         gameOptions.viewportWidth - 1600,
-        gameOptions.viewportHeight - 1500,
+        gameOptions.viewportHeight - 1000,
         "Players: " + playersCount,
         {
           fontFamily: gameOptions.playerTextFont,
