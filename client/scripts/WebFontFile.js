@@ -1,4 +1,5 @@
 
+
 export default class WebFontFile extends Phaser.Loader.File
 {
     /**

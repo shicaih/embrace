@@ -22,7 +22,7 @@
  */
 
 import { default as shuffle } from "./scripts/utility.js";
-import WebFontFile from './scripts/WebFontFile.js';
+//import WebFontFile from './scripts/WebFontFile.js';
 //import * as pluralize from './scripts/pluralize.js'
 let settings;
 fetch("./settings.json")
@@ -202,7 +202,7 @@ class Lobby extends Phaser.Scene {
     );
 
     // load font
-    this.load.addFile(new WebFontFile(this.load, 'Nunito'))
+    //this.load.addFile(new WebFontFile(this.load, 'Nunito'))
 
     // art asset
     this.load.image(
