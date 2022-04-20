@@ -426,14 +426,14 @@ function analyzeData(idList, cultures) {
     for (let i = 0; i < idList.length; i++) {
         let info;
         info = activePlayers[idList[i]].wheelInfo;
-        
+
         for (let j = 0; j < cultureNum; j++) {
             let culture = cultures[j];
             let value = info[culture];
-            if (value == "PreferNotToSay" || value == "⊘") continue;
-            if (values.includes(value)) {
+            if (value == "Prefer not to say" || value == "⊘") continue;
+            if (value in data) {
                 data[value].point += 1;
-                data[value].ids.push(idList[i]); 
+                data[value].ids.push(idList[i]);
             } else {
                 values.push(value);
                 data[value] = new DataEntry(culture, value, 1);

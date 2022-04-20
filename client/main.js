@@ -1225,7 +1225,7 @@ class Lobby extends Phaser.Scene {
         if (uuid === this.mainPlayer.uuid) continue;
         this.players[uuid].gameObject.x = data[uuid].x;
         this.players[uuid].gameObject.y = data[uuid].y;
-    }
+      }
     }
   };
 
