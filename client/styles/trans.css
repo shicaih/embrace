@@ -22,7 +22,7 @@ body {
   height: 100%;
 }
 .section {
-  height: 100vh;
+  height: 100%;
   position: relative;
   padding: 3rem;
   margin-left: auto;
@@ -30,6 +30,7 @@ body {
   max-width: 425px;
   overflow: hidden;
   display: none;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
