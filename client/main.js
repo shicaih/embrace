@@ -1083,7 +1083,7 @@ class Lobby extends Phaser.Scene {
     this.insText.setDepth(-98);
     this.insText.setPosition(
         gameOptions.worldWidth / 2 - this.insText.width / 2,
-        gameOptions.worldWidth / 2 - this.insText.height / 2)
+        gameOptions.worldHeight / 2 - this.insText.height / 2)
 
     this.timerText = this.add
       .text(gameOptions.viewportWidth / 2 - 1000, 900, 0, {
