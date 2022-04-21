@@ -1132,7 +1132,7 @@ class Lobby extends Phaser.Scene {
     this.QR.setDepth(-101);
 
     this.countText = this.add.text(
-        gameOptions.viewportWidth - 600 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
+        gameOptions.viewportWidth - 700 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
         gameOptions.viewportHeight - 1100 * bigScreenRatio,
         "Players: " + playersCount,
         {
@@ -1146,7 +1146,7 @@ class Lobby extends Phaser.Scene {
     this.countText.setDepth(-101);
     // puzzle portal
     this.toggleQR = this.add.rexRoundRectangle(
-        gameOptions.viewportWidth  - 600 * bigScreenRatio,
+        gameOptions.viewportWidth  - 700 * bigScreenRatio,
         gameOptions.viewportHeight - 800 * bigScreenRatio,
         600 * bigScreenRatio,
         150 * bigScreenRatio,
@@ -1210,7 +1210,7 @@ class Lobby extends Phaser.Scene {
 
     // puzzle portal
     this.portal = this.add.rexRoundRectangle(
-      gameOptions.viewportWidth  - 600 * bigScreenRatio,
+      gameOptions.viewportWidth  - 700 * bigScreenRatio,
       gameOptions.viewportHeight - 600 * bigScreenRatio,
       600 * bigScreenRatio,
       150 * bigScreenRatio,
