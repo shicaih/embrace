@@ -672,7 +672,7 @@ class Lobby extends Phaser.Scene {
     //this.bgImage = this.add.tileSprite(0, 0, worldSize, worldSize, 'BG');
     //this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.bgWheel = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheel");
-    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(4).setScrollFactor(1);
+    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(5).setScrollFactor(1);
 
 
     // if mobile device
