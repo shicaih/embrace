@@ -1157,7 +1157,7 @@ class Lobby extends Phaser.Scene {
     this.toggleQR.setDepth(-101);
     this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
       this.QR.setVisible(!this.QR.visible);
-      this.toggleText.text = this.QR.visible? "Show Code" : "Hide Code"
+      this.toggleText.text = this.QR.visible? "Hide Code" : "Show Code"
     });
     this.toggleText = this.add.text(
         this.toggleQR.x - 1000 * bigScreenRatio / 2,
@@ -1224,7 +1224,7 @@ class Lobby extends Phaser.Scene {
       if (curPage < bigscreenText.length) {
         this.bigscreenTitle.text = bigscreenTitle[curPage];
         this.bigscreenText.text = bigscreenText[curPage]
-        if (curpage == bigscreenText.length - 1) {
+        if (curPage == bigscreenText.length - 1) {
           this.portalText.text = "Go to the Lobby";
           this.portal.width = (this.portalText.width + 100) * bigScreenRatio;
         }
@@ -1236,10 +1236,14 @@ class Lobby extends Phaser.Scene {
         this.QR.setDepth(2000);
         this.bgWheel.setDepth(-99);
         this.insText.setDepth(-99);
+        this.countText.setDepth(2000);
         this.toggleQR.setDepth(2000);
         this.toggleText.setDepth(2000);
 
       } else {
+        if (curPage === bigscreenText.length + 4) {
+          this.portalText.text = "Report";
+        }
         this.socket.emit("startPuzzle");
         if (this.timer1 !== null) {
           this.time.removeEvent(this.timer1);
