@@ -41,8 +41,8 @@ var inited = false;
 var sovledIndeed = false;
 var playersCount = 0;
 let devicePixelRatio = window.innerWidth / window.screen.availWidth; //window.devicePixelRatio;
-let worldSize = 4000;
-let bigScreenRatio = 1;
+let worldSize = 8000;
+let bigScreenRatio = 2;
 console.log(window.devicePixelRatio);
 console.log(window.innerWidth);
 console.log(window.innerHeight);
@@ -659,7 +659,7 @@ class Lobby extends Phaser.Scene {
     //this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.bgWheel = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheel");
     this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(2).setScrollFactor(1);
-    this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1).setScale(1);
+    this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1).setScale(2);
     this.bgImage.setDepth(-100);
 
     // if mobile device
