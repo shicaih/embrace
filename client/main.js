@@ -42,7 +42,9 @@ var sovledIndeed = false;
 var playersCount = 0;
 let devicePixelRatio = window.innerWidth / window.screen.availWidth; //window.devicePixelRatio;
 let worldSize = 8000;
+let bigScreenWorldWidth, bigScreenWorldHeight;
 let bigScreenRatio = 2;
+
 console.log(window.devicePixelRatio);
 console.log(window.innerWidth);
 console.log(window.innerHeight);
@@ -52,6 +54,15 @@ console.log(window.screen.availHeight * window.devicePixelRatio);
 
 let isMobile = clientType === 1;
 let isLobby = phase === 0;
+if (!isMobile) {
+  if (window.innerWidth > window.innerHeight) {
+    bigScreenWorldHeight = worldSize;
+    bigScreenWorldWidth = window.innerWidth / window.innerHeight * worldSize;
+  } else {
+    bigScreenWorldWidth = worldSize;
+    bigScreenWorldHeight = window.innerHeight / window.innerWidth * worldSize;
+  }
+}
 
 // all should be empty
 var puzzleOptions = {
@@ -89,8 +100,8 @@ var gameOptions = {
   speed: 0.13,
   viewportWidth: isMobile ? window.innerWidth : worldSize,
   viewportHeight: isMobile ? window.innerHeight : worldSize,
-  worldWidth: worldSize,
-  worldHeight: worldSize,
+  worldWidth: isMobile ? worldSize : bigScreenWorldWidth,
+  worldHeight: isMobile ? worldSize : bigScreenWorldHeight,
   wheelRadius: 50 * devicePixelRatio,
   buttonRadius: 50,
   buttonPadding: 50,
@@ -659,8 +670,7 @@ class Lobby extends Phaser.Scene {
     //this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.bgWheel = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheel");
     this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(4).setScrollFactor(1);
-    this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1).setScale(2);
-    this.bgImage.setDepth(-100);
+
 
     // if mobile device
     if (isMobile) {
@@ -673,6 +683,8 @@ class Lobby extends Phaser.Scene {
   }
 
   createMobileUI() {
+    this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1).setScale(2);
+    this.bgImage.setDepth(-100);
     let self = this;
     this.bgImage
       .setInteractive()
@@ -1052,6 +1064,8 @@ class Lobby extends Phaser.Scene {
   }
 
   createBigScreenUI() {
+    this.bgImage = this.add.tileSprite(0, 0, bigScreenWorldWidth, bigScreenWorldHeight, 'BG');
+    this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.socket.emit("admin");
     
     this.insText = this.add.text(
@@ -1229,8 +1243,8 @@ class Lobby extends Phaser.Scene {
     if (this.initialized) {
       for (let uuid in data) {
         if (uuid === this.mainPlayer.uuid) continue;
-        this.players[uuid].gameObject.x = data[uuid].x;
-        this.players[uuid].gameObject.y = data[uuid].y;
+        this.players[uuid].gameObject.x = data[uuid].x + (gameOptions.worldWidth - worldSize) / 2;
+        this.players[uuid].gameObject.y = data[uuid].y + (gameOptions.worldHeight - worldSize) / 2;
       }
     }
   };
