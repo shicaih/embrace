@@ -248,7 +248,7 @@ class Lobby extends Phaser.Scene {
     );
     this.load.image(
       "QRCode",
-      "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/ETC%20server%20qr%20code.png?v=1650485696995"
+      "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/ETC%20server%20qr%20code.png?v=1650573139548"
     );
     this.load.atlas(
       "anim",
@@ -1069,19 +1069,21 @@ class Lobby extends Phaser.Scene {
     this.socket.emit("admin");
     
     this.insText = this.add.text(
-      worldSize / 2 - (worldSize - 2000) / 2,
-      worldSize / 2 - 250 * bigScreenRatio / 1.5,
+      0,
+      0,
       "Let's\ncompose\na circle!",
       {
         fontFamily: gameOptions.playerTextFont,
         fontSize: 250 * bigScreenRatio,
-        fixedWidth: worldSize - 2000,
+        fixedWidth: gameOptions.worldWidth - 2000,
         color: "#946854",
         align: "center",
       }
     );
     this.insText.setDepth(-98);
-    this.insText.setPosition(this.insText.x, worldSize / 2 - this.insText.height / 2)
+    this.insText.setPosition(
+        gameOptions.worldWidth / 2 - this.insText.width / 2,
+        gameOptions.worldWidth / 2 - this.insText.height / 2)
 
     this.timerText = this.add
       .text(gameOptions.viewportWidth / 2 - 1000, 900, 0, {
