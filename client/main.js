@@ -1336,6 +1336,8 @@ class Lobby extends Phaser.Scene {
     if (this.initialized) {
       for (let uuid in data) {
         if (uuid === this.mainPlayer.uuid) continue;
+        console.log(gameOptions.worldWidth - worldSize);
+        console.log(gameOptions.worldHeight - worldSize);
         this.players[uuid].gameObject.x = data[uuid].x + (gameOptions.worldWidth - worldSize) / 2;
         this.players[uuid].gameObject.y = data[uuid].y + (gameOptions.worldHeight - worldSize) / 2;
       }
