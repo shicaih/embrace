@@ -1067,6 +1067,26 @@ class Lobby extends Phaser.Scene {
   }
 
   createBigScreenUI() {
+    let curPage = 0;
+    let bigscreenText = [
+        "A comprehensive concept that encompasses the norms, values, customs, traditions, habits, skills, knowledge, beliefs, and the whole way of life of a group of people. \n" +
+        "\n" +
+        "Cultures can be small or large and can continuously evolve. \n",
+        "Identification with or the sense of belonging to a particular group based on various cultural categories, including nationality, ethnicity, race, gender, and religion.        \n" +
+        "\n" +
+        "Identity is complex and multifaceted and your identity may change over time.\n",
+        "A lifelong process of challenging assumptions and encouraging us to explore how every culture can teach us about ourselves, others, and the global community.",
+        "Let’s begin our first activity by exploring some aspects of your cultural identity by answering 6 brief questions. \n" +
+        "\n" +
+        "You will have approximately XX minutes to complete this section\n",
+
+    ]
+    let bigscreenTitle = [
+        "Culture",
+        "Cultural Identity",
+        "Cultural Humility",
+        "Embrace"
+    ]
     this.bgImage = this.add.tileSprite(0, 0, bigScreenWorldWidth, bigScreenWorldHeight, 'BG');
     this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.socket.emit("admin");
@@ -1084,13 +1104,13 @@ class Lobby extends Phaser.Scene {
         fontSize: 250 * bigScreenRatio,
         fixedWidth: gameOptions.worldWidth - 2000,
         color: "#946854",
-        align: "center",
+        align: "left",
       }
     );
-    this.insText.setDepth(-98);
+    this.insText.setDepth(-101).setOrigin(0.5, 0.5);
     this.insText.setPosition(
-        gameOptions.worldWidth / 2 - this.insText.width / 2,
-        gameOptions.worldHeight / 2 - this.insText.height / 2)
+        gameOptions.worldWidth / 2,
+        gameOptions.worldHeight / 2)
 
     this.timerText = this.add
       .text(gameOptions.viewportWidth / 2 - 1000, 900, 0, {
@@ -1108,7 +1128,7 @@ class Lobby extends Phaser.Scene {
       "QRCode"
     );
     this.QR.setScale(2);
-    this.QR.setDepth(1000);
+    this.QR.setDepth(-101);
 
     this.countText = this.add.text(
         gameOptions.viewportWidth - 600 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
@@ -1122,7 +1142,7 @@ class Lobby extends Phaser.Scene {
           align: "center",
         }
     );
-
+    this.countText.setDepth(-101);
     // puzzle portal
     this.toggleQR = this.add.rexRoundRectangle(
         gameOptions.viewportWidth  - 600 * bigScreenRatio,
@@ -1148,8 +1168,42 @@ class Lobby extends Phaser.Scene {
           color: "#ffffff",
           align: "center",
         })
-    this.toggleText.setDepth(2001);
+    this.toggleText.setDepth(-101);
 
+    this.bigscreenTitle = this.add.text(
+        0,
+        0,
+        bigscreenTitle[curPage],
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: 450 * bigScreenRatio,
+          color: "#946854",
+          align: "left",
+        }
+    );
+
+    this.bigscreenTitle.setDepth(-99).setOrigin(0, 0.5);
+    this.bigscreenTitle.setPosition(
+        gameOptions.worldWidth * 0.15,
+        gameOptions.worldHeight * 0.15)
+
+    this.bigscreenText = this.add.text(
+        0,
+        0,
+        bigscreenText[curPage],
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: 250 * bigScreenRatio,
+          wordWrap: {width: gameOptions.worldWidth * 0.7},
+          color: "#946854",
+          align: "left",
+        }
+    );
+
+    this.bigscreenText.setDepth(-99).setOrigin(0, 0.5);
+    this.bigscreenText.setPosition(
+        gameOptions.worldWidth * 0.15,
+        gameOptions.worldHeight * 0.5)
 
     // puzzle portal
     this.portal = this.add.rexRoundRectangle(
