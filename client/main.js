@@ -1207,18 +1207,7 @@ class Lobby extends Phaser.Scene {
         gameOptions.worldWidth * 0.15,
         gameOptions.worldHeight * 0.5)
 
-    this.portalText = this.add.text(
-        this.portal.x - 1000 * bigScreenRatio / 2,
-        this.portal.y - 100 * bigScreenRatio / 2,
-        "Next",
-        {
-          fontFamily: gameOptions.playerTextFont,
-          fontSize: 100 * bigScreenRatio,
-          fixedWidth: 1000 * bigScreenRatio,
-          color: "#ffffff",
-          align: "center",
-        })
-    this.portalText.setDepth(2001);
+
     // puzzle portal
     this.portal = this.add.rexRoundRectangle(
       gameOptions.viewportWidth  - 600 * bigScreenRatio,
@@ -1259,6 +1248,18 @@ class Lobby extends Phaser.Scene {
       }
 
     });
+    this.portalText = this.add.text(
+        this.portal.x - 1000 * bigScreenRatio / 2,
+        this.portal.y - 100 * bigScreenRatio / 2,
+        "Next",
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: 100 * bigScreenRatio,
+          fixedWidth: 1000 * bigScreenRatio,
+          color: "#ffffff",
+          align: "center",
+        })
+    this.portalText.setDepth(2001);
 
 
     this.pauseButton = this.add.circle(
