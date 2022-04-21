@@ -658,7 +658,7 @@ class Lobby extends Phaser.Scene {
     //this.bgImage = this.add.tileSprite(0, 0, worldSize, worldSize, 'BG');
     //this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.bgWheel = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheel");
-    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(2).setScrollFactor(1);
+    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(4).setScrollFactor(1);
     this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1).setScale(2);
     this.bgImage.setDepth(-100);
 
@@ -1084,7 +1084,7 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportHeight / 2,
       "QRCode"
     );
-    this.QR.setScale(1);
+    this.QR.setScale(2);
     this.QR.setDepth(1000);
 
     this.countText = this.add.text(

@@ -1045,7 +1045,7 @@ io.sockets.on('connection', function(socket) {
         } 
         roomSolved = [];
         io.to(bigscreenSid).emit("roomStateUpdate", roomSolved.length, puzzleRooms.length, true, options.levelTime[curLevel]);
-        isTransitting = true;
+        isTransitting = false;
         console.log("!!!!!!!!!!!!!!");
         console.log("Everyone informed!");
     });
