@@ -298,6 +298,9 @@ class Lobby extends Phaser.Scene {
       "ethnicityIcon",
       "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Icon%20-%20Ethnicity.png?v=1650234677237"
     );
+
+    this.load.svg('bigscreenLeft', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigLeft.svg?v=1650573790728');
+    this.load.svg('bigscreenRight', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigRight.svg?v=1650573787709');
     this.input.setTopOnly(false);
   }
 
@@ -1067,7 +1070,11 @@ class Lobby extends Phaser.Scene {
     this.bgImage = this.add.tileSprite(0, 0, bigScreenWorldWidth, bigScreenWorldHeight, 'BG');
     this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.socket.emit("admin");
-    
+
+    this.bigscreenLeft = this.add.image(0, gameOptions.worldHeight, 'bigscreenLeft');
+    this.bigscreenLeft.setOrigin(0, 1).setScale(2 * bigScreenRatio);
+    this.bigscreenRight = this.add.image(gameOptions.worldWidth, 0, "bigscreenRight");
+    this.bigscreenRight.setOrigin(1, 0).setScale(2 * bigScreenRatio);
     this.insText = this.add.text(
       0,
       0,
