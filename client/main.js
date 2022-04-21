@@ -98,8 +98,8 @@ var gameOptions = {
   iconPlaceHolder: "      ",
   spinDuration: 500, // milliseconds
   speed: 0.13,
-  viewportWidth: isMobile ? window.innerWidth : worldSize,
-  viewportHeight: isMobile ? window.innerHeight : worldSize,
+  viewportWidth: isMobile ? window.innerWidth : bigScreenWorldWidth,
+  viewportHeight: isMobile ? window.innerHeight : bigScreenWorldHeight,
   worldWidth: isMobile ? worldSize : bigScreenWorldWidth,
   worldHeight: isMobile ? worldSize : bigScreenWorldHeight,
   wheelRadius: 50 * devicePixelRatio,
