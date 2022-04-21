@@ -1079,7 +1079,7 @@ class Lobby extends Phaser.Scene {
         "A lifelong process of challenging assumptions and encouraging us to explore how every culture can teach us about ourselves, others, and the global community.",
         "Let’s begin our first activity by exploring some aspects of your cultural identity by answering 6 brief questions. \n" +
         "\n" +
-        "You will have approximately XX minutes to complete this section\n",
+        "You will have approximately 3 minutes to complete this section\n",
 
     ]
     let bigscreenTitle = [
@@ -1105,7 +1105,7 @@ class Lobby extends Phaser.Scene {
         fontSize: 250 * bigScreenRatio,
         fixedWidth: gameOptions.worldWidth - 2000,
         color: "#946854",
-        align: "left",
+        align: "center",
       }
     );
     this.insText.setDepth(-101).setOrigin(0.5, 0.5);
@@ -1157,6 +1157,7 @@ class Lobby extends Phaser.Scene {
     this.toggleQR.setDepth(-101);
     this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
       this.QR.setVisible(!this.QR.visible);
+      this.toggleText.text = this.QR.visible? "Show Code" : "Hide Code"
     });
     this.toggleText = this.add.text(
         this.toggleQR.x - 1000 * bigScreenRatio / 2,
@@ -1206,6 +1207,18 @@ class Lobby extends Phaser.Scene {
         gameOptions.worldWidth * 0.15,
         gameOptions.worldHeight * 0.5)
 
+    this.portalText = this.add.text(
+        this.portal.x - 1000 * bigScreenRatio / 2,
+        this.portal.y - 100 * bigScreenRatio / 2,
+        "Next",
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: 100 * bigScreenRatio,
+          fixedWidth: 1000 * bigScreenRatio,
+          color: "#ffffff",
+          align: "center",
+        })
+    this.portalText.setDepth(2001);
     // puzzle portal
     this.portal = this.add.rexRoundRectangle(
       gameOptions.viewportWidth  - 600 * bigScreenRatio,
@@ -1222,7 +1235,13 @@ class Lobby extends Phaser.Scene {
       if (curPage < bigscreenText.length) {
         this.bigscreenTitle.text = bigscreenTitle[curPage];
         this.bigscreenText.text = bigscreenText[curPage]
+        if (curpage == bigscreenText.length - 1) {
+          this.portalText.text = "Go to the Lobby";
+          this.portal.width = (this.portalText.width + 100) * bigScreenRatio;
+        }
       } else if (curPage == bigscreenText.length) {
+        this.portalText.text = "Start";
+        this.portal.width = 600 * bigScreenRatio;
         this.bigscreenTitle.setVisible(false);
         this.bigscreenText.setVisible(false);
         this.QR.setDepth(2000);
@@ -1230,6 +1249,7 @@ class Lobby extends Phaser.Scene {
         this.insText.setDepth(-99);
         this.toggleQR.setDepth(2000);
         this.toggleText.setDepth(2000);
+
       } else {
         this.socket.emit("startPuzzle");
         if (this.timer1 !== null) {
@@ -1239,18 +1259,7 @@ class Lobby extends Phaser.Scene {
       }
 
     });
-    this.portalText = this.add.text(
-        this.portal.x - 1000 * bigScreenRatio / 2,
-        this.portal.y - 100 * bigScreenRatio / 2,
-        "Next",
-        {
-          fontFamily: gameOptions.playerTextFont,
-          fontSize: 100 * bigScreenRatio,
-          fixedWidth: 1000 * bigScreenRatio,
-          color: "#ffffff",
-          align: "center",
-        })
-    this.portalText.setDepth(2001);
+
 
     this.pauseButton = this.add.circle(
       gameOptions.viewportWidth / 2,
