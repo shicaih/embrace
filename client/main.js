@@ -1072,9 +1072,9 @@ class Lobby extends Phaser.Scene {
     this.socket.emit("admin");
 
     this.bigscreenLeft = this.add.image(0, gameOptions.worldHeight, 'bigscreenLeft');
-    this.bigscreenLeft.setOrigin(0, 1).setScale(2 * bigScreenRatio);
+    this.bigscreenLeft.setOrigin(0, 1).setScale(3 * bigScreenRatio);
     this.bigscreenRight = this.add.image(gameOptions.worldWidth, 0, "bigscreenRight");
-    this.bigscreenRight.setOrigin(1, 0).setScale(2 * bigScreenRatio);
+    this.bigscreenRight.setOrigin(1, 0).setScale(3 * bigScreenRatio);
     this.insText = this.add.text(
       0,
       0,
