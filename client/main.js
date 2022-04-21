@@ -1226,7 +1226,7 @@ class Lobby extends Phaser.Scene {
         this.bigscreenText.text = bigscreenText[curPage]
         if (curPage == bigscreenText.length - 1) {
           this.portalText.text = "Go to the Lobby";
-          this.portal.width = (this.portalText.width + 100) * bigScreenRatio;
+          this.portal.width = this.portalText.width + 50 * bigScreenRatio;
         }
       } else if (curPage == bigscreenText.length) {
         this.portalText.text = "Start";
@@ -1241,7 +1241,7 @@ class Lobby extends Phaser.Scene {
         this.toggleText.setDepth(2000);
 
       } else {
-        if (curPage === bigscreenText.length + 4) {
+        if (curPage === bigscreenText.length + 3) {
           this.portalText.text = "Report";
         }
         this.socket.emit("startPuzzle");
