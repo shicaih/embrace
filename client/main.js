@@ -1067,6 +1067,7 @@ class Lobby extends Phaser.Scene {
   }
 
   createBigScreenUI() {
+    this.bgImage.setDepth(-101);
     let curPage = 0;
     let bigscreenText = [
         "A comprehensive concept that encompasses the norms, values, customs, traditions, habits, skills, knowledge, beliefs, and the whole way of life of a group of people. \n" +
@@ -1153,7 +1154,7 @@ class Lobby extends Phaser.Scene {
         0x946854,
         1,
     );
-    this.toggleQR.setDepth(1000);
+    this.toggleQR.setDepth(-101);
     this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
       this.QR.setVisible(!this.QR.visible);
     });
@@ -1177,7 +1178,7 @@ class Lobby extends Phaser.Scene {
         {
           fontFamily: gameOptions.playerTextFont,
           fontSize: 450 * bigScreenRatio,
-          color: "#946854",
+          color: "#000000",
           align: "left",
         }
     );
@@ -1195,7 +1196,7 @@ class Lobby extends Phaser.Scene {
           fontFamily: gameOptions.playerTextFont,
           fontSize: 250 * bigScreenRatio,
           wordWrap: {width: gameOptions.worldWidth * 0.7},
-          color: "#946854",
+          color: "#000000",
           align: "left",
         }
     );
@@ -1217,11 +1218,26 @@ class Lobby extends Phaser.Scene {
     );
     this.portal.setDepth(1000);
     this.portal.setInteractive().on("pointerdown", (pointer) => {
-      this.socket.emit("startPuzzle");
-      if (this.timer1 !== null) {
-        this.time.removeEvent(this.timer1);
-        this.time.removeEvent(this.timer2);
+      curPage += 1;
+      if (curPage < bigscreenText.length) {
+        this.bigscreenTitle.text = bigscreenTitle[curPage];
+        this.bigscreenText.text = bigscreenText[curPage]
+      } else if (curPage == bigscreenText.length) {
+        this.bigscreenTitle.setVisible(false);
+        this.bigscreenText.setVisible(false);
+        this.QR.setDepth(2000);
+        this.bgWheel.setDepth(-99);
+        this.insText.setDepth(-99);
+        this.toggleQR.setDepth(2000);
+        this.toggleText.setDepth(2000);
+      } else {
+        this.socket.emit("startPuzzle");
+        if (this.timer1 !== null) {
+          this.time.removeEvent(this.timer1);
+          this.time.removeEvent(this.timer2);
+        }
       }
+
     });
     this.portalText = this.add.text(
         this.portal.x - 1000 * bigScreenRatio / 2,
