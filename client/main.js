@@ -1067,7 +1067,7 @@ class Lobby extends Phaser.Scene {
   }
 
   createBigScreenUI() {
-    this.bgImage.setDepth(-101);
+    this.bgWheel.setDepth(-101);
     let curPage = 0;
     let bigscreenText = [
         "A comprehensive concept that encompasses the norms, values, customs, traditions, habits, skills, knowledge, beliefs, and the whole way of life of a group of people. \n" +
