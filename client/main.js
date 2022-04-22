@@ -837,15 +837,7 @@ class Lobby extends Phaser.Scene {
       this
     );
 
-    var pinch = this.rexGestures.add.pinch();
-    pinch.on(
-      "pinch",
-      (pinch) => {
-        this.cameras.main.zoom = pinch.scaleFactor;
-      },
-      this
-    );
-
+    /*
     // direction control
     this.joyStick = this.plugins
       .get("rexvirtualjoystickplugin")
@@ -878,6 +870,7 @@ class Lobby extends Phaser.Scene {
       },
       this
     );
+    */
     let helpIndex = 0;
     let helpTitle, helpText;
     if (isLobby) {
