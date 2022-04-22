@@ -898,7 +898,7 @@ class Lobby extends Phaser.Scene {
       0x946854,
       0.7
     );
-    this.helpTitle = this.add.text(0, this.helpRrec.height * 0.25,
+    this.helpTitle = this.add.text(0, this.helpRrec.height * (0.25-0.5),
         helpTitle[0],
         {
           fontFamily: gameOptions.playerTextFont,
@@ -908,7 +908,7 @@ class Lobby extends Phaser.Scene {
           wordWrap: { width: this.helpRrec.width * 0.8 },
         })
     this.helpTitle.setOrigin(0.5, 0.5);
-    this.helpText = this.add.text(0, this.helpRrec.height * 0.25,
+    this.helpText = this.add.text(0, this.helpRrec.height * (0.4-0.5),
         helpText[0],
         {
           fontFamily: gameOptions.playerTextFont,
@@ -918,13 +918,13 @@ class Lobby extends Phaser.Scene {
           wordWrap: { width: this.helpRrec.width * 0.8 },
         });
     this.helpText.setOrigin(0.5, 0.5);
-    this.help1 = this.add.image(0, this.helpRrec.height * 0.65, 'help1');
-    this.help2 = this.add.image(0, this.helpRrec.height * 0.65, 'help2');
-    this.help3 = this.add.image(0, this.helpRrec.height * 0.65, 'help3');
+    this.help1 = this.add.image(0, this.helpRrec.height * (0.65 - 0.5), 'help1');
+    this.help2 = this.add.image(0, this.helpRrec.height * (0.65 - 0.5), 'help2');
+    this.help3 = this.add.image(0, this.helpRrec.height * (0.65 - 0.5), 'help3');
 
     this.helpButton = this.add.rexRoundRectangle (
         0,
-        this.helpRrec.height * 0.95,
+        this.helpRrec.height * (0.95 - 0.5),
         this.helpRrec.width,
         this.helpRrec.height * 0.1,
         {tl: 0, tr: 0, bl: 32 * devicePixelRatio, br: 32 * devicePixelRatio},
@@ -933,7 +933,7 @@ class Lobby extends Phaser.Scene {
     )
     this.helpButtonText = this.add.text(
         0,
-        this.helpRrec.height * 0.95,
+        this.helpRrec.height * (0.95 - 0.5),
         "Continue",
         {
           fontFamily: gameOptions.playerTextFont,
