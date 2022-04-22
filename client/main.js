@@ -86,7 +86,7 @@ var gameOptions = {
     "#7755b5",
   ],
   paleColors: [0xe1a3be, 0xe6b7a2, 0xebcf9a, 0xc0d0aa, 0xa7d7dc, 0xb6a6d5],
-  puzzleWorldSizes: [3000, 3500, 4000],
+  puzzleWorldSizes: [4000, 4000, 4000],
   colorMapping: {
     music: 0xcc3f8d,
     food: 0xd15947,
@@ -922,7 +922,7 @@ class Lobby extends Phaser.Scene {
         }
       );
       this.timerText.setScrollFactor(0);
-      this.timerText.setOrigin(0, 0.5);
+      this.timerText.setOrigin(0, 0.5).setDepth(2000);
       console.log(`viewport width: ${gameOptions.viewportWidth}`);
       this.timerIcon = this.add
         .image(10 * devicePixelRatio, 30 * devicePixelRatio, "timerIcon")
