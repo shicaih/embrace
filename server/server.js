@@ -121,7 +121,10 @@ function PersonalReportData () {
   this.nMutualThumb = 5 // had mutual thumb-up with 3 different players
   
   // location
-  this.location = "Asia" 
+  this.location = "Asia"
+  this.ethnicity = "Hispanic"
+  this.music = "KPOP"
+  this.food = "Italian food"
   this.nPlayerSameLocation = 5
   this.locationIsImportant = true
   this.nPlayerLocationImportant = 23
@@ -645,7 +648,7 @@ function generateReportData() {
   globalReportData.nCountriesStates = 999
   globalReportData.nEthnicity = 8
   
-  let allPlayers = Object.assign(goneLobbyPlayers, lobbyPlayers);
+  let allPlayers = Object.assign({}, goneLobbyPlayers, lobbyPlayers);
   
   let importantLocations = [], importantEthnicities = []
   let nPlayerLocationImportant = 0, nPlayerEthnicityImportant = 0;
@@ -682,6 +685,9 @@ function generateReportData() {
   globalReportData.nEthnicity = Object.keys(ethnicityFrequency).length - 1
   globalReportData.nCountriesStates = Object.keys(locationFrequency).length
   
+  
+  delete importantEthnicities['Prefer not to say']
+  delete importantEthnicities['⊘']
   importantLocations = Object.entries(importantLocationFreq).map(([key, value]) => key)
   importantEthnicities = Object.entries(importantEthnicityFreq).map(([key, value]) => key)
   
@@ -701,22 +707,25 @@ function generateReportData() {
     data.nThumbFromOthers = player.thumbsFromPlayers.size
     data.nMutualThumb = [...player.thumbsToPlayers].filter(x => player.thumbsFromPlayers.has(x)).length
     data.location = player.wheelInfo['home']
+    data.ethnicity = player.wheelInfo['ethnicity']
+    data.music = player.wheelInfo['music']
+    data.food = player.wheelInfo['food']
     data.nPlayerSameLocation = locationFrequency[player.wheelInfo['home']] - 1
     data.locationIsImportant = player.scores[4] > 3
     data.nPlayerLocationImportant = nPlayerLocationImportant - (data.locationIsImportant ? 1 : 0)
   
     let othersImportantLocationFreq = Object.assign({}, importantLocationFreq)
     if (data.locationIsImportant) {
-      if (othersImportantLocationFreq[player.wheelInfo['home']] = 1) {
+      if (othersImportantLocationFreq[player.wheelInfo['home']] == 1) {
         delete othersImportantLocationFreq[player.wheelInfo['home']]
       }
       othersImportantLocationFreq[player.wheelInfo['home']] -= 1
     }
-    data.importantLocationExamples = Object.keys(othersImportantLocationFreq)
-    data.nImportantLocations = data.importantLocationExamples.length
-    data.importantLocationExamples = data.importantLocationExamples.slice(0, 3)
-     
-      
+    data.nImportantLocations = Object.keys(othersImportantLocationFreq).length
+    delete othersImportantLocationFreq['Prefer not to say']
+    delete othersImportantLocationFreq['⊘']
+    data.importantLocationExamples = Object.keys(othersImportantLocationFreq).slice(0, 3)
+
     data.ethnicityIsImportant = player.scores[5] > 3
     data.nPlayerEthnicityImportant = nPlayerEthnicityImportant - (data.ethnicityIsImportant ? 1 : 0)
       
@@ -727,9 +736,10 @@ function generateReportData() {
       }
       else othersImportantEthnicityFreq[player.wheelInfo['ethnicity']] -= 1
     }
-    data.importantEthnicityExamples = Object.keys(othersImportantEthnicityFreq)
-    data.nImportantEthnicities = data.importantEthnicityExamples.length
-    data.importantEthnicityExamples = data.importantEthnicityExamples.slice(0, 3)
+    data.nImportantEthnicities = Object.keys(othersImportantEthnicityFreq).length
+    delete othersImportantEthnicityFreq['Prefer not to say']
+    delete othersImportantEthnicityFreq['⊘']
+    data.importantEthnicityExamples = Object.keys(othersImportantEthnicityFreq).slice(0, 3)
     
     data.music = player.wheelInfo['music']
     data.nPlayerSameMusic = musicToLocation[data.music].length - 1

@@ -54,9 +54,12 @@
   </p>
     <!---You didn’t know each other, and you weren’t able to talk to each other, 
     but together you have accomplished something amazing! --->
-  <p class="reportText">
+  <!---<p class="reportText">
       Throughout the activity, you met <span class="highlight"  id="nPlayerMet">105 folks</span> in total, 
       and you and scored <span class="highlight" id="nStar">7 Stars</span> by finding different identities on them. 
+  </p>--->
+  <p class="reportText">
+      Throughout the activity, you scored <span class="highlight" id="nStar">7 Stars</span> by finding different identities on them. 
   </p>
   
     
@@ -108,16 +111,24 @@
   <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-dark.png?v=1650581936303">
   
   <div style="z-index:3;">
-  <p class="revealUp reportText">
+  <p class="reportText">
     You folks are from different places around the country and the world. 
     You are from <span class="highlight" id="nCountriesStates">20</span> different countries or states,
     <!--- and <span class="highlight" id="nStates">40</span> different states. --->
+
+  <span id="locationHid">
+    <span class="uniqueLocation">and you are the only one who chose not to share your Home.</span>
+    <span class="commonLocation">and Like you, <span class="highlight nPlayerSameLocation">Y</span> <span id="nPlayerHidLocationWord">people</span> also chose not to share.</span>
+  </span>
+  <span class="reportText" id="locationUnhid">
+    <span class="uniqueLocation">and you are the only one from <span class="highlight location">X</span>!</span>
+    <span class="commonLocation">and Like you, <span class="highlight nPlayerSameLocation">Y</span> <span id="nPlayerSameLocationWord">people are</span> also from <span class="highlight location">X</span>!</span>
     <br>
-    <span id="uniqueLocation">and you are the only one from <span class="highlight location">X</span>!</span>
-    <span id="commonLocation">and Like you, <span class="highlight" id="nPlayerSameLocation">Y</span> <span id="nPlayerSameLocationWord">people are</span> also from <span class="highlight location">X</span>!</span>
-    <br>
+  </span>
+    </p>
+  <p class="reportText">
     <span class="locationIsImportant">And like you, </span><span class="highlight" id="nPlayerLocationImportant">M</span> <span id="nPlayerLocationImportantWord">people</span> <span class="locationIsImportant">also </span>considered Home as an important identity, 
-    and they are from <span class="highlight" id="importantLocationExamples">[Example 1], [Example 2], [Example 3]</span><span id="moreThanThreeLocationExamples"> and other <span class="highlight" id="nImportantLocations">N</span> more places</span>!
+    and they are from <span class="highlight" id="importantLocationExamples">[Example 1], [Example 2], [Example 3]</span><span id="moreThanThreeLocationExamples"> and other <span class="highlight" id="nImportantLocations">N</span> more <span id="nImportantLocationsWord">places</span></span>!
   </p>
   </div>
 </div>
@@ -143,15 +154,28 @@
   <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-dark.png?v=1650581936303">
   
   <div style="z-index:3;">
-  <p class="revealUp reportText">
-    <span id="uniqueMusic">You have a unique taste in music! <br>Among <span class="highlight nPlayer">N</span> people, you are the only person who chose <span class="highlight music">X</span> as your Music identity.</span>
-    <span id="commonMusic">
+  <p class="reportText" id="musicHid">
+    <span class="uniqueMusic">Among <span class="highlight nPlayer">N</span> people, you were the only person who chose not to share your Music Identity. 
+      <br>What might have been on your mind?
+    </span>
+    <span class="commonMusic">
+      <span class="multiMusicLocationSentence">
+        You chose not to share your Music identity, but you were not alone. <br><span class="highlight nPlayerSameMusic">N</span> other <span class="nPlayerSameMusicWord">people</span> also did so, and they are from <span class="highlight nSameMusicLocation">M</span> different <span class="nSameMusicLocationWord">countries/states</span> such as <span class="highlight sameMusicLocationExamples">x,y,z</span>.
+      </span>
+      <span class="singleMusicLocationSentence">
+        You chose not to share your Music identity, but you were not alone. <br><span class="highlight nPlayerSameMusic">N</span> other <span class="nPlayerSameMusicWord">people</span> also did so, and you are all from <span class="highlight singleMusicLocation">X</span>!
+      </span>
+    </span>
+  </p>
+  <p class="reportText" id="musicUnhid">
+    <span class="uniqueMusic">You have a unique taste in music! <br>Among <span class="highlight nPlayer">N</span> people, you are the only person who chose <span class="highlight music">X</span> as your Music identity.</span>
+    <span class="commonMusic">
       Many people share the same preference for music with you!
-      <span id="multiMusicLocationSentence">
-        <br>You enjoy <span class="highlight music">X</span> music together with other <span class="highlight nPlayerSameMusic">N</span> <span class="nPlayerSameMusicWord">people</span> from <span class="highlight" id="nSameMusicLocation">M</span> different <span id="nSameMusicLocationWord">countries/states</span> such as <span class="highlight" id="sameMusicLocationExamples">x,y,z</span>.
+      <span class="multiMusicLocationSentence">
+        <br>You enjoy <span class="highlight music">X</span> music together with other <span class="highlight nPlayerSameMusic">N</span> <span class="nPlayerSameMusicWord">people</span> from <span class="highlight nSameMusicLocation">M</span> different <span class="nSameMusicLocationWord">countries/states</span> such as <span class="highlight sameMusicLocationExamples">x,y,z</span>.
       </span> 
-      <span id="singleMusicLocationSentence">
-        <br>You enjoy <span class="highlight music">X</span> music together with other <span class="highlight nPlayerSameMusic">N</span> <span class="nPlayerSameMusicWord">people</span>, and you are all from <span class="highlight" id="singleMusicLocation">X</span>!
+      <span class="singleMusicLocationSentence">
+        <br>You enjoy <span class="highlight music">X</span> music together with other <span class="highlight nPlayerSameMusic">N</span> <span class="nPlayerSameMusicWord">people</span>, and you are all from <span class="highlight singleMusicLocation">X</span>!
       </span>
     </span>
   </p>
@@ -164,23 +188,36 @@
   <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-white.png?v=1650581892010">
   
   <div style="z-index:3;">
-  <p class="revealUp reportText">
-    <span id="uniqueFood">You have a unique taste in food! <br>Among <span class="highlight nPlayer">N</span> people, you are the only person who chose <span class="highlight food">X</span> as your Food identity.</span>
-    <span id="commonFood">
-      Many people value the same cuisine as you do!
-      <span id="multiFoodLocationSentence">
-        <br>You enjoy <span class="highlight food">X</span> food together with other <span class="highlight nPlayerSameFood">N</span> <span class="nPlayerSameFoodWord">people</span> from <span class="highlight" id="nSameFoodLocation">M</span> different <span id="nSameFoodLocationWord">countries/states</span> such as <span class="highlight" id="sameFoodLocationExamples">x,y,z</span>.
+  <p class="reportText" id="foodHid">
+    <span class="uniqueFood">Among <span class="highlight nPlayer">N</span> people, you were the only person who chose not to share your Food Identity. 
+      <br>What might have been on your mind?
+    </span>
+    <span class="commonFood">
+      <span class="multiFoodLocationSentence">
+        You chose not to share your Food identity, but you were not alone. <br><span class="highlight nPlayerSameFood">N</span> other <span class="nPlayerSameFoodWord">people</span> also did so, and they are from <span class="highlight nSameFoodLocation">M</span> different <span class="nSameFoodLocationWord">countries/states</span> such as <span class="highlight sameFoodLocationExamples">x,y,z</span>.
       </span>
-      <span id="singleFoodLocationSentence">
-        <br>You enjoy <span class="highlight food">X</span> food together with other <span class="highlight nPlayerSameFood">N</span> <span class="nPlayerSameFoodWord">people</span>, and you are all from <span class="highlight" id="singleFoodLocation">X</span>!
+      <span class="singleFoodLocationSentence">
+        You chose not to share your Food identity, but you were not alone. <br><span class="highlight nPlayerSameFood">N</span> other <span class="nPlayerSameFoodWord">people</span> also did so, and you are all from <span class="highlight singleFoodLocation">X</span>!
+      </span>
+    </span>
+  </p>
+  <p class="reportText" id="foodUnhid">
+    <span class="uniqueFood">You have a unique taste in food! <br>Among <span class="highlight nPlayer">N</span> people, you are the only person who chose <span class="highlight food">X</span> as your Food identity.</span>
+    <span class="commonFood">
+      Many people value the same cuisine as you do!
+      <span class="multiFoodLocationSentence">
+        <br>You enjoy <span class="highlight food">X</span> food together with other <span class="highlight nPlayerSameFood">N</span> <span class="nPlayerSameFoodWord">people</span> from <span class="highlight nSameFoodLocation">M</span> different <span class="nSameFoodLocationWord">countries/states</span> such as <span class="highlight sameFoodLocationExamples">x,y,z</span>.
+      </span>
+      <span class="singleFoodLocationSentence">
+        <br>You enjoy <span class="highlight food">X</span> food together with other <span class="highlight nPlayerSameFood">N</span> <span class="nPlayerSameFoodWord">people</span>, and you are all from <span class="highlight singleFoodLocation">X</span>!
       </span>
     </span>
   </p>
   </div>
 </div>
 </div>
-  
-  
+
+
 </div>
   
 
