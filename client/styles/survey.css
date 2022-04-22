@@ -307,6 +307,18 @@ tr {
     border-radius: 10px;
 }
 .form-control .slider::-ms-fill-upper {
-    background: ##d8c8b5;
+    background: #d8c8b5;
     border-radius: 10px;
+}
+.canvasDiv canvas {
+    position: relative;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    aspect-ratio: 9 / 16;
+    height: 600px;
+    display: block;
+    margin: auto;
 }
