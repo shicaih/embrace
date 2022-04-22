@@ -924,7 +924,7 @@ class Lobby extends Phaser.Scene {
 
     this.helpButton = this.add.rexRoundRectangle (
         gameOptions.viewportWidth / 2,
-        this.helpRrec.height * (0.95 - 0.5),
+        this.helpRrec.y + this.helpRrec.height * (0.95 - 0.5),
         this.helpRrec.width,
         this.helpRrec.height * 0.1,
         {tl: 0, tr: 0, bl: 32 * devicePixelRatio, br: 32 * devicePixelRatio},
@@ -962,6 +962,7 @@ class Lobby extends Phaser.Scene {
       helpIndex += 1;
       console.log("helpButtonPointerd");
       if(helpIndex == helpTitle.length) {
+        console.log("x");
         this.helpTitle = helpTitle[0];
         this.helpText = helpText[0];
         this.helpImages[helpIndex - 1].setVisible(false);
@@ -970,6 +971,7 @@ class Lobby extends Phaser.Scene {
         this.helpButton.isVisible = false;
         helpIndex = 0;
       } else {
+        console.log("y");
         this.helpTitle = helpTitle[helpIndex];
         this.helpText = helpText[helpIndex];
         this.helpImages[helpIndex - 1].setVisible(false);
@@ -995,8 +997,9 @@ class Lobby extends Phaser.Scene {
         .setInteractive()
         .on("pointerdown", (pointer, localX, localY, event) => {
           this.help.setDepth(1000);
-          this.help.setVisible(!this.help.isVisible);
-          this.helpButton.setVisible(!this.helpButton.isVisible);
+
+          this.help.isVisible = !this.help.isVisible;
+          this.helpButton.isVisible = !this.helpButton.isVisible;
           // TODO: show help msg
           event.stopPropagation();
         });
