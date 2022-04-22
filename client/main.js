@@ -890,7 +890,7 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportHeight * 0.7,
       32 * devicePixelRatio,
       0x946854,
-      0.7
+      0.85
     );
     this.helpTitle = this.add.text(0, this.helpRrec.height * (0.15-0.5),
         helpTitle[0],
