@@ -639,7 +639,7 @@ function generatePuzzle2(room) {
 }
 
 function generateReportData() {
-  globalReportData.nPlayer = Object.keys(Object.assign(lobbyPlayers, goneLobbyPlayers)).length;
+  globalReportData.nPlayer = Object.keys(Object.assign({}, lobbyPlayers, goneLobbyPlayers)).length;
   globalReportData.nCountries = 0
   globalReportData.nStates = 20 
   globalReportData.nCountriesStates = 999
@@ -1021,7 +1021,7 @@ io.sockets.on('connection', function(socket) {
         curLevel += 1; 
         if (curLevel == options.roomMaxPlayers.length) {
             generateReportData();
-            let allPlayers = Object.assign(goneLobbyPlayers, lobbyPlayers);
+            let allPlayers = Object.assign({}, goneLobbyPlayers, lobbyPlayers);
             for (let playerId in allPlayers) {
               io.to(allPlayers[playerId].sid).emit("startReport")
             }
