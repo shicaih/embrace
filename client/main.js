@@ -971,6 +971,7 @@ class Lobby extends Phaser.Scene {
       }
       event.stopPropagation();
     });
+    this.helpButton.setDepth(2000);
 
     let helpContainer = this.add.container(
       gameOptions.viewportWidth / 2,
