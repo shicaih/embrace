@@ -949,8 +949,21 @@ class Lobby extends Phaser.Scene {
           wordWrap: { width: this.helpRrec.width * 0.8 },
         }
     )
-    this.helpButtonText.setOrigin(0.5, 0.5)
-    this.helpButton.setInteractive().on("pointerdown", (pointer, localX, localY, event) => {
+    this.helpButtonText.setOrigin(0.5, 0.5);
+    this.helpButton.setDepth(2000);
+
+
+
+    let helpContainer = this.add.container(
+      gameOptions.viewportWidth / 2,
+      gameOptions.viewportHeight / 2,
+      [this.helpRrec, this.helpText, this.helpTitle, this.helpText, this.help1, this.help2, this.help3, this.helpButton, this.helpButtonText]
+    );
+    helpContainer.setDepth(-1000);
+    helpContainer.setScrollFactor(false);
+    this.help = helpContainer;
+    this.help.isVisible = false;
+    this.help.setInteractive().on("pointerdown", (pointer, localX, localY, event) => {
       helpIndex += 1;
       console.log("helpButtonPointerd");
       if(helpIndex == helpTitle.length) {
@@ -971,17 +984,6 @@ class Lobby extends Phaser.Scene {
       }
       event.stopPropagation();
     });
-    this.helpButton.setDepth(2000);
-
-    let helpContainer = this.add.container(
-      gameOptions.viewportWidth / 2,
-      gameOptions.viewportHeight / 2,
-      [this.helpRrec, this.helpText, this.helpTitle, this.helpText, this.help1, this.help2, this.help3, this.helpButton, this.helpButtonText]
-    );
-    helpContainer.setDepth(-1000);
-    helpContainer.setScrollFactor(false);
-    this.help = helpContainer;
-    this.help.isVisible = false;
 
     this.helpIcon = this.add
         .image(
