@@ -657,6 +657,7 @@ class Lobby extends Phaser.Scene {
     );
   }
 
+  /*
   update(time, delta) {
     if (isMobile) {
       let x = Phaser.Math.Clamp(this.joyStick.forceX, -100, 100);
@@ -677,7 +678,7 @@ class Lobby extends Phaser.Scene {
         }
       }
     }
-  }
+  } */
 
   createUI() {
     // background
