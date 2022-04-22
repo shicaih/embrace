@@ -999,7 +999,7 @@ class Lobby extends Phaser.Scene {
         .on("pointerdown", (pointer, localX, localY, event) => {
           this.help.setVisible(!this.help.isVisible);
           this.help.isVisible = !this.help.isVisible;
-          this.helpButton.setVisible(!this.helpButton.isVisble);
+          this.helpButton.setVisible(!this.helpButton.isVisible);
           this.helpButton.isVisible = !this.helpButton.isVisible;
           // TODO: show help msg
           event.stopPropagation();
