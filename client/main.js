@@ -997,8 +997,7 @@ class Lobby extends Phaser.Scene {
     this.helpIcon
         .setInteractive()
         .on("pointerdown", (pointer, localX, localY, event) => {
-          this.help.setDepth(1000);
-          this.help.setVisible(!this.help.isVisble);
+          this.help.setVisible(!this.help.isVisible);
           this.help.isVisible = !this.help.isVisible;
           this.helpButton.setVisible(!this.helpButton.isVisble);
           this.helpButton.isVisible = !this.helpButton.isVisible;
