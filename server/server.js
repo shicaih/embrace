@@ -18,7 +18,7 @@ const io = new Server(server, socketOptions);
 // server options for the game  
 var options = { 
     cultures: ['music', 'food', 'hobby', 'finances', 'home', 'ethnicity'],
-    roomMaxPlayers: [10, 20, 30],  
+    roomMaxPlayers: [20],
     levelTime: [60, 60, 90], // seconds
     seekTime: 30, //seconds
     nLevel: 3
