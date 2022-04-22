@@ -902,8 +902,8 @@ class Lobby extends Phaser.Scene {
         helpTitle[0],
         {
           fontFamily: gameOptions.playerTextFont,
-          fontSize: gameOptions.playerTextFontSize * devicePixelRatio,
-          color: 0xffffff,
+          fontSize: 48 * devicePixelRatio,
+          color: gameOptions.playerTextColor,
           align: "center",
           wordWrap: { width: this.helpRrec.width * 0.8 },
         })
@@ -919,8 +919,14 @@ class Lobby extends Phaser.Scene {
         });
     this.helpText.setOrigin(0.5, 0.5);
     this.help1 = this.add.image(0, this.helpRrec.height * (0.65 - 0.5), 'help1');
+
     this.help2 = this.add.image(0, this.helpRrec.height * (0.65 - 0.5), 'help2');
     this.help3 = this.add.image(0, this.helpRrec.height * (0.65 - 0.5), 'help3');
+    this.help1.setScale(3).setVisible(false);
+    this.help2.setScale(3).setVisible(false);
+    this.help3.setScale(3).setVisible(false);
+    this.helpImages = isLobby? [this.help1, this.help2]:[this.help3];
+    this.helpImages[helpIndex].setVisible(true);
 
     this.helpButton = this.add.rexRoundRectangle (
         0,
@@ -934,16 +940,35 @@ class Lobby extends Phaser.Scene {
     this.helpButtonText = this.add.text(
         0,
         this.helpRrec.height * (0.95 - 0.5),
-        "Continue",
+        isLobby? "Continue":"Done",
         {
           fontFamily: gameOptions.playerTextFont,
           fontSize: gameOptions.playerTextFontSize,
-          color: 0xffffff,
+          color: 0x000000,
           align: "center",
           wordWrap: { width: this.helpRrec.width * 0.8 },
         }
     )
     this.helpButtonText.setOrigin(0.5, 0.5)
+    this.helpButton.setInteractive().on("pointerdown", (pointer) => {
+      helpIndex += 1;
+      if(helpIndex == helpTitle.length) {
+        this.helpTitle = helpTitle[0];
+        this.helpText = helpText[0];
+        this.helpImages[helpIndex - 1].setVisible(false);
+        this.helpImages[0].setVisible(true);
+        this.help.isVisible = false;
+        helpIndex = 0;
+      } else {
+        this.helpTitle = helpTitle[helpIndex];
+        this.helpText = helpText[helpText];
+        this.helpImages[helpIndex - 1].setVisible(false);
+        this.helpImages[helpIndex].setVisible(true);
+        if (helpIndex == helpTitle.length - 1) {
+          this.helpButtonText.text = "Done";
+        }
+      }
+    });
 
     let helpContainer = this.add.container(
       gameOptions.viewportWidth / 2,
