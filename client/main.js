@@ -895,33 +895,32 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportWidth * 0.8,
       gameOptions.viewportHeight * 0.7,
       32 * devicePixelRatio,
-      gameOptions.colors[0],
-      0.8
+      0x946854,
+      0.7
     );
-    this.helpTitle = this.add.text(0, gameOptions.viewportHeight * 0.25,
+    this.helpTitle = this.add.text(0, this.helpRrec.height * 0.25,
         helpTitle[0],
         {
           fontFamily: gameOptions.playerTextFont,
           fontSize: gameOptions.playerTextFontSize * devicePixelRatio,
           color: 0xffffff,
           align: "center",
-          wordWrap: { width: gameOptions.viewportWidth - 300 },
+          wordWrap: { width: this.helpRrec.width * 0.8 },
         })
     this.helpTitle.setOrigin(0.5, 0.5);
-    this.helpText = this.add.text(0, gameOptions.viewportHeight * 0.25,
+    this.helpText = this.add.text(0, this.helpRrec.height * 0.25,
         helpText[0],
         {
-          maxWidth: gameOptions.viewportWidth - 200,
           fontFamily: gameOptions.playerTextFont,
           fontSize: gameOptions.playerTextFontSize,
           color: gameOptions.playerTextColor,
           align: "center",
-          wordWrap: { width: gameOptions.viewportWidth - 300 },
+          wordWrap: { width: this.helpRrec.width * 0.8 },
         });
     this.helpText.setOrigin(0.5, 0.5);
-    this.help1 = this.add.image(0, gameOptions.viewportHeight * 0.65, 'help1');
-    this.help2 = this.add.image(0, gameOptions.viewportHeight * 0.65, 'help2');
-    this.help3 = this.add.image(0, gameOptions.viewportHeight * 0.65, 'help3');
+    this.help1 = this.add.image(0, this.helpRrec.height * 0.65, 'help1');
+    this.help2 = this.add.image(0, this.helpRrec.height * 0.65, 'help2');
+    this.help3 = this.add.image(0, this.helpRrec.height * 0.65, 'help3');
 
     this.helpButton = this.add.rexRoundRectangle (
         0,
@@ -934,21 +933,22 @@ class Lobby extends Phaser.Scene {
     )
     this.helpButtonText = this.add.text(
         0,
-        gameOptions.viewportHeight * 0.95,
+        this.helpRrec.height * 0.95,
         "Continue",
         {
           fontFamily: gameOptions.playerTextFont,
           fontSize: gameOptions.playerTextFontSize,
           color: 0xffffff,
           align: "center",
-          wordWrap: { width: gameOptions.viewportWidth - 300 },
+          wordWrap: { width: this.helpRrec.width * 0.8 },
         }
     )
+    this.helpButtonText.setOrigin(0.5, 0.5)
 
     let helpContainer = this.add.container(
       gameOptions.viewportWidth / 2,
       gameOptions.viewportHeight / 2,
-      [this.helpRrec, this.helpText]
+      [this.helpRrec, this.helpText, this.helpTitle, this.helpText, this.help1, this.help2, this.help3, this.helpButton, this.helpButtonText]
     );
     helpContainer.setDepth(-1000);
     helpContainer.setScrollFactor(false);
