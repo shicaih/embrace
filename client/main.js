@@ -138,6 +138,15 @@ let culturalAspectEmojiMap = {
   home: "🏠",
 };
 
+let assignmentPrefixes = {
+  "food": "Find a person \nwho likes \n",
+  "music": "Find a person \nwho likes \n",
+  "hobby": "Find a person \nwho likes \n",
+  "finances": "Find a person \nwith identity \n",
+  "ethnicity": "Find a person who's \n",
+  "home": "Find a person \nwho's from \n",
+} 
+
 let levelIndex = eval(window.sessionStorage.getItem("curLevel"));
 if (levelIndex != null) {
   gameOptions.worldWidth = gameOptions.puzzleWorldSizes[levelIndex];
@@ -1885,7 +1894,7 @@ class Lobby extends Phaser.Scene {
       identitiesWithEmoji.push(culturalAspectEmojiMap[assignment.aspects[i]] + assignment.identities[i])
     }*/
 
-    this.assignmentText.text = `Find identity\n${identitiesWithEmoji.join(
+    this.assignmentText.text = `${assignmentPrefixes[this.assignment.aspects[0]]}${identitiesWithEmoji.join(
       ", \n"
     )}`;
     this.assignmentBox.first.height =
