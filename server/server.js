@@ -849,16 +849,17 @@ class AssignmentGenerator {
 }  
   
 io.sockets.on('connection', function(socket) {
-    console.log('A user has logged in');
     socket.on ('init', function (data) {
         socket.phase = data.phase;
         socket.clientType = data.clientType;
         socket.curLevel = data.curLevel;
         socket.roomNumber = data.roomNumber; // roomNumber can be null
+        console.log("---------Player Joined-----------");
         console.log("phase is " + socket.phase);
         console.log("uuid is: " + data.uuid);
         console.log("curLevel is: " + socket.curLevel);
-        console.log("Room number is: " + socket.roomNumber); 
+        console.log("Room number is: " + socket.roomNumber);
+        console.log("---------Player Joined-----------");
       
         var newPlayer;
         if (data.uuid === null) {
@@ -889,6 +890,7 @@ io.sockets.on('connection', function(socket) {
         if(socket.phase === 0) {  
             lobbyPlayers[data.uuid] = newPlayer;
             delete goneLobbyPlayers[data.uuid];
+            console.log(lobbyPlayers);
             socket.emit('playerData', {uuid: data.uuid, players: lobbyPlayers, posIndex: posIndex});
             posIndex++;
             socket.join("lobby"); 
@@ -981,6 +983,10 @@ io.sockets.on('connection', function(socket) {
                 delete puzzleRooms[socket.roomNumber].activePlayers[socket.uuid];
                 delete puzzlePlayers[socket.uuid];
             }
+            console.log("---------Player Left-----------");
+            console.log("phase is " + socket.phase);
+            console.log("uuid is: " + socket.uuid);
+            console.log("---------Player Left-----------");
         });  
     });
 
