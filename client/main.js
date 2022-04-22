@@ -950,7 +950,7 @@ class Lobby extends Phaser.Scene {
         }
     )
     this.helpButtonText.setOrigin(0.5, 0.5)
-    this.helpButton.setInteractive().on("pointerdown", (pointer) => {
+    this.helpButton.setInteractive().on("pointerdown", (pointer, localX, localY, event) => {
       helpIndex += 1;
       console.log("helpButtonPointerd");
       if(helpIndex == helpTitle.length) {
