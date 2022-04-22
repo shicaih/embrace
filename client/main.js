@@ -959,10 +959,10 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportHeight / 2,
       [this.helpRrec, this.helpText, this.helpTitle, this.helpText, this.help1, this.help2, this.help3, this.helpButton, this.helpButtonText]
     );
-    helpContainer.setDepth(-1000);
     helpContainer.setScrollFactor(false);
     this.help = helpContainer;
     this.help.isVisible = true;
+    this.help.setDepth(2000);
     this.help.setInteractive().on("pointerdown", (pointer, localX, localY, event) => {
       helpIndex += 1;
       console.log("helpButtonPointerd");
