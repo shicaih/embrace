@@ -310,6 +310,9 @@ class Lobby extends Phaser.Scene {
 
     this.load.svg('bigscreenLeft', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigLeft.svg?v=1650573790728');
     this.load.svg('bigscreenRight', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigRight.svg?v=1650573787709');
+    this.load.svg('help1', "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/help1.svg?v=1650585517405");
+    this.load.svg('help2', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/help2.svg?v=1650585523755');
+    this.load.svg('help3', "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/help3.svg?v=1650585520813");
     this.input.setTopOnly(false);
   }
 
@@ -875,37 +878,102 @@ class Lobby extends Phaser.Scene {
       },
       this
     );
+    let helpIndex = 0;
+    let helpTitle, helpText;
+    if (isLobby) {
+      helpTitle = ["Movement", "Rotation"];
+      helpText = ["To move around the lobby, drag your finger on the screen.",
+        "To view different attributes, rotate the wheel below.",]
+    } else {
+      helpTitle = ["Seeking"]
+      helpText = ["When you find the wheel meet the requirement.\n" + "Tap it!"]
+    }
 
-    let helpRrec = this.add.rexRoundRectangle(
+    this.helpRrec = this.add.rexRoundRectangle(
       0,
       0,
-      gameOptions.viewportWidth - 100,
-      gameOptions.viewportHeight - 100,
-      32,
+      gameOptions.viewportWidth * 0.8,
+      gameOptions.viewportHeight * 0.7,
+      32 * devicePixelRatio,
       gameOptions.colors[0],
       0.8
     );
-    let helpText = this.add.text(0, 0, "Try to score by finding and tapping on wheels with the identities indicated on your screen.", {
-      maxWidth: gameOptions.viewportWidth - 200,
-      fontFamily: gameOptions.playerTextFont,
-      fontSize: gameOptions.playerTextFontSize,
-      color: gameOptions.playerTextColor,
-      align: "center",
-      wordWrap: { width: gameOptions.viewportWidth - 300 },
-    });
-    helpText.setPosition(-helpText.width / 2, -helpText.height / 2);
-    this.helpRrec = helpRrec;
-    this.helpText = helpText;
+    this.helpTitle = this.add.text(0, gameOptions.viewportHeight * 0.25,
+        helpTitle[0],
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: gameOptions.playerTextFontSize * devicePixelRatio,
+          color: 0xffffff,
+          align: "center",
+          wordWrap: { width: gameOptions.viewportWidth - 300 },
+        })
+    this.helpTitle.setOrigin(0.5, 0.5);
+    this.helpText = this.add.text(0, gameOptions.viewportHeight * 0.25,
+        helpText[0],
+        {
+          maxWidth: gameOptions.viewportWidth - 200,
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: gameOptions.playerTextFontSize,
+          color: gameOptions.playerTextColor,
+          align: "center",
+          wordWrap: { width: gameOptions.viewportWidth - 300 },
+        });
+    this.helpText.setOrigin(0.5, 0.5);
+    this.help1 = this.add.image(0, gameOptions.viewportHeight * 0.65, 'help1');
+    this.help2 = this.add.image(0, gameOptions.viewportHeight * 0.65, 'help2');
+    this.help3 = this.add.image(0, gameOptions.viewportHeight * 0.65, 'help3');
+
+    this.helpButton = this.add.rexRoundRectangle (
+        0,
+        this.helpRrec.height * 0.95,
+        this.helpRrec.width,
+        this.helpRrec.height * 0.1,
+        {tl: 0, tr: 0, bl: 32 * devicePixelRatio, br: 32 * devicePixelRatio},
+        0x946854,
+         1
+    )
+    this.helpButtonText = this.add.text(
+        0,
+        gameOptions.viewportHeight * 0.95,
+        "Continue",
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: gameOptions.playerTextFontSize,
+          color: 0xffffff,
+          align: "center",
+          wordWrap: { width: gameOptions.viewportWidth - 300 },
+        }
+    )
+
     let helpContainer = this.add.container(
       gameOptions.viewportWidth / 2,
       gameOptions.viewportHeight / 2,
-      [helpRrec, helpText]
+      [this.helpRrec, this.helpText]
     );
     helpContainer.setDepth(-1000);
     helpContainer.setScrollFactor(false);
     this.help = helpContainer;
     this.help.isVisible = false;
 
+    this.helpIcon = this.add
+        .image(
+            gameOptions.viewportWidth - 10 * devicePixelRatio,
+            30 * devicePixelRatio,
+            "helpIcon"
+        )
+        .setOrigin(1, 0.5)
+        .setScrollFactor(0)
+        .setDepth(100)
+        .setScale(devicePixelRatio);
+    this.helpIcon
+        .setInteractive()
+        .on("pointerdown", (pointer, localX, localY, event) => {
+          this.help.setDepth(1000);
+          this.help.setVisible(!this.help.isVisible);
+          this.help.isVisible = !this.help.isVisible;
+          // TODO: show help msg
+          event.stopPropagation();
+        });
     // puzzle phase
     if (!isLobby) {
       let myStorage = window.sessionStorage;
@@ -977,25 +1045,7 @@ class Lobby extends Phaser.Scene {
         .setScale(0.1 * devicePixelRatio);
       this.mainPlayer.starUI = this.starText;
 
-      this.helpIcon = this.add
-        .image(
-          gameOptions.viewportWidth - 10 * devicePixelRatio,
-          30 * devicePixelRatio,
-          "helpIcon"
-        )
-        .setOrigin(1, 0.5)
-        .setScrollFactor(0)
-        .setDepth(100)
-        .setScale(devicePixelRatio);
-      this.helpIcon
-        .setInteractive()
-        .on("pointerdown", (pointer, localX, localY, event) => {
-          this.help.setDepth(1000);
-          this.help.setVisible(!this.help.isVisible);
-          this.help.isVisible = !this.help.isVisible;
-          // TODO: show help msg
-          event.stopPropagation();
-        });
+
 
       this.failBlocker = this.add
         .rexRoundRectangle(
