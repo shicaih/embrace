@@ -963,7 +963,7 @@ class Lobby extends Phaser.Scene {
     this.help = helpContainer;
     this.help.isVisible = true;
     this.help.setDepth(2000);
-    this.help.setInteractive().on("pointerdown", (pointer, localX, localY, event) => {
+    this.helpButton.setInteractive().on("pointerup", (pointer, localX, localY, event) => {
       helpIndex += 1;
       console.log("helpButtonPointerd");
       if(helpIndex == helpTitle.length) {
