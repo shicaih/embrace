@@ -944,7 +944,7 @@ class Lobby extends Phaser.Scene {
         {
           fontFamily: gameOptions.playerTextFont,
           fontSize: gameOptions.playerTextFontSize,
-          color: 0x000000,
+          color: playerTextColor,
           align: "center",
           wordWrap: { width: this.helpRrec.width * 0.8 },
         }
@@ -952,6 +952,7 @@ class Lobby extends Phaser.Scene {
     this.helpButtonText.setOrigin(0.5, 0.5)
     this.helpButton.setInteractive().on("pointerdown", (pointer) => {
       helpIndex += 1;
+      console.log("helpButtonPointerd");
       if(helpIndex == helpTitle.length) {
         this.helpTitle = helpTitle[0];
         this.helpText = helpText[0];
@@ -968,6 +969,7 @@ class Lobby extends Phaser.Scene {
           this.helpButtonText.text = "Done";
         }
       }
+      event.stopPropagation();
     });
 
     let helpContainer = this.add.container(
