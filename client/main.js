@@ -963,16 +963,16 @@ class Lobby extends Phaser.Scene {
       helpIndex += 1;
       console.log("helpButtonPointerd");
       if(helpIndex == helpTitle.length) {
-        console.log("x");
         this.helpTitle.text = helpTitle[0];
         this.helpText.text = helpText[0];
         this.helpImages[helpIndex - 1].setVisible(false);
         this.helpImages[0].setVisible(true);
         this.help.setVisible(false);
+        this.help.isVisible = false;
         this.helpButton.setVisible(false);
+        this.helpButton.isVisible = false;
         helpIndex = 0;
       } else {
-        console.log("y");
         this.helpTitle.text = helpTitle[helpIndex];
         this.helpText.text = helpText[helpIndex];
         this.helpImages[helpIndex - 1].setVisible(false);
@@ -1001,6 +1001,7 @@ class Lobby extends Phaser.Scene {
           this.help.isVisible = !this.help.isVisible;
           this.helpButton.setVisible(!this.helpButton.isVisible);
           this.helpButton.isVisible = !this.helpButton.isVisible;
+          this.helpButtonText.text = isLobby? "Continue":"Done";
           // TODO: show help msg
           event.stopPropagation();
         });
