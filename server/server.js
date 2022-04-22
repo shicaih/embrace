@@ -890,7 +890,7 @@ io.sockets.on('connection', function(socket) {
         if(socket.phase === 0) {  
             lobbyPlayers[data.uuid] = newPlayer;
             delete goneLobbyPlayers[data.uuid];
-            console.log(lobbyPlayers);
+            console.log(lobbyPlayers.length);
             socket.emit('playerData', {uuid: data.uuid, players: lobbyPlayers, posIndex: posIndex});
             posIndex++;
             socket.join("lobby"); 
@@ -986,6 +986,7 @@ io.sockets.on('connection', function(socket) {
             console.log("---------Player Left-----------");
             console.log("phase is " + socket.phase);
             console.log("uuid is: " + socket.uuid);
+            console.log(lobbyPlayers.length);
             console.log("---------Player Left-----------");
         });  
     });

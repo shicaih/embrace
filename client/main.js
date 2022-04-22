@@ -913,7 +913,6 @@ class Lobby extends Phaser.Scene {
         });
     this.helpText.setOrigin(0.5, 0.5);
     this.help1 = this.add.image(0, this.helpRrec.height * (0.65 - 0.5), 'help1');
-
     this.help2 = this.add.image(0, this.helpRrec.height * (0.65 - 0.5), 'help2');
     this.help3 = this.add.image(0, this.helpRrec.height * (0.65 - 0.5), 'help3');
     this.help1.setScale(3).setVisible(false);
