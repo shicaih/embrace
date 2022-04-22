@@ -892,7 +892,7 @@ class Lobby extends Phaser.Scene {
       0x946854,
       0.7
     );
-    this.helpTitle = this.add.text(0, this.helpRrec.height * (0.25-0.5),
+    this.helpTitle = this.add.text(0, this.helpRrec.height * (0.15-0.5),
         helpTitle[0],
         {
           fontFamily: gameOptions.playerTextFont,
