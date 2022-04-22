@@ -964,8 +964,8 @@ class Lobby extends Phaser.Scene {
       console.log("helpButtonPointerd");
       if(helpIndex == helpTitle.length) {
         console.log("x");
-        this.helpTitle = helpTitle[0];
-        this.helpText = helpText[0];
+        this.helpTitle.text = helpTitle[0];
+        this.helpText.text = helpText[0];
         this.helpImages[helpIndex - 1].setVisible(false);
         this.helpImages[0].setVisible(true);
         this.help.setVisible(false);
@@ -973,8 +973,8 @@ class Lobby extends Phaser.Scene {
         helpIndex = 0;
       } else {
         console.log("y");
-        this.helpTitle = helpTitle[helpIndex];
-        this.helpText = helpText[helpIndex];
+        this.helpTitle.text = helpTitle[helpIndex];
+        this.helpText.text = helpText[helpIndex];
         this.helpImages[helpIndex - 1].setVisible(false);
         this.helpImages[helpIndex].setVisible(true);
         if (helpIndex == helpTitle.length - 1) {
