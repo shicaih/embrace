@@ -657,7 +657,7 @@ class Lobby extends Phaser.Scene {
     );
   }
 
-  /*
+
   update(time, delta) {
     if (isMobile) {
       let x = Phaser.Math.Clamp(this.joyStick.forceX, -100, 100);
@@ -678,7 +678,7 @@ class Lobby extends Phaser.Scene {
         }
       }
     }
-  } */
+  }
 
   createUI() {
     // background
@@ -838,7 +838,7 @@ class Lobby extends Phaser.Scene {
       this
     );
 
-    /*
+
     // direction control
     this.joyStick = this.plugins
       .get("rexvirtualjoystickplugin")
@@ -871,7 +871,7 @@ class Lobby extends Phaser.Scene {
       },
       this
     );
-    */
+
     let helpIndex = 0;
     let helpTitle, helpText;
     if (isLobby) {
@@ -923,7 +923,7 @@ class Lobby extends Phaser.Scene {
     this.helpImages[helpIndex].setVisible(true);
 
     this.helpButton = this.add.rexRoundRectangle (
-        0,
+        gameOptions.viewportWidth / 2,
         this.helpRrec.height * (0.95 - 0.5),
         this.helpRrec.width,
         this.helpRrec.height * 0.1,
@@ -951,7 +951,7 @@ class Lobby extends Phaser.Scene {
     let helpContainer = this.add.container(
       gameOptions.viewportWidth / 2,
       gameOptions.viewportHeight / 2,
-      [this.helpRrec, this.helpText, this.helpTitle, this.helpText, this.help1, this.help2, this.help3, this.helpButton, this.helpButtonText]
+      [this.helpRrec, this.helpText, this.helpTitle, this.helpText, this.help1, this.help2, this.help3, this.helpButtonText]
     );
     helpContainer.setScrollFactor(false);
     this.help = helpContainer;
