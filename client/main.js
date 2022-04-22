@@ -944,7 +944,7 @@ class Lobby extends Phaser.Scene {
         {
           fontFamily: gameOptions.playerTextFont,
           fontSize: gameOptions.playerTextFontSize,
-          color: playerTextColor,
+          color: gameOptions.playerTextColor,
           align: "center",
           wordWrap: { width: this.helpRrec.width * 0.8 },
         }
