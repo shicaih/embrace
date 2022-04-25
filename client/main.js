@@ -1343,19 +1343,20 @@ class Lobby extends Phaser.Scene {
       } else if (curPage <= bigscreenText.length + 2){
         if (curPage === bigscreenText.length + 1) {
           this.portalText.text = "Report";
-
-        } else {
-          this.portalText.text = "Reset";
           this.QR.setVisible(false);
           this.QR.isVisible = false;
           this.toggleText.text = "Show Code";
           this.insText.setVisible(false);
           this.bigscreenPuzzle = true;
           this.progressBar = this.add.graphics();
-          this.bgwheel.mask = new Phasesr.Display.Masks.BitmapMask(this, this.progressBar);
+          this.bgwheel.mask = new Phaser.Display.Masks.BitmapMask(this, this.progressBar);
           this.t = 0.0;
           this.progressBar.x = gameOptions.worldWidth / 2;
           this.progressBar.y = gameOptions.worldHeight / 2;
+
+        } else {
+          this.portalText.text = "Reset";
+
         }
         this.socket.emit("startPuzzle");
         if (this.timer1 !== null) {
