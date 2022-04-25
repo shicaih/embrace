@@ -45,6 +45,7 @@ let worldSize = 8000;
 let bigScreenWorldWidth, bigScreenWorldHeight;
 let bigScreenRatio = 2;
 let starPerPlayer = 15;
+let starGoal;
 
 console.log(window.devicePixelRatio);
 console.log(window.innerWidth);
@@ -631,7 +632,7 @@ class Lobby extends Phaser.Scene {
     });
     socket.on("addStar", (totalStars) => {
       this.insText.text = "Stars: " + totalStars;
-      let starDeg = totalStars / ( playersCount * starPerPlayer) * 360;
+      let starDeg = totalStars / starGoal * 360;
       this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
     })
     this.createUI();
@@ -1344,14 +1345,16 @@ class Lobby extends Phaser.Scene {
           this.portalText.text = "Report";
           this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
           this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(5).setScrollFactor(1);
-          this.bgWheel.setDepth(-50);
+          this.bgWheel.setDepth(-97);
           this.QR.setVisible(false);
           this.QR.isVisible = false;
           this.toggleText.text = "Show Code";
           this.insText.text = "Stars: 0";
+          starGoal = playersCount * starPerPlayer;
 
           this.progressBar = this.add.graphics();
           this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
+          this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, 0, false);
           this.progressBar.x = gameOptions.worldWidth / 2;
           this.progressBar.y = gameOptions.worldHeight / 2;
           this.bigscreenPuzzle = true;
