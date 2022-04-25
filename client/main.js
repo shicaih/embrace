@@ -681,8 +681,9 @@ class Lobby extends Phaser.Scene {
     if (this.bigscreenPuzzle) {
       let step = Math.abs(Math.sin(this.t)) * 360;
       console.log(step);
-      this.drawPieSlice(this.progressBar, 0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(step), "#000000");
-      // this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, step, false);
+      // this.drawPieSlice(this.progressBar, 0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(step), "#000000");
+
+      this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(step), false);
       // this.progressBar.clear();
       this.t += 0.01;
     }
