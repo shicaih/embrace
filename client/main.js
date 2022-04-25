@@ -1342,7 +1342,7 @@ class Lobby extends Phaser.Scene {
         }
       } else {
         this.socket.emit("reset");
-        window.locatioin.reload();
+        window.location.reload();
       }
 
     });
