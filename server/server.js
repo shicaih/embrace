@@ -1188,6 +1188,24 @@ io.sockets.on('connection', function(socket) {
         });
       }
     })
+
+    socket.on("reset", () => {
+        isTransitting = false;
+        lobbyPlayers = {};
+        goneLobbyPlayers = {};
+        puzzlePlayers = {};
+        gonePuzzlePlayers = {};
+        activePlayers = {};
+        lobbyRooms = [{}];
+        lobbyPositionInfo = {};
+        puzzleRooms = [];
+        roomSolved = [];
+        ht = null;
+        firstGroup = null;
+        curLevel = -1;
+        posIndex = 0;
+        bigscreenSid = null;
+    })
 }); 
 setInterval(() => {
     io.to("lobby").emit('playerMoved', lobbyPositionInfo);

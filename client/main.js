@@ -1329,15 +1329,20 @@ class Lobby extends Phaser.Scene {
         this.toggleQR.setDepth(2000);
         this.toggleText.setDepth(2000);
 
-      } else {
+      } else if (curPage <= bigscreenText.length + 2){
         if (curPage === bigscreenText.length + 1) {
           this.portalText.text = "Report";
+        } else {
+          this.portalText.text = "Reset";
         }
         this.socket.emit("startPuzzle");
         if (this.timer1 !== null) {
           this.time.removeEvent(this.timer1);
           this.time.removeEvent(this.timer2);
         }
+      } else {
+        this.socket.emit("reset");
+        window.locatioin.reload();
       }
 
     });
