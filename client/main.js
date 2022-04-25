@@ -308,6 +308,10 @@ class Lobby extends Phaser.Scene {
       "ethnicityIcon",
       "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Icon%20-%20Ethnicity.png?v=1650234677237"
     );
+    this.load.image(
+        "bgWheelBW",
+        "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bgWheelBW.png?v=1650927309732"
+    )
 
     this.load.svg('bigscreenLeft', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigLeft.svg?v=1650573790728');
     this.load.svg('bigscreenRight', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigRight.svg?v=1650573787709');
@@ -1338,6 +1342,9 @@ class Lobby extends Phaser.Scene {
       } else if (curPage <= bigscreenText.length + 2){
         if (curPage === bigscreenText.length + 1) {
           this.portalText.text = "Report";
+          this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
+          this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(5).setScrollFactor(1);
+          this.bgWheel.setDepth(-98);
           this.QR.setVisible(false);
           this.QR.isVisible = false;
           this.toggleText.text = "Show Code";
