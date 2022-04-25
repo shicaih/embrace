@@ -1294,7 +1294,7 @@ class Lobby extends Phaser.Scene {
     this.bigscreenText.setDepth(-99).setOrigin(0, 0.5);
     this.bigscreenText.setPosition(
         gameOptions.worldWidth * 0.15,
-        gameOptions.worldHeight * 0.55)
+        gameOptions.worldHeight * 0.53)
 
 
     // puzzle portal
