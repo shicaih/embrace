@@ -679,7 +679,7 @@ class Lobby extends Phaser.Scene {
       }
     }
     if (this.bigscreenPuzzle) {
-      let step = Math.abs(Math.sin(this.t)) * 400;
+      let step = Math.abs(Math.sin(this.t)) * 360;
       this.progressBar.clear();
       this.progressBar.lineStyle(500, 0 , 1);
       this.progressBar.beginPath();
@@ -1346,12 +1346,13 @@ class Lobby extends Phaser.Scene {
           this.QR.isVisible = false;
           this.toggleText.text = "Show Code";
           this.insText.setVisible(false);
-          this.bigscreenPuzzle = true;
+
           this.progressBar = this.add.graphics();
           this.bgWheel.mask = new Phaser.Display.Masks.BitmapMask(this, this.progressBar);
           this.t = 0.0;
           this.progressBar.x = gameOptions.worldWidth / 2;
           this.progressBar.y = gameOptions.worldHeight / 2;
+          this.bigscreenPuzzle = true;
 
         } else {
           this.portalText.text = "Reset";
@@ -2357,7 +2358,7 @@ class Lobby extends Phaser.Scene {
 }
 
 let gameconfig = {
-  type: Phaser.CANVAS,
+  type: isMobile? Phaser.CANVAS : Phaser.WEBGL,
   fps: { target: 40, forceSetTimeOut: true },
   backgroundColor: 0x222222,
   width: gameOptions.viewportWidth,
