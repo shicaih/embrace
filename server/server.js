@@ -1029,7 +1029,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('startPuzzle', function() {
         isTransitting = true;
         curLevel += 1; 
-        if (curLevel == options.roomMaxPlayers.length) {
+        if (curLevel >= options.roomMaxPlayers.length) {
             generateReportData();
             let allPlayers = Object.assign({}, goneLobbyPlayers, lobbyPlayers);
             for (let playerId in allPlayers) {
