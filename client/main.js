@@ -659,6 +659,7 @@ class Lobby extends Phaser.Scene {
 
 
   update(time, delta) {
+    let step  = 1;
     if (isMobile) {
       let x = Phaser.Math.Clamp(this.joyStick.forceX, -100, 100);
       let y = Phaser.Math.Clamp(this.joyStick.forceY, -100, 100);
@@ -677,6 +678,16 @@ class Lobby extends Phaser.Scene {
           });
         }
       }
+    }
+    if (this.bigscreenPuzzle) {
+      let step = Math.abs(Math.sin(this.t)) * 400;
+      this.progressBar.clear();
+      this.progressBar.lineStyle(40, 0 , 1);
+      this.progressBar.beginPath();
+      this.progressBar.arc(0, 0, this.bgWheel.width / 2, 0, Phaser.Math.DegToRad(this.t), false);
+      this.progressBar.strokePath();
+      this.progressBar.closePath();
+      this.t += 0.01;
     }
   }
 
@@ -1332,8 +1343,19 @@ class Lobby extends Phaser.Scene {
       } else if (curPage <= bigscreenText.length + 2){
         if (curPage === bigscreenText.length + 1) {
           this.portalText.text = "Report";
+
         } else {
           this.portalText.text = "Reset";
+          this.QR.setVisible(false);
+          this.QR.isVisible = false;
+          this.toggleText.text = "Show Code";
+          this.insText.setVisible(false);
+          this.bigscreenPuzzle = true;
+          this.progressBar = this.add.graphics();
+          this.bgwheel.mask = new Phasesr.Display.Masks.BitmapMask(this, this.progressBar);
+          this.t = 0.0;
+          this.progressBar.x = gameOptions.worldWidth / 2;
+          this.progressBar.y = gameOptions.worldHeight / 2;
         }
         this.socket.emit("startPuzzle");
         if (this.timer1 !== null) {
