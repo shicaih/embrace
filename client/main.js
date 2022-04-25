@@ -1344,7 +1344,7 @@ class Lobby extends Phaser.Scene {
           this.portalText.text = "Report";
           this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
           this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(5).setScrollFactor(1);
-          this.bgWheel.setDepth(-98);
+          this.bgWheel.setDepth(-50);
           this.QR.setVisible(false);
           this.QR.isVisible = false;
           this.toggleText.text = "Show Code";
