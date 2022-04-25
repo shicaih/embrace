@@ -2358,7 +2358,7 @@ class Lobby extends Phaser.Scene {
 }
 
 let gameconfig = {
-  type: isMobile? Phaser.CANVAS : Phaser.WEBGL,
+  type: isMobile? Phaser.CANVAS : Phaser.AUTO,
   fps: { target: 40, forceSetTimeOut: true },
   backgroundColor: 0x222222,
   width: gameOptions.viewportWidth,
