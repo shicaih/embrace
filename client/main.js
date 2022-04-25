@@ -1859,42 +1859,79 @@ class Lobby extends Phaser.Scene {
         },
       });*/
 
-    player.thumbUp.y = -100;
-    player.thumbUp.scaleX = 0.1;
-    player.thumbUp.scaleY = 0.1;
-    player.thumbUp.alpha = 1;
-    this.tweens.add({
-      targets: player.thumbUp,
-      alpha: 1,
-      duration: 200,
-      ease: "Sine.easeInOut",
-      callbackScope: this,
-    });
-    this.tweens.add({
-      targets: player.thumbUp,
-      y: -100,
-      scaleX: 0.5,
-      scaleY: 0.5,
-      duration: 300,
-      ease: "Back.easeOut",
-      //easeParams: [ 0.1, 0.8 ],
-      callbackScope: this,
-    });
-    this.tweens.add({
-      targets: player.thumbUp,
-      alpha: 0,
-      delay: 1000,
-      duration: 200,
-      ease: "Sine.easeInOut",
-      callbackScope: this,
-      onComplete: function (tween) {
-        //player.thumbUp.canReveal = true;
-        player.thumbUp.y = 0;
-        player.thumbUp.scaleX = 0.1;
-        player.thumbUp.scaleY = 0.1;
-      },
-    });
-    //}
+    if (isMobile) {
+      player.thumbUp.y = -100;
+      player.thumbUp.scaleX = 0.1;
+      player.thumbUp.scaleY = 0.1;
+      player.thumbUp.alpha = 1;
+      this.tweens.add({
+        targets: player.thumbUp,
+        alpha: 1,
+        duration: 200,
+        ease: "Sine.easeInOut",
+        callbackScope: this,
+      });
+      this.tweens.add({
+        targets: player.thumbUp,
+        y: -100,
+        scaleX: 0.5,
+        scaleY: 0.5,
+        duration: 300,
+        ease: "Back.easeOut",
+        //easeParams: [ 0.1, 0.8 ],
+        callbackScope: this,
+      });
+      this.tweens.add({
+        targets: player.thumbUp,
+        alpha: 0,
+        delay: 1000,
+        duration: 200,
+        ease: "Sine.easeInOut",
+        callbackScope: this,
+        onComplete: function (tween) {
+          //player.thumbUp.canReveal = true;
+          player.thumbUp.y = 0;
+          player.thumbUp.scaleX = 0.1;
+          player.thumbUp.scaleY = 0.1;
+        },
+      }); 
+    } else {
+      player.thumbUp.y = -100;
+      player.thumbUp.scaleX = 0.5;
+      player.thumbUp.scaleY = 0.5;
+      player.thumbUp.alpha = 1;
+      this.tweens.add({
+        targets: player.thumbUp,
+        alpha: 1,
+        duration: 200,
+        ease: "Sine.easeInOut",
+        callbackScope: this,
+      });
+      this.tweens.add({
+        targets: player.thumbUp,
+        y: -100,
+        scaleX: 2.5,
+        scaleY: 2.5,
+        duration: 800,
+        ease: "Sine.easeOut",
+        //easeParams: [ 0.1, 0.8 ],
+        callbackScope: this,
+      });
+      this.tweens.add({
+        targets: player.thumbUp,
+        alpha: 0,
+        delay: 800,
+        duration: 500,
+        ease: "Sine.easeInOut",
+        callbackScope: this,
+        onComplete: function (tween) {
+          //player.thumbUp.canReveal = true;
+          player.thumbUp.y = 0;
+          player.thumbUp.scaleX = 0.1;
+          player.thumbUp.scaleY = 0.1;
+        },
+      });
+    }
   }
   nextCulture(direction) {
     if (this.selectWheel.canSpin) {
