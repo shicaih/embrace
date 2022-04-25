@@ -44,7 +44,7 @@ let devicePixelRatio = window.innerWidth / window.screen.availWidth; //window.de
 let worldSize = 8000;
 let bigScreenWorldWidth, bigScreenWorldHeight;
 let bigScreenRatio = 2;
-let starGoal = 100;
+let starPerPlayer = 15;
 
 console.log(window.devicePixelRatio);
 console.log(window.innerWidth);
@@ -631,7 +631,7 @@ class Lobby extends Phaser.Scene {
     });
     socket.on("addStar", (totalStars) => {
       this.insText.text = "Stars: " + totalStars;
-      let starDeg = totalStars / starGoal * 360;
+      let starDeg = totalStars / ( playersCount * starPerPlayer) * 360;
       this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
     })
     this.createUI();
