@@ -82,6 +82,9 @@ socket.on("playerReport", data => {
     if (data.location == 'Prefer not to say' || data.location == '⊘' ) {
       document.getElementById("locationHid").style.display = "inline";
       document.getElementById("locationUnhid").style.display = "none";
+    } else {
+      document.getElementById("locationHid").style.display = "none";
+      document.getElementById("locationUnhid").style.display = "inline";
     }
 
     elements = document.getElementsByClassName("locationIsImportant")
@@ -126,6 +129,9 @@ socket.on("playerReport", data => {
     if (data.music == 'Prefer not to say' || data.music == '⊘' ) {
       document.getElementById("musicHid").style.display = "block";
       document.getElementById("musicUnhid").style.display = "none";
+    } else {
+      document.getElementById("musicHid").style.display = "none";
+      document.getElementById("musicUnhid").style.display = "block";
     }
 
 
@@ -155,6 +161,9 @@ socket.on("playerReport", data => {
     if (data.food == 'Prefer not to say' || data.food == '⊘' ) {
       document.getElementById("foodHid").style.display = "block";
       document.getElementById("foodUnhid").style.display = "none";
+    } else {
+      document.getElementById("foodHid").style.display = "none";
+      document.getElementById("foodUnhid").style.display = "block";
     }
 
     elements = document.getElementsByClassName("section")
