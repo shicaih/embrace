@@ -1330,7 +1330,7 @@ class Lobby extends Phaser.Scene {
         this.toggleText.setDepth(2000);
 
       } else {
-        if (curPage === bigscreenText.length + 3) {
+        if (curPage === bigscreenText.length + 1) {
           this.portalText.text = "Report";
         }
         this.socket.emit("startPuzzle");
