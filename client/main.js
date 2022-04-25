@@ -1349,7 +1349,7 @@ class Lobby extends Phaser.Scene {
           this.insText.setVisible(false);
           this.bigscreenPuzzle = true;
           this.progressBar = this.add.graphics();
-          this.bgwheel.mask = new Phaser.Display.Masks.BitmapMask(this, this.progressBar);
+          this.bgWheel.mask = new Phaser.Display.Masks.BitmapMask(this, this.progressBar);
           this.t = 0.0;
           this.progressBar.x = gameOptions.worldWidth / 2;
           this.progressBar.y = gameOptions.worldHeight / 2;
