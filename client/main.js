@@ -680,8 +680,10 @@ class Lobby extends Phaser.Scene {
     }
     if (this.bigscreenPuzzle) {
       let step = Math.abs(Math.sin(this.t)) * 360;
-      this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, step, false);
-      this.progressBar.clear();
+      console.log(step);
+      drawPieSlice(this.progressBar, 0, 0, this.bgWheel.width * 2.5, 0, step, "#000000");
+      // this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, step, false);
+      // this.progressBar.clear();
       this.t += 0.01;
     }
   }
@@ -1344,8 +1346,7 @@ class Lobby extends Phaser.Scene {
           this.insText.setVisible(false);
 
           this.progressBar = this.add.graphics();
-          this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
-          this.bgWheel.setMask(this.bgWheel.mask);
+          // this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
           this.t = 0.0;
           this.progressBar.x = gameOptions.worldWidth / 2;
           this.progressBar.y = gameOptions.worldHeight / 2;
