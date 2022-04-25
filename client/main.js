@@ -44,6 +44,7 @@ let devicePixelRatio = window.innerWidth / window.screen.availWidth; //window.de
 let worldSize = 8000;
 let bigScreenWorldWidth, bigScreenWorldHeight;
 let bigScreenRatio = 2;
+let starGoal = 100;
 
 console.log(window.devicePixelRatio);
 console.log(window.innerWidth);
@@ -624,6 +625,11 @@ class Lobby extends Phaser.Scene {
 
       }
     });
+    socket.on("addStar", (totalStars) => {
+      this.insText.text = "Stars: " + totalStars;
+      let starDeg = totalStars / starGoal * 360;
+      this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
+    })
     this.createUI();
     this.findPeople = {};
     this.findPeople.nWheelTapped = 0;
@@ -677,15 +683,6 @@ class Lobby extends Phaser.Scene {
           });
         }
       }
-    }
-    if (this.bigscreenPuzzle) {
-      let step = Math.abs(Math.sin(this.t)) * 360;
-      console.log(step);
-      // this.drawPieSlice(this.progressBar, 0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(step), "#000000");
-
-      this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(step), false);
-      // this.progressBar.clear();
-      this.t += 0.01;
     }
   }
 
@@ -1344,11 +1341,10 @@ class Lobby extends Phaser.Scene {
           this.QR.setVisible(false);
           this.QR.isVisible = false;
           this.toggleText.text = "Show Code";
-          this.insText.setVisible(false);
+          this.insText.text = "Stars: 0";
 
           this.progressBar = this.add.graphics();
           this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
-          this.t = 0.0;
           this.progressBar.x = gameOptions.worldWidth / 2;
           this.progressBar.y = gameOptions.worldHeight / 2;
           this.bigscreenPuzzle = true;

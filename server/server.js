@@ -41,6 +41,7 @@ var firstGroup = null;
 var curLevel = -1; 
 var posIndex = 0;   
 var bigscreenSid = null;
+var totalStars = 0;
 /**  
  *
  * @param uuid
@@ -950,6 +951,8 @@ io.sockets.on('connection', function(socket) {
                 if (assignment == null || assignment == undefined) assignment = puzzleRooms[socket.roomNumber].assignmentGenerator.getAssignmentForPlayer(socket.uuid, Object.keys(players), freq, 100, 1);
                 if(isSuccess) {
                     curPlayer.star += 1;
+                    totalStars += 1;
+                    io.to(bigscreenSid).emit("addStar", totalStars);
                 }
                 socket.emit('startAssignment', assignment, options.seekTime);
             }
@@ -1205,6 +1208,7 @@ io.sockets.on('connection', function(socket) {
         curLevel = -1;
         posIndex = 0;
         bigscreenSid = null;
+        totalStars = 0
     })
 }); 
 setInterval(() => {
