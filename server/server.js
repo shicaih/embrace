@@ -884,7 +884,7 @@ io.sockets.on('connection', function(socket) {
         } else { 
             if (goneLobbyPlayers[data.uuid] === undefined) {
                 console.log("no player found, should be dubugging");
-                newPlayer = new Player(data.uuid, data.info, data.scores, data.star);
+                newPlayer = new Player(data.uuid, data.info, data.scores);
                 goneLobbyPlayers[data.uuid] = newPlayer;
             }
             newPlayer = goneLobbyPlayers[data.uuid];
@@ -894,6 +894,9 @@ io.sockets.on('connection', function(socket) {
          
         if (socket.phase === 1 && socket.roomNumber !== null) { 
             socket.join("Room" + socket.roomNumber);
+        }
+        if (socket.phase === 1 && socket.roomNumber !== null) { 
+          socket.join("Room" + socket.roomNumber);
         }
         // Adds the newly created player to the array according to its phase state.
         // Sends the connecting client his unique ID, and data about the other players already connected.

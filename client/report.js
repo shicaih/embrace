@@ -51,20 +51,20 @@ socket.on("playerReport", data => {
     //document.getElementById("nPuzzlesSolvedWord").innerHTML = pluralize('challenge', data.nPuzzlesSolved);
     //document.getElementById("speedRank").innerHTML = `${data.speedRank}%`;
 
-    document.getElementById("encouragingPerson").style.display = data.nThumbToOthers > 0 ? "inline" : "none"
-    document.getElementById("nThumbToOthers").innerHTML = data.nThumbToOthers;
-    document.getElementById("nThumbToOthersWord").innerHTML = pluralize('person', data.nThumbToOthers);
+    //document.getElementById("encouragingPerson").style.display = data.nThumbToOthers > 0 ? "inline" : "none"
+    //document.getElementById("nThumbToOthers").innerHTML = data.nThumbToOthers;
+    //document.getElementById("nThumbToOthersWord").innerHTML = pluralize('person', data.nThumbToOthers);
 
-    document.getElementById("helpfulPerson").style.display = data.nThumbFromOthers > 0 ? "inline" : "none"
-    document.getElementById("alsoHelpful").style.display = data.nThumbToOthers > 0 ? "inline" : "none" 
-    document.getElementById("nThumbFromOthers").innerHTML = data.nThumbFromOthers;
-    document.getElementById("nThumbFromOthersWord").innerHTML = `${pluralize('person', data.nThumbFromOthers)}`;
+    //document.getElementById("helpfulPerson").style.display = data.nThumbFromOthers > 0 ? "inline" : "none"
+    //document.getElementById("alsoHelpful").style.display = data.nThumbToOthers > 0 ? "inline" : "none" 
+    //document.getElementById("nThumbFromOthers").innerHTML = data.nThumbFromOthers;
+    //document.getElementById("nThumbFromOthersWord").innerHTML = `${pluralize('person', data.nThumbFromOthers)}`;
 
-    document.getElementById("mutualThumb").style.display = data.nMutualThumb > 0 ? "inline" : "none"
-    document.getElementById("nMutualThumb").innerHTML = data.nMutualThumb;
-    document.getElementById("nMutualThumbWord").innerHTML = `${pluralize('person', data.nMutualThumb)}`;
+    //document.getElementById("mutualThumb").style.display = data.nMutualThumb > 0 ? "inline" : "none"
+    //document.getElementById("nMutualThumb").innerHTML = data.nMutualThumb;
+    //document.getElementById("nMutualThumbWord").innerHTML = `${pluralize('person', data.nMutualThumb)}`;
 
-    document.getElementById("madeFriends").style.display = data.nThumbFromOthers > 0 || data.nThumbToOthers > 0 ? "inline" : "none"
+    //document.getElementById("madeFriends").style.display = data.nThumbFromOthers > 0 || data.nThumbToOthers > 0 ? "inline" : "none"
     
     document.getElementById("nCountriesStates").innerHTML = data.nCountriesStates;
     //document.getElementById("nCountries").innerHTML = data.nCountries;
