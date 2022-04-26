@@ -407,6 +407,7 @@ class Lobby extends Phaser.Scene {
         0,
         "cultureIcon"
       );
+      icon.setOrigin(0.5, 0.5);
       icon.setFrame(iconFrameNames[gameOptions.curIndex].frame);
       icon.setScale(devicePixelRatio / 3);
       rrec.width = text.width + 100;
@@ -414,13 +415,13 @@ class Lobby extends Phaser.Scene {
       this.mainPlayer.text = text;
       this.mainPlayer.icon = icon;
 
-      let tagContainer = this.add.container(0, gameOptions.wheelRadius + 50 * devicePixelRatio, [
+      let tagContainer = this.add.container(0, -(gameOptions.wheelRadius + 50 * devicePixelRatio), [
         rrec,
         text,
         icon,
       ]);
       tagContainer.setDepth(51);
-      tagContainer.setSize(10, 10);
+      // tagContainer.setSize(10, 10);
 
       let centerRrec = this.add.rexRoundRectangle(
         0,
