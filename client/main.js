@@ -1609,7 +1609,7 @@ class Lobby extends Phaser.Scene {
     );
     icon.setFrame(iconFrameNames[gameOptions.curIndex].frame);
     icon.setScale(devicePixelRatio / 3);
-    text.setPosition(-text.width / 2, -gameOptions.cultureTextFontSize / 2 - 2);
+    
     rrec.width = text.width + 100;
 
     player.rrec = rrec;
@@ -1640,6 +1640,7 @@ class Lobby extends Phaser.Scene {
 
     ]);
     playerContainer.setDepth(25);
+    playerContainer.setPosition(player.x, player.y);
     player.gameObject = playerContainer;
 
   }
@@ -2017,7 +2018,7 @@ class Lobby extends Phaser.Scene {
           this.players[uuid].rrec.x - this.players[uuid].text.width / 2,
           this.players[uuid].text.y
         );
-        
+
          */
         this.players[uuid].rrec.width = this.players[uuid].text.width + 100;
         this.players[uuid].icon.setFrame(
