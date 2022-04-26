@@ -724,7 +724,7 @@ class Lobby extends Phaser.Scene {
           fontSize: 48 * devicePixelRatio,
           color: gameOptions.playerTextColor,
           align: "center",
-          wordWrap: { width: this.helpRrec.width * 0.8 },
+          wordWrap: { width: gameOptions.viewportWidth * 0.8 },
         })
     this.wrongText.setOrigin(0.5, 0.5).setVisble(false);
     let self = this;
