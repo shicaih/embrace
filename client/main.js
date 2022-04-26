@@ -1286,7 +1286,7 @@ class Lobby extends Phaser.Scene {
     this.puzzleCountText = this.add.text(
         gameOptions.viewportWidth - 700 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
         gameOptions.viewportHeight - 1100 * bigScreenRatio,
-        "Players: " + puzzlePlayerCount,
+        "Player: " + puzzlePlayerCount,
         {
           fontFamily: gameOptions.playerTextFont,
           fontSize: 96 * bigScreenRatio,
@@ -1425,6 +1425,8 @@ class Lobby extends Phaser.Scene {
 
         } else {
           this.portalText.text = "Reset";
+          this.puzzleCountText.setVisible(false);
+          this.countText.setVisible(true);
 
         }
         this.socket.emit("startPuzzle");
