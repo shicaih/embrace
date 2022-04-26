@@ -376,12 +376,6 @@ class Lobby extends Phaser.Scene {
       let mainPlayerWheel = this.matter.add.sprite(400, 1250, "userWheel");
       mainPlayerWheel.setSensor(true);
       this.mainPlayer = new MainPlayer(mainPlayerInfo, scores);
-      this.mainPlayer.gameObject = mainPlayerWheel;
-      mainPlayerWheel.setCircle(gameOptions.wheelRadius);
-      mainPlayerWheel.setStatic(false);
-      mainPlayerWheel.setFixedRotation();
-      mainPlayerWheel.setDepth(50);
-
       let rrec = this.add.rexRoundRectangle(
         0,
         0,
@@ -398,8 +392,8 @@ class Lobby extends Phaser.Scene {
         1
       );
       let text = this.add.text(
-        -gameOptions.playerTextWidth / 2,
-        -gameOptions.cultureTextFontSize / 2,
+        0,
+        0,
         gameOptions.iconPlaceHolder + mainPlayerInfo[gameOptions.curCulture],
         {
           fontFamily: gameOptions.playerTextFont,
@@ -408,6 +402,7 @@ class Lobby extends Phaser.Scene {
           align: "center",
         }
       );
+      text.setOrigin(0.5, 0.5);
       let icon = this.add.sprite(
         -text.width / 2 + (30 * devicePixelRatio) / 3,
         0,
@@ -415,43 +410,20 @@ class Lobby extends Phaser.Scene {
       );
       icon.setFrame(iconFrameNames[gameOptions.curIndex].frame);
       icon.setScale(devicePixelRatio / 3);
-      text.setPosition(
-        -text.width / 2,
-        -gameOptions.cultureTextFontSize / 2 - 2
-      );
       rrec.width = text.width + 100;
       this.mainPlayer.rrec = rrec;
       this.mainPlayer.text = text;
       this.mainPlayer.icon = icon;
 
-      let containerPosX =
-        this.mainPlayer.gameObject.x - gameOptions.playerTextWidth / 2;
-      let containerPosY =
-        this.mainPlayer.gameObject.y - gameOptions.playerTextHeight / 2;
-      let textContainer = this.add.container(containerPosX, containerPosY, [
+      let tagContainer = this.add.container(0, gameOptions.wheelRadius + 50 * devicePixelRatio, [
         rrec,
         text,
         icon,
       ]);
-      textContainer.setDepth(51);
-      textContainer.setSize(10, 10);
-      let textPContainer = this.matter.add.gameObject(textContainer, {
-        isSensor: true,
-      });
-      this.mainPlayer.playerTextCon = textContainer;
-      this.mainPlayer.playerTextPCon = textPContainer;
-      let constraint = this.matter.add.constraint(
-        mainPlayerWheel,
-        textPContainer,
-        gameOptions.playerTextDistance,
-        1,
-        { 
-          angularStiffness: 1,
-          damping: 0.1,
-        }
-      );
+      tagContainer.setDepth(51);
+      tagContainer.setSize(10, 10);
 
-      rrec = this.add.rexRoundRectangle(
+      let centerRrec = this.add.rexRoundRectangle(
         0,
         0,
         gameOptions.wheelRadius,
@@ -460,9 +432,9 @@ class Lobby extends Phaser.Scene {
         0xffffff,
         0.75
       );
-      text = this.add.text(
-        -gameOptions.playerTextWidth / 2,
-        -gameOptions.playerTextFontSize / 2,
+      let centerText = this.add.text(
+        0,
+        0,
         window.sessionStorage.getItem("name"),
         {
           fontFamily: gameOptions.playerTextFont,
@@ -472,7 +444,7 @@ class Lobby extends Phaser.Scene {
           align: "center",
         }
       );
-
+      centerText.setOrigin(0.5, 0.5);
       let thumbUp = this.add.sprite(0, 0, "thumbUp");
       thumbUp.setScale(0.1).setAlpha(0).setDepth(200);
       thumbUp.canReveal = true;
@@ -486,30 +458,30 @@ class Lobby extends Phaser.Scene {
       this.mainPlayer.thumbUp = thumbUp;
       this.mainPlayer.smile = smile;
 
-      containerPosX =
-        this.mainPlayer.gameObject.x - gameOptions.playerTextWidth / 2;
-      containerPosY =
-        this.mainPlayer.gameObject.y - gameOptions.playerTextHeight / 2;
-      textContainer = this.add.container(containerPosX, containerPosY, [
+      let centerContainer = this.add.container(0, 0, [
         rrec,
         text,
         thumbUp,
         smile,
       ]);
 
-      textContainer.setDepth(51);
-      textContainer.setSize(10, 10);
-      textPContainer = this.matter.add.gameObject(textContainer, {
+      centerContainer.setDepth(51);
+      centerContainer.setSize(10, 10);
+      let mainPlayerContainer = this.add.container(0, 0, [
+          mainPlayerWheel,
+          centerContainer,
+          tagContainer
+      ])
+      let mainPlayerContainerPhysics = this.matter.add.gameObject(mainPlayerContainer, {
         isSensor: true,
       });
-      this.mainPlayer.nameTextCon = textContainer;
-      this.mainPlayer.nameTextPCon = textPContainer;
-      constraint = this.matter.add.constraint(
-        mainPlayerWheel,
-        textPContainer,
-        0,
-        1
-      );
+
+      this.mainPlayer.gameObject = mainPlayerContainerPhysics;
+      mainPlayerContainerPhysics.setCircle(gameOptions.wheelRadius);
+      mainPlayerContainerPhysics.setStatic(false);
+      mainPlayerContainerPhysics.setFixedRotation();
+      mainPlayerContainerPhysics.setDepth(50);
+
 
       // set camera that stays in the boundary and follow our playerWheel
       let camera = this.cameras.main;
