@@ -1377,6 +1377,7 @@ class Lobby extends Phaser.Scene {
     this.portal.setDepth(1000);
     this.portal.setInteractive().on("pointerdown", (pointer) => {
       curPage += 1;
+      this.portal.setFillStyle(0xF6DFBA);
       if (curPage < bigscreenText.length) {
         this.bigscreenTitle.text = bigscreenTitle[curPage];
         this.bigscreenText.text = bigscreenText[curPage]
