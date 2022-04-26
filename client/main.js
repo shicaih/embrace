@@ -377,7 +377,7 @@ class Lobby extends Phaser.Scene {
       this.mainPlayer = new MainPlayer(mainPlayerInfo, scores);
       let rrec = this.add.rexRoundRectangle(
         0,
-          -(gameOptions.wheelRadius + 50 * devicePixelRatio),
+          -(gameOptions.wheelRadius + 25 * devicePixelRatio),
         gameOptions.playerTextWidth,
         gameOptions.cultureTextFontSize / 2 + (80 * devicePixelRatio) / 3,
         10,
@@ -392,7 +392,7 @@ class Lobby extends Phaser.Scene {
       );
       let text = this.add.text(
         0,
-          -(gameOptions.wheelRadius + 50 * devicePixelRatio),
+          -(gameOptions.wheelRadius + 25 * devicePixelRatio),
         gameOptions.iconPlaceHolder + mainPlayerInfo[gameOptions.curCulture],
         {
           fontFamily: gameOptions.playerTextFont,
@@ -404,7 +404,7 @@ class Lobby extends Phaser.Scene {
       text.setOrigin(0.5, 0.5);
       let icon = this.add.image(
         -text.width / 2 + (30 * devicePixelRatio) / 3,
-          -(gameOptions.wheelRadius + 50 * devicePixelRatio),
+          -(gameOptions.wheelRadius + 25 * devicePixelRatio),
         "cultureIcon"
       );
       icon.setOrigin(0.5, 0.5);
@@ -1576,7 +1576,7 @@ class Lobby extends Phaser.Scene {
     );
     let rrec = this.add.rexRoundRectangle(
       0,
-      -(gameOptions.wheelRadius + 50 * devicePixelRatio),
+      -(gameOptions.wheelRadius + 25 * devicePixelRatio),
       gameOptions.playerTextWidth,
       gameOptions.cultureTextFontSize / 2 + (80 * devicePixelRatio) / 3,
       10,
@@ -1591,7 +1591,7 @@ class Lobby extends Phaser.Scene {
 
     let text = this.add.text(
       0,
-      -(gameOptions.wheelRadius + 50 * devicePixelRatio),
+      -(gameOptions.wheelRadius + 25 * devicePixelRatio),
       gameOptions.iconPlaceHolder + player.wheelInfo[gameOptions.curCulture],
       {
         fontFamily: gameOptions.playerTextFont,
@@ -1604,12 +1604,12 @@ class Lobby extends Phaser.Scene {
 
     let icon = this.add.sprite(
       -text.width / 2 + (30 * devicePixelRatio) / 3,
-      -(gameOptions.wheelRadius + 50 * devicePixelRatio),
+      -(gameOptions.wheelRadius + 25 * devicePixelRatio),
       "cultureIcon"
     );
     icon.setFrame(iconFrameNames[gameOptions.curIndex].frame);
     icon.setScale(devicePixelRatio / 3);
-    
+
     rrec.width = text.width + 100;
 
     player.rrec = rrec;
