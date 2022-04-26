@@ -377,7 +377,7 @@ class Lobby extends Phaser.Scene {
       this.mainPlayer = new MainPlayer(mainPlayerInfo, scores);
       let rrec = this.add.rexRoundRectangle(
         0,
-        0,
+          -(gameOptions.wheelRadius + 50 * devicePixelRatio),
         gameOptions.playerTextWidth,
         gameOptions.cultureTextFontSize / 2 + (80 * devicePixelRatio) / 3,
         10,
@@ -392,7 +392,7 @@ class Lobby extends Phaser.Scene {
       );
       let text = this.add.text(
         0,
-        0,
+          -(gameOptions.wheelRadius + 50 * devicePixelRatio),
         gameOptions.iconPlaceHolder + mainPlayerInfo[gameOptions.curCulture],
         {
           fontFamily: gameOptions.playerTextFont,
@@ -404,7 +404,7 @@ class Lobby extends Phaser.Scene {
       text.setOrigin(0.5, 0.5);
       let icon = this.add.image(
         -text.width / 2 + (30 * devicePixelRatio) / 3,
-        0,
+          -(gameOptions.wheelRadius + 50 * devicePixelRatio),
         "cultureIcon"
       );
       icon.setOrigin(0.5, 0.5);
@@ -415,6 +415,7 @@ class Lobby extends Phaser.Scene {
       this.mainPlayer.text = text;
       this.mainPlayer.icon = icon;
 
+      /*
       let tagContainer = this.add.container(0, -(gameOptions.wheelRadius + 50 * devicePixelRatio), [
         rrec,
         text,
@@ -422,6 +423,8 @@ class Lobby extends Phaser.Scene {
       ]);
       tagContainer.setDepth(51);
       // tagContainer.setSize(10, 10);
+
+       */
 
       let centerRrec = this.add.rexRoundRectangle(
         0,
@@ -453,11 +456,12 @@ class Lobby extends Phaser.Scene {
       smile.setScale(1).setAlpha(0);
       smile.canReveal = true;
 
-      this.mainPlayer.nameRrec = rrec;
-      this.mainPlayer.nameText = text;
+      this.mainPlayer.nameRrec = centerRrec;
+      this.mainPlayer.nameText = centerText;
       this.mainPlayer.thumbUp = thumbUp;
       this.mainPlayer.smile = smile;
 
+      /*
       let centerContainer = this.add.container(0, 0, [
         rrec,
         text,
@@ -465,12 +469,19 @@ class Lobby extends Phaser.Scene {
         smile,
       ]);
 
+       */
+
       centerContainer.setDepth(51);
       centerContainer.setSize(10, 10);
       let mainPlayerContainer = this.add.container(0, 0, [
           mainPlayerWheel,
-          centerContainer,
-          tagContainer
+          rrec,
+          text,
+          icon,
+          centerRrec,
+          centerText;
+          thumbUp,
+          smile,
       ])
       let mainPlayerContainerPhysics = this.matter.add.gameObject(mainPlayerContainer, {
         isSensor: true,
@@ -2419,7 +2430,7 @@ let gameconfig = {
       gravity: {
         y: 0.0,
       },
-      debug: false,
+      debug: true,
       setBounds: {
         width: gameOptions.worldWidth,
         height: gameOptions.worldHeight,
