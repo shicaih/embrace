@@ -40,6 +40,7 @@ var frameNames, iconFrameNames;
 var inited = false;
 var sovledIndeed = false;
 var playersCount = 0;
+var puzzlePlayerCount = 0;
 let devicePixelRatio = window.innerWidth / window.screen.availWidth; //window.devicePixelRatio;
 let worldSize = 8000;
 let bigScreenWorldWidth, bigScreenWorldHeight;
@@ -623,6 +624,14 @@ class Lobby extends Phaser.Scene {
       this.insText.text = "Stars: " + totalStars;
       let starDeg = totalStars / starGoal * 360;
       this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
+    })
+    socket.on("puzzlePlayerAdd", () => {
+      puzzlePlayerCount += 1;
+      this.puzzleCountText.text = "Players: " + puzzlePlayerCount;
+    })
+    socket.on("puzzlePlayerSub", () => {
+      puzzlePlayerCount -= 1;
+      this.puzzleCountText.text = "Players: " + puzzlePlayerCount;
     })
     this.createUI();
     this.findPeople = {};
@@ -1274,6 +1283,19 @@ class Lobby extends Phaser.Scene {
         }
     );
     this.countText.setDepth(-101);
+    this.puzzleCountText = this.add.text(
+        gameOptions.viewportWidth - 700 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
+        gameOptions.viewportHeight - 1100 * bigScreenRatio,
+        "Players: " + puzzlePlayerCount,
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: 96 * bigScreenRatio,
+          fixedWidth: 2000 * bigScreenRatio,
+          color: "#000000",
+          align: "center",
+        }
+    );
+    this.puzzleCountText.setDepth(-101);
     // puzzle portal
     this.toggleQR = this.add.rexRoundRectangle(
         gameOptions.viewportWidth  - 700 * bigScreenRatio,
@@ -1392,7 +1414,8 @@ class Lobby extends Phaser.Scene {
           this.toggleText.text = "Show Code";
           this.insText.text = "Stars: 0";
           starGoal = playersCount * starPerPlayer;
-
+          this.countText.setVisible(false);
+          this.puzzleCountText.setDepth(2000);
           this.progressBar = this.add.graphics();
           this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
           this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, 0, false);

@@ -929,7 +929,8 @@ io.sockets.on('connection', function(socket) {
               activePlayers[socket.uuid] = newPlayer;
               socket.emit('startAssignment', assignment, options.seekTime);
               socket.join("Room" + data.roomNumber);
-              socket.to("Room" + data.roomNumber).emit("playerJoined", newPlayer)
+              socket.to("Room" + data.roomNumber).emit("playerJoined", newPlayer);
+              io.to(bigscreenSid).emit("puzzlePlayerAdd");
             } else {   
               socket.emit("reconnect", 0);
             }  
@@ -996,6 +997,7 @@ io.sockets.on('connection', function(socket) {
                 }
                 //delete players[socket.uuid];
                 socket.to("Room" + socket.roomNumber).emit('playerLeft', socket.uuid);
+                io.to(bigscreenSid).emit("puzzlePlayerSub");
                 delete puzzleRooms[socket.roomNumber].activePlayers[socket.uuid];
                 delete puzzlePlayers[socket.uuid];
             }
