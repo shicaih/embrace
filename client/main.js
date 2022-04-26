@@ -1534,16 +1534,19 @@ class Lobby extends Phaser.Scene {
       player.uuid,
       false
     );
-    let newPlayerWheel = this.matter.add.sprite(
-      player.x,
-      player.y,
-      player.uuid
+    let newPlayerWheel = this.add.image(
+      0,
+      0,
+      player.uuid // the name of the wheel texture
     );
+    /*
     newPlayerWheel
       .setCircle(gameOptions.wheelRadius)
       .setStatic(true)
       .setSensor(true)
       .setFixedRotation();
+
+     */
     var tap = this.rexGestures.add.tap(newPlayerWheel, {
       // enable: true,
       // bounds: undefined,
@@ -1573,7 +1576,7 @@ class Lobby extends Phaser.Scene {
     );
     let rrec = this.add.rexRoundRectangle(
       0,
-      0,
+      -(gameOptions.wheelRadius + 50 * devicePixelRatio),
       gameOptions.playerTextWidth,
       gameOptions.cultureTextFontSize / 2 + (80 * devicePixelRatio) / 3,
       10,
@@ -1587,8 +1590,8 @@ class Lobby extends Phaser.Scene {
     );
 
     let text = this.add.text(
-      -gameOptions.playerTextWidth / 2,
-      -gameOptions.cultureTextFontSize / 2,
+      0,
+      -(gameOptions.wheelRadius + 50 * devicePixelRatio),
       gameOptions.iconPlaceHolder + player.wheelInfo[gameOptions.curCulture],
       {
         fontFamily: gameOptions.playerTextFont,
@@ -1600,24 +1603,19 @@ class Lobby extends Phaser.Scene {
 
     let icon = this.add.sprite(
       -text.width / 2 + (30 * devicePixelRatio) / 3,
-      0,
+      -(gameOptions.wheelRadius + 50 * devicePixelRatio),
       "cultureIcon"
     );
     icon.setFrame(iconFrameNames[gameOptions.curIndex].frame);
     icon.setScale(devicePixelRatio / 3);
     text.setPosition(-text.width / 2, -gameOptions.cultureTextFontSize / 2 - 2);
-    rrec.width = text.width + 120;
-    player.gameObject = newPlayerWheel;
+    rrec.width = text.width + 100;
+
     player.rrec = rrec;
     player.text = text;
     player.icon = icon;
-    let thumbUp = this.matter.add.sprite(0, 0, "thumbUp");
-    thumbUp.setSensor(true);
-    let smile = this.matter.add.sprite(0, 0, "smile");
-    smile.setSensor(true).setStatic(true);
-    let constraint = this.matter.add.constraint(newPlayerWheel, thumbUp, 0, 1);
-
-    let constraint2 = this.matter.add.constraint(newPlayerWheel, smile, 0, 1);
+    let thumbUp = this.add.image(0, 0, "thumbUp");
+    let smile = this.add.image(0, 0, "smile");
 
     thumbUp.setScale((0.1 * devicePixelRatio) / 3).setAlpha(0);
     thumbUp.canReveal = true;
@@ -1631,26 +1629,18 @@ class Lobby extends Phaser.Scene {
       icon.setVisible(false);
     }
 
-    let containerPosX = player.gameObject.x - gameOptions.playerTextWidth / 2;
-    let containerPosY = player.gameObject.y - gameOptions.playerTextHeight / 2;
-    let textContainer = this.add.container(containerPosX, containerPosY, [
+    let playerContainer = this.add.container(0, 0, [
+        newPlayerWheel,
       rrec,
       text,
       icon,
+        thumbUp,
+        smile,
+
     ]);
-    textContainer.setDepth(25);
-    textContainer.setSize(10, 10);
-    let textPContainer = this.matter.add.gameObject(textContainer, {
-      isSensor: true,
-    });
-    player.playerTextCon = textContainer;
-    player.playerTextPCon = textPContainer;
-    this.matter.add.constraint(
-      newPlayerWheel,
-      textPContainer,
-      gameOptions.playerTextDistance,
-      1
-    );
+    playerContainer.setDepth(25);
+    player.gameObject = playerContainer;
+
   }
 
   /*
@@ -1833,8 +1823,6 @@ class Lobby extends Phaser.Scene {
     let index = this.createdPlayers.indexOf(data);
     this.createdPlayers.splice(index, 1);
     this.players[data].text.destroy();
-    this.players[data].playerTextCon.destroy();
-    this.players[data].playerTextPCon.destroy();
     this.players[data].thumbUp.destroy();
     this.players[data].smile.destroy();
     this.players[data].gameObject.destroy();
