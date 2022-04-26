@@ -373,8 +373,7 @@ class Lobby extends Phaser.Scene {
 
       // generate the custom texture
       this.genWheelTexture(scores, gameOptions.wheelRadius, "userWheel", true);
-      let mainPlayerWheel = this.matter.add.sprite(400, 1250, "userWheel");
-      mainPlayerWheel.setSensor(true);
+      let mainPlayerWheel = this.add.image(0, 0, "userWheel");
       this.mainPlayer = new MainPlayer(mainPlayerInfo, scores);
       let rrec = this.add.rexRoundRectangle(
         0,
@@ -403,7 +402,7 @@ class Lobby extends Phaser.Scene {
         }
       );
       text.setOrigin(0.5, 0.5);
-      let icon = this.add.sprite(
+      let icon = this.add.image(
         -text.width / 2 + (30 * devicePixelRatio) / 3,
         0,
         "cultureIcon"
