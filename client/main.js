@@ -1600,6 +1600,7 @@ class Lobby extends Phaser.Scene {
         align: "center",
       }
     );
+    text.setOrigin(0.5, 0.5);
 
     let icon = this.add.sprite(
       -text.width / 2 + (30 * devicePixelRatio) / 3,
@@ -2011,10 +2012,13 @@ class Lobby extends Phaser.Scene {
         this.players[uuid].text.text =
           gameOptions.iconPlaceHolder + this.players[uuid].wheelInfo[culture];
         this.players[uuid].rrec.setFillStyle(gameOptions.colors[index], 1);
+        /*
         this.players[uuid].text.setPosition(
           this.players[uuid].rrec.x - this.players[uuid].text.width / 2,
           this.players[uuid].text.y
         );
+        
+         */
         this.players[uuid].rrec.width = this.players[uuid].text.width + 100;
         this.players[uuid].icon.setFrame(
           iconFrameNames[gameOptions.curIndex].frame
