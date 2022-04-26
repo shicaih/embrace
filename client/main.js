@@ -727,6 +727,8 @@ class Lobby extends Phaser.Scene {
           wordWrap: { width: gameOptions.viewportWidth * 0.8 },
         })
     this.wrongText.setOrigin(0.5, 0.5);
+    this.wrongText.setDepth(2000);
+    this.wrongText.setScrollFactor(false);
     this.wrongText.setVisible(false);
     let self = this;
     this.bgImage
@@ -795,9 +797,10 @@ class Lobby extends Phaser.Scene {
             this.wrongAnim.on("animationstop", () => {
               this.wrongAnim.destroy();
             });
+            this.wrongText.setVisible(true);
             this.wrongAnim.setDepth(200).setScale(devicePixelRatio);
             this.wrongAnim.play("wrong");
-            this.wrongText.setVisible(true);
+
             this.wrongAnim.stopAfterRepeat(0);
             this.tweens.add({
               targets: this.failBlocker,
