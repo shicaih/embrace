@@ -2427,7 +2427,7 @@ let gameconfig = {
       gravity: {
         y: 0.0,
       },
-      debug: true,
+      debug: false,
       setBounds: {
         width: gameOptions.worldWidth,
         height: gameOptions.worldHeight,
