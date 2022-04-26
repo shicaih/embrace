@@ -468,11 +468,12 @@ class Lobby extends Phaser.Scene {
         thumbUp,
         smile,
       ]);
+            centerContainer.setDepth(51);
+      centerContainer.setSize(10, 10);
 
        */
 
-      centerContainer.setDepth(51);
-      centerContainer.setSize(10, 10);
+
       let mainPlayerContainer = this.add.container(0, 0, [
           mainPlayerWheel,
           rrec,
