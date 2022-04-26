@@ -717,11 +717,11 @@ class Lobby extends Phaser.Scene {
   createMobileUI() {
     this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1).setScale(2);
     this.bgImage.setDepth(-100);
-    this.wrongText = this.add.text(gameOptions.viewportWidth * 0.5, gameOptions.viewportHeight * 0.7,
+    this.wrongText = this.add.text(gameOptions.viewportWidth * 0.5, gameOptions.viewportHeight * 0.75,
         "Wrong Wheel",
         {
           fontFamily: gameOptions.playerTextFont,
-          fontSize: 48 * devicePixelRatio,
+          fontSize: 36 * devicePixelRatio,
           color: gameOptions.playerTextColor,
           align: "center",
           wordWrap: { width: gameOptions.viewportWidth * 0.8 },
