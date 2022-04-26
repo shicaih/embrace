@@ -316,7 +316,7 @@ class Lobby extends Phaser.Scene {
     );
     this.load.image(
         "bgWheelBW",
-        "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bgWheelBW.png?v=1650927309732"
+        "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/1080p%20X%201080p.png?v=1650986608997"
     )
 
     this.load.svg('bigscreenLeft', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigLeft.svg?v=1650573790728');
