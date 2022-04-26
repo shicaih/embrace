@@ -479,7 +479,7 @@ class Lobby extends Phaser.Scene {
           text,
           icon,
           centerRrec,
-          centerText;
+          centerText,
           thumbUp,
           smile,
       ])
