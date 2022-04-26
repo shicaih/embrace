@@ -2040,10 +2040,6 @@ class Lobby extends Phaser.Scene {
           gameOptions.iconPlaceHolder +
           this.mainPlayer.info[gameOptions.curCulture];
         this.mainPlayer.rrec.setFillStyle(gameOptions.colors[index], 1);
-        this.mainPlayer.text.setPosition(
-          this.mainPlayer.rrec.x - this.mainPlayer.text.width / 2,
-          this.mainPlayer.text.y
-        );
         this.mainPlayer.rrec.width = this.mainPlayer.text.width + 100;
         this.mainPlayer.icon.setFrame(
           iconFrameNames[gameOptions.curIndex].frame
