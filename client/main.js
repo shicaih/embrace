@@ -289,6 +289,11 @@ class Lobby extends Phaser.Scene {
       "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/icon.png?v=1650236243979",
       "icon.json"
     );
+    this.load.atlas(
+        "wrong",
+        "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/wrong.png?v=1650931629319",
+        "wrong.json"
+    )
     this.load.image(
       "smile",
       "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Smile%20v2.png?v=1649173530472"
@@ -757,6 +762,33 @@ class Lobby extends Phaser.Scene {
             console.log("wrong person");
             this.findPeople.state = "CD";
             this.failBlocker.setVisible(true);
+            this.anims.create({
+              key: "wrong",
+              frames: this.anims.generateFrameNames("wrong", {
+                start: 0,
+                end: 60,
+                zeroPad: 5,
+                prefix: "Wrong_",
+                suffix: ".png",
+              }),
+              timeScale: 1,
+              frameRate: 120,
+              repeat: -1,
+            });
+            this.wrongAnim = this.add.sprite(
+                gameOptions.viewportWidth / 2,
+                gameOptions.viewportHeight / 2,
+                "wrong"
+            );
+            this.wrongAnim.setScrollFactor(0);
+            //this.confetti.anims.setTimeScale(2);
+            this.wrongAnim.on("animationstop", () => {
+              //this.confetti.setDepth(-101);
+              this.wrongAnim.destroy();
+            });
+            this.wrongAnim.setDepth(200).setScale(devicePixelRatio);
+            this.wrongAnim.play("wrong");
+            this.wrongAnim.stopAfterRepeat(0);
             this.tweens.add({
               targets: this.failBlocker,
               alpha: 0.5,
