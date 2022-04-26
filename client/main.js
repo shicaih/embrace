@@ -1304,7 +1304,17 @@ class Lobby extends Phaser.Scene {
     this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
       this.QR.setVisible(!this.QR.visible);
       this.toggleText.text = this.QR.visible? "Hide Code" : "Show Code"
+      this.toggleQR.setFillStyle(0xF6DFBA);
     });
+    this.toggleQR.on("pointerover", () => {
+      this.toggleQR.setFillStyle(0xFFCE80);
+    })
+    this.toggleQR.on("pointerout", () => {
+      this.toggleQR.setFillStyle(0x946854);
+    })
+    this.toggleQR.on("pointerup", () => {
+      this.toggleQR.setFillStyle(0x946854);
+    })
     this.toggleText = this.add.text(
         this.toggleQR.x - 1000 * bigScreenRatio / 2,
         this.toggleQR.y - 100 * bigScreenRatio / 2,
@@ -1420,6 +1430,15 @@ class Lobby extends Phaser.Scene {
       }
 
     });
+    this.portal.on("pointerover", () => {
+      this.portal.setFillStyle(0xFFCE80);
+    })
+    this.portal.on("pointerout", () => {
+      this.portal.setFillStyle(0x946854);
+    })
+    this.portal.on("pointerup", () => {
+      this.portal.setFillStyle(0x946854);
+    })
     this.portalText = this.add.text(
         this.portal.x - 1000 * bigScreenRatio / 2,
         this.portal.y - 100 * bigScreenRatio / 2,
