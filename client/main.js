@@ -717,6 +717,16 @@ class Lobby extends Phaser.Scene {
   createMobileUI() {
     this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1).setScale(2);
     this.bgImage.setDepth(-100);
+    this.wrongText = this.add.text(gameOptions.viewportWidth * 0.5, gameOptions.viewportHeight * 0.7,
+        "Wrong Wheel",
+        {
+          fontFamily: gameOptions.playerTextFont,
+          fontSize: 48 * devicePixelRatio,
+          color: gameOptions.playerTextColor,
+          align: "center",
+          wordWrap: { width: this.helpRrec.width * 0.8 },
+        })
+    this.wrongText.setOrigin(0.5, 0.5).setVisble(false);
     let self = this;
     this.bgImage
       .setInteractive()
@@ -781,13 +791,12 @@ class Lobby extends Phaser.Scene {
                 "wrong"
             );
             this.wrongAnim.setScrollFactor(0);
-            //this.confetti.anims.setTimeScale(2);
             this.wrongAnim.on("animationstop", () => {
-              //this.confetti.setDepth(-101);
               this.wrongAnim.destroy();
             });
             this.wrongAnim.setDepth(200).setScale(devicePixelRatio);
             this.wrongAnim.play("wrong");
+            this.wrongText.setVisible(true);
             this.wrongAnim.stopAfterRepeat(0);
             this.tweens.add({
               targets: this.failBlocker,
@@ -799,6 +808,7 @@ class Lobby extends Phaser.Scene {
               onComplete: (tween) => {
                 this.findPeople.state = "SOLVING";
                 this.failBlocker.setVisible(false);
+                this.wrongText.setVisible(false);
               },
             });
           }
@@ -2106,7 +2116,7 @@ class Lobby extends Phaser.Scene {
   }
 
   clearAssignment(success) {
-    this.socket.emit("seekFinished", true);
+    this.socket.emit("seekFinished", success);
     this.findPeople.state = "CD";
     this.stopLocalTimer();
     this.tweens.add({
