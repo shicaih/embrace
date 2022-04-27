@@ -161,7 +161,7 @@ let globalReportData = {
   nEthnicity: 8,
   nCountriesStates: 999,
 }
-
+let bigscreenReportData = {}
 
 let puzzleGenerated = false;
 
@@ -648,6 +648,7 @@ function generateReportData() {
   globalReportData.nStates = 20 
   globalReportData.nCountriesStates = 999
   globalReportData.nEthnicity = 8
+  bigscreenReportData = {}
   
   let allPlayers = Object.assign({}, goneLobbyPlayers, lobbyPlayers);
   
@@ -677,6 +678,12 @@ function generateReportData() {
     
     if (player.scores[4] > 3) importantLocationFreq[player.wheelInfo['home']] = (importantLocationFreq[player.wheelInfo['home']] || 0) + 1;
     if (player.scores[5] > 3) importantEthnicityFreq[player.wheelInfo['ethnicity']] = (importantEthnicityFreq[player.wheelInfo['ethnicity']] || 0) + 1;
+  
+    for (let i = 0; i < 6; i++) {
+      if (player.scores[i] > 3) {
+        bigscreenReportData[player.wheelInfo[options.cultures[i]]] = 1 + (locationFrequency[player.wheelInfo[options.cultures[i]]] || 0)
+      }
+    }  
   }
   
   delete ethnicityFrequency['Prefer not to say']
@@ -692,6 +699,8 @@ function generateReportData() {
   importantLocations = Object.entries(importantLocationFreq).map(([key, value]) => key)
   importantEthnicities = Object.entries(importantEthnicityFreq).map(([key, value]) => key)
   
+  delete bigscreenReportData['Prefer not to say']
+  delete bigscreenReportData['⊘']
   /*for (let music in musicToLocation) {
     musicToLocation[music] = Array.from(new Set(musicToLocation[music]))
   }
@@ -1197,6 +1206,10 @@ io.sockets.on('connection', function(socket) {
       }
     })
 
+    socket.on("initBigscreenReport", () => {
+      socket.emit("bigscreenReport", bigscreenReportData)
+    })
+
     socket.on("reset", () => {
         isTransitting = false;
         lobbyPlayers = {};
@@ -1214,6 +1227,7 @@ io.sockets.on('connection', function(socket) {
         posIndex = 0;
         bigscreenSid = null;
         totalStars = 0
+        bigscreenReportData = {}
     })
 }); 
 setInterval(() => {
