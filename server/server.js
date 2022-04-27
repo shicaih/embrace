@@ -33,6 +33,7 @@ var gonePuzzlePlayers = {};
 var activePlayers = {};
 var lobbyRooms = [{}];
 var lobbyPositionInfo = {};
+var playerThumbUpInfo = new Set();
 // an array of all the Room objects. Array index is the id of Room.
 var puzzleRooms = [];
 var roomSolved = [];
@@ -87,6 +88,7 @@ function Room (id) {
     this.id = id;
     this.players = {}; 
     this.playerPositionInfo = {};
+    this.playerThumbUpInfo = new Set();
     this.puzzleOptions = {};  
     this.realtimePoints = []; 
     this.level = 0;
@@ -1174,23 +1176,11 @@ io.sockets.on('connection', function(socket) {
   
     socket.on ("thumbUp", (uuid) => { 
       console.log(socket.roomNumber);
+      console.log("thumbUp received" + uuid);
       if (socket.roomNumber !== null && socket.phase === 1) {
-          socket.to("Room" + socket.roomNumber).emit("thumbUp", uuid);
-          for (let playerId in puzzleRooms[socket.roomNumber].activePlayers) {
-            if (playerId === uuid) continue;
-            puzzleRooms[socket.roomNumber].activePlayers[playerId].thumbsFromPlayers.add(uuid) 
-            puzzleRooms[socket.roomNumber].activePlayers[uuid].thumbsToPlayers.add(playerId)
-          }
-          console.log(`player[${uuid}] gave thumbs to ${puzzlePlayers[uuid].thumbsToPlayers.size} players`)
+          puzzleRooms[socket.roomNumber].playerThumbUpInfo.add(uuid)
       } else {
-          console.log("thumbUp received" + uuid);
-          socket.to("lobby").emit("thumbUp", uuid);
-          /*for (let playerId in lobbyPlayers) {
-            if (playerId === uuid) continue;
-            lobbyPlayers[playerId].thumbsFromPlayers.add(uuid)
-            lobbyPlayers[uuid].thumbsToPlayers.add(playerId)
-          }*/
-          //console.log(`player[${uuid}] gave thumbs to ${lobbyPlayers[uuid].thumbsToPlayers.size} players`)
+          playerThumbUpInfo.add(uuid)
       }
     })
    
@@ -1220,6 +1210,7 @@ io.sockets.on('connection', function(socket) {
         activePlayers = {};
         lobbyRooms = [{}];
         lobbyPositionInfo = {};
+        playerThumbUpInfo = new Set();
         puzzleRooms = [];
         roomSolved = [];
         ht = null;
@@ -1234,9 +1225,17 @@ io.sockets.on('connection', function(socket) {
 setInterval(() => {
     io.to("lobby").emit('playerMoved', lobbyPositionInfo);
     lobbyPositionInfo = {};
+    if (playerThumbUpInfo.size > 0) {
+        io.to("lobby").emit('thumbUp', Array.from(playerThumbUpInfo));
+        playerThumbUpInfo = new Set();
+    }
     for (let i = 0; i < puzzleRooms.length; i++) {
         io.to("Room" + i).emit('playerMoved', puzzleRooms[i].playerPositionInfo);
         puzzleRooms[i].playerPositionInfo = {};
+      if (puzzleRooms[i].playerThumbUpInfo.size > 0) {
+        io.to("Room" + i).emit('thumbUp', Array.from(puzzleRooms[i].playerThumbUpInfo));
+        puzzleRooms[i].playerThumbUpInfo = new Set();
+      }
     }
 }, 50)
 console.log ('Server started');

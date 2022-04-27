@@ -596,11 +596,14 @@ class Lobby extends Phaser.Scene {
         window.location.href = "/puzzle.html";
       }
     });
-    socket.on("thumbUp", (uuid) => {
-      console.log("ThumbUp received");
-      console.log(uuid);
-      console.log(this.players[uuid]);
-      this.showOtherThumbUp(this.players[uuid]);
+    socket.on("thumbUp", (thumbUpIdArr) => {
+      console.log(thumbUpIdArr)
+      thumbUpIdArr.forEach(uuid => {   
+        console.log("ThumbUp received");
+        console.log(uuid);
+        console.log(this.players[uuid]);
+        this.showOtherThumbUp(this.players[uuid]);
+      })
     });
     socket.on("timeUp", () => {
       window.location.href = "/game.html";
