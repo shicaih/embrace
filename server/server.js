@@ -1185,11 +1185,11 @@ io.sockets.on('connection', function(socket) {
       } else {
           console.log("thumbUp received" + uuid);
           socket.to("lobby").emit("thumbUp", uuid);
-          for (let playerId in lobbyPlayers) {
+          /*for (let playerId in lobbyPlayers) {
             if (playerId === uuid) continue;
             lobbyPlayers[playerId].thumbsFromPlayers.add(uuid)
             lobbyPlayers[uuid].thumbsToPlayers.add(playerId)
-          }
+          }*/
           //console.log(`player[${uuid}] gave thumbs to ${lobbyPlayers[uuid].thumbsToPlayers.size} players`)
       }
     })
