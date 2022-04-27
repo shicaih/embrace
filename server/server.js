@@ -681,7 +681,7 @@ function generateReportData() {
   
     for (let i = 0; i < 6; i++) {
       if (player.scores[i] > 3) {
-        bigscreenReportData[player.wheelInfo[options.cultures[i]]] = 1 + (locationFrequency[player.wheelInfo[options.cultures[i]]] || 0)
+        bigscreenReportData[player.wheelInfo[options.cultures[i]]] = 1 + (bigscreenReportData[player.wheelInfo[options.cultures[i]]] || 0)
       }
     }  
   }
@@ -1207,6 +1207,7 @@ io.sockets.on('connection', function(socket) {
     })
 
     socket.on("initBigscreenReport", () => {
+      console.log(bigscreenReportData);
       socket.emit("bigscreenReport", bigscreenReportData)
     })
 
