@@ -1,10 +1,10 @@
 export default {
     server :{
-        url: 'http://localhost/',
+        url: 'http://embrace.etc.cmu.edu/',
         port: 8080,
     },
     client : {
-        url: 'http://localhost/',
+        url: 'http://embrace.etc.cmu.edu/',
         port: 9000,
     }
 }
