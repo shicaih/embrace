@@ -28,8 +28,7 @@ const swiper = new Swiper('.swiper', {
   },
 });
 
-let socket = io.connect("http://embrace.etc.cmu.edu:443");
-
+let socket = io.connect(`${config.server.url.replace(/\/+$/, '')}:${config.server.port}`);
 
 socket.emit("initReport", window.sessionStorage.getItem("uuid"));
 

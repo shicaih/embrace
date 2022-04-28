@@ -1,4 +1,5 @@
 // import uuid module. We call uuid() to generate a new uuid
+import { default as config } from './config.js'
 import {shuffle} from './utility.js'  
 import { v4 as uuidGen } from 'uuid';  
 //const { v4 : uuidGen } = require("uuid");
@@ -1239,4 +1240,4 @@ setInterval(() => {
     }
 }, 50)
 console.log ('Server started');
-server.listen(443);
+server.listen(config.server.port);
