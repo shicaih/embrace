@@ -1271,8 +1271,24 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportHeight / 2,
       "QRCode"
     );
-    this.QR.setScale(2);
+    this.QR.setScale(2.05);
     this.QR.setDepth(-101);
+    this.tweens.add({
+      targets: this.QR,
+      scale: 1.9,
+      duration: 5000,
+      yoyo: true,
+      callbackScope: this,
+      loop: -1,
+      ease: 'Power2'
+    });
+    this.tweens.add({
+      targets: this.QR,
+      rotation: 6.28,
+      duration: 100000,
+      callbackScope: this,
+      loop: -1
+    });
 
     this.countText = this.add.text(
         gameOptions.viewportWidth - 700 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
