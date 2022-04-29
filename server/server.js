@@ -651,7 +651,7 @@ function generateReportData() {
   globalReportData.nStates = 20 
   globalReportData.nCountriesStates = 999
   globalReportData.nEthnicity = 8
-  bigscreenReportData = {}
+  bigscreenReportData = options.cultures.reduce((acc,curr)=> (acc[curr]={}, acc),{});
   
   let allPlayers = Object.assign({}, goneLobbyPlayers, lobbyPlayers);
   
@@ -684,7 +684,7 @@ function generateReportData() {
   
     for (let i = 0; i < 6; i++) {
       if (player.scores[i] > 3) {
-        bigscreenReportData[player.wheelInfo[options.cultures[i]]] = 1 + (bigscreenReportData[player.wheelInfo[options.cultures[i]]] || 0)
+        bigscreenReportData[options.cultures[i]][player.wheelInfo[options.cultures[i]]] = 1 + (bigscreenReportData[options.cultures[i]][player.wheelInfo[options.cultures[i]]] || 0)
       }
     }  
   }
@@ -702,9 +702,12 @@ function generateReportData() {
   importantLocations = Object.entries(importantLocationFreq).map(([key, value]) => key)
   importantEthnicities = Object.entries(importantEthnicityFreq).map(([key, value]) => key)
   
-  delete bigscreenReportData['Prefer not to say']
-  delete bigscreenReportData['⊘']
-  /*for (let music in musicToLocation) {
+  //delete bigscreenReportData['Prefer not to say']
+  for (let i = 0; i < 6; i++)  {
+    bigscreenReportData[options.cultures[i]]['Prefer not to say'] = (bigscreenReportData[options.cultures[i]]['Prefer not to say'] || 0)  + (bigscreenReportData[options.cultures[i]]['⊘'] || 0)
+    delete bigscreenReportData[options.cultures[i]]['⊘']
+    if (bigscreenReportData[options.cultures[i]]['Prefer not to say'] == 0) delete bigscreenReportData[options.cultures[i]]['Prefer not to say']
+  }/*for (let music in musicToLocation) {
     musicToLocation[music] = Array.from(new Set(musicToLocation[music]))
   }
   for (let food in foodToLocation) {
