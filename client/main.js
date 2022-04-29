@@ -260,7 +260,7 @@ class Lobby extends Phaser.Scene {
     );
     this.load.image(
       "QRCode",
-      "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/ETC%20server%20qr%20code.png?v=1650573139548"
+      "./assets/qr-code (4)-bg.png"
     );
     this.load.atlas(
       "anim",
