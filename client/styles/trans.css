@@ -14,7 +14,7 @@ body {
   font-weight: 300;
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 28px;
   line-height: 27px;
   color: #372B24;
   background: #F9F1DC;
@@ -29,7 +29,7 @@ body {
   margin-right: auto;
   max-width: 425px;
   overflow: hidden;
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -44,10 +44,12 @@ body {
 h1 {
 font-style: normal;
 font-weight: 700;
-font-size: 24px;
-line-height: 38px;
-margin-bottom: 2rem;
-padding-left: 0.5rem;
+font-size: 80px;
+line-height: 78px;
+margin-top: -1.5rem;
+margin-bottom: -1.5rem;
+
+/*padding-left: 0.5rem;*/
 }
 .revealUp {
   opacity: 1;
@@ -59,7 +61,7 @@ padding-left: 0.5rem;
 }
 
 .reportText {
-
+z-index: 3;
 align-items: center;
 text-align: center;
 }
@@ -117,18 +119,7 @@ text-align: center;
   bottom: 0px;
 }
 
-@media screen and (max-width: 376px) {
-  body {
-    font-size: 16px;
-  }
-  .highlight {
-    font-size: 18px;
-  }
-  h1 {
-    font-size: 22px;
-    margin-bottom: 1rem;
-  }
-}
+
 
 .word {
   transform: scaleY(0.5);
@@ -161,3 +152,142 @@ text-align: center;
   width:100%;
   height:100%;
 }
+
+.hide {
+  display: none;
+}
+
+.bg1 h1 {
+  color: #91268c;
+}
+
+.bg2 h1 {
+  color: #f99415;
+}
+
+.bg1 .themeColor {
+  color: #91268c;
+}
+
+.bg2 .themeColor {
+  color: #f99415;
+}
+
+.caption {
+  font-size: 20px;
+}
+
+.wide-top {
+  margin-top: 3rem
+}
+
+.narrow-top {
+  margin-top: 0.5rem
+}
+
+.wide-bottom {
+  margin-bottom: 3rem
+}
+
+.narrow-bottom {
+  margin-bottom: 0.5rem
+}
+
+h1.identity {
+  font-size: 50px;
+  line-height: 48px;
+}
+
+.bg-icon-top {
+  position: absolute;
+  z-index: 2;
+  top: 14%;
+  width: 140px;
+  left: 20px;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+  animation-name: icon-rotation-r;
+}
+
+.bg-icon-bottom {
+  position: absolute;
+  z-index: 2;
+  bottom: 14%;
+  width: 140px;
+  right: 20px;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+  animation-name: icon-rotation-l;
+}
+
+.icon {
+  width: 250px;
+  height: 250px;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+  animation-name: icon-rotation-l;
+}
+
+@keyframes icon-rotation-l {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes icon-rotation-r {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@media screen and (max-width: 376px) {
+  body {
+    font-size: 24px;
+  }
+  .highlight {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: 70px;
+    line-height: 68px;
+  }
+  .caption {
+    font-size: 18px;
+  }
+  
+  h1.identity {
+    font-size: 50px;
+    line-height: 48px;
+  }
+
+  .wide-top {
+    margin-top: 2rem;
+  }
+  .wide-bottom {
+    margin-bottom: 2rem;
+  }
+  .bg-icon-top {
+    top: 14%;
+    width: 80px;
+    left: 10px;
+  }
+  .bg-icon-bottom {
+    bottom: 14%;
+    width: 80px;
+    right: 10px;
+  }
+  
+  .icon {
+    width: 200px;
+    height: 200px;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+    animation-name: icon-rotation-l;
+  }
+}
+

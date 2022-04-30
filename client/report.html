@@ -19,8 +19,10 @@
             integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
             crossorigin="anonymous"
     ></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="/config.js" defer></script>
-    <script src="/report.js" defer></script>
+    <script type="module" src="/report.js" defer></script>
     <script src="/scripts/pluralize.js" defer></script>
     <link
       rel="stylesheet"
@@ -31,198 +33,12 @@
 </head>
 
 <body>
-  <div class="next">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 next-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-</svg>
-</div>
-<div class="swiper">
-<div class="swiper-pagination"></div>
-<div class="swiper-wrapper">
+  <div id="root" style="width:100%;height:100%">
 
-  
-<div class="swiper-slide">
-<div class="section bg1">
-  <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-dark.png?v=1650581936303">
-  
-  <!---<img class="bg-bottom" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-bt-dark.svg?v=1649708561091">--->
-  <div style="z-index:3;">
-  <h1>
-    Hi <span id="nickname">[nickname]</span>,  
-  </h1>
-  <p class="reportText">
-    Today, <span class="highlight nPlayer">396</span> incoming Tartans at Dietrich college joined the “Embrace” activity.
-  </p>
-    <!---You didn’t know each other, and you weren’t able to talk to each other, 
-    but together you have accomplished something amazing! --->
-  <!---<p class="reportText">
-      Throughout the activity, you met <span class="highlight"  id="nPlayerMet">105 folks</span> in total, 
-      and you and scored <span class="highlight" id="nStar">7 Stars</span> by finding different identities on them. 
-  </p>--->
-  <p class="reportText">
-      Throughout the activity, you scored <span class="highlight" id="nStar">7 Stars</span> by finding different identities on them. 
-  </p>
-  
-    
   </div>
-</div>
-</div>
-
-<!---<div class="swiper-slide">
-<div class="section bg2">
-  <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-top-bright.svg?v=1649708561091">
-  <img class="bg-bottom" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-bt-bright.svg?v=1649708561091">
-  
-  <div style="z-index:3;">
-    
-     <p class="reportText">
-      You spent <span class="highlight" id="timeSpent">4 minutes 26 seconds</span> in total
-      to solve the <span class="highlight" id="nPuzzlesSolved">4</span> <span id="nPuzzlesSolvedWord">challenges</span>, 
-    which was the top <span class="highlight" id="speedRank">10%</span> quickest.
-    </p> 
-  </div>
-</div>
-</div>  --->
-
-<!---<div class="swiper-slide">
-<div class="section bg2">
-  
-  <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-white.png?v=1650581892010">
-  <!---<img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-top-dark.svg?v=1649708561091">
-  <img class="bg-bottom" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-bt-dark.svg?v=1649708561091">
-  
-  <div style="z-index:3;">
-  <p class="reportText">
-    <span id="encouragingPerson">You are an encouraging person. You gave thumbs up to <span class="highlight" id="nThumbToOthers">10</span> <span id="nThumbToOthersWord">people</span>. </span>
-    
-    <span id="helpfulPerson"><br>You must <span id="alsoHelpful">also</span> be a helpful person. You received thumbs up from other <span class="highlight" id="nThumbFromOthers">20</span> <span id="nThumbFromOthersWord">people</span>.</span>
-    
-    <span id="mutualThumb"><br>You and <span class="highlight" id="nMutualThumb">10</span> <span id="nMutualThumbWord">people</span> gave thumbs up to each other. </span>
-    
-    <span id="madeFriends"><br>You have made friends without seeing and talking to them!</span>
-  </p>
-  </div>
-</div>
-</div>--->
 
   
 
-<div class="swiper-slide">
-<div class="section bg2">
-  <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-white.png?v=1650581892010">
-  
-  <div style="z-index:3;">
-  <p class="reportText">
-    You folks are from different places around the country and the world. 
-    You are from <span class="highlight" id="nCountriesStates">20</span> different countries or states,
-    <!--- and <span class="highlight" id="nStates">40</span> different states. --->
-
-  <span id="locationHid">
-    <span class="uniqueLocation">and you are the only one who chose not to share your Home.</span>
-    <span class="commonLocation">and like you, <span class="highlight nPlayerSameLocation">Y</span> <span id="nPlayerHidLocationWord">people</span> also chose not to share.</span>
-  </span>
-  <span class="reportText" id="locationUnhid">
-    <span class="uniqueLocation">and you are the only one from <span class="highlight location">X</span>!</span>
-    <span class="commonLocation">and like you, <span class="highlight nPlayerSameLocation">Y</span> <span id="nPlayerSameLocationWord">people are</span> also from <span class="highlight location">X</span>!</span>
-    <br>
-  </span>
-    </p>
-  <p class="reportText">
-    <span class="locationIsImportant">And like you, </span><span class="highlight" id="nPlayerLocationImportant">M</span> <span id="nPlayerLocationImportantWord">people</span> <span class="locationIsImportant">also </span>considered Home as an important identity, 
-    and they are from <span class="highlight" id="importantLocationExamples">[Example 1], [Example 2], [Example 3]</span><span id="moreThanThreeLocationExamples"> and other <span class="highlight" id="nImportantLocations">N</span> more <span id="nImportantLocationsWord">places</span></span>!
-  </p>
-  </div>
-</div>
-</div>
-
-<div class="swiper-slide">
-<div class="section bg1">
-  <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-dark.png?v=1650581936303">
-  
-  <div style="z-index:3;">
-  <p class="revealUp reportText">
-    Folks are from <span class="highlight" id="nEthnicity">5</span> ethnic groups different from you.<br>
-    <span class="ethnicityIsImportant">And like you, </span><span class="highlight" id="nPlayerEthnicityImportant">15</span> people <span class="ethnicityIsImportant">also </span>considered Ethnicity 
-    as an important identity, 
-    and they are <span class="highlight" id="importantEthnicityExamples">Ralph, Mike, Jeffrey</span><span id="moreThanThreeEthnicityExamples"> and other <span class="highlight" id="nImportantEthnicities">12</span> more</span>!
-  </p>
-  </div>
-</div>
-</div>
-  
-<div class="swiper-slide">
-<div class="section bg2">
-  <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-white.png?v=1650581892010">
-  
-  <div style="z-index:3;">
-  <p class="reportText" id="musicHid">
-    <span class="uniqueMusic">Among <span class="highlight nPlayer">N</span> people, you were the only person who chose not to share your Music identity. 
-      <br>What might have been on your mind?
-    </span>
-    <span class="commonMusic">
-      <span class="multiMusicLocationSentence">
-        You chose not to share your Music identity, but you were not alone. <br><span class="highlight nPlayerSameMusic">N</span> other <span class="nPlayerSameMusicWord">people</span> also did so, and they are from <span class="highlight nSameMusicLocation">M</span> different <span class="nSameMusicLocationWord">countries/states</span> such as <span class="highlight sameMusicLocationExamples">x,y,z</span>.
-      </span>
-      <span class="singleMusicLocationSentence">
-        You chose not to share your Music identity, but you were not alone. <br><span class="highlight nPlayerSameMusic">N</span> other <span class="nPlayerSameMusicWord">people</span> also did so, and you are all from <span class="highlight singleMusicLocation">X</span>!
-      </span>
-    </span>
-  </p>
-  <p class="reportText" id="musicUnhid">
-    <span class="uniqueMusic">You have a unique taste in music! <br>Among <span class="highlight nPlayer">N</span> people, you are the only person who chose <span class="highlight music">X</span> as your Music identity.</span>
-    <span class="commonMusic">
-      Many people share the same preference for music with you!
-      <span class="multiMusicLocationSentence">
-        <br>You enjoy <span class="highlight music">X</span> music together with other <span class="highlight nPlayerSameMusic">N</span> <span class="nPlayerSameMusicWord">people</span> from <span class="highlight nSameMusicLocation">M</span> different <span class="nSameMusicLocationWord">countries/states</span> such as <span class="highlight sameMusicLocationExamples">x,y,z</span>.
-      </span> 
-      <span class="singleMusicLocationSentence">
-        <br>You enjoy <span class="highlight music">X</span> music together with other <span class="highlight nPlayerSameMusic">N</span> <span class="nPlayerSameMusicWord">people</span>, and you are all from <span class="highlight singleMusicLocation">X</span>!
-      </span>
-    </span>
-  </p>
-  </div>
-</div>
-</div>
-  
-<div class="swiper-slide">
-<div class="section bg1">
-  <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-dark.png?v=1650581936303">
-  
-  <div style="z-index:3;">
-  <p class="reportText" id="foodHid">
-    <span class="uniqueFood">Among <span class="highlight nPlayer">N</span> people, you were the only person who chose not to share your Food identity. 
-      <br>What might have been on your mind?
-    </span>
-    <span class="commonFood">
-      <span class="multiFoodLocationSentence">
-        You chose not to share your Food identity, but you were not alone. <br><span class="highlight nPlayerSameFood">N</span> other <span class="nPlayerSameFoodWord">people</span> also did so, and they are from <span class="highlight nSameFoodLocation">M</span> different <span class="nSameFoodLocationWord">countries/states</span> such as <span class="highlight sameFoodLocationExamples">x,y,z</span>.
-      </span>
-      <span class="singleFoodLocationSentence">
-        You chose not to share your Food identity, but you were not alone. <br><span class="highlight nPlayerSameFood">N</span> other <span class="nPlayerSameFoodWord">people</span> also did so, and you are all from <span class="highlight singleFoodLocation">X</span>!
-      </span>
-    </span>
-  </p>
-  <p class="reportText" id="foodUnhid">
-    <span class="uniqueFood">You have a unique taste in food! <br>Among <span class="highlight nPlayer">N</span> people, you are the only person who chose <span class="highlight food">X</span> as your Food identity.</span>
-    <span class="commonFood">
-      Many people value the same cuisine as you do!
-      <span class="multiFoodLocationSentence">
-        <br>You enjoy <span class="highlight food">X</span> together with other <span class="highlight nPlayerSameFood">N</span> <span class="nPlayerSameFoodWord">people</span> from <span class="highlight nSameFoodLocation">M</span> different <span class="nSameFoodLocationWord">countries/states</span> such as <span class="highlight sameFoodLocationExamples">x,y,z</span>.
-      </span>
-      <span class="singleFoodLocationSentence">
-        <br>You enjoy <span class="highlight food">X</span> together with other <span class="highlight nPlayerSameFood">N</span> <span class="nPlayerSameFoodWord">people</span>, and you are all from <span class="highlight singleFoodLocation">X</span>!
-      </span>
-    </span>
-  </p>
-  </div>
-</div>
-</div>
-
-
-</div>
-  
-
-</div>
 
 <!---<div class="section bg1">
   <p class="revealUp">
