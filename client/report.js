@@ -139,7 +139,7 @@ var Report = function (_React$Component) {
                   React.createElement(
                     'p',
                     null,
-                    'people joined Embrae today!'
+                    'people joined Embrace today!'
                   )
                 )
               )
@@ -427,7 +427,7 @@ var Report = function (_React$Component) {
                     null,
                     React.createElement(
                       'h1',
-                      { 'class': 'wide-bottom' },
+                      null,
                       this.state.data.nPlayerSameMusic
                     ),
                     React.createElement(
@@ -440,13 +440,13 @@ var Report = function (_React$Component) {
                       null,
                       React.createElement(
                         'p',
-                        null,
-                        'they are from place(s) like'
+                        { 'class': 'caption', style: { 'textAlign': 'left' } },
+                        'They are from place(s) like'
                       ),
                       this.state.data.sameMusicLocationExamples && this.state.data.sameMusicLocationExamples.map(function (e) {
                         return React.createElement(
                           'p',
-                          { 'class': 'themeColor', style: { 'margin': '0.5rem', 'margin-left': '2rem' } },
+                          { 'class': 'themeColor', style: { 'margin': '0.5rem', 'margin-left': '2rem', 'textAlign': 'left' } },
                           e
                         );
                       })
@@ -525,7 +525,7 @@ var Report = function (_React$Component) {
                     null,
                     React.createElement(
                       'h1',
-                      { 'class': 'wide-bottom' },
+                      null,
                       this.state.data.nPlayerSameFood
                     ),
                     React.createElement(
@@ -538,13 +538,13 @@ var Report = function (_React$Component) {
                       null,
                       React.createElement(
                         'p',
-                        null,
-                        'they are from place(s) like'
+                        { 'class': 'caption', style: { 'textAlign': 'left' } },
+                        'They are from place(s) like'
                       ),
                       this.state.data.sameFoodLocationExamples && this.state.data.sameFoodLocationExamples.map(function (e) {
                         return React.createElement(
                           'p',
-                          { 'class': 'themeColor', style: { 'margin': '0.5rem', 'margin-left': '2rem' } },
+                          { 'class': 'themeColor', style: { 'margin': '0.5rem', 'margin-left': '2rem', 'textAlign': 'left' } },
                           e
                         );
                       })

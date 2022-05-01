@@ -202,8 +202,8 @@ h1.identity {
   position: absolute;
   z-index: 2;
   top: 14%;
-  width: 140px;
-  left: 20px;
+  width: 120px;
+  left: 15px;
   animation-duration: 60s;
   animation-iteration-count: infinite;
   animation-name: icon-rotation-r;
@@ -213,8 +213,8 @@ h1.identity {
   position: absolute;
   z-index: 2;
   bottom: 14%;
-  width: 140px;
-  right: 20px;
+  width: 120px;
+  right: 15px;
   animation-duration: 60s;
   animation-iteration-count: infinite;
   animation-name: icon-rotation-l;
@@ -247,22 +247,28 @@ h1.identity {
 
 @media screen and (max-width: 376px) {
   body {
-    font-size: 24px;
+    font-size: 22px;
+  }
+  .section {
+    padding: 2rem;
   }
   .highlight {
     font-size: 18px;
   }
   h1 {
-    font-size: 70px;
-    line-height: 68px;
+    font-size: 60px;
+    line-height: 58px;
+    margin-bottom: -1rem;
+    
+    margin-top: -1rem;
   }
   .caption {
-    font-size: 18px;
+    font-size: 16px;
   }
   
   h1.identity {
-    font-size: 50px;
-    line-height: 48px;
+    font-size: 40px;
+    line-height: 38px;
   }
 
   .wide-top {
@@ -283,8 +289,8 @@ h1.identity {
   }
   
   .icon {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     animation-duration: 60s;
     animation-iteration-count: infinite;
     animation-name: icon-rotation-l;

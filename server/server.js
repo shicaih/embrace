@@ -747,7 +747,8 @@ function generateReportData() {
     data.nImportantLocations = Object.keys(othersImportantLocationFreq).length
     delete othersImportantLocationFreq['Prefer not to say']
     delete othersImportantLocationFreq['⊘']
-    data.importantLocationExamples = Object.keys(othersImportantLocationFreq).slice(0, 3)
+    data.importantLocationExamples = Object.keys(othersImportantLocationFreq)
+    data.importantLocationExamples = shuffle(data.importantLocationExamples).slice(0, 3)
 
     data.ethnicityIsImportant = player.scores[5] > 3
     data.nPlayerEthnicityImportant = nPlayerEthnicityImportant - (data.ethnicityIsImportant ? 1 : 0)
@@ -762,7 +763,8 @@ function generateReportData() {
     data.nImportantEthnicities = Object.keys(othersImportantEthnicityFreq).length
     delete othersImportantEthnicityFreq['Prefer not to say']
     delete othersImportantEthnicityFreq['⊘']
-    data.importantEthnicityExamples = Object.keys(othersImportantEthnicityFreq).slice(0, 3)
+    data.importantEthnicityExamples = Object.keys(othersImportantEthnicityFreq)
+    data.importantEthnicityExamples = shuffle(data.importantEthnicityExamples).slice(0, 3)
     
     data.music = player.wheelInfo['music']
     data.nPlayerSameMusic = musicToLocation[data.music].length
@@ -772,7 +774,7 @@ function generateReportData() {
     musicLocationTypes.splice(musicLocationTypes.indexOf('Prefer not to say'), 1)
     data.multiMusicLocation = musicLocationTypes.length > 1
     data.nSameMusicLocation = musicLocationTypes.length
-    data.sameMusicLocationExamples = musicLocationTypes.slice(0, 3)
+    data.sameMusicLocationExamples = shuffle(musicLocationTypes).slice(0, 3)
     
     data.food = player.wheelInfo['food']
     data.nPlayerSameFood = foodToLocation[data.food].length
@@ -782,7 +784,7 @@ function generateReportData() {
     foodLocationTypes.splice(foodLocationTypes.indexOf('Prefer not to say'), 1)
     data.multiFoodLocation = foodLocationTypes.length > 1
     data.nSameFoodLocation = foodLocationTypes.length
-    data.sameFoodLocationExamples = foodLocationTypes.slice(0, 3)
+    data.sameFoodLocationExamples = shuffle(foodLocationTypes).slice(0, 3)
     console.log(allPlayers[playerId])
   }  
 }
