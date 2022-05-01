@@ -999,7 +999,7 @@ class Lobby extends Phaser.Scene {
     )
     this.helpButtonText.setOrigin(0.5, 0.5);
     this.helpButton.setDepth(2001);
-    this.helpText.setDepth(2002);
+    // this.helpText.setDepth(2002);
 
 
 
