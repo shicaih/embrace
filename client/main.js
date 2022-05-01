@@ -985,8 +985,8 @@ class Lobby extends Phaser.Scene {
         1
     )
     this.helpButtonText = this.add.text(
-        0,
-        this.helpRrec.height * (0.95 - 0.5),
+        gameOptions.viewportWidth / 2,
+        gameOptions.viewportHeight / 2 + this.helpRrec.height * (0.95 - 0.5),
         isLobby? "Continue":"Done",
         {
           fontFamily: gameOptions.playerTextFont,
@@ -1002,17 +1002,20 @@ class Lobby extends Phaser.Scene {
 
 
 
+
     let helpContainer = this.add.container(
       gameOptions.viewportWidth / 2,
       gameOptions.viewportHeight / 2,
-      [this.helpRrec, this.helpText, this.helpTitle, this.helpText, this.help1, this.help2, this.help3, this.helpButtonText]
+      [this.helpRrec, this.helpText, this.helpTitle, this.helpText, this.help1, this.help2, this.help3]
     );
     helpContainer.setScrollFactor(false);
     this.help = helpContainer;
     this.help.isVisible = true;
     this.helpButton.isVisible = true;
+    this.helpBUttonText.isVisible = true;
     this.help.setDepth(2000);
     this.helpButton.setScrollFactor(false);
+    this.helpButtonText.setScrollFactor(false);
     this.helpButton.setInteractive().on("pointerdown", (pointer, localX, localY, event) => {
       helpIndex += 1;
       console.log("helpButtonPointerd");
@@ -1025,6 +1028,8 @@ class Lobby extends Phaser.Scene {
         this.help.isVisible = false;
         this.helpButton.setVisible(false);
         this.helpButton.isVisible = false;
+        this.helpBUttonText.setVisible(false);
+        this.helpButtonText.isVisible = false;
         helpIndex = 0;
       } else {
         this.helpTitle.text = helpTitle[helpIndex];
@@ -1055,6 +1060,8 @@ class Lobby extends Phaser.Scene {
           this.help.isVisible = !this.help.isVisible;
           this.helpButton.setVisible(!this.helpButton.isVisible);
           this.helpButton.isVisible = !this.helpButton.isVisible;
+          this.helpButtonText.setVisible(!this.helpButtonText.isVisible);
+          this.helpButtonText.isVisible = !this.helpButtonText.isVisible;
           this.helpButtonText.text = isLobby? "Continue":"Done";
           // TODO: show help msg
           event.stopPropagation();
