@@ -1398,6 +1398,7 @@ class Lobby extends Phaser.Scene {
       1,
     );
     this.portal.setDepth(1000);
+    curPage = bigscreenText.length;
     this.portal.setInteractive().on("pointerdown", (pointer) => {
       curPage += 1;
       this.portal.setFillStyle(0x4F2816);
@@ -1408,18 +1409,6 @@ class Lobby extends Phaser.Scene {
           this.portalText.text = "Go to the Lobby";
           this.portal.width = this.portalText.width + 50 * bigScreenRatio;
         }
-      } else if (curPage == bigscreenText.length) {
-        this.portalText.text = "Start";
-        this.portal.width = 600 * bigScreenRatio;
-        this.bigscreenTitle.setVisible(false);
-        this.bigscreenText.setVisible(false);
-        this.QR.setDepth(2000);
-        this.bgWheel.setDepth(-99);
-        this.insText.setDepth(-99);
-        this.countText.setDepth(2000);
-        this.toggleQR.setDepth(2000);
-        this.toggleText.setDepth(2000);
-
       } else if (curPage <= bigscreenText.length + 2){
         if (curPage === bigscreenText.length + 1) {
           this.portalText.text = "Report";
@@ -1479,86 +1468,20 @@ class Lobby extends Phaser.Scene {
         })
     this.portalText.setDepth(2001);
 
-
-    this.pauseButton = this.add.circle(
-      gameOptions.viewportWidth / 2,
-      gameOptions.viewportHeight / 2 + 1600,
-      150,
-      0xffffff
-    );
-    this.pauseButton.setDepth(-2000);
-
-    this.pauseButton.setInteractive().on("pointerdown", (pointer) => {
-      this.socket.emit("pauseTimer");
-      if (this.timer1 !== null) {
-        this.timer1.paused = !this.timer1.paused;
-        this.timer2.paused = !this.timer2.paused;
-      }
-    });
-
+    this.portalText.text = "Start";
+    this.portal.width = 600 * bigScreenRatio;
+    this.bigscreenTitle.setVisible(false);
+    this.bigscreenText.setVisible(false);
+    this.QR.setDepth(2000);
+    this.bgWheel.setDepth(-99);
+    this.insText.setDepth(-99);
+    this.countText.setDepth(2000);
+    this.toggleQR.setDepth(2000);
+    this.toggleText.setDepth(2000);
 
 
   }
 
-  switchPage(pageAct, event) {
-    curPage += pageAct;
-    event.target.setFillStyle(0x4F2816);
-    if (curPage < bigscreenText.length) {
-      this.bigscreenTitle.text = bigscreenTitle[curPage];
-      this.bigscreenText.text = bigscreenText[curPage]
-      if (curPage == bigscreenText.length - 1) {
-        this.portalText.text = "Go to the Lobby";
-        this.portal.width = this.portalText.width + 50 * bigScreenRatio;
-      }
-    } else if (curPage == bigscreenText.length) {
-      this.portalText.text = "Start";
-      this.portal.width = 600 * bigScreenRatio;
-      this.bigscreenTitle.setVisible(false);
-      this.bigscreenText.setVisible(false);
-      this.QR.setDepth(2000);
-      this.bgWheel.setDepth(-99);
-      this.insText.setDepth(-99);
-      this.countText.setDepth(2000);
-      this.toggleQR.setDepth(2000);
-      this.toggleText.setDepth(2000);
-
-    } else if (curPage <= bigscreenText.length + 2){
-      if (curPage === bigscreenText.length + 1) {
-        this.portalText.text = "Report";
-        this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
-        this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(5).setScrollFactor(1);
-        this.bgWheel.setDepth(-97);
-        this.QR.setVisible(false);
-        this.QR.isVisible = false;
-        this.toggleText.text = "Show Code";
-        this.insText.text = "Stars: 0";
-        starGoal = playersCount * starPerPlayer;
-        this.countText.setVisible(false);
-        this.puzzleCountText.setDepth(2000);
-        this.progressBar = this.add.graphics();
-        this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
-        this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, 0, false);
-        this.progressBar.x = gameOptions.worldWidth / 2;
-        this.progressBar.y = gameOptions.worldHeight / 2;
-        this.bigscreenPuzzle = true;
-
-      } else {
-        this.portalText.text = "Reset";
-        this.puzzleCountText.setVisible(false);
-        this.countText.setVisible(true);
-
-      }
-      this.socket.emit("startPuzzle");
-      if (this.timer1 !== null) {
-        this.time.removeEvent(this.timer1);
-        this.time.removeEvent(this.timer2);
-      }
-    } else {
-      this.socket.emit("reset");
-      window.location.reload();
-    }
-
-  }
   // data.id is the id of the current socket,
   // data.players is an array of Player objects defined in the server side, it contains the info of main player
   initi(data) {
