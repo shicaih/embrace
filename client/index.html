@@ -23,7 +23,7 @@
         <div class="form-control">
           <label class="category">Nickname</label>
           <input type="text" id="mainInput" placeholder=" Enter your nickname..." />
-          <label class="comment" style="background-color: darkred; display: none" id="lengthIns">Nickname length cannot exceed 10 characters.</label>
+          <label class="comment" style="color: darkred; display: none" id="lengthIns">Nickname length cannot exceed 10 characters.</label>
           <label class="comment">Your nickname will only be visible to you.</label>
         </div>
         <button type="submit" value="submit">Continue</button>
@@ -66,6 +66,7 @@
       let nameInput = document.getElementById("mainInput");
       nameInput.onchange = (event) => {
         let data = event.target.value.trim();
+        console.log(event.target);
         if (data.length > 10) {
           document.getElementById("lengthIns").style.display = "block";
         } else {
