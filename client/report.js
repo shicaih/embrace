@@ -166,7 +166,7 @@ var Report = function (_React$Component) {
                     React.createElement(
                       'h1',
                       { 'class': 'wide-top wide-bottom' },
-                      this.state.data.nPlayer
+                      this.state.data.nStar
                     ),
                     React.createElement('img', { width: '80', height: '80', src: iconSrc.star, style: { 'transform': 'rotate(30deg)' } })
                   ),
