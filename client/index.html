@@ -64,9 +64,8 @@
       console.log(formName);
 
       let nameInput = document.getElementById("mainInput");
-      nameInput.onchange = (event) => {
+      nameInput.oninput = (event) => {
         let data = event.target.value.trim();
-        console.log(event.target);
         if (data.length > 10) {
           document.getElementById("lengthIns").style.display = "block";
         } else {
