@@ -984,7 +984,6 @@ class Lobby extends Phaser.Scene {
         0x372B24,
         1
     )
-    this.helpButton.setStrokeStyle(0xffffff, 2);
     this.helpButtonText = this.add.text(
         0,
         this.helpRrec.height * (0.95 - 0.5),
@@ -999,7 +998,7 @@ class Lobby extends Phaser.Scene {
     )
     this.helpButtonText.setOrigin(0.5, 0.5);
     this.helpButton.setDepth(2001);
-    // this.helpText.setDepth(2002);
+    this.helpText.setDepth(2002);
 
 
 
