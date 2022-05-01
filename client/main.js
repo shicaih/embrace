@@ -498,16 +498,14 @@ class Lobby extends Phaser.Scene {
 
       // set camera that stays in the boundary and follow our playerWheel
       let camera = this.cameras.main;
-      if (phase === 0) {
-        this.cameras.main.setScroll(0);
-        this.cameras.main.setBounds(
-          0,
-          0,
-          gameOptions.worldWidth,
-          gameOptions.worldHeight
-        );
-        this.cameras.main.startFollow(this.mainPlayer.gameObject);
-      }
+      this.cameras.main.setScroll(0);
+      this.cameras.main.setBounds(
+          -50 * devicePixelRatio,
+          -50 * devicePixelRatio,
+          gameOptions.worldWidth + 100 * devicePixelRatio,
+          gameOptions.worldHeight + 100 * devicePixelRatio
+      );
+      this.cameras.main.startFollow(this.mainPlayer.gameObject);
     }
 
     // Networking, may be put into another file afterwards
@@ -642,18 +640,6 @@ class Lobby extends Phaser.Scene {
     this.findPeople.nWheelTapped = 0;
     this.findPeople.targetFound = false;
     this.findPeople.state = "IDLE";
-    if (phase === 1) {
-      //this.cameraMoving();
-      this.cameras.main.setScroll(0);
-      this.cameras.main.setBounds(
-        0,
-        0,
-        gameOptions.worldWidth,
-        gameOptions.worldHeight
-      );
-      this.cameras.main.startFollow(this.mainPlayer.gameObject);
-      // this.insText.setDepth(100);
-    }
   }
 
   setPos(positionIndex, horSlice, verSlice, worldWidth, worldHeight) {
@@ -946,6 +932,11 @@ class Lobby extends Phaser.Scene {
       0x946854,
       0.85
     );
+    this.helpRrec.setStrokeStyle(
+        gameOptions.identityBoxStrokeWidth,
+        gameOptions.assignmentBoxStrokeColor,
+        1
+    );
     this.helpTitle = this.add.text(0, this.helpRrec.height * (0.15-0.5),
         helpTitle[0],
         {
@@ -984,6 +975,12 @@ class Lobby extends Phaser.Scene {
         0x372B24,
         1
     )
+    this.helpButton.setStrokeStyle(
+        gameOptions.identityBoxStrokeWidth,
+        gameOptions.assignmentBoxStrokeColor,
+        1
+    );
+
     this.helpButtonText = this.add.text(
         gameOptions.viewportWidth / 2,
         gameOptions.viewportHeight / 2 + this.helpRrec.height * (0.95 - 0.5),
@@ -1069,6 +1066,18 @@ class Lobby extends Phaser.Scene {
     // puzzle phase
     if (!isLobby) {
       let myStorage = window.sessionStorage;
+      this.topContainer = this.add.rexRoundRectangle (
+          gameOptions.viewportWidth / 2,
+          30 * devicePixelRatio,
+          gameOptions.viewportWidth - 5 * devicePixelRatio,
+          50 * devicePixelRatio,
+          {tl: 10 * devicePixelRatio, tr: 10 * devicePixelRatio, bl: 10 * devicePixelRatio, br: 10 * devicePixelRatio},
+          0xffffff,
+          1
+      )
+      this.topContainer.setScrollFactor(false);
+      this.topContainer.setStrokeStyle(gameOptions.assignmentBoxStrokeWidth, 0x946955);
+      this.setDepth(100);
       puzzleOptions.time = eval(myStorage.getItem("time"));
       this.timerText = this.add.text(
         42 * devicePixelRatio,
