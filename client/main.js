@@ -1077,7 +1077,7 @@ class Lobby extends Phaser.Scene {
       )
       this.topContainer.setScrollFactor(false);
       this.topContainer.setStrokeStyle(gameOptions.assignmentBoxStrokeWidth, 0x946955);
-      this.setDepth(100);
+      this.topContainer.setDepth(100);
       puzzleOptions.time = eval(myStorage.getItem("time"));
       this.timerText = this.add.text(
         42 * devicePixelRatio,
