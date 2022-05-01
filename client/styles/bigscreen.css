@@ -54,26 +54,28 @@ h1 {
     margin-bottom: 0;
     font-weight: 1200;
     font-style: normal;
-    font-size: 120px;
-    line-height: 120px;
+    font-size: 13vh;
+    line-height: 13vh;
     color: #946854;
     letter-spacing: -2px;
 }
 
 p {
     margin: auto;
-    margin-top: 50px;
-    font-size: 50px;
-    line-height: 80px;
+    margin-top: 5vh;
+    font-size: 5vh;
+    line-height: 8vh;
 }
 
 .cultureText {
     margin-left: 5%;
     display: inline;
-    width: 35%;
+    width: 40%;
 }
 
-
+.zigzag {
+    margin-top: 10vh;
+}
 
 .emText {
     color: #a42894;
