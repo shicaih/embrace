@@ -128,7 +128,7 @@ var gameOptions = {
   assignmentBoxStrokeWidth: 3 * devicePixelRatio,
   assignmentBoxStrokeColor: 0xffffff,
   assignmentTextLineSpacing: 24,
-  helpRadius: 16 * devicePixelRatio;
+  helpRadius: 16 * devicePixelRatio,
   confettiY: 120 * devicePixelRatio,
   selectWheelOffset: 30 * devicePixelRatio,
 };
