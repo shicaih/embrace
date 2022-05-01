@@ -1028,7 +1028,7 @@ class Lobby extends Phaser.Scene {
         this.help.isVisible = false;
         this.helpButton.setVisible(false);
         this.helpButton.isVisible = false;
-        this.helpBUttonText.setVisible(false);
+        this.helpButtonText.setVisible(false);
         this.helpButtonText.isVisible = false;
         helpIndex = 0;
       } else {
