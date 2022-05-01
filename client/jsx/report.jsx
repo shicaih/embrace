@@ -2,7 +2,7 @@
 
 const bgImg = [
   'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-dark.png?v=1650581936303',
-  'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-white.png?v=1650581892010'
+  '/assets/report-decoration-light.png'
 ]
 const iconSrc = {
   'home': '/assets/Decor - W + Home.png',
