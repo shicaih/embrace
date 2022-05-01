@@ -980,8 +980,8 @@ class Lobby extends Phaser.Scene {
         gameOptions.viewportHeight / 2 + this.helpRrec.height * (0.95 - 0.5),
         this.helpRrec.width,
         this.helpRrec.height * 0.1,
-        {tl: 0, tr: 0, bl: 32 * devicePixelRatio, br: 32 * devicePixelRatio},
-        0x946854,
+        {tl: 32 * devicePixelRatio, tr: 32 * devicePixelRatio, bl: 32 * devicePixelRatio, br: 32 * devicePixelRatio},
+        0x372B24,
          1
     )
     this.helpButtonText = this.add.text(
@@ -1330,10 +1330,10 @@ class Lobby extends Phaser.Scene {
     this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
       this.QR.setVisible(!this.QR.visible);
       this.toggleText.text = this.QR.visible? "Hide Code" : "Show Code"
-      this.toggleQR.setFillStyle(0xF6DFBA);
+      this.toggleQR.setFillStyle(0x4F2816);
     });
     this.toggleQR.on("pointerover", () => {
-      this.toggleQR.setFillStyle(0xFFCE80);
+      this.toggleQR.setFillStyle(0xA48171);
     })
     this.toggleQR.on("pointerout", () => {
       this.toggleQR.setFillStyle(0x946854);
@@ -1403,7 +1403,7 @@ class Lobby extends Phaser.Scene {
     this.portal.setDepth(1000);
     this.portal.setInteractive().on("pointerdown", (pointer) => {
       curPage += 1;
-      this.portal.setFillStyle(0xF6DFBA);
+      this.portal.setFillStyle(0x4F2816);
       if (curPage < bigscreenText.length) {
         this.bigscreenTitle.text = bigscreenTitle[curPage];
         this.bigscreenText.text = bigscreenText[curPage]
@@ -1461,7 +1461,7 @@ class Lobby extends Phaser.Scene {
 
     });
     this.portal.on("pointerover", () => {
-      this.portal.setFillStyle(0xFFCE80);
+      this.portal.setFillStyle(0xA48171);
     })
     this.portal.on("pointerout", () => {
       this.portal.setFillStyle(0x946854);

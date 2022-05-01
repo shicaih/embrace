@@ -29,14 +29,20 @@
             This wheel represents the identities you have and their importance
             to you
           </p>
-          <div class="canvasDiv" style="text-align:center; overflow: auto">
-          <canvas
-            id="myChart"
-            width="150"
-            height="300"
-          ></canvas>
+          <div class="legendCon">
+            <div class="legendCanvasCon">
+              <canvas
+                      id="myLegend"
+              ></canvas>
             </div>
-          <button class="finalButton" type="submit" value="submit">Next</button>
+          </div>
+          <div class="pieCon">
+            <div class="pieCanvasCon">
+              <canvas
+                      id="myChart"
+              ></canvas>
+            </div>
+          <button class="finalButton" type="submit" value="submit">Go to the lobby</button>
         </div>
       </form>
       <image
@@ -54,9 +60,9 @@
         );
       }
       Chart.defaults.font.size = 18;
-      Chart.defaults.plugins.legend.display = true;
-      const ctx = document.getElementById("myChart").getContext("2d");
-      const myChart = new Chart(ctx, {
+      const ctx = document.getElementById("myLegend").getContext("2d");
+      const ctx2 = document.getElementById("myChart").getContext("2d");
+      const myLegend = new Chart(ctx, {
         type: "pie",
         data: {
           labels: labelCompounds,
@@ -85,12 +91,68 @@
           ],
         },
         options: {
+          radius: 0,
+          plugins: {
+            legend: {
+              display: true,
+              onClick: () => {},
+              align: "start",
+              maxHeight: 1000,
+              labels: {
+                textAlign: "left",
+                font: {
+                  family: "nunito",
+                  weight: 500,
+                }
+              }
+            }
+          },
+          animation: {
+            onComplete: function () {},
+          },
+        },
+      });
+      const myChart = new Chart(ctx2, {
+        type: "pie",
+        data: {
+          labels: labelCompounds,
+          datasets: [
+            {
+              label: "# of Votes",
+              data: myStorage.getItem("scores").split(","),
+              backgroundColor: [
+                "#cc3f8d",
+                "#d15947",
+                "#c7873e",
+                "#34a359",
+                "#5482cc",
+                "#7755b5",
+              ],
+              borderColor: [
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+              ],
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
           animation: {
             onComplete: function () {},
           },
         },
       });
       ctx.scale(1, 1);
+      ctx2.scale(1, 1);
     </script>
   </body>
 </html>
