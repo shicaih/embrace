@@ -319,7 +319,6 @@ class Lobby extends Phaser.Scene {
         "bgWheelBW",
         "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/1080p%20X%201080p.png?v=1650986608997"
     )
-    this.load.video("cultureVideo", "assets/culture.webm", 'loadeddata', false, true);
 
     this.load.svg('bigscreenLeft', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigLeft.svg?v=1650573790728');
     this.load.svg('bigscreenRight', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigRight.svg?v=1650573787709');
@@ -1284,9 +1283,7 @@ class Lobby extends Phaser.Scene {
       loop: -1
     });
 
-    let video = this.add.video(gameOptions.viewportWidth / 2, gameOptions.viewportHeight / 2, "cultureVideo");
-    video.setScale(5, 5);
-    video.play(true);
+
     this.countText = this.add.text(
         gameOptions.viewportWidth - 700 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
         gameOptions.viewportHeight - 1100 * bigScreenRatio,
