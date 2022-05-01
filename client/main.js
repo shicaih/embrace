@@ -1048,7 +1048,7 @@ class Lobby extends Phaser.Scene {
         )
         .setOrigin(1, 0.5)
         .setScrollFactor(0)
-        .setDepth(100)
+        .setDepth(101)
         .setScale(devicePixelRatio);
     this.helpIcon
         .setInteractive()
