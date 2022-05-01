@@ -283,7 +283,6 @@ var Report = function (_React$Component) {
                 'div',
                 { 'class': 'section bg' + (sectionCount % 2 == 0 ? '1' : '2') + ' ' + (this.state.loaded ? '' : 'hide') },
                 React.createElement('img', { 'class': 'bg-top', src: bgImg[sectionCount++ % 2] }),
-                React.createElement('img', { 'class': 'bg-icon-bottom', src: iconSrc.home }),
                 React.createElement(
                   'div',
                   { 'class': 'reportText', style: { 'text-align': 'left' } },
@@ -356,7 +355,6 @@ var Report = function (_React$Component) {
                 'div',
                 { 'class': 'section bg' + (sectionCount % 2 == 0 ? '1' : '2') + ' ' + (this.state.loaded ? '' : 'hide') },
                 React.createElement('img', { 'class': 'bg-top', src: bgImg[sectionCount++ % 2] }),
-                React.createElement('img', { 'class': 'bg-icon-bottom', src: iconSrc.ethnicity }),
                 React.createElement(
                   'div',
                   { 'class': 'reportText', style: { 'text-align': 'left' } },

@@ -192,7 +192,6 @@ class Report extends React.Component {
     <div class="swiper-slide">
       <div class={`section bg${(sectionCount)%2 == 0 ? '1' : '2'} ${this.state.loaded ? '' : 'hide'}`}>
         <img class="bg-top" src={bgImg[(sectionCount++)%2]}/>
-        <img class='bg-icon-bottom' src={iconSrc.home} /> 
         <div class="reportText" style={{'text-align':'left'}}>
           <h1>{this.state.data.nPlayerLocationImportant}</h1>
           <p class='caption'>people also considered Home as an important identity!</p>
@@ -229,7 +228,6 @@ class Report extends React.Component {
     <div class="swiper-slide">
       <div class={`section bg${(sectionCount)%2 == 0 ? '1' : '2'} ${this.state.loaded ? '' : 'hide'}`}>
         <img class="bg-top" src={bgImg[(sectionCount++)%2]}/>
-        <img class='bg-icon-bottom' src={iconSrc.ethnicity} /> 
         <div class="reportText" style={{'text-align':'left'}}>
           <h1 >{this.state.data.nPlayerEthnicityImportant}</h1>
           <p class='caption'>people also considered Ethnicity as an important identity!</p>
