@@ -655,13 +655,17 @@ function generateReportData() {
   
   let allPlayers = Object.assign({}, goneLobbyPlayers, lobbyPlayers);
   
-  let importantLocations = [], importantEthnicities = []
   let nPlayerLocationImportant = 0, nPlayerEthnicityImportant = 0;
   let importantLocationFreq = {}, importantEthnicityFreq = {};
   let locationFrequency = {}, ethnicityFrequency = {}, foodToLocation = {}, musicToLocation = {};
   
   for (let playerId in allPlayers) {
     let player = allPlayers[playerId]
+    for (let cul in player.wheelInfo) {
+      if (player.wheelInfo[cul] == '⊘') [
+        player.wheelInfo[cul] = 'Prefer not to say'
+      ]
+    }
     locationFrequency[player.wheelInfo['home']] = 1 + (locationFrequency[player.wheelInfo['home']] || 0)
     ethnicityFrequency[player.wheelInfo['ethnicity']] = 1 + (ethnicityFrequency[player.wheelInfo['ethnicity']] || 0)
     
@@ -689,18 +693,21 @@ function generateReportData() {
     }  
   }
   
-  delete ethnicityFrequency['Prefer not to say']
-  delete ethnicityFrequency['⊘']
-  delete locationFrequency['Prefer not to say']
+  let temp = Object.assign({}, ethnicityFrequency)
+  delete temp['Prefer not to say']
+  delete temp['⊘']
+  globalReportData.nEthnicity = Object.keys(temp).length
+  
+  temp = Object.assign({}, locationFrequency)
+  delete temp['Prefer not to say']
+  delete temp['⊘']
+  globalReportData.nCountriesStates = Object.keys(temp).length
+  locationFrequency['Prefer not to say'] = (locationFrequency['Prefer not to say'] || 0)  + (locationFrequency['⊘'] || 0)
   delete locationFrequency['⊘']
-  globalReportData.nEthnicity = Object.keys(ethnicityFrequency).length - 1
-  globalReportData.nCountriesStates = Object.keys(locationFrequency).length
+  if (locationFrequency['Prefer not to say'] == 0) delete locationFrequency['Prefer not to say']
   
-  
-  delete importantEthnicities['Prefer not to say']
-  delete importantEthnicities['⊘']
-  importantLocations = Object.entries(importantLocationFreq).map(([key, value]) => key)
-  importantEthnicities = Object.entries(importantEthnicityFreq).map(([key, value]) => key)
+  //delete importantEthnicities['Prefer not to say']
+  //delete importantEthnicities['⊘']
   
   //delete bigscreenReportData['Prefer not to say']
   for (let i = 0; i < 6; i++)  {
@@ -726,7 +733,7 @@ function generateReportData() {
     data.ethnicity = player.wheelInfo['ethnicity']
     data.music = player.wheelInfo['music']
     data.food = player.wheelInfo['food']
-    data.nPlayerSameLocation = locationFrequency[player.wheelInfo['home']] - 1
+    data.nPlayerSameLocation = locationFrequency[player.wheelInfo['home']]
     data.locationIsImportant = player.scores[4] > 3
     data.nPlayerLocationImportant = nPlayerLocationImportant - (data.locationIsImportant ? 1 : 0)
   
@@ -758,19 +765,21 @@ function generateReportData() {
     data.importantEthnicityExamples = Object.keys(othersImportantEthnicityFreq).slice(0, 3)
     
     data.music = player.wheelInfo['music']
-    data.nPlayerSameMusic = musicToLocation[data.music].length - 1
+    data.nPlayerSameMusic = musicToLocation[data.music].length
     let musicLocationTypes = musicToLocation[data.music].map(x=>x)
     musicLocationTypes.splice(musicLocationTypes.indexOf(data.location), 1)
     musicLocationTypes = Array.from(new Set(musicLocationTypes))
+    musicLocationTypes.splice(musicLocationTypes.indexOf('Prefer not to say'), 1)
     data.multiMusicLocation = musicLocationTypes.length > 1
     data.nSameMusicLocation = musicLocationTypes.length
     data.sameMusicLocationExamples = musicLocationTypes.slice(0, 3)
     
     data.food = player.wheelInfo['food']
-    data.nPlayerSameFood = foodToLocation[data.food].length - 1
+    data.nPlayerSameFood = foodToLocation[data.food].length
     let foodLocationTypes = foodToLocation[data.food].map(x=>x)
     foodLocationTypes.splice(foodLocationTypes.indexOf(data.location), 1)
     foodLocationTypes = Array.from(new Set(foodLocationTypes))
+    foodLocationTypes.splice(foodLocationTypes.indexOf('Prefer not to say'), 1)
     data.multiFoodLocation = foodLocationTypes.length > 1
     data.nSameFoodLocation = foodLocationTypes.length
     data.sameFoodLocationExamples = foodLocationTypes.slice(0, 3)
