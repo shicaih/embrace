@@ -178,7 +178,7 @@ h1.identity {
 .bg-icon-top {
   position: absolute;
   z-index: 2;
-  top: 14%;
+  top: 13%;
   width: 120px;
   left: 15px;
   animation-duration: 60s;
@@ -189,7 +189,7 @@ h1.identity {
 .bg-icon-bottom {
   position: absolute;
   z-index: 2;
-  bottom: 14%;
+  bottom: 13%;
   width: 120px;
   right: 15px;
   animation-duration: 60s;
@@ -255,12 +255,12 @@ h1.identity {
     margin-bottom: 2rem;
   }
   .bg-icon-top {
-    top: 14%;
+    top: 13%;
     width: 80px;
     left: 10px;
   }
   .bg-icon-bottom {
-    bottom: 14%;
+    bottom: 13%;
     width: 80px;
     right: 10px;
   }
