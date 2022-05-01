@@ -505,7 +505,7 @@ class Lobby extends Phaser.Scene {
       this.cameras.main.setScroll(0);
       this.cameras.main.setBounds(
           -100 * devicePixelRatio,
-          -100 * devicePixelRatio,
+          -300 * devicePixelRatio,
           gameOptions.worldWidth + 200 * devicePixelRatio,
           gameOptions.worldHeight + 200 * devicePixelRatio
       );
