@@ -507,7 +507,7 @@ class Lobby extends Phaser.Scene {
           -100 * devicePixelRatio,
           -300 * devicePixelRatio,
           gameOptions.worldWidth + 200 * devicePixelRatio,
-          gameOptions.worldHeight + 200 * devicePixelRatio
+          gameOptions.worldHeight + 400 * devicePixelRatio
       );
       this.cameras.main.startFollow(this.mainPlayer.gameObject);
     }
