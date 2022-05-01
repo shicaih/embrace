@@ -1069,6 +1069,7 @@ class Lobby extends Phaser.Scene {
         });
     // puzzle phase
     if (!isLobby) {
+      this.bgWheel.setScale(2.5);
       let myStorage = window.sessionStorage;
       this.topContainer = this.add.rexRoundRectangle (
           gameOptions.viewportWidth / 2,
