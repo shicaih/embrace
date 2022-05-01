@@ -128,6 +128,7 @@ var gameOptions = {
   assignmentBoxStrokeWidth: 3 * devicePixelRatio,
   assignmentBoxStrokeColor: 0xffffff,
   assignmentTextLineSpacing: 24,
+  helpRadius: 16 * devicePixelRatio;
   confettiY: 120 * devicePixelRatio,
   selectWheelOffset: 30 * devicePixelRatio,
 };
@@ -503,10 +504,10 @@ class Lobby extends Phaser.Scene {
       let camera = this.cameras.main;
       this.cameras.main.setScroll(0);
       this.cameras.main.setBounds(
-          -50 * devicePixelRatio,
-          -50 * devicePixelRatio,
-          gameOptions.worldWidth + 100 * devicePixelRatio,
-          gameOptions.worldHeight + 100 * devicePixelRatio
+          -100 * devicePixelRatio,
+          -100 * devicePixelRatio,
+          gameOptions.worldWidth + 200 * devicePixelRatio,
+          gameOptions.worldHeight + 200 * devicePixelRatio
       );
       this.cameras.main.startFollow(this.mainPlayer.gameObject);
     }
@@ -891,9 +892,9 @@ class Lobby extends Phaser.Scene {
           gameOptions.viewportHeight -
           (gameOptions.joyStickRadius + gameOptions.joyStickPadding),
         radius: gameOptions.joyStickRadius,
-        base: this.add.circle(0, 0, gameOptions.joyStickRadius, 0x888888),
+        base: this.add.circle(0, 0, gameOptions.joyStickRadius, 0x000000),
         thumb: this.add
-          .circle(0, 0, gameOptions.joyStickRadius / 2, 0xcccccc)
+          .circle(0, 0, gameOptions.joyStickRadius / 2, 0x000000)
           .setScrollFactor(0),
         // dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
         // forceMin: 16,
@@ -931,7 +932,7 @@ class Lobby extends Phaser.Scene {
       0,
       gameOptions.viewportWidth * 0.8,
       gameOptions.viewportHeight * 0.7,
-      32 * devicePixelRatio,
+      gameOptions.helpRadius,
       0x946854,
       0.85
     );
@@ -974,7 +975,7 @@ class Lobby extends Phaser.Scene {
         gameOptions.viewportHeight / 2 + this.helpRrec.height * (0.95 - 0.5),
         this.helpRrec.width,
         this.helpRrec.height * 0.1,
-        {tl: 32 * devicePixelRatio, tr: 32 * devicePixelRatio, bl: 32 * devicePixelRatio, br: 32 * devicePixelRatio},
+        gameOptions.helpRadius,
         0x372B24,
         1
     )
