@@ -1291,7 +1291,8 @@ class Lobby extends Phaser.Scene {
       loop: -1
     });
 
-    this.add.video(gameOptions.viewportWidth / 2, gameOptions.viewportHeight / 2, "cultureVideo");
+    let video = this.add.video(gameOptions.viewportWidth / 2, gameOptions.viewportHeight / 2, "cultureVideo");
+    video.setScale(5, 5);
     this.countText = this.add.text(
         gameOptions.viewportWidth - 700 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
         gameOptions.viewportHeight - 1100 * bigScreenRatio,
