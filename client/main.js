@@ -1012,7 +1012,7 @@ class Lobby extends Phaser.Scene {
     this.help = helpContainer;
     this.help.isVisible = true;
     this.helpButton.isVisible = true;
-    this.helpBUttonText.isVisible = true;
+    this.helpButtonText.isVisible = true;
     this.help.setDepth(2000);
     this.helpButton.setScrollFactor(false);
     this.helpButtonText.setScrollFactor(false);
