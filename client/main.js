@@ -1214,17 +1214,10 @@ class Lobby extends Phaser.Scene {
     this.bgWheel.setDepth(-101);
     let curPage = 0;
     let bigscreenText = [
-        "A comprehensive concept that encompasses the norms, values, customs, traditions, habits, skills, knowledge, beliefs, and the whole way of life of a group of people. \n" +
+        "small or large\n" +
         "\n" +
-        "Cultures can be small or large and can continuously evolve. \n",
-        "Identification with or the sense of belonging to a particular group based on various cultural categories, including nationality, ethnicity, race, gender, and religion.        \n" +
-        "\n" +
-        "Identity is complex and multifaceted and your identity may change over time.\n",
-        "A lifelong process of challenging assumptions and encouraging us to explore how every culture can teach us about ourselves, others, and the global community.",
-        "Let’s begin our first activity by exploring some aspects of your cultural identity by answering 6 brief questions. \n" +
-        "\n" +
-        "You will have approximately 3 minutes to complete this section\n",
-
+        "Continously evovling \n" +
+        "way of life",
     ]
     let bigscreenTitle = [
         "Culture",
@@ -1507,6 +1500,65 @@ class Lobby extends Phaser.Scene {
 
   }
 
+  switchPage(pageAct, event) {
+    curPage += pageAct;
+    event.target.setFillStyle(0x4F2816);
+    if (curPage < bigscreenText.length) {
+      this.bigscreenTitle.text = bigscreenTitle[curPage];
+      this.bigscreenText.text = bigscreenText[curPage]
+      if (curPage == bigscreenText.length - 1) {
+        this.portalText.text = "Go to the Lobby";
+        this.portal.width = this.portalText.width + 50 * bigScreenRatio;
+      }
+    } else if (curPage == bigscreenText.length) {
+      this.portalText.text = "Start";
+      this.portal.width = 600 * bigScreenRatio;
+      this.bigscreenTitle.setVisible(false);
+      this.bigscreenText.setVisible(false);
+      this.QR.setDepth(2000);
+      this.bgWheel.setDepth(-99);
+      this.insText.setDepth(-99);
+      this.countText.setDepth(2000);
+      this.toggleQR.setDepth(2000);
+      this.toggleText.setDepth(2000);
+
+    } else if (curPage <= bigscreenText.length + 2){
+      if (curPage === bigscreenText.length + 1) {
+        this.portalText.text = "Report";
+        this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
+        this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(5).setScrollFactor(1);
+        this.bgWheel.setDepth(-97);
+        this.QR.setVisible(false);
+        this.QR.isVisible = false;
+        this.toggleText.text = "Show Code";
+        this.insText.text = "Stars: 0";
+        starGoal = playersCount * starPerPlayer;
+        this.countText.setVisible(false);
+        this.puzzleCountText.setDepth(2000);
+        this.progressBar = this.add.graphics();
+        this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
+        this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, 0, false);
+        this.progressBar.x = gameOptions.worldWidth / 2;
+        this.progressBar.y = gameOptions.worldHeight / 2;
+        this.bigscreenPuzzle = true;
+
+      } else {
+        this.portalText.text = "Reset";
+        this.puzzleCountText.setVisible(false);
+        this.countText.setVisible(true);
+
+      }
+      this.socket.emit("startPuzzle");
+      if (this.timer1 !== null) {
+        this.time.removeEvent(this.timer1);
+        this.time.removeEvent(this.timer2);
+      }
+    } else {
+      this.socket.emit("reset");
+      window.location.reload();
+    }
+
+  }
   // data.id is the id of the current socket,
   // data.players is an array of Player objects defined in the server side, it contains the info of main player
   initi(data) {
