@@ -95,7 +95,7 @@ class Report extends React.Component {
             Hi <span id="nickname">{window.sessionStorage.getItem ('name')}</span>,  
           </h1>
           <h1 class="wide-top narrow-bottom">{this.state.data.nPlayer}</h1>
-          <p>people joined Embrae today!</p>
+          <p>people joined Embrace today!</p>
 
         </div>
       </div>
@@ -280,13 +280,13 @@ class Report extends React.Component {
                 (this.state.data.music == 'Prefer not to say' || this.state.data.music == '⊘')
                   &&
                   <React.Fragment>
-                    <h1 class='wide-bottom'>{this.state.data.nPlayerSameMusic}</h1>
+                    <h1>{this.state.data.nPlayerSameMusic}</h1>
                     <p>chose not to shair their favorite music, including you!</p>
                     {this.state.data.nSameMusicLocation >= 1  
                       && 
                       <React.Fragment>
-                        <p>they are from place(s) like</p>
-                        {this.state.data.sameMusicLocationExamples && this.state.data.sameMusicLocationExamples.map(e => <p class='themeColor' style={{'margin':'0.5rem','margin-left':'2rem'}}>{e}</p>)}
+                        <p class="caption" style={{'textAlign':'left'}}>They are from place(s) like</p>
+                        {this.state.data.sameMusicLocationExamples && this.state.data.sameMusicLocationExamples.map(e => <p class='themeColor' style={{'margin':'0.5rem','margin-left':'2rem','textAlign':'left'}}>{e}</p>)}
                       </React.Fragment> 
                     }
                   </React.Fragment>
@@ -343,13 +343,13 @@ class Report extends React.Component {
                 (this.state.data.food == 'Prefer not to say' || this.state.data.food == '⊘')
                   &&
                   <React.Fragment>
-                    <h1 class='wide-bottom'>{this.state.data.nPlayerSameFood}</h1>
+                    <h1>{this.state.data.nPlayerSameFood}</h1>
                     <p>chose not to shair their favorite food, including you!</p>
                     {this.state.data.nSameFoodLocation >= 1  
                       && 
                       <React.Fragment>
-                        <p>they are from place(s) like</p>
-                        {this.state.data.sameFoodLocationExamples && this.state.data.sameFoodLocationExamples.map(e => <p class='themeColor' style={{'margin':'0.5rem','margin-left':'2rem'}}>{e}</p>)}
+                        <p class='caption' style={{'textAlign':'left'}}>They are from place(s) like</p>
+                        {this.state.data.sameFoodLocationExamples && this.state.data.sameFoodLocationExamples.map(e => <p class='themeColor' style={{'margin':'0.5rem','margin-left':'2rem','textAlign':'left'}}>{e}</p>)}
                       </React.Fragment> 
                     }
                   </React.Fragment>
