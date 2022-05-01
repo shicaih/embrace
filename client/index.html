@@ -10,7 +10,6 @@
 
   <body>
     <div class="section-long">
-      <!-- <img class="bg" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Game%20-%201080p%20x%201920p%20%2B%2005%25.png?v=1650144445428"> -->
       <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor-Title-Top.png?v=1650139921308">
   
       <form
@@ -24,6 +23,7 @@
         <div class="form-control">
           <label class="category">Nickname</label>
           <input type="text" id="mainInput" placeholder=" Enter your nickname..." />
+          <label class="comment" style="background-color: darkred; display: none" id="lengthIns">Nickname length cannot exceed 10 characters.</label>
           <label class="comment">Your nickname will only be visible to you.</label>
         </div>
         <button type="submit" value="submit">Continue</button>
@@ -63,6 +63,16 @@
       let formName = myStorage.getItem("forms").split(",")[FORMINDEX];
       console.log(formName);
 
+      let nameInput = document.getElementById("mainInput");
+      nameInput.onchange = (event) => {
+        let data = event.target.value.trim();
+        if (data.length > 10) {
+          document.getElementById("lengthIns").style.display = "block";
+        } else {
+          document.getElementById("lengthIns").style.display = "none";
+        }
+      }
+
       function SubmitForm() {
         let dataEle = document.getElementById("mainInput");
         data = dataEle.value.trim();
@@ -74,6 +84,11 @@
       function Validate(dataEle) {
         if (dataEle.value.trim() === "") {
           window.alert("Please enter your name.");
+          dataEle.focus();
+          return false;
+        }
+        if (dataEle.value.trim().length > 10) {
+          window.alert("Nickname length cannot exceed 10 characters.")
           dataEle.focus();
           return false;
         }
