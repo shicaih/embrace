@@ -156,6 +156,8 @@ if (levelIndex != null) {
   gameOptions.worldHeight = gameOptions.puzzleWorldSizes[levelIndex];
 }
 
+const hsv = Phaser.Display.Color.HSVColorWheel();
+
 class MainPlayer {
   constructor(info, scores, star) {
     this.info = info;
@@ -325,6 +327,7 @@ class Lobby extends Phaser.Scene {
     this.load.svg('help1', "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/help1.svg?v=1650585517405");
     this.load.svg('help2', 'https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/help2.svg?v=1650585523755');
     this.load.svg('help3', "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/help3.svg?v=1650585520813");
+    this.load.image('wheelMask', './assets/wheelMask.png')
     this.input.setTopOnly(false);
   }
 
@@ -1585,6 +1588,26 @@ class Lobby extends Phaser.Scene {
       .setFixedRotation();
 
      */
+    newPlayerWheel.wheelMask = this.add.image(0, 0, 'wheelMask').setOrigin(0.5).setScale(0.9*devicePixelRatio).setAlpha(0);
+    
+    newPlayerWheel
+      .setInteractive()
+      .on("pointerdown", (pointer, localX, localY, event) => {
+          console.log('TTTTint')
+          
+          
+          
+         //this.thumbUpButton.tint = hsv[i].color;
+          
+         newPlayerWheel.setScale(0.9);
+         newPlayerWheel.wheelMask.setAlpha(0.2);
+         
+         
+         setTimeout(()=> {
+           newPlayerWheel.setScale(1);
+           newPlayerWheel.wheelMask.setAlpha(0);
+         }, 250);
+        })
     var tap = this.rexGestures.add.tap(newPlayerWheel, {
       // enable: true,
       // bounds: undefined,
@@ -1609,6 +1632,8 @@ class Lobby extends Phaser.Scene {
           this.findPeople.targetFound = true;
           this.findPeople.tappedTarget = newPlayerWheel;
         }
+        newPlayerWheel.setScale(1);
+        newPlayerWheel.wheelMask.setAlpha(0);
       },
       this
     );
@@ -1669,13 +1694,13 @@ class Lobby extends Phaser.Scene {
     }
 
     let playerContainer = this.add.container(0, 0, [
-        newPlayerWheel,
+      newPlayerWheel,
       rrec,
       text,
       icon,
-        thumbUp,
-        smile,
-
+      newPlayerWheel.wheelMask,
+      thumbUp,
+      smile,
     ]);
     playerContainer.setDepth(25);
     playerContainer.setPosition(player.x, player.y);
