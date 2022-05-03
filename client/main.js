@@ -27,6 +27,7 @@ import { default as shuffle } from "./scripts/utility.js";
 let settings;
 fetch("./settings.json")
   .then((response) => {
+    console.log("Fetch test");
     return response.json();
   })
   .then((data) => {
