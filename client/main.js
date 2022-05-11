@@ -236,15 +236,15 @@ class Lobby extends Phaser.Scene {
     // art asset
     this.load.image(
       "BG",
-      "BG.png"
+      "assets/BG.png"
     );
     this.load.image(
         "bgWheel",
-        "0648p X 0648p.png"
+        "assets/0648p X 0648p.png"
     )
     this.load.image(
       "selectWheel",
-      "Wheel - 6 + I + H.png"
+      "assets/Wheel - 6 + I + H.png"
     );
     this.load.image(
       "portal",
