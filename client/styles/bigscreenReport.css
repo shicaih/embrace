@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap");
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  position: relative;
+  letter-spacing: 0.04em;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+
+  font-weight: 300;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 27px;
+  color: #372B24;
+  background: #F9F1DC;
+  background-image: url("https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Game%20-%201080p%20x%201920p%20%2B%2005%25.png?v=1650144445428");
+  background-repeat: repeat;
+  background-size: contain;
+  margin: 0;
+  height: 100%;
+}
+
+
+.wordcloud {
+  width: 100%;
+  height: 100%;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.wheel {
+  animation-duration: 180s;
+  animation-iteration-count: infinite;
+  animation-name: icon-rotation-l;
+}
+
+@keyframes icon-rotation-l {
+  from {
+    transform: rotate(0deg)
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.button {
+  stroke: #fff;
+  stroke-miterlimit: 10;
+}
+
+
+@keyframes example {
+  0% {
+    transform: translateY(-2.5px)
+  }
+
+  50% {
+    transform: translateY(2.5px);
+  }
+
+  100% {
+    transform: translateY(-2.5px);
+  }
+}
+
+.word {
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.word:hover {
+
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.word0:hover {
+  background-color: #ebb3d2;
+}
+
+.word1:hover {
+  background-color: #edbdb6;
+}
+
+.word2:hover {
+  background-color: #e9cfb2;
+}
+
+.word3:hover {
+  background-color: #aeddbd;
+}
+
+.word4:hover {
+  background-color: #bcceeb;
+}
+
+.word5:hover {
+  background-color: #c9bce2;
+}
+
+.icon-color {
+  fill: #fff;
+  stroke: #fff;
+}
+
+.shape {
+  stroke-width: 24px;
+}
+
+.cls-0-idle {
+  fill: #ebb3d2;
+}
+
+.cls-0-selected {
+  fill: #cc408d;
+}
+
+.cls-0-idle:hover .icon-color {
+  fill: #cc408d;
+}
+
+.cls-0-idle:hover .shape {
+  fill: #fff;
+}
+
+.cls-1-idle {
+  fill: #edbdb6;
+}
+
+.cls-1-selected {
+  fill: #d15947;
+}
+
+.cls-1-idle:hover .icon-stroke-1 {
+  stroke: #d15947;
+}
+
+.cls-1-idle:hover .icon-color {
+  fill: #d15947;
+  stroke: #d15947;
+}
+
+.cls-1-idle:hover .shape {
+  fill: #fff;
+}
+
+.icon-stroke-1 {
+  fill: none;
+  stroke-width: 32px;
+}
+
+.cls-2-idle {
+  fill: #e9cfb2;
+}
+
+.cls-2-selected {
+  fill: #c7873e;
+}
+
+.cls-2-idle:hover g {
+  fill: #c7873e;
+  stroke: #c7873e;
+}
+
+.cls-2-idle:hover .shape {
+  fill: #fff;
+}
+
+.icon-stroke-2 {
+  stroke-width: 4px;
+  fill: none;
+}
+
+.cls-3-idle {
+  fill: #aeddbd;
+}
+
+.cls-3-selected {
+  fill: #34a359;
+}
+
+.cls-3-idle:hover g {
+  fill: #34a359;
+  stroke: #34a359;
+}
+
+.cls-3-idle:hover .shape {
+  fill: #fff;
+}
+
+.icon-stroke-3 {
+  fill: none;
+  stroke-width: 4px;
+}
+
+.cls-4-idle {
+  fill: #bcceeb;
+}
+
+.cls-4-selected {
+  fill: #5482cc;
+}
+
+.cls-4-idle:hover g {
+  fill: #5482cc;
+  stroke: #5482cc;
+}
+
+.cls-4-idle:hover .shape {
+  fill: #fff;
+}
+
+.cls-5-idle {
+  fill: #c9bce2;
+}
+
+.cls-5-selected {
+  fill: #7755b5;
+}
+
+.cls-5-idle:hover g {
+  fill: #7755b5;
+  stroke: #7755b5;
+}
+
+.cls-5-idle:hover .shape {
+  fill: #fff;
+}
+
+.restart-button {
+  position: absolute;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 250px;
+  height: 70px;
+  font-size: 36px;
+  background-color: #946854;
+  color: white;
+  right: 100px;
+  bottom: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.restart-button:hover {
+  cursor: pointer;
+  background-color: #A48171;
+}
+
+.restart-button:active {
+  
+  cursor: pointer;
+  background-color: #4F2816;
+}

@@ -1,105 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content=
-        "width=device-width, initial-scale=1.0">
-    <title>
-        Culture Humility Form
-    </title>
-    <link rel="stylesheet" href="styles.css">
-    
-</head>
-  
-<body>
-  
-    <!-- Create Form -->
-    <form name="economics" id="economicsForm" onsubmit="return SubmitForm()" action="\5location.html" method="post">
- 
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Culture Humility Form</title>
+    <link rel="stylesheet" href="styles/survey.css" />
+  </head>
+
+  <body>
+    <div class="section">
+      <image
+        class="bg-bottom-fix"
+        src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"
+      ></image>
+      <!-- Create Form -->
+      <form
+        name="economics"
+        id="economicsForm"
+        onsubmit="return SubmitForm()"
+        action="\5location.html"
+        method="get"
+      >
         <!-- Details -->
         <div class="form-control">
-            <progress id="bar" value="50" max="100" class="drop"> 50% </progress>
-            <h1>How are you paying your tuition?</h1>
- 
-            <!-- choose location from dropdown list -->
-            <select name="location" id="mainInput" class="drop">
-                <option value="">choose the way you pay your tuition</option>
-                <option value="Federal Loan">Federal Loan</option>
-                <option value="Private Loan">Private Loan</option>
-                <option value="Scholarship">Scholarship</option>
-                <option value="Financial Aid/Grants">Financial Aid/Grants</option>
-                <option value="Parents Sponsorship">Parents Sponsorship</option>
-                <option value="Personal Funds">Personal Funds</option>
-                <option value="Others Sponsorship">Others Sponsorship</option>
-                <option value="Other">Other (Specify below)</option>
-                <option value="PreferNotToSay">Prefer not to say</option>
-            </select>
+          <div class="progress">
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+          </div>
+          <h2>Finances</h2>
+          <h3>What is your main source of tuition payment?</h3>
 
+          <!-- choose location from dropdown list -->
+          <select name="location" id="mainInput" class="drop">
+            <option value="">Tap to choose the way you pay your tuition</option>
+            <option value="Federal Loan">Federal Loan</option>
+            <option value="Private Loan">Private Loan</option>
+            <option value="Scholarship">Scholarship</option>
+            <option value="Financial Aid/Grants">Financial Aid/Grants</option>
+            <option value="Parent’s or Parents’ Sponsorship">Parent’s or Parents’ Sponsorship</option>
+            <option value="Personal Funds">Personal Funds</option>
+            <option value="Other Sponsorship">Other Sponsorship</option>
+            <option value="Other">Other...</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
 
-            <input type="text"
-                   id="otherInput"
-                   placeholder="Enter your answer"
-                   style="display: none;">
-            <input type="checkbox" name="notToShow" id="notToShow" value="no">
-            <label for="notToShow" style="display: inline">Don't show this to others</label>
+          <input
+            type="text"
+            id="otherInput"
+            placeholder="Please specify here"
+            style="display: none"
+          />
+          <div class="comment">
+            <input type="checkbox" name="notToShow" id="notToShow" value="no" />
+            <label for="notToShow" style="display: inline"
+              >Don't show this to others</label
+            >
+          </div>
         </div>
-        <button type="submit" value="submit">
-            Next
-        </button>
-    </form>
-  
+        <button type="submit" value="submit">Next</button>
+      </form>
+    </div>
+
     <!-- this script relates to current form content -->
     <script>
-        let dataEle = document.getElementById('mainInput'); 
-        dataEle.addEventListener("change", (event) => {
-            let otherInput = document.getElementById("otherInput");
-            if(dataEle.value === "Other") {
-              otherInput.style.display = "block";
-            } else {
-              otherInput.style.display = "none";
-            }
-        })
-    </script>
-  
-    <!-- this script only relates to submit process -->
-    <script>
-        const FORMINDEX = 4;
-        let myStorage = window.sessionStorage;
-        console.log(myStorage);
-        let formName = myStorage.getItem('forms').split(',')[FORMINDEX];
-        console.log(formName);
-      
-      
-        function SubmitForm() {
-            let dataEle, isOther = false;
-            if  (document.getElementById("mainInput").value === "Other") {
-                dataEle = document.getElementById("otherInput");
-                isOther = true;
-            } else {
-                dataEle = document.getElementById("mainInput");
-            };
-            let notToShowEle = document.getElementById("notToShow");
-            let data = [];
-            data.push(dataEle.value.trim());
-            data.push(!notToShowEle.checked);
-            data.push(isOther);
-            myStorage.setItem(formName, data);
-            return Validate(dataEle);
+      let dataEle = document.getElementById("mainInput");
+      dataEle.addEventListener("change", (event) => {
+        let otherInput = document.getElementById("otherInput");
+        if (dataEle.value === "Other") {
+          otherInput.style.display = "block";
+        } else {
+          otherInput.style.display = "none";
         }
-      
-      
-        function Validate(dataEle) {
-          if (dataEle.value.trim() === "") {
-            window.alert("Please enter your answer.");
-            dataEle.focus();
-            return false;
-          }
-          return true;
-        };
+      });
     </script>
 
-</body>
-  
+    <!-- this script only relates to submit process -->
+    <script>
+      const FORMINDEX = 4;
+      let myStorage = window.sessionStorage;
+      console.log(myStorage);
+      let formName = myStorage.getItem("forms").split(",")[FORMINDEX];
+      console.log(formName);
+
+      function SubmitForm() {
+        let dataEle,
+          isOther = false;
+        if (document.getElementById("mainInput").value === "Other") {
+          dataEle = document.getElementById("otherInput");
+          isOther = true;
+        } else {
+          dataEle = document.getElementById("mainInput");
+        }
+        let notToShowEle = document.getElementById("notToShow");
+        let data = [];
+        data.push(dataEle.value.trim());
+        data.push(!notToShowEle.checked);
+        data.push(isOther);
+        myStorage.setItem(formName, data);
+        return Validate(dataEle);
+      }
+
+      function Validate(dataEle) {
+        if (dataEle.value.trim() === "") {
+          window.alert("Please enter your answer.");
+          dataEle.focus();
+          return false;
+        }
+        return true;
+      }
+    </script>
+  </body>
 </html>

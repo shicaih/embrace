@@ -9,58 +9,71 @@
     <title>
         Culture Humility Form
     </title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/survey.css">
     
 </head>
   
 <body>
-  
+    <div class="section">
+    <image class="bg-bottom-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"></image>
     <!-- Create Form -->
-    <form name="economics" id="economicsForm" onsubmit="return SubmitForm()" action="\7score.html" method="post">
+    <form name="economics" id="economicsForm" onsubmit="return SubmitForm()" action="\7score.html" method="get">
  
         <!-- Details -->
         <div class="form-control">
-            <progress id="bar" value="70" max="100"> 70% </progress>
-            <h1>Which of the following best represents your ethnic heritage?</h1>
+            <div class="progress">
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+          </div>
+          <h2>
+            Ethnicity
+          </h2>
+          <h3>Which of the following best represents your ethnic heritage?</h3>
  
             <!-- choose location from dropdown list -->
             <select name="location" id="mainInput" class="drop">
-                <option value="">Choose your ethnicity</option>
-                <option value="East Asian">East Asian</option>
-	              <option value="Southeast Asian">Southeast Asian</option>
-                <option value="South Asian">South Asian</option>
-                <option value="Central Asian">Central Asian</option>
-                <option value="North Asian">North Asian</option>
-                <option value="West Asian">West Asian</option>
-                <option value="Hipanic/Latinx">Hipanic/Latinx</option>
-                <option value="First Peoples/Indigneous">First Peoples/Indigneous</option>
-                <option value="Native Hawaiian/Pacific Islander">Native Hawaiian/Pacific Islander</option>
-                <option value="North African">North African</option>
-                <option value="African/African American/Afro-Caribbean/Afro-Latinx/Black">African/African American/Afro-Caribbean/Afro-Latinx/Black</option>
-                <option value="White/Caucasian/North American/South American/European">White/Caucasian/North American/South American/European</option>
-                <option value="Other">Other (Specify below)</option>
-                <option value="PreferNotToSay">Prefer not to say</option>
+                <option value="">Tap to choose your ethnicity</option>
+                <option value="Multi">Multiethnic (Please specify)</option>
+                <option value="Nonethnic">Nonethnic</option>
+                <option value="Asian">Asian</option>
+                <option value="Hispanic/Latinx">Hispanic/Latinx</option>
+                <option value="Indigenous">Indigenous</option>
+                <option value="Pacific Islander">Pacific Islander</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Other">Others...</option>
+                <option value="Prefer not to say">Prefer not to say</option>
             </select>
 
 
             <input type="text"
                    id="otherInput"
-                   placeholder="Enter your answer"
+                   placeholder="Please specify here"
                    style="display: none;">
+          <div class="comment">
             <input type="checkbox" name="notToShow" id="notToShow" value="no">
             <label for="notToShow" style="display: inline">Don't show this to others</label>
+          </div>
+
         </div>
         <button type="submit" value="submit">
             Next
         </button>
     </form>
-  
+  </div>
     <!-- this script relates to current form content -->
     <script>
         let dataEle = document.getElementById('mainInput'); 
         dataEle.addEventListener("change", (event) => {
             let otherInput = document.getElementById("otherInput");
-            if(dataEle.value === "Other") {
+            if(dataEle.value === "Other" || dataEle.value === "Multi") {
               otherInput.style.display = "block";
             } else {
               otherInput.style.display = "none";
@@ -79,7 +92,7 @@
       
         function SubmitForm() {
             let dataEle, isOther = false;
-            if  (document.getElementById("mainInput").value === "Other") {
+            if  (document.getElementById("mainInput").value === "Other" || document.getElementById("mainInput").value === "Multi") {
                 dataEle = document.getElementById("otherInput");
                 isOther.true;
             } else {

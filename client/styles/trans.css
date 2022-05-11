@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Signika+Negative:300,400&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap");
 *,
 *:before,
 *:after {
@@ -6,37 +6,271 @@
   position: relative;
   letter-spacing: 0.04em;
 }
+html {
+  height: 100%;
+}
 body {
-  font-family: "Signika Negative", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 300;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 27px;
+  color: #372B24;
+  background: #F9F1DC;
+  margin: 0;
+  height: 100%;
 }
 .section {
-  height: 100vh;
-  width: 100%;
+  height: 100%;
   position: relative;
-  padding: 0;
-  text-align: center;
+  padding: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 425px;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .bg1 {
-  background-color: #ccc;
+  background-color: #F9F1DC; 
 }
 .bg2 {
-  background-color: #333;
+  background-color: #372B24;
+  color: #F9F1DC;
 }
 h1 {
-  font-size: 40px;
-  line-height: 1.2;
-  margin: 0;
+font-style: normal;
+font-weight: 700;
+font-size: 80px;
+line-height: 78px;
+margin-top: -1.5rem;
+margin-bottom: -1.5rem;
+
+/*padding-left: 0.5rem;*/
 }
 .revealUp {
-  opacity: 0;
-  visibility: hidden;
+  opacity: 1;
+  visibility: inline;
 }
 .spacer {
   height: 50vh;
   background-color: #000;
 }
+
+.reportText {
+z-index: 3;
+align-items: center;
+text-align: center;
+}
+
+.highlight {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.next {
+  position: fixed;
+  width: 100%;
+  background: #00000022;
+  z-index: 10;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.next-icon {
+  font-size: 4rem;
+  color:#FFFFFF;
+}
+
+.swiper-pagination-bullet-active {
+     background-color: #999999 !important;
+}
+
+.w-6 {
+  width: 4rem;
+}
+
+.h-6 {
+  height: 4rem;
+}
+
+.bg-top {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  top: 0px;
+  height: 100%;
+}
+
+.bg-bottom {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  bottom: 0px;
+}
+
+
+
+
+
+.grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  display: grid;
+}
+
+
+.hide {
+  display: none;
+}
+
+.bg1 h1 {
+  color: #91268c;
+}
+
+.bg2 h1 {
+  color: #f99415;
+}
+
+.bg1 .themeColor {
+  color: #91268c;
+}
+
+.bg2 .themeColor {
+  color: #f99415;
+}
+
+.caption {
+  font-size: 20px;
+}
+
+.wide-top {
+  margin-top: 3rem
+}
+
+.narrow-top {
+  margin-top: 0.5rem
+}
+
+.wide-bottom {
+  margin-bottom: 3rem
+}
+
+.narrow-bottom {
+  margin-bottom: 0.5rem
+}
+
+h1.identity {
+  font-size: 50px;
+  line-height: 48px;
+}
+
+.bg-icon-top {
+  position: absolute;
+  z-index: 2;
+  top: 13%;
+  width: 120px;
+  left: 15px;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+  animation-name: icon-rotation-r;
+}
+
+.bg-icon-bottom {
+  position: absolute;
+  z-index: 2;
+  bottom: 13%;
+  width: 120px;
+  right: 15px;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+  animation-name: icon-rotation-l;
+}
+
+.icon {
+  width: 250px;
+  height: 250px;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+  animation-name: icon-rotation-l;
+}
+
+@keyframes icon-rotation-l {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes icon-rotation-r {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@media screen and (max-width: 376px) {
+  body {
+    font-size: 22px;
+  }
+  .section {
+    padding: 2rem;
+  }
+  .highlight {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: 60px;
+    line-height: 58px;
+    margin-bottom: -1rem;
+    
+    margin-top: -1rem;
+  }
+  .caption {
+    font-size: 16px;
+  }
+  
+  h1.identity {
+    font-size: 40px;
+    line-height: 38px;
+  }
+
+  .wide-top {
+    margin-top: 2rem;
+  }
+  .wide-bottom {
+    margin-bottom: 2rem;
+  }
+  .bg-icon-top {
+    top: 13%;
+    width: 80px;
+    left: 10px;
+  }
+  .bg-icon-bottom {
+    bottom: 13%;
+    width: 80px;
+    right: 10px;
+  }
+  
+  .icon {
+    width: 180px;
+    height: 180px;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+    animation-name: icon-rotation-l;
+  }
+}
+

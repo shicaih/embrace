@@ -1,69 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
     <title>Wheel Generated</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <form action="\game.html" method="post">
-    <div class="form-control" style="text-align: center">
-      <progress id="bar" value="100" max="100"> 100% </progress>
-      <h1 style="margin-top: 25%; margin-bottom: 10%; font-size: 96px; text-align:center">Your Wheel</h1>
-      <canvas id="myChart" style="max-width: 50%; text-align: center; display: inline"></canvas>
-      <button class="finalButton" type="submit" value="submit">
-        Join the Game
-      </button>
+    <link rel="stylesheet" href="styles/survey.css" />
+  </head>
+  <body>
+    <div class="section-long">
+      <form action="\game.html">
+        <div class="form-control" style="text-align: center">
+          <div class="progress">
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+          </div>
+          <h1>Your Wheel</h1>
+          <p style="display: none">
+            This wheel represents the identities you have and their importance
+            to you
+          </p>
+          <div class="legendCon">
+            <div class="legendCanvasCon">
+              <canvas
+                      id="myLegend"
+              ></canvas>
+            </div>
+          </div>
+          <div class="pieCon">
+            <div class="pieCanvasCon">
+              <canvas
+                      id="myChart"
+              ></canvas>
+            </div>
+          </div>
+          <button class="finalButton" type="submit" value="submit">Go to the lobby</button>
+        </div>
+      </form>
+      <image
+        class="bg-bottom"
+        src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Wheel%20Gen.png?v=1650260446627"
+      ></image>
     </div>
-  </form>
-
-
-  <script>
-        let myStorage = window.sessionStorage
-        let labels = myStorage.getItem("featureNames").split(",");
-        let labelCompounds = [];
-        for (let i in labels) {
-          labelCompounds.push(labels[i] +": "+ myStorage.getItem(labels[i]).split(",")[0]);
-        }
-        Chart.defaults.font.size = 24
-        Chart.defaults.plugins.legend.display = true;
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: labelCompounds,
-                datasets: [{
-                    label: '# of Votes',
-                    data: myStorage.getItem("scores").split(","),
-                    backgroundColor: [
-                        '#cc3f8d',
-                        '#d15947',
-                        '#c7873e',
-                        '#34a359',
-                        '#5482cc',
-                        '#7755b5',
-                    ],
-                    borderColor: [
-                        '#ffffff',
-                        '#ffffff',
-                        '#ffffff',
-                        '#ffffff',
-                        '#ffffff',
-                        '#ffffff',
-                    ],
-                    borderWidth: 2
-                }]
+    <script>
+      let myStorage = window.sessionStorage;
+      let labels = myStorage.getItem("featureNames").split(",");
+      let labelCompounds = [];
+      for (let i in labels) {
+        labelCompounds.push(
+          labels[i] + ": " + myStorage.getItem(labels[i]).split(",")[0]
+        );
+      }
+      Chart.defaults.font.size = 18;
+      const ctx = document.getElementById("myLegend").getContext("2d");
+      const ctx2 = document.getElementById("myChart").getContext("2d");
+      const myLegend = new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: labelCompounds,
+          datasets: [
+            {
+              label: "# of Votes",
+              data: myStorage.getItem("scores").split(","),
+              backgroundColor: [
+                "#cc3f8d",
+                "#d15947",
+                "#c7873e",
+                "#34a359",
+                "#5482cc",
+                "#7755b5",
+              ],
+              borderColor: [
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+              ],
+              borderWidth: 2,
             },
-            options: {
-                animation: {
-                    onComplete: function() {
-                    }
-                }          
+          ],
+        },
+        options: {
+          radius: 0,
+          plugins: {
+            legend: {
+              display: true,
+              onClick: () => {},
+              align: "start",
+              maxHeight: 1000,
+              labels: {
+                textAlign: "left",
+                font: {
+                  family: "nunito",
+                  weight: 500,
+                }
+              }
             }
-        });
+          },
+          animation: {
+            onComplete: function () {},
+          },
+        },
+      });
+      const myChart = new Chart(ctx2, {
+        type: "pie",
+        data: {
+          labels: labelCompounds,
+          datasets: [
+            {
+              label: "# of Votes",
+              data: myStorage.getItem("scores").split(","),
+              backgroundColor: [
+                "#cc3f8d",
+                "#d15947",
+                "#c7873e",
+                "#34a359",
+                "#5482cc",
+                "#7755b5",
+              ],
+              borderColor: [
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+                "#ffffff",
+              ],
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          animation: {
+            onComplete: function () {},
+          },
+        },
+      });
       ctx.scale(1, 1);
+      ctx2.scale(1, 1);
     </script>
-</body>
+  </body>
 </html>

@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap");
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    position: relative;
+    letter-spacing: 0.04em;
+}
+
 html {
     overflow: hidden;
     width: 100%;
@@ -5,9 +14,134 @@ html {
 
 body {
     height: 100%;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
     margin: 0;
     padding: 0px;
-    background-color: black;
+    background-image: url("https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Game%20-%201080p%20x%201920p%20%2B%2005%25.png?v=1650144445428");
+    background-repeat: repeat;
+    background-size: contain;
+    font-family: "Nunito", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 40px;
+    color: #372B24;
+    /*background: #F9F1DC;*/
+    margin: 0;
+}
+.section {
+    height: 100vh;
+    display: flex;
+}
+
+.section2 {
+    overflow: hidden;
+    position: relative;
+    display: block;
+    height: 100vh;
+}
+
+.title {
+    margin-top: 5vh;
+    margin-left: 5%;
+    display: block;
+    width: 75vw;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 0;
+    font-weight: 1200;
+    font-style: normal;
+    font-size: 13vh;
+    line-height: 13vh;
+    color: #946854;
+    letter-spacing: -2px;
+}
+
+p {
+    margin: auto;
+    margin-top: 5vh;
+    font-size: 5vh;
+    line-height: 8vh;
+}
+
+.cultureText {
+    margin-left: 5%;
+    display: inline;
+    width: 40%;
+}
+
+.zigzag {
+    margin-top: 10vh;
+}
+
+.emText {
+    color: #a42894;
+    display: inline;
+    font-weight: 600
+}
+
+.line {
+    height: 1.5vh;
+    width: 100%;
+    background-color: #372922;
+    border-radius: 20px;
+}
+
+.bg-top-fix {
+    position: absolute;
+    z-index: -1;
+    top: 0px;
+    right: 0px;
+}
+.bg-bottom-fix {
+    position: absolute;
+    z-index: -1;
+    bottom: 0px;
+    left: 0px;
+}
+.gif {
+    margin: auto
+}
+.gif2 {
+    margin-top: 10vh;
+    width: 100vw;
+}
+
+button {
+    position: absolute;
+    background-color: #946854;
+    border: 0px solid #777777;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 24px;
+    color: #ffffff;
+    display: block;
+    width: 10%;
+    height: 60px;
+    right: 5vh;
+    bottom: 5vh;
+}
+
+button:hover {
+    background-color: #A48171;
+}
+
+.horizontalContainer {
+    display: flex;
+    margin: auto;
+    margin-top: 5vh;
+    width: 80%;
+    text-align: center;
+
+}
+.verticalContainer {
+    margin: auto;
+    width: 35%;
+}
+.staticImage {
+    margin: auto;
+    width: 80%;
 }

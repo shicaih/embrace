@@ -1,25 +1,29 @@
 {
-  "name": "embrace",
-  "version": "1.0.0",
+  "type": "module",
+  "name": "glitch-mvp-node",
+  "version": "0.0.1",
   "description": "A simple Node app built on express, instantly up and running.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "socket.io": "^4.4.1",
-    "express": "^4.17.3",
     "chart.js": "^3.7.0",
+    "express": "^4.17.3",
+    "pm2": "^5.2.0",
+    "socket.io": "^4.4.1",
     "uuid": "^8.3.2"
   },
   "engines": {
     "node": "16.x"
   },
   "repository": {
+    "url": "https://glitch.com/edit/#!/glitch-mvp-node"
   },
   "license": "MIT",
   "keywords": [
     "node",
+    "glitch",
     "express"
   ]
 }

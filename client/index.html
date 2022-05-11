@@ -1,74 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content=
-        "width=device-width, initial-scale=1.0">
-    <title>
-        Build your own culture wheel
-    </title>
-    <link rel="stylesheet" href="styles.css">
-    
-</head>
-  
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Build your own culture wheel</title>
+    <link rel="stylesheet" href="styles/survey.css" />
+  </head>
 
+  <body>
+    <div class="section-long">
+      <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor-Title-Top.png?v=1650139921308">
   
-    <!-- Create Form -->
-    <form name="name" id="nameForm" onsubmit="return SubmitForm()" action="\1music.html" method="post">
- 
-
-        <h1 style="margin-top: 25%; margin-bottom: 20%; font-size: 48px; text-align:center">Welcome to<br>Embrace</h1>
-        <!-- Details -->
+      <form
+        name="name"
+        id="nameForm"
+        onsubmit="return SubmitForm()"
+        action="\1music.html"
+        method="get"
+      >
+        <h1>Welcome to<br />Embrace</h1>
         <div class="form-control">
-          <!-- Input Type Text -->
-            <label class="category">Nickname</label>
-            <input type="text"
-                   id="mainInput"
-                   placeholder="Enter your name" />
-            <label>Your nickname would only be visible to you</label>
+          <label class="category">Nickname</label>
+          <input type="text" id="mainInput" placeholder=" Enter your nickname..." />
+          <label class="comment" style="color: darkred; display: none" id="lengthIns">Nickname length cannot exceed 10 characters.</label>
+          <label class="comment">Your nickname will only be visible to you.</label>
         </div>
-        <button type="submit" value="submit">
-            CONTINUE
-        </button>
-    </form>
+        <button type="submit" value="submit">Continue</button>
+      </form>
+      <img class="bg-bottom" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor-Title-Bottom.png?v=1650139919114">
+      <!-- <button id="generator">
+          Random Generator
+        </button> -->
+    </div>
+    <script src="/randomPick.js"></script>
+    <script>
+      var myStorage = window.sessionStorage;
+      let forms = [
+        "name",
+        "music",
+        "food",
+        "hobby",
+        "finances",
+        "home",
+        "ethnicity",
+      ];
+      let featureNames = [
+        "music",
+        "food",
+        "hobby",
+        "finances",
+        "home",
+        "ethnicity",
+      ];
+      myStorage.setItem("forms", forms);
+      myStorage.setItem("featureNames", featureNames);
+    </script>
+    <script>
+      const FORMINDEX = 0;
+      console.log(myStorage);
 
-    <script>
-        var myStorage = window.sessionStorage;
-        let forms = ['name', 'music', 'food', 'hobby', 'finances', 'home', 'ethnicity'];
-        let featureNames = ['music', 'food', 'hobby', 'finances', 'home', 'ethnicity'];
-        myStorage.setItem('forms', forms);
-        myStorage.setItem("featureNames", featureNames);
+      let formName = myStorage.getItem("forms").split(",")[FORMINDEX];
+      console.log(formName);
+
+      let nameInput = document.getElementById("mainInput");
+      nameInput.oninput = (event) => {
+        let data = event.target.value.trim();
+        if (data.length > 10) {
+          document.getElementById("lengthIns").style.display = "block";
+        } else {
+          document.getElementById("lengthIns").style.display = "none";
+        }
+      }
+
+      function SubmitForm() {
+        let dataEle = document.getElementById("mainInput");
+        data = dataEle.value.trim();
+        console.log(data.length);
+        myStorage.setItem(formName, data);
+        return Validate(dataEle);
+      }
+
+      function Validate(dataEle) {
+        if (dataEle.value.trim() === "") {
+          window.alert("Please enter your name.");
+          dataEle.focus();
+          return false;
+        }
+        if (dataEle.value.trim().length > 10) {
+          window.alert("Nickname length cannot exceed 10 characters.")
+          dataEle.focus();
+          return false;
+        }
+        return true;
+      }
     </script>
-  
-    <script>
-        const FORMINDEX = 0;
-        console.log(myStorage);
-        
-        let formName = myStorage.getItem('forms').split(',')[FORMINDEX];
-        console.log(formName);
-      
-      
-        function SubmitForm() {
-            let dataEle = document.getElementById("mainInput");
-            data = dataEle.value.trim();
-            console.log(data.length);
-            myStorage.setItem(formName, data);
-            return Validate(dataEle);
-        };
-      
-      
-        function Validate(dataEle) {
-          if (dataEle.value.trim() === "") {
-            window.alert("Please enter your name.");
-            dataEle.focus();
-            return false;
-          }
-          return true;
-        };
-    </script>
-</body>
-  
+  </body>
 </html>

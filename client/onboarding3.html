@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Embrace Lobby</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="this is about cultural humility" />
+    <link
+            id="favicon"
+            rel="icon"
+            href="https://glitch.com/edit/favicon-app.ico"
+            type="image/x-icon" />
+    <!-- link to arcade style font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+            rel="stylesheet" />
+    <!-- link to stylesheet -->
+    <link
+            rel="stylesheet"
+            href="/styles/bigscreen.css"/>
+    <!-- link to Phaser CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <!-- link to WebSocket CDN -->
+    <script
+            src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+            integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+            crossorigin="anonymous"
+    ></script>
+    <script>
+        var clientType = 0; // 1 stands for mobile devices while 0 stands for big screen.
+        var phase = 0; // 0 stands for lobby process, 1 stands for puzzle process.
+    </script>
+</head>
+<body>
+<div class="section2">
+    <image class="bg-top-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigRight.svg?v=1650573787709"></image>
+    <image class="bg-bottom-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigLeft.svg?v=1650573790728"></image>
+    <div class="title">
+        <h1>
+            CULTURAL HUMILITY
+        </h1>
+        <div class="line"></div>
+    </div>
+    <image class="gif2" src="https://cdn.glitch.global/ec19aea3-139c-417f-8b53-6d4838c8381d/humility.gif?v=1651435346381"></image>
+    <p style= "text-align: center">
+        <text class="emText">learn</text> from every culture & challenging <text class="emText">assumptions</text>
+    </p>
+    <button onclick="window.location.href='lobby.html'">
+        Next
+    </button>
+
+</div>
+
+
+</body>
+</html>

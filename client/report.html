@@ -10,91 +10,44 @@
         Here is your report
     </title>
     <link rel="stylesheet" href="styles/trans.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <!---<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">--->
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js?r=5426" defer></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js" defer></script>
-    <script src="/scripts/transition.js" defer></script>
-    
+    <!---<script src="/scripts/transition.js" defer></script>--->
+    <script
+            src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+            integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+            crossorigin="anonymous"
+    ></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="/config.js" defer></script>
+    <script type="module" src="/report.js" defer></script>
+    <script src="/scripts/pluralize.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+    />
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 </head>
+
 <body>
-<div class="section" style="font-size: 36px">
-  <p>
-    Today, <b style="font-size: 60px">396</b> incoming Tartans at Dietrich college joined the “Embrace” activity.<br>   
-    <br>You didn’t know each other, and you weren’t able to talk to each other, 
-    but together you have accomplished something amazing!
-  </p>
-</div>
+  <div id="root" style="width:100%;height:100%">
 
-<div class="section bg1" style="font-size: 36px">
-  <h1 class="revealUp">
-    Throughout the activity, you met <b style="font-size: 60px">105</b> folks in total, 
-    and you and <b style="font-size: 60px">7</b> of them went through the challenges all the way to the end. 
-  </h1>
-</div>
+  </div>
 
-<div class="section bg1" style="font-size: 36px">
-  <h1 class="revealUp">
-    You spent <b style="font-size: 60px">4</b> minutes in total
-    to solve the <b style="font-size: 60px">4</b> challenges, 
-    which was the top <b style="font-size: 60px">10%</b> quickest.
-  </h1>
-</div>
   
-<div class="section bg3" style="font-size: 36px">
-  <h1 class="revealUp">
-    You are an encouraging person. You gave thumbs up to <b style="font-size: 60px">10</b> people. 
-    You must [also] be a helpful person. You received <b style="font-size: 60px">20</b> thumbs up from others.
-    You and <b style="font-size: 60px">10</b> folks gave thumbs up to each other. 
-    You have made friends without seeing and talking to them!
-  </h1>
-</div>
-  
-<div class="section bg4" style="font-size: 36px">
-  <h1 class="revealUp">
-    You folks are from different places around the country and the world. 
-    You are from <b style="font-size: 60px">20</b> different countries 
-    and <b style="font-size: 60px">40</b> different states.<br>
-    And Like you, Y people are also from X!<br>
-    (if the player ranks location as important)
-    [And like you,]  M people [also] consider their home as an important identity for themselves, 
-    and they are from [Example 1], [Example 2], [Example 3] and other N more!
-  </h1>
-</div>
-  
-<div class="section bg5" style="font-size: 36px">
-  <h1 class="revealUp">
-    Folks are from <b style="font-size: 60px">5</b> ethnic groups different from you.<br> 
-    (if the player ranks ethnicity as important)<br>
-    [And like you,] <b style="font-size: 60px">15</b> people [also] consider ethnicity 
-    as an important identity for themselves, 
-    and they are <b style="font-size: 60px">Ralph, Mike, Jeffrey</b> and other 12 more!
-  </h1>
-</div>
-  
-<div class="section bg5" style="font-size: 36px">
-  <h1 class="revealUp">
-    [You have a unique taste in music!] (or) [Many people share the same preference for music with you!] 
-    You enjoy X music together with other N people from M different countries/states
-    and 2 different ethnic groups.
-  </h1>
-</div>
-  
-<div class="section bg5" style="font-size: 36px">
-  <h1 class="revealUp">
-    [You have a unique taste in food!] (or) <br>
-    [Many people value the same cuisine as you do!] You enjoy X food together with other N people from M different countries/states and O different ethnic groups.
-  </h1>
-</div>
-  
-<div class="section bg5" style="font-size: 36px">
-  <h1 class="revealUp">
+
+
+<!---<div class="section bg1">
+  <p class="revealUp">
     [You have a special hobby!] (or) <br>
     [Many people share the same hobby as you do!] You enjoy X food together with other N people.
-  </h1>
-</div>
-  
+  </p>
+</div>--->
 
-<div class="spacer"></div>
-  
+    
+
 </body>
 </html>

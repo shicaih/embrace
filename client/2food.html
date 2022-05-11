@@ -9,23 +9,34 @@
     <title>
         Culture Humility Form
     </title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/survey.css">
     
 </head>
   
 <body>
-  
+  <div class="section">  
+    <image class="bg-bottom-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"></image>
     <!-- Create Form -->
-    <form name="food" id="foodForm" onsubmit="return SubmitForm()" action="\3hobby.html" method="post">
- 
+    <form name="food" id="foodForm" onsubmit="return SubmitForm()" action="\3hobby.html" method="get">
+          <div class="progress">
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+          </div>
         <!-- Details -->
         <div class="form-control">
-            <progress id="bar" value="30" max="100"> 30% </progress>
-            <h1>What is your favorite cuisine?</h1>
+          <h2>Food</h2>
+            <h3>What is your favorite cuisine?</h3>
  
             <!-- choose food from dropdown list -->
             <select name="food" id="mainInput" class="drop">
-                  <option value="">Choose your favorite food</option>
+                  <option value="">Tap to choose your favorite food</option>
                   <option value="Italian Food">Italian</option>
                   <option value="Mexican Food">Mexican</option>
                   <option value="Chinese Food">Chinese</option>
@@ -37,20 +48,24 @@
                   <option value="Spanish Food">Spanish</option>
                   <option value="Korean Food">Korean</option>
                   <option value="Southeast Asia Food">Southeast Asia(Thai, Vietnamese, Malaysian)</option>
-                  <option value="Other">Other (Specify below)</option>
-                  <option value="PreferNotToSay">Prefer not to say</option>
+                  <option value="Other">Other...</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
             </select>
             <input type="text"
                    id="otherInput"
-                   placeholder="Enter your answer"
+                   placeholder="Please specify here"
                    style="display: none;">
+          <div class="comment">
             <input type="checkbox" name="notToShow" id="notToShow" value="no">
             <label for="notToShow" style="display: inline">Don't show this to others</label>
+          </div>
         </div>
         <button type="submit" value="submit">
             Next
         </button>
     </form>
+        
+  </div>
   
     <!-- this script relates to current form content -->
     <script>

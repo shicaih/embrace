@@ -9,115 +9,117 @@
     <title>
         test
     </title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/survey.css">
     
 </head>
   
 <body>
-  
+    <div class="section-long">
     <!-- Create Form -->
-    <form name="score" id="scoreForm" onsubmit="return SubmitForm()" action="\8wheel.html" method="post">
+    <form name="score" id="scoreForm" onsubmit="return SubmitForm()" action="\8wheel.html">
  
         <!-- Details -->
         <div class="form-control">
-            <progress id="bar" value="80" max="100"> 80% </progress>
-            <h1>Importance Evaluation</h1>
-            <label>
-                Enter how important you think each category is in expressing your culture identity.
-            </label>
-            <table>
-              <tr>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-              </tr>
-              <tr>
-                <td>Not at all important</td>
-                <td>Slightly important</td>
-                <td>Moderately important</td>
-                <td>Very important</td>
-                <td>Extremely important</td>
-              </tr>
-            </table>
+            <div class="progress">
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock"></div>
+          </div>
+            <h2>Importance Evaluation</h2>
+          <div class="instruction">
+            <p>
+                For this activity, please rate what parts of your identity are most <strong>present</strong> in your life at this moment.
+            </p>
+            <p style="font-weight: bold">
+                  1 - Not at all important
+            </p>
+            <p style="font-weight: bold">
+                  5 - Extremely important
+            </p>
+          </div>
+
  
             <!-- choose location from dropdown list -->
             <label class="category">Music</label>
             <input type="range"
-                   inputmode="decimal"
+                   class="slider"
                    id="musicP"
                    placeholder="integer 1-5"
                    value="3"
                    min="1"
-                   max="5"><br>
-  
-            <div class="box-minmax" style="width: 98%;display: flex; justify-content: space-between; font-size: 12px; color: #00000;">
+                   max="5">
+            <div class="score">
             <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
             </div>
 
             <label class="category">Food</label>
-            <input 
+            <input class="slider"
                    type="range"
                    inputmode="decimal"
                    id="foodP"
                    value="3"
                    placeholder="integer 1-5"
                    min="1"
-                   max="5"><br>
-            <div class="box-minmax" style="margin-top: 1px;width: 98%;display: flex; justify-content: space-between; font-size: 12px; color: #00000;">
+                   max="5">
+            <div class="score">
             <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
             </div>
           
             <label class="category">Hobby</label>
-            <input 
+            <input class="slider"
                    type="range"
                    inputmode="decimal"
                    id="hobbyP"
                    placeholder="integer 1-5"
                    value="3"
                    min="1"
-                   max="5"><br>
-            <div class="box-minmax" style="width: 98%;display: flex; justify-content: space-between; font-size: 12px; color: #00000;">
+                   max="5">
+            <div class="score">
             <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
             </div>
           
             <label class="category">Home</label>
-            <input 
+            <input class="slider"
                    type="range"
                    inputmode="decimal"
                    id="homeP"
                    placeholder="integer 1-5"
                    value="3"
                    min="1"
-                   max="5"><br>
-            <div class="box-minmax" style="width: 98%;display: flex; justify-content: space-between; font-size: 12px; color: #00000;">
+                   max="5">
+            <div class="score">
             <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
             </div>
           
             <label class="category">Finances</label>
-            <input
+            <input class="slider"
                    type="range"
                    inputmode="decimal"
                    id="financesP"
                    placeholder="integer 1-5"
                    value="3"
                    min="1"
-                   max="5"><br>
-            <div class="box-minmax" style="width: 98%;display: flex; justify-content: space-between; font-size: 12px; color: #00000;">
+                   max="5">
+            <div class="score">
             <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
             </div>
           
             <label class="category">Ethnicity</label>
-            <input 
+            <input class="slider"
                    type="range"
                    inputmode="decimal"
                    id="ethnicityP"
                    placeholder="integer 1-5"
                    value="3"
                    min="1"
-                   max="5"><br>
-            <div class="box-minmax" style="width: 98%;display: flex; justify-content: space-between; font-size: 12px; color: #00000;">
+                   max="5">
+            <div class="score">
             <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
             </div>
 
@@ -126,7 +128,8 @@
             Generate My Wheel
         </button>
     </form>
-  
+  <image class="bg-bottom" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Importance.png?v=1650260437877"></image>
+  </div>
     <!-- this script only relates to submit process -->
     <script>
         function SubmitForm() {

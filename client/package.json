@@ -1,26 +1,8 @@
 {
-  "name": "glitch-mvp-node",
-  "version": "0.0.1",
-  "description": "A simple Node app built on express, instantly up and running.",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
   "dependencies": {
-    "socket.io": "^4.4.1",
-    "express": "^4.17.2",
-    "chart.js": "^3.7.0"
-  },
-  "engines": {
-    "node": "12.x"
-  },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/glitch-mvp-node"
-  },
-  "license": "MIT",
-  "keywords": [
-    "node",
-    "glitch",
-    "express"
-  ]
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
+    "node-static": "^0.7.11",
+    "pm2": "^5.2.0"
+  }
 }

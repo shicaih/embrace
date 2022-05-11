@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wheel Generated</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="styles/survey.css">
+    <script
+            src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+            integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+            crossorigin="anonymous"
+    ></script>
+</head>
+<body>
+  <form action="\game.html">
+    <div class="form-control" style="text-align: center">
+      <progress id="bar" value="100" max="100"> 100% </progress>
+      <h1 style="margin-top: 25%; margin-bottom: 10%; font-size: 48px; text-align:center; color:#000000">
+       Buckets begin with a red outline and show both the identity and the number of people needed. Buckets will stay red if the wheels inside do not meet the identity or number requirement.
+       <br><br>For some scenarios, people may fit into multiple buckets. If the bucket turns yellow, this means that all people within fit the identity, but at least one of you has not found their best fit in this scenario.
+       <br><br>Buckets will turn green when the bucket is full and everyone inside has found their fit. The puzzle is solved when all buckets turn green.
+      </h1>
+      <button class="finalButton" type="submit" value="submit">
+        Enter the Waiting Room
+      </button>
+    </div>
+  </form>
+</body>
+</html>

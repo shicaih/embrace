@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,24 +8,36 @@
     <title>
         Culture Humility Form
     </title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/survey.css">
     
 </head>
   
 <body>
-
-  
+  <div class="section">
+    <image class="bg-bottom-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"></image>
     <!-- Create Form -->
-    <form name="music" id="musicForm" onsubmit="return SubmitForm()" action="\2food.html" method="post">
+    <form name="music" id="musicForm" onsubmit="return SubmitForm()" action="\2food.html" method="get">
  
         <!-- Details -->
         <div class="form-control">
-            <progress id="bar" value="20" max="100"> 20% </progress>
-            <h1>What is your favorite music?</h1>
- 
+          <div class="progress">
+            <div class="pblock-fill"></div>
+            <div class="pblock-fill"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+            <div class="pblock"></div>
+          </div>
+
+            <h2>Music</h2>
+            <h3>What is your favorite music?</h3>
             <!-- choose music from dropdown list -->
-            <select name="music" id="mainInput" class="drop">
-                  <option value="">Choose your favorite music</option>
+            <div class="select">
+            <select name="music" id="mainInput">
+                  <option value="">Tap to choose your favorite music</option>
                   <option value="Pop">Pop</option>
                   <option value="Hip hop/Rap">Hip Hop/Rap</option>
                   <option value="Rock">Rock</option>
@@ -37,21 +48,25 @@
                   <option value="Musicals">Show Music/Musicals</option>
                   <option value="Classical">Classical</option>
                   <option value="Latin Music">Latin Music</option>
-                  <option value="Other">Other (Specify below)</option>
-                  <option value="PreferNotToSay">Prefer not to say</option>
+                  <option value="Other">Other...</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
             </select>
+            </div>
             <input type="text"
                    id="otherInput"
-                   placeholder="Enter your answer"
+                   placeholder="Please specify here"
                    style="display: none;">
+          <div class="comment">
             <input type="checkbox" name="notToShow" id="notToShow" value="no">
             <label for="notToShow" style="display: inline">Don't show this to others</label>
+          </div>
+
         </div>
         <button type="submit" value="submit">
             Next
         </button>
     </form>
-  
+    </div>
     <!-- this script relates to current form content -->
     <script>
         let dataEle = document.getElementById('mainInput'); 
