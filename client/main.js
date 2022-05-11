@@ -236,15 +236,15 @@ class Lobby extends Phaser.Scene {
     // art asset
     this.load.image(
       "BG",
-      "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/BG.png?v=1647550334928"
+      "BG.png"
     );
     this.load.image(
         "bgWheel",
-        "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/1080p%20X%201080p.png?v=1650493360164"
+        "0648p X 0648p.png"
     )
     this.load.image(
       "selectWheel",
-      "https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Wheel%20-%206%20%2B%20I%20%2B%20H.png?v=1648568574661"
+      "Wheel - 6 + I + H.png"
     );
     this.load.image(
       "portal",
