@@ -21,18 +21,10 @@
  * 8.
  */
 
+import Phaser from "phaser";
 import { default as shuffle } from "./scripts/utility.js";
 //import WebFontFile from './scripts/WebFontFile.js';
 //import * as pluralize from './scripts/pluralize.js'
-let settings;
-fetch("./settings.json")
-  .then((response) => {
-    console.log("Fetch test");
-    return response.json();
-  })
-  .then((data) => {
-    settings = data;
-  });
 
 var game;
 var buckets = [];
@@ -215,6 +207,15 @@ class Lobby extends Phaser.Scene {
   }
 
   preload() {
+    this.load.on("progress", (value) => {
+      console.log(value);
+    })
+    this.load.on("fileprogress", (file) => {
+      console.log(file.src);
+    })
+    this.load.on("complete", () => {
+      console.log("Loading Complete");
+    })
     // plugins
     let url;
     url =
@@ -2468,7 +2469,7 @@ class Lobby extends Phaser.Scene {
 }
 
 let gameconfig = {
-  type: isMobile? Phaser.CANVAS : Phaser.CANVAS,
+  type: Phaser.AUTO,
   fps: { target: 40, forceSetTimeOut: true },
   backgroundColor: 0x222222,
   width: gameOptions.viewportWidth,
