@@ -2104,6 +2104,37 @@ class Lobby extends Phaser.Scene {
   startReport() {
     window.location.href = "/report.html";
   }
+  
+  onPuzzleSolved() {
+    sovledIndeed = true;
+    this.anims.create({
+      key: "confetti",
+      frames: this.anims.generateFrameNames("confetti", {
+        start: 0,
+        end: 64,
+        zeroPad: 5,
+        prefix: "GJ_",
+        suffix: ".png",
+      }),
+      timeScale: 1,
+      frameRate: 120,
+      repeat: -1,
+    });
+    this.confetti = this.add.sprite(
+      gameOptions.viewportWidth / 2,
+      gameOptions.confettiY,
+      "confetti"
+    );
+    this.confetti.setScrollFactor(0);
+    //this.confetti.anims.setTimeScale(2);
+    this.confetti.on("animationstop", () => {
+      //this.confetti.setDepth(-101);
+      this.confetti.destroy();
+    });
+    this.confetti.setDepth(200);
+    this.confetti.play("confetti");
+    this.confetti.stopAfterRepeat(0);
+  }
 
   drawPieSlice(graphics, x, y, radius, start, end, color) {
     graphics.fillStyle(color, 1);
