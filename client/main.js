@@ -92,7 +92,12 @@ var gameOptions = {
   confettiY: 120 * DPR,
   selectWheelOffset: 30 * DPR,
 };
-
+var puzzleOptions = {
+  cultures: [],
+  values: [],
+  points: [],
+  expectedPlayerIds: [], // 2d array
+};
 let culturalAspectEmojiMap = {
   music: "🎧",
   food: "🍴",
@@ -514,6 +519,12 @@ class Lobby extends Phaser.Scene {
     socket.on("startIns", function () {
       self.startIns();
     });
+    socket.on(
+      "startPuzzle",
+      function (puzzleOptions, roomNumber, curLevel, time) {
+        self.startPuzzle(puzzleOptions, roomNumber, curLevel, time);
+      }
+    );
     socket.on("startAssignment", (assignment, seekTime) => {
       console.log("startAssignment");
       self.startAssignment(assignment, seekTime);
@@ -1071,6 +1082,10 @@ class Lobby extends Phaser.Scene {
         });
 
       this.buckets = [];
+      puzzleOptions.cultures = myStorage.getItem("puzzleCultures").split(",");
+      puzzleOptions.values = myStorage.getItem("puzzleValues").split(",");
+      puzzleOptions.points = myStorage.getItem("puzzlePoints").split(",");
+      puzzleOptions.time = eval(myStorage.getItem("time"));
 
       this.assignmentText = this.add
         .text(0, gameOptions.assignmentBoxPY, ``, {
