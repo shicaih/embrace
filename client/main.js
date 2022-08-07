@@ -62,7 +62,7 @@ var gameOptions = {
   spinDuration: 500, // milliseconds
   speed: 0.13,
   viewportWidth: isMobile ? window.screen.availWidth * DPR : bigScreenWorldWidth,
-  viewportHeight: isMobile ? window.screen.availWidth * DPR : bigScreenWorldHeight,
+  viewportHeight: isMobile ? window.screen.availHeight * DPR : bigScreenWorldHeight,
   worldWidth: isMobile ? WORLD_SIZE : bigScreenWorldWidth,
   worldHeight: isMobile ? WORLD_SIZE : bigScreenWorldHeight,
   wheelRadius: 50 * DPR,
