@@ -2104,9 +2104,8 @@ class Lobby extends Phaser.Scene {
   startReport() {
     window.location.href = "/report.html";
   }
-  
+
   onPuzzleSolved() {
-    sovledIndeed = true;
     this.anims.create({
       key: "confetti",
       frames: this.anims.generateFrameNames("confetti", {
