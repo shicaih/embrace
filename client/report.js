@@ -8,14 +8,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var bgImg = ['https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/report-bg-dark.png?v=1650581936303', '/assets/report-decoration-light.png'];
+var bgImg = ['/assets/report-bg-dark.png', '/assets/report-decoration-light.png'];
 var iconSrc = {
   'home': '/assets/Decor - W + Home.png',
   'ethnicity': '/assets/Decor - W + Ethnicity.png',
   'food': '/assets/Decor - W + Food.png',
   'music': '/assets/Decor - W + Music.png',
   'star': '/assets/Decor - Star + LB (1).png',
-  'wheel': '/assets/0648p X 0648p.png'
+  'wheel': '/assets/bgWheel.png'
 };
 
 var Report = function (_React$Component) {

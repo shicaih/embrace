@@ -1346,7 +1346,7 @@ class Lobby extends Phaser.Scene {
           this.bigscreenPuzzle = true;
 
         } else {
-          window.open("./report.html");
+          window.open("./bigscreenReport.html");
           this.portalText.text = "Reset";
           this.puzzleCountText.setVisible(false);
           this.countText.setVisible(true);
