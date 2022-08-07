@@ -1948,6 +1948,8 @@ class Lobby extends Phaser.Scene {
       //this.findPeople.tappedTarget.y - this.cameras.main.worldView.y
       this.findPeople.tappedTarget.x, this.findPeople.tappedTarget.y
     );
+    console.log(this.findPeople.tappedTarget.x);
+    console.log(this.findPeople.tappedTarget.y);
     this.tweens.add({
       targets: star,
       alpha: 1,
