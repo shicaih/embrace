@@ -1944,8 +1944,9 @@ class Lobby extends Phaser.Scene {
       .setDepth(200)
       .setScrollFactor(0);
     star.setPosition(
-      this.findPeople.tappedTarget.x - this.cameras.main.worldView.x,
-      this.findPeople.tappedTarget.y - this.cameras.main.worldView.y
+      //this.findPeople.tappedTarget.x - this.cameras.main.worldView.x,
+      //this.findPeople.tappedTarget.y - this.cameras.main.worldView.y
+      this.findPeople.tappedTarget.x, this.findPeople.tappedTarget.y
     );
     this.tweens.add({
       targets: star,
