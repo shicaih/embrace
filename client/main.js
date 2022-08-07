@@ -12,7 +12,7 @@ fetch("./settings.json")
 
 const DPR = window.devicePixelRatio; //window.devicePixelRatio;
 const WORLD_SIZE = 8000;
-const WORLD_SIZE_Height = 8000 * (1800/2880)
+const WORLD_SIZE_Height = 8000 * (1800/2880) // 1800/2880 is the ratio of my computer
 const STAR_PER_PLAYER = 15;
 
 var iconFrameNames;
@@ -1152,17 +1152,18 @@ class Lobby extends Phaser.Scene {
     this.socket.emit("admin");
 
     this.bigscreenLeft = this.add.image(0, gameOptions.worldHeight, 'bigscreenLeft');
-    this.bigscreenLeft.setOrigin(0, 1).setScale(3 * bigScreenRatio);
+    this.bigscreenLeft.setOrigin(0, 1).setScale(bigScreenRatio);
     this.bigscreenRight = this.add.image(gameOptions.worldWidth, 0, "bigscreenRight");
-    this.bigscreenRight.setOrigin(1, 0).setScale(3 * bigScreenRatio);
+    this.bigscreenRight.setOrigin(1, 0).setScale(bigScreenRatio);
+    // let's compose a circle
     this.insText = this.add.text(
       0,
       0,
       "Let's\ncompose\na circle!",
       {
         fontFamily: gameOptions.playerTextFont,
-        fontSize: 250 * bigScreenRatio,
-        fixedWidth: gameOptions.worldWidth - 2000,
+        fontSize: 50 * bigScreenRatio,
+        fixedWidth: gameOptions.worldWidth * 0.75,
         color: "#946854",
         align: "center",
       }
@@ -1176,7 +1177,7 @@ class Lobby extends Phaser.Scene {
       .text(gameOptions.viewportWidth / 2 - 1000, 900, 0, {
         fontFamily: gameOptions.playerTextFont,
         fontSize: 200,
-        fixedWidth: 2000,
+        fixedWidth: gameOptions.worldWidth * 0.75,
         color: "#000000",
         align: "center",
       })
@@ -1187,11 +1188,11 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportHeight / 2,
       "QRCode"
     );
-    this.QR.setScale(2.05);
+    this.QR.setScale(1);
     this.QR.setDepth(-101);
     this.tweens.add({
       targets: this.QR,
-      scale: 1.9,
+      scale: 0.9,
       duration: 5000,
       yoyo: true,
       callbackScope: this,
@@ -1208,26 +1209,26 @@ class Lobby extends Phaser.Scene {
 
 
     this.countText = this.add.text(
-        gameOptions.viewportWidth - 700 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
-        gameOptions.viewportHeight - 1100 * bigScreenRatio,
+        gameOptions.viewportWidth - 100 * bigScreenRatio  - 200 * bigScreenRatio / 2,
+        gameOptions.viewportHeight - 100 * bigScreenRatio,
         "Players: " + playersCount,
         {
           fontFamily: gameOptions.playerTextFont,
-          fontSize: 96 * bigScreenRatio,
-          fixedWidth: 2000 * bigScreenRatio,
+          fontSize: 32 * bigScreenRatio,
+          fixedWidth: 200 * bigScreenRatio,
           color: "#000000",
           align: "center",
         }
     );
     this.countText.setDepth(-101);
     this.puzzleCountText = this.add.text(
-        gameOptions.viewportWidth - 700 * bigScreenRatio  - 2000 * bigScreenRatio / 2,
-        gameOptions.viewportHeight - 1100 * bigScreenRatio,
+        gameOptions.viewportWidth - 100 * bigScreenRatio  - 200 * bigScreenRatio / 2,
+        gameOptions.viewportHeight - 100 * bigScreenRatio,
         "Player: " + puzzlePlayerCount,
         {
           fontFamily: gameOptions.playerTextFont,
-          fontSize: 96 * bigScreenRatio,
-          fixedWidth: 2000 * bigScreenRatio,
+          fontSize: 32 * bigScreenRatio,
+          fixedWidth: 200 * bigScreenRatio,
           color: "#000000",
           align: "center",
         }
@@ -1235,10 +1236,10 @@ class Lobby extends Phaser.Scene {
     this.puzzleCountText.setDepth(-101);
     // puzzle portal
     this.toggleQR = this.add.rexRoundRectangle(
-        gameOptions.viewportWidth  - 700 * bigScreenRatio,
-        gameOptions.viewportHeight - 800 * bigScreenRatio,
-        600 * bigScreenRatio,
-        150 * bigScreenRatio,
+        gameOptions.viewportWidth  - 100 * bigScreenRatio,
+        gameOptions.viewportHeight - 150 * bigScreenRatio,
+        100 * bigScreenRatio,
+        50 * bigScreenRatio,
         50 * bigScreenRatio,
         0x946854,
         1,
@@ -1458,9 +1459,10 @@ class Lobby extends Phaser.Scene {
           this.players[uuid].gameObject.y = data[uuid].y;
         } 
         if (isBigScreen && this.players[uuid]) {
-          let ratio = bigScreenWorldWidth / WORLD_SIZE;
-          this.players[uuid].gameObject.x = data[uuid].x * ratio;
-          this.players[uuid].gameObject.y = data[uuid].y + ratio;
+          let ratioX = bigScreenWorldWidth / WORLD_SIZE;
+          let ratioY = bigScreenWorldHeight / WORLD_SIZE_Height;
+          this.players[uuid].gameObject.x = data[uuid].x * ratioX;
+          this.players[uuid].gameObject.y = data[uuid].y + ratioY;
         }
       }
     }
