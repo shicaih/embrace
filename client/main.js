@@ -174,7 +174,7 @@ class Lobby extends Phaser.Scene {
   preload() {
     let progressBar = this.add.graphics();
     let progressBox = this.add.graphics();
-    progressBox.fillSyle(0x222222, 0.8);
+    progressBox.fillStyle(0x222222, 0.8);
     progressBox.fillRect(240, 270, 320, 50);
 
     this.load.on("progress", (value) => {
