@@ -12,6 +12,7 @@ fetch("./settings.json")
 
 const DPR = window.devicePixelRatio; //window.devicePixelRatio;
 const WORLD_SIZE = 8000;
+const WORLD_SIZE_Height = 8000 * (1800/2880)
 const STAR_PER_PLAYER = 15;
 
 var iconFrameNames;
@@ -19,7 +20,7 @@ var inited = false;
 var playersCount = 0;
 var puzzlePlayerCount = 0;
 let bigScreenWorldWidth, bigScreenWorldHeight;
-let bigScreenRatio = 2;
+let bigScreenRatio = DPR;
 let starGoal;
 let isMobile = clientType === 1;
 let isBigScreen = clientType === 0;
@@ -33,6 +34,9 @@ if (isBigScreen) {
     bigScreenWorldWidth = WORLD_SIZE;
     bigScreenWorldHeight = innerHeight / innerWidth * WORLD_SIZE;
   }
+  bigScreenWorldWidth = innerWidth * DPR;
+  bigScreenWorldHeight = innerHeight * DPR;
+  
 }
 
 var gameOptions = {
@@ -64,7 +68,7 @@ var gameOptions = {
   viewportWidth: isMobile ? innerWidth * DPR : bigScreenWorldWidth,
   viewportHeight: isMobile ? innerHeight * DPR : bigScreenWorldHeight,
   worldWidth: isMobile ? WORLD_SIZE : bigScreenWorldWidth,
-  worldHeight: isMobile ? WORLD_SIZE : bigScreenWorldHeight,
+  worldHeight: isMobile ? WORLD_SIZE_Height : bigScreenWorldHeight,
   wheelRadius: 50 * DPR,
   buttonRadius: 50,
   buttonPadding: 50,
@@ -1449,19 +1453,20 @@ class Lobby extends Phaser.Scene {
     if (this.initialized) {
       for (let uuid in data) {
         if (uuid === this.mainPlayer.uuid) continue;
-        if (isMobile) {
+        if (isMobile && this.players[uuid]) {
           this.players[uuid].gameObject.x = data[uuid].x;
           this.players[uuid].gameObject.y = data[uuid].y;
-        } else {
-          this.players[uuid].gameObject.x = data[uuid].x + (gameOptions.worldWidth - WORLD_SIZE) / 2;
-          this.players[uuid].gameObject.y = data[uuid].y + (gameOptions.worldHeight - WORLD_SIZE) / 2;
+        } 
+        if (isBigScreen && this.players[uuid]) {
+          let ratio = bigScreenWorldWidth / WORLD_SIZE;
+          this.players[uuid].gameObject.x = data[uuid].x * ratio;
+          this.players[uuid].gameObject.y = data[uuid].y + ratio;
         }
       }
     }
   };
 
   createPlayerObject(player) {
-    console.log("createNewPlayer, uuid is " + player.uuid);
     this.genWheelTexture(
       player.scores,
       gameOptions.wheelRadius,
@@ -1586,7 +1591,7 @@ class Lobby extends Phaser.Scene {
     playerContainer.setDepth(25);
     playerContainer.setPosition(player.x, player.y);
     player.gameObject = playerContainer;
-
+    console.log("createNewPlayer, uuid is " + player.uuid);
   }
 
   cameraMoving() {
@@ -1626,23 +1631,27 @@ class Lobby extends Phaser.Scene {
   }
 
   deactivatePlayer(data) {
-    console.log("deactivate player " + data);
     if (data == this.mainPlayer.uuid) {
       document.location.reload(true);
       return;
     }
-    let index = this.createdPlayers.indexOf(data);
-    this.createdPlayers.splice(index, 1);
-    this.players[data].text.destroy();
-    this.players[data].thumbUp.destroy();
-    this.players[data].smile.destroy();
-    this.players[data].gameObject.destroy();
-    playersCount -= 1;
-    if (!isMobile) {
-      this.countText.text = "Players: " + playersCount;
+    if (this.players[data]) {
+      let index = this.createdPlayers.indexOf(data);
+      this.createdPlayers.splice(index, 1);
+      this.players[data].text.destroy();
+      this.players[data].thumbUp.destroy();
+      this.players[data].smile.destroy();
+      this.players[data].gameObject.destroy();
+      playersCount -= 1;
+      if (isBigScreen) {
+        this.countText.text = "Players: " + playersCount;
+      }
+      delete this.players[data];
+      console.log("deactivate player " + data);
     }
-    // still needs to delete the player and a lot
-    delete this.players[data];
+    else {
+      console.log(`deactivate: player uuid ${data} cannot be found`);
+    }
   }
 
   showThumbUp() {
