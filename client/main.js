@@ -315,12 +315,6 @@ class Lobby extends Phaser.Scene {
 
   // main game loop
   create() {
-    frameNames = this.anims.generateFrameNames("bucketIcon", {
-      start: 1,
-      end: 12,
-      zeroPad: 2,
-      suffix: ".png",
-    });
     iconFrameNames = this.anims.generateFrameNames("cultureIcon", {
       start: 1,
       end: 6,
@@ -2170,5 +2164,5 @@ let gameconfig = {
   scene: Lobby,
 };
 
-game = new Phaser.Game(gameconfig);
+let game = new Phaser.Game(gameconfig);
 window.focus();
