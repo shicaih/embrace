@@ -804,8 +804,8 @@ class Lobby extends Phaser.Scene {
         // dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
         // forceMin: 16,
         // enable: true
-      })
-      .on("update", this.moveMainPlayer, this);
+      });
+      //.on("update", this.moveMainPlayer, this);
     this.joyStick.base.setDepth(-200);
     this.joyStick.thumb.setDepth(-200);
     this.input.on(
