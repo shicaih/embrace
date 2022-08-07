@@ -14,7 +14,7 @@ const DPR = window.devicePixelRatio; //window.devicePixelRatio;
 const WORLD_SIZE = 8000;
 const STAR_PER_PLAYER = 15;
 
-var frameNames, iconFrameNames;
+var iconFrameNames;
 var inited = false;
 var playersCount = 0;
 var puzzlePlayerCount = 0;
@@ -26,12 +26,12 @@ let isBigScreen = clientType === 0;
 let isLobby = phase === 0;
 
 if (isBigScreen) {
-  if (window.innerWidth > window.innerHeight) {
+  if (innerWidth > innerHeight) {
     bigScreenWorldHeight = WORLD_SIZE;
-    bigScreenWorldWidth = window.innerWidth / window.innerHeight * WORLD_SIZE;
+    bigScreenWorldWidth = innerWidth / innerHeight * WORLD_SIZE;
   } else {
     bigScreenWorldWidth = WORLD_SIZE;
-    bigScreenWorldHeight = window.innerHeight / window.innerWidth * WORLD_SIZE;
+    bigScreenWorldHeight = innerHeight / innerWidth * WORLD_SIZE;
   }
 }
 
@@ -61,8 +61,8 @@ var gameOptions = {
   iconPlaceHolder: "      ",
   spinDuration: 500, // milliseconds
   speed: 0.13,
-  viewportWidth: isMobile ? window.screen.availWidth * DPR : bigScreenWorldWidth,
-  viewportHeight: isMobile ? window.screen.availHeight * DPR : bigScreenWorldHeight,
+  viewportWidth: isMobile ? innerWidth * DPR : bigScreenWorldWidth,
+  viewportHeight: isMobile ? innerHeight * DPR : bigScreenWorldHeight,
   worldWidth: isMobile ? WORLD_SIZE : bigScreenWorldWidth,
   worldHeight: isMobile ? WORLD_SIZE : bigScreenWorldHeight,
   wheelRadius: 50 * DPR,
