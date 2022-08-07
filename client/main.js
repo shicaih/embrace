@@ -233,11 +233,11 @@ class Lobby extends Phaser.Scene {
     )
     this.load.svg(
       "bigscreenLeft", 
-      "./assets/bigscreenLeft.png"
+      "./assets/bigscreenLeft.svg"
     );
     this.load.svg(
       "bigscreenRight", 
-      "./assets/bigscreenRight.png"
+      "./assets/bigscreenRight.svg"
     );
     this.load.atlas(
       "confetti",
@@ -255,19 +255,19 @@ class Lobby extends Phaser.Scene {
     );
     this.load.svg(
       'help1', 
-      "./assets/help1.png"
+      "./assets/help1.svg"
     );
     this.load.svg(
       'help2', 
-      "./assets/help2.png"
+      "./assets/help2.svg"
     );
     this.load.svg(
       'help3', 
-      "./assets/help3.png"
+      "./assets/help3.svg"
     )
     this.load.image(
       "helpIcon",
-      "./assets/helpIcon.png"
+      "./assets/helpIcon.svg"
     );
     this.load.image(
       "mask",
@@ -299,7 +299,7 @@ class Lobby extends Phaser.Scene {
     );
     this.load.image(
       "timerIcon",
-      "./assets/timerIcon.png"
+      "./assets/timerIcon.svg"
     );
     this.load.image(
       'wheelMask', 
