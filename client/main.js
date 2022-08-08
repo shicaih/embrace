@@ -678,7 +678,7 @@ class Lobby extends Phaser.Scene {
         color: UISettings.textColor,
         align: "center",
       });
-    button.textObject.setOrigin(0.5, 0.5);
+    textObject.setOrigin(0.5, 0.5);
     let container = this.add.container(0, 0, [button, textObject]);
     container.setPosition(x, y);
     return container;
