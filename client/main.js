@@ -1478,6 +1478,7 @@ class Lobby extends Phaser.Scene {
     this.insText.setDepth(-99);
     this.playerCountText.setDepth(2000);
     this.setButtonDepth(this.toggleQR, 2000);
+    console.log("UI finished");
   }
 
   // data.id is the id of the current socket,
