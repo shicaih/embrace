@@ -1389,15 +1389,14 @@ class Lobby extends Phaser.Scene {
 
 
     // puzzle portal
-    this.portal = this.createUIButton(
-      bigScreenUISettings,
-      bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
-      bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 1 + bigScreenUISettings.buttonHeight * 1 + bigScreenUISettings.buttonText.fontSize / 2),
-      "Start",
-      UITextType.button
 
-
-    )
+    // this.portal = this.createUIButton(
+    //   bigScreenUISettings,
+    //   bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
+    //   bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 1 + bigScreenUISettings.buttonHeight * 1 + bigScreenUISettings.buttonText.fontSize / 2),
+    //   "Start",
+    //   UITextType.button
+    // )
     // this.portal = this.add.rexRoundRectangle(
     //   gameOptions.viewportWidth  - 700 * bigScreenRatio,
     //   gameOptions.viewportHeight - 600 * bigScreenRatio,
