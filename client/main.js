@@ -649,8 +649,8 @@ class Lobby extends Phaser.Scene {
 
   createUIButton(UISettings, x, y, text) {
     let button = this.add.rexRoundRectangle(
-      x,
-      y,
+      0,
+      0,
       UISettings.buttonWidth, // width
       UISettings.buttonHeight, // height
       UISettings.buttonRadius, // radius
@@ -666,7 +666,8 @@ class Lobby extends Phaser.Scene {
     button.on("pointerup", () => {
       button.setFillStyle(UISettings.buttonColor);
     })
-    button.textObject = this.add.text(
+
+    let textObject = this.add.text(
       button.x,
       button.y,
       text,
@@ -678,7 +679,9 @@ class Lobby extends Phaser.Scene {
         align: "center",
       });
     button.textObject.setOrigin(0.5, 0.5);
-    return button;
+    let container = this.add.container(0, 0, [button, textObject]);
+    container.setPosition(x, y);
+    return container;
   }
 
   createMobileUI() {
@@ -1292,7 +1295,6 @@ class Lobby extends Phaser.Scene {
       bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonHeight / 2),
       "Hide Code"
     )
-    this.toggleQR.setDepth(-101);
     this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
       this.QR.setVisible(!this.QR.visible);
       this.toggleQR.textObject.text = this.QR.visible? "Hide Code" : "Show Code"
