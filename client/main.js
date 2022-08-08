@@ -668,7 +668,7 @@ class Lobby extends Phaser.Scene {
     })
     button.textObject = this.add.text(
       button.x,
-      button,y,
+      button.y,
       text,
       {
         fontFamily: UISettings.buttonFontFamily,
