@@ -12,7 +12,7 @@ fetch("./settings.json")
 console.log("fetch async test");
 const DPR = window.devicePixelRatio; //window.devicePixelRatio;
 const WORLD_SIZE = 8000;
-const WORLD_SIZE_Height = 8000 * (1800/2880) // 1800/2880 is the ratio of my computer
+const WORLD_SIZE_Height = 8000 * (939/1680) // 939/1680 is the ratio of my computer
 const STAR_PER_PLAYER = 15;
 
 var iconFrameNames;
