@@ -1445,7 +1445,7 @@ class Lobby extends Phaser.Scene {
     this.bgWheel.setDepth(-99);
     this.insText.setDepth(-99);
     this.countText.setDepth(2000);
-    this.toggleQR.setDepth(2000);
+    //this.toggleQR.setDepth(2000);
 
 
   }
