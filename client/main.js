@@ -1471,8 +1471,8 @@ class Lobby extends Phaser.Scene {
 
     this.portal.textObject.text = "Start";
     this.portal.width = 600 * bigScreenRatio;
-    this.bigscreenTitle.setVisible(false);
-    this.bigscreenText.setVisible(false);
+    // this.bigscreenTitle.setVisible(false);
+    // this.bigscreenText.setVisible(false);
     this.QR.setDepth(2000);
     this.bgWheel.setDepth(-99);
     this.insText.setDepth(-99);
