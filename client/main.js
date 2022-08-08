@@ -649,8 +649,8 @@ class Lobby extends Phaser.Scene {
 
   createUIButton(UISettings, x, y, text) {
     let button = this.add.rexRoundRectangle(
-      0,
-      0,
+      x,
+      y,
       UISettings.buttonWidth, // width
       UISettings.buttonHeight, // height
       UISettings.buttonRadius, // radius
@@ -667,7 +667,7 @@ class Lobby extends Phaser.Scene {
       button.setFillStyle(UISettings.buttonColor);
     })
 
-    let textObject = this.add.text(
+    button.textObject = this.add.text(
       button.x,
       button.y,
       text,
@@ -678,10 +678,12 @@ class Lobby extends Phaser.Scene {
         color: UISettings.textColor,
         align: "center",
       });
-    textObject.setOrigin(0.5, 0.5);
-    let container = this.add.container(0, 0, [button, textObject]);
-    container.setPosition(x, y);
-    return container;
+    button.textObject.setOrigin(0.5, 0.5);
+    return button;
+  }
+  setButtonDepth(button, depth) {
+    button.SetDepth(depth);
+    button.textObject.setDepth(depth);
   }
 
   createMobileUI() {
@@ -1447,9 +1449,7 @@ class Lobby extends Phaser.Scene {
     this.bgWheel.setDepth(-99);
     this.insText.setDepth(-99);
     this.countText.setDepth(2000);
-    //this.toggleQR.setDepth(2000);
-
-
+    this.setButtonDepth(this.toggleQR, 2000);
   }
 
   // data.id is the id of the current socket,
