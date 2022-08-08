@@ -682,7 +682,7 @@ class Lobby extends Phaser.Scene {
     return button;
   }
   setButtonDepth(button, depth) {
-    button.SetDepth(depth);
+    button.setDepth(depth);
     button.textObject.setDepth(depth);
   }
 
