@@ -571,9 +571,6 @@ class Lobby extends Phaser.Scene {
     });
     socket.on("reconnect", (to) => {
       if (to === 0 || phase === 0) {
-        if (window.sessionStorage.getItem("curLevel")) {
-          window.sessionStorage.removeItem("curLevel");
-        }
         window.location.href = "/game.html";
       } else {
         window.location.href = "/puzzle.html";

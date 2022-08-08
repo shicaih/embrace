@@ -32,7 +32,10 @@
         var phase = 0; // 0 stands for lobby process, 1 stands for puzzle process.
         const innerWidth = window.innerWidth;
         const innerHeight = window.innerHeight;
-        console.log(`width: ${innerWidth}, height: ${innerHeight}`)
+        console.log(`width: ${innerWidth}, height: ${innerHeight}`);
+        if (window.sessionStorage.getItem("curLevel")) {
+          window.sessionStorage.removeItem("curLevel");
+        };
     </script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
