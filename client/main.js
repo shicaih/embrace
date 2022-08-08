@@ -1436,7 +1436,11 @@ class Lobby extends Phaser.Scene {
           this.portal.textObject.text = "Report";
         }
         this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
-        this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(5 * (gameOptions.worldWidth / WORLD_SIZE)).setScrollFactor(1);
+        this.bgWheelBW
+        .setOrigin(0.5, 0.5)
+        .setDepth(-99)
+        .setScale(5 * (gameOptions.worldWidth / WORLD_SIZE) * (648 / 1080))
+        .setScrollFactor(1);
         this.bgWheel.setDepth(-97);
         this.QR.setVisible(false);
         this.QR.isVisible = false;

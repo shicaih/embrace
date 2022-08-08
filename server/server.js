@@ -19,7 +19,7 @@ const io = new Server(server, socketOptions);
 // server options for the game  
 var options = { 
     cultures: ['music', 'food', 'hobby', 'finances', 'home', 'ethnicity'],
-    roomMaxPlayers: [20],
+    roomMaxPlayers: [20, 40, 60],
     levelTime: [60, 60, 90], // seconds
     seekTime: 30, //seconds
     nLevel: 3
@@ -1063,7 +1063,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('startPuzzle', function() {
         isTransitting = true;
         curLevel += 1; 
-        if (curLevel >= options.roomMaxPlayers.length) {
+        if (curLevel >= options.nLevel) {
             generateReportData();
             let allPlayers = Object.assign({}, goneLobbyPlayers, lobbyPlayers);
             for (let playerId in allPlayers) {
