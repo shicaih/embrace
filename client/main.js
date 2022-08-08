@@ -19,6 +19,7 @@ var iconFrameNames;
 var inited = false;
 var playersCount = 0;
 var puzzlePlayerCount = 0;
+var stars;
 let bigScreenWorldWidth, bigScreenWorldHeight;
 let bigScreenRatio = DPR;
 let starGoal;
@@ -592,6 +593,7 @@ class Lobby extends Phaser.Scene {
       this.timerText.text = time;
     });
     socket.on("addStar", (totalStars) => {
+      stars = totalStars;
       this.insText.text = "Stars: " + totalStars;
       let starDeg = totalStars / starGoal * 360;
       this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
@@ -1313,7 +1315,7 @@ class Lobby extends Phaser.Scene {
     );
 
     this.portal.setInteractive().on("pointerdown", (pointer) => {
-      totalStars = 0;
+      stars = 0;
       bigscreenLevelCounter += 1;
       if (bigscreenLevelCounter <= gameOptions.nLevel){
         if (bigscreenLevelCounter === gameOptions.nLevel) {
@@ -1329,7 +1331,7 @@ class Lobby extends Phaser.Scene {
         this.QR.setVisible(false);
         this.QR.isVisible = false;
         this.toggleQR.textObject.text = "Show Code";
-        this.insText.text = "Stars: " + totalStars;
+        this.insText.text = "Stars: " + stars;
         starGoal = playersCount * STAR_PER_PLAYER;
         this.playerCountText.setVisible(false);
         this.puzzleCountText.setDepth(2000);
