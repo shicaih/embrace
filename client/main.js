@@ -1325,6 +1325,7 @@ class Lobby extends Phaser.Scene {
       "Hide Code",
       UITextType.button
     )
+    console.log("button finished");
     this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
       this.QR.setVisible(!this.QR.visible);
       this.toggleQR.textObject.text = this.QR.visible? "Hide Code" : "Show Code";
