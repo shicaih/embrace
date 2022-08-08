@@ -1391,13 +1391,13 @@ class Lobby extends Phaser.Scene {
 
     // puzzle portal
 
-    // this.portal = this.createUIButton(
-    //   bigScreenUISettings,
-    //   bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
-    //   bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 1 + bigScreenUISettings.buttonHeight * 1 + bigScreenUISettings.buttonText.fontSize / 2),
-    //   "Start",
-    //   UITextType.button
-    // )
+    this.portal = this.createUIButton(
+      bigScreenUISettings,
+      bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
+      bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 1 + bigScreenUISettings.buttonHeight * 1 + bigScreenUISettings.buttonText.fontSize / 2),
+      "Start",
+      UITextType.button
+    );
     // this.portal = this.add.rexRoundRectangle(
     //   gameOptions.viewportWidth  - 700 * bigScreenRatio,
     //   gameOptions.viewportHeight - 600 * bigScreenRatio,
@@ -1429,56 +1429,58 @@ class Lobby extends Phaser.Scene {
     //       align: "center",
     //     })
     // this.portalText.setDepth(2001);
-    // this.portal.setInteractive().on("pointerdown", (pointer) => {
-    //   bigscreenLevelCounter += 1;
-    //   if (bigscreenLevelCounter <= gameOptions.levelCount){
-    //     if (bigscreenLevelCounter === gameOptions.levelCount) {
-    //       this.portal.textObject.text = "Report";
-    //     }
-    //     this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
-    //     this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(DRP).setScrollFactor(1);
-    //     this.bgWheel.setDepth(-97);
-    //     this.QR.setVisible(false);
-    //     this.QR.isVisible = false;
-    //     this.toggleQR.textObject.text = "Show Code";
-    //     this.insText.text = "Stars: 0";
-    //     starGoal = playersCount * STAR_PER_PLAYER;
-    //     this.playerCountText.setVisible(false);
-    //     this.puzzleCountText.setDepth(2000);
-    //     this.progressBar = this.add.graphics();
-    //     this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
-    //     this.progressBar.slice(0, 0, this.bgWheel.width * 5 * 0.5 * (gameOptions.worldWidth / WORLD_SIZE), 0, 0, false);
-    //     this.progressBar.x = gameOptions.worldWidth / 2;
-    //     this.progressBar.y = gameOptions.worldHeight / 2;
-    //     this.bigscreenPuzzle = true;
-    //     this.socket.emit("startPuzzle");
-    //   }
-    //   else if (bigscreenLevelCounter === gameOptions.levelCount + 1) {
-    //     window.open("./bigscreenReport.html");
-    //     this.portal.textObject.text = "Reset";
-    //     this.puzzleCountText.setVisible(false);
-    //     this.playerCountText.setVisible(true);
-    //     this.socket.emit("startPuzzle");
-    //   }
-    //   else {
-    //     this.socket.emit("reset");
-    //     window.location.reload();
-    //   }
-    //   if (this.timer1 !== null) {
-    //     this.time.removeEvent(this.timer1);
-    //     this.time.removeEvent(this.timer2);
-    //   }
-    // });
+    this.portal.setInteractive().on("pointerdown", (pointer) => {
+      bigscreenLevelCounter += 1;
+      if (bigscreenLevelCounter <= gameOptions.levelCount){
+        if (bigscreenLevelCounter === gameOptions.levelCount) {
+          this.portal.textObject.text = "Report";
+        }
+        this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
+        this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(DRP).setScrollFactor(1);
+        this.bgWheel.setDepth(-97);
+        this.QR.setVisible(false);
+        this.QR.isVisible = false;
+        this.toggleQR.textObject.text = "Show Code";
+        this.insText.text = "Stars: 0";
+        starGoal = playersCount * STAR_PER_PLAYER;
+        this.playerCountText.setVisible(false);
+        this.puzzleCountText.setDepth(2000);
+        this.progressBar = this.add.graphics();
+        this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
+        this.progressBar.slice(0, 0, this.bgWheel.width * 5 * 0.5 * (gameOptions.worldWidth / WORLD_SIZE), 0, 0, false);
+        this.progressBar.x = gameOptions.worldWidth / 2;
+        this.progressBar.y = gameOptions.worldHeight / 2;
+        this.bigscreenPuzzle = true;
+        this.socket.emit("startPuzzle");
+      }
+      else if (bigscreenLevelCounter === gameOptions.levelCount + 1) {
+        window.open("./bigscreenReport.html");
+        this.portal.textObject.text = "Reset";
+        this.puzzleCountText.setVisible(false);
+        this.playerCountText.setVisible(true);
+        this.socket.emit("startPuzzle");
+      }
+      else {
+        this.socket.emit("reset");
+        window.location.reload();
+      }
+      if (this.timer1 !== null) {
+        this.time.removeEvent(this.timer1);
+        this.time.removeEvent(this.timer2);
+      }
+    });
 
-    // this.portal.textObject.text = "Start";
-    // this.portal.width = 600 * bigScreenRatio;
+    this.portal.textObject.text = "Start";
+    this.portal.width = 600 * bigScreenRatio;
     // this.bigscreenTitle.setVisible(false);
     // this.bigscreenText.setVisible(false);
     this.QR.setDepth(2000);
     this.bgWheel.setDepth(-99);
     this.insText.setDepth(-99);
     this.playerCountText.setDepth(2000);
+    this.puzzleCountText.setVisible(false);
     this.setButtonDepth(this.toggleQR, 2000);
+    this.setButtonDepth(this.portal, 2000);
     console.log("UI finished");
   }
 
@@ -1573,6 +1575,9 @@ class Lobby extends Phaser.Scene {
            newPlayerWheel.wheelMask.setAlpha(0);
          }, 250);
         })
+    if (isBigScreen) {
+      newPlayerWheel.setScale(0.5);
+    }
     var tap = this.rexGestures.add.tap(newPlayerWheel, {
       // enable: true,
       // bounds: undefined,
