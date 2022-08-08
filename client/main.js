@@ -595,6 +595,7 @@ class Lobby extends Phaser.Scene {
       this.insText.text = "Stars: " + totalStars;
       let starDeg = totalStars / starGoal * 360;
       this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
+      console.log(Math.DegToRad(starDeg));
     })
     socket.on("puzzlePlayerAdd", () => {
       puzzlePlayerCount += 1;
@@ -1232,22 +1233,6 @@ class Lobby extends Phaser.Scene {
       UITextType.title,
       bigScreenUISettings.width * 0.75,
     );
-    // this.insText = this.add.text(
-    //   0,
-    //   0,
-    //   "Let's\ncompose\na circle!",
-    //   {
-    //     fontFamily: gameOptions.playerTextFont,
-    //     fontSize: 80 * bigScreenRatio,
-    //     fixedWidth: gameOptions.worldWidth * 0.75,
-    //     color: "#946854",
-    //     align: "center",
-    //   }
-    // );
-    // this.insText.setDepth(-101).setOrigin(0.5, 0.5);
-    // this.insText.setPosition(
-    //     gameOptions.worldWidth / 2,
-    //     gameOptions.worldHeight / 2)
 
     this.timerText = this.add
       .text(gameOptions.viewportWidth / 2 - 1000, 900, 0, {
@@ -1292,19 +1277,6 @@ class Lobby extends Phaser.Scene {
       bigScreenUISettings.buttonWidth * 0.75,
     )
 
-    // this.playerCountText = this.add.text(
-    //     gameOptions.viewportWidth - 100 * bigScreenRatio  - 200 * bigScreenRatio / 2,
-    //     gameOptions.viewportHeight - 100 * bigScreenRatio,
-    //     "Players: " + playersCount,
-    //     {
-    //       fontFamily: gameOptions.playerTextFont,
-    //       fontSize: 32 * bigScreenRatio,
-    //       fixedWidth: 200 * bigScreenRatio,
-    //       color: "#000000",
-    //       align: "center",
-    //     }
-    // );
-
     this.puzzleCountText = this.add.text(
         gameOptions.viewportWidth - 100 * bigScreenRatio  - 200 * bigScreenRatio / 2,
         gameOptions.viewportHeight - 100 * bigScreenRatio,
@@ -1330,66 +1302,7 @@ class Lobby extends Phaser.Scene {
     this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
       this.QR.setVisible(!this.QR.visible);
       this.toggleQR.textObject.text = this.QR.visible? "Hide Code" : "Show Code";
-      //this.toggleQR.setFillStyle(0x4F2816);
     });
-    // this.toggleQR.on("pointerover", () => {
-    //   this.toggleQR.setFillStyle(0xA48171);
-    // })
-    // this.toggleQR.on("pointerout", () => {
-    //   this.toggleQR.setFillStyle(0x946854);
-    // })
-    // this.toggleQR.on("pointerup", () => {
-    //   this.toggleQR.setFillStyle(0x946854);
-    // })
-    // this.toggleQR.textObject = this.add.text(
-    //     this.toggleQR.x - 1000 * bigScreenRatio / 2,
-    //     this.toggleQR.y - 100 * bigScreenRatio / 2,
-    //     "Hide Code",
-    //     {
-    //       fontFamily: gameOptions.playerTextFont,
-    //       fontSize: 100 * bigScreenRatio,
-    //       fixedWidth: 1000 * bigScreenRatio,
-    //       color: "#ffffff",
-    //       align: "center",
-    //     });
-
-    // this.bigscreenTitle = this.add.text(
-    //     0,
-    //     0,
-    //     bigscreenTitle[curPage],
-    //     {
-    //       fontFamily: gameOptions.playerTextFont,
-    //       fontSize: 450 * bigScreenRatio,
-    //       color: "#000000",
-    //       align: "left",
-    //     }
-    // );
-
-    // this.bigscreenTitle.setDepth(-99).setOrigin(0, 0.5);
-    // this.bigscreenTitle.setPosition(
-    //     gameOptions.worldWidth * 0.15,
-    //     gameOptions.worldHeight * 0.15)
-
-    // this.bigscreenText = this.add.text(
-    //     0,
-    //     0,
-    //     bigscreenText[curPage],
-    //     {
-    //       fontFamily: gameOptions.playerTextFont,
-    //       fontSize: 250 * bigScreenRatio,
-    //       wordWrap: {width: gameOptions.worldWidth * 0.7},
-    //       color: "#000000",
-    //       align: "left",
-    //     }
-    // );
-
-    // this.bigscreenText.setDepth(-99).setOrigin(0, 0.5);
-    // this.bigscreenText.setPosition(
-    //     gameOptions.worldWidth * 0.15,
-    //     gameOptions.worldHeight * 0.53)
-
-
-    // puzzle portal
 
     this.portal = this.createUIButton(
       bigScreenUISettings,
@@ -1398,38 +1311,9 @@ class Lobby extends Phaser.Scene {
       "Start",
       UITextType.button
     );
-    // this.portal = this.add.rexRoundRectangle(
-    //   gameOptions.viewportWidth  - 700 * bigScreenRatio,
-    //   gameOptions.viewportHeight - 600 * bigScreenRatio,
-    //   600 * bigScreenRatio,
-    //   150 * bigScreenRatio,
-    //   50 * bigScreenRatio,
-    //   0x946854,
-    //   1,
-    // );
-    // curPage = bigscreenText.length;
-    // this.portal.on("pointerover", () => {
-    //   this.portal.setFillStyle(0xA48171);
-    // })
-    // this.portal.on("pointerout", () => {
-    //   this.portal.setFillStyle(0x946854);
-    // })
-    // this.portal.on("pointerup", () => {
-    //   this.portal.setFillStyle(0x946854);
-    // })
-    // this.portalText = this.add.text(
-    //     this.portal.x - 1000 * bigScreenRatio / 2,
-    //     this.portal.y - 100 * bigScreenRatio / 2,
-    //     "Next",
-    //     {
-    //       fontFamily: gameOptions.playerTextFont,
-    //       fontSize: 100 * bigScreenRatio,
-    //       fixedWidth: 1000 * bigScreenRatio,
-    //       color: "#ffffff",
-    //       align: "center",
-    //     })
-    // this.portalText.setDepth(2001);
+
     this.portal.setInteractive().on("pointerdown", (pointer) => {
+      totalStars = 0;
       bigscreenLevelCounter += 1;
       if (bigscreenLevelCounter <= gameOptions.nLevel){
         if (bigscreenLevelCounter === gameOptions.nLevel) {
@@ -1445,7 +1329,7 @@ class Lobby extends Phaser.Scene {
         this.QR.setVisible(false);
         this.QR.isVisible = false;
         this.toggleQR.textObject.text = "Show Code";
-        this.insText.text = "Stars: 0";
+        this.insText.text = "Stars: " + totalStars;
         starGoal = playersCount * STAR_PER_PLAYER;
         this.playerCountText.setVisible(false);
         this.puzzleCountText.setDepth(2000);
@@ -1481,8 +1365,6 @@ class Lobby extends Phaser.Scene {
     });
 
     this.portal.textObject.text = "Start";
-    // this.bigscreenTitle.setVisible(false);
-    // this.bigscreenText.setVisible(false);
     this.QR.setDepth(2000);
     this.bgWheel.setDepth(-99);
     this.insText.setDepth(-99);
