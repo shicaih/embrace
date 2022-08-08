@@ -53,7 +53,7 @@ const gameOptions = {
     "#5482cc",
     "#7755b5",
   ],
-  levelCount: 3,
+  nLevel: 3,
   puzzleWorldSizes: [4000, 4000, 4000],
   colorMapping: {
     music: 0xcc3f8d,
@@ -1431,8 +1431,8 @@ class Lobby extends Phaser.Scene {
     // this.portalText.setDepth(2001);
     this.portal.setInteractive().on("pointerdown", (pointer) => {
       bigscreenLevelCounter += 1;
-      if (bigscreenLevelCounter <= gameOptions.levelCount){
-        if (bigscreenLevelCounter === gameOptions.levelCount) {
+      if (bigscreenLevelCounter <= gameOptions.nLevel){
+        if (bigscreenLevelCounter === gameOptions.nLevel) {
           this.portal.textObject.text = "Report";
         }
         this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
@@ -1449,6 +1449,12 @@ class Lobby extends Phaser.Scene {
         starGoal = playersCount * STAR_PER_PLAYER;
         this.playerCountText.setVisible(false);
         this.puzzleCountText.setDepth(2000);
+        if (this.progressBar) {
+          this.progressBar.destroy();
+        }
+        if (this.bgWheel.mask) {
+          this.bgWheel.mask.destroy();
+        }
         this.progressBar = this.add.graphics();
         this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
         this.progressBar.slice(0, 0, this.bgWheel.width * 5 * 0.5 * (gameOptions.worldWidth / WORLD_SIZE), 0, 0, false);
@@ -1457,7 +1463,7 @@ class Lobby extends Phaser.Scene {
         this.bigscreenPuzzle = true;
         this.socket.emit("startPuzzle");
       }
-      else if (bigscreenLevelCounter === gameOptions.levelCount + 1) {
+      else if (bigscreenLevelCounter === gameOptions.nLevel + 1) {
         window.open("./bigscreenReport.html");
         this.portal.textObject.text = "Reset";
         this.puzzleCountText.setVisible(false);
