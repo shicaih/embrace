@@ -1288,7 +1288,8 @@ class Lobby extends Phaser.Scene {
       bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
       bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 2 + bigScreenUISettings.buttonHeight * 2 + bigScreenUISettings.regularText.fontSize / 2),
       "Players: " + playersCount,
-      UITextType.regular
+      UITextType.regular,
+      bigScreenUISettings.buttonWidth * 0.75,
     )
 
     // this.playerCountText = this.add.text(
@@ -1522,7 +1523,7 @@ class Lobby extends Phaser.Scene {
     this.createPlayerObject(player);
     playersCount += 1;
     if (!isMobile) {
-      this.countText.text = "Players: " + playersCount;
+      this.playerCountText.text = "Players: " + playersCount;
     }
     console.log(player);
   }
@@ -1722,7 +1723,7 @@ class Lobby extends Phaser.Scene {
       this.players[data].gameObject.destroy();
       playersCount -= 1;
       if (isBigScreen) {
-        this.countText.text = "Players: " + playersCount;
+        this.playerCountText.text = "Players: " + playersCount;
       }
       delete this.players[data];
       console.log("deactivate player " + data);
