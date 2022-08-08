@@ -9,7 +9,7 @@ fetch("./settings.json")
   .then((data) => {
     settings = data;
   });
-
+console.log("fetch async test");
 const DPR = window.devicePixelRatio; //window.devicePixelRatio;
 const WORLD_SIZE = 8000;
 const WORLD_SIZE_Height = 8000 * (1800/2880) // 1800/2880 is the ratio of my computer
@@ -39,7 +39,7 @@ if (isBigScreen) {
   
 }
 
-var gameOptions = {
+const gameOptions = {
   curCulture: "music",
   curIndex: 0,
   cultures: ["music", "food", "hobby", "finances", "home", "ethnicity"],
@@ -53,6 +53,7 @@ var gameOptions = {
     "#5482cc",
     "#7755b5",
   ],
+  levelCount: 3,
   puzzleWorldSizes: [4000, 4000, 4000],
   colorMapping: {
     music: 0xcc3f8d,
@@ -96,13 +97,24 @@ var gameOptions = {
   confettiY: 120 * DPR,
   selectWheelOffset: 30 * DPR,
 };
-var bigScreenUISettings = {
+const bigScreenUISettings = {
   width: bigScreenWorldWidth,
   height: bigScreenWorldHeight,
-  titleFontFamily: "Nunito",
-  titleFontSize: 100 * DPR,
-  buttonFontFamily: "Nunito",
-  buttonFontSize: 36 * DPR,
+  titleText: {
+    fontFamily: "Nunito",
+    fontSize: 100 * DPR,
+    color: "#946854"
+  },
+  regularText: {
+    fontFamily: "Nunito",
+    fontSize: 36 * DPR,
+    color: "#946854"
+  },
+  buttonText: {
+    fontFamily: "Nunito",
+    fontSize: 36 * DPR,
+    color: "#ffffff"
+  },
   buttonHeight: 70 * DPR,
   buttonWidth: 250 * DPR,
   buttonRadius: 15 * DPR,
@@ -111,8 +123,12 @@ var bigScreenUISettings = {
   canvasHorizontalMargin: 70 * DPR,
   buttonColor: 0x946854,
   buttonHoverColor: 0xA48171,
-  textColor: "#ffffff",
 };
+const UITextType = {
+  title: "titleText",
+  regular: "regularText",
+  button: "buttonText",
+}
 var puzzleOptions = {
   cultures: [],
   values: [],
@@ -136,7 +152,7 @@ let assignmentPrefixes = {
   "ethnicity": "Find a person who's \n",
   "home": "Find a person \nwho's from \n",
 } 
-
+let bigscreenLevelCounter;
 let levelIndex = eval(window.sessionStorage.getItem("curLevel"));
 if (levelIndex != null) {
   gameOptions.worldWidth = gameOptions.puzzleWorldSizes[levelIndex];
@@ -647,7 +663,25 @@ class Lobby extends Phaser.Scene {
     }
   }
 
-  createUIButton(UISettings, x, y, text) {
+  createTextObject(UISettings, x, y, text, textType,fixedWidth) {
+    let textFontSetting = UISettings[textType];
+    let textObject = this.add.text(
+      x,
+      y,
+      text,
+      {
+        fontFamily: textFontSetting.fontFamily,
+        fontSize: textFontSetting.fontSize,
+        fixedWidth: fixedWidth,
+        color: textFontSetting.color,
+        align: "center",
+      }
+    );
+    textObject.setOrigin(0.5, 0.5);
+    return textObject;
+  }
+
+  createUIButton(UISettings, x, y, text, textType) {
     let button = this.add.rexRoundRectangle(
       x,
       y,
@@ -666,21 +700,10 @@ class Lobby extends Phaser.Scene {
     button.on("pointerup", () => {
       button.setFillStyle(UISettings.buttonColor);
     })
-
-    button.textObject = this.add.text(
-      button.x,
-      button.y,
-      text,
-      {
-        fontFamily: UISettings.buttonFontFamily,
-        fontSize: UISettings.buttonFontSize,
-        fixedWidth: UISettings.buttonWidth * 0.8,
-        color: UISettings.textColor,
-        align: "center",
-      });
-    button.textObject.setOrigin(0.5, 0.5);
+    button.textObject = this.createTextObject(UISettings, x, y, text, textType, UISettings.buttonWidth * 0.8);
     return button;
   }
+
   setButtonDepth(button, depth) {
     button.setDepth(depth);
     button.textObject.setDepth(depth);
@@ -1189,20 +1212,9 @@ class Lobby extends Phaser.Scene {
   }
 
   createBigScreenUI() {
+    bigscreenLevelCounter = 0;
     this.bgWheel.setDepth(-101);
-    let curPage = 0;
-    let bigscreenText = [
-        "small or large\n" +
-        "\n" +
-        "Continously evovling \n" +
-        "way of life",
-    ]
-    let bigscreenTitle = [
-        "Culture",
-        "Cultural Identity",
-        "Cultural Humility",
-        "Embrace"
-    ]
+    this.bgWheel.setScale(5 * (gameOptions.worldWidth / WORLD_SIZE));
     this.bgImage = this.add.tileSprite(0, 0, bigScreenWorldWidth, bigScreenWorldHeight, 'BG');
     this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.socket.emit("admin");
@@ -1212,22 +1224,30 @@ class Lobby extends Phaser.Scene {
     this.bigscreenRight = this.add.image(gameOptions.worldWidth, 0, "bigscreenRight");
     this.bigscreenRight.setOrigin(1, 0).setScale(bigScreenRatio);
     // let's compose a circle
-    this.insText = this.add.text(
-      0,
-      0,
+    this.insText = this.createTextObject(
+      bigScreenUISettings,
+      bigScreenUISettings.width / 2,
+      bigScreenUISettings.height / 2,
       "Let's\ncompose\na circle!",
-      {
-        fontFamily: gameOptions.playerTextFont,
-        fontSize: 80 * bigScreenRatio,
-        fixedWidth: gameOptions.worldWidth * 0.75,
-        color: "#946854",
-        align: "center",
-      }
+      UITextType.title,
+      bigScreenUISettings.width * 0.75,
     );
-    this.insText.setDepth(-101).setOrigin(0.5, 0.5);
-    this.insText.setPosition(
-        gameOptions.worldWidth / 2,
-        gameOptions.worldHeight / 2)
+    // this.insText = this.add.text(
+    //   0,
+    //   0,
+    //   "Let's\ncompose\na circle!",
+    //   {
+    //     fontFamily: gameOptions.playerTextFont,
+    //     fontSize: 80 * bigScreenRatio,
+    //     fixedWidth: gameOptions.worldWidth * 0.75,
+    //     color: "#946854",
+    //     align: "center",
+    //   }
+    // );
+    // this.insText.setDepth(-101).setOrigin(0.5, 0.5);
+    // this.insText.setPosition(
+    //     gameOptions.worldWidth / 2,
+    //     gameOptions.worldHeight / 2)
 
     this.timerText = this.add
       .text(gameOptions.viewportWidth / 2 - 1000, 900, 0, {
@@ -1245,7 +1265,6 @@ class Lobby extends Phaser.Scene {
       "QRCode"
     );
     this.QR.setScale(1);
-    this.QR.setDepth(-101);
     this.tweens.add({
       targets: this.QR,
       scale: 0.9,
@@ -1264,19 +1283,27 @@ class Lobby extends Phaser.Scene {
     });
 
 
-    this.countText = this.add.text(
-        gameOptions.viewportWidth - 100 * bigScreenRatio  - 200 * bigScreenRatio / 2,
-        gameOptions.viewportHeight - 100 * bigScreenRatio,
-        "Players: " + playersCount,
-        {
-          fontFamily: gameOptions.playerTextFont,
-          fontSize: 32 * bigScreenRatio,
-          fixedWidth: 200 * bigScreenRatio,
-          color: "#000000",
-          align: "center",
-        }
-    );
-    this.countText.setDepth(-101);
+    this.playerCountText = this.createTextObject(
+      bigScreenUISettings,
+      bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
+      bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 2 + bigScreenUISettings.buttonHeight * 2 + bigScreenUISettings.regularText.fontSize / 2),
+      "Players: " + playersCount,
+      UITextType.regular
+    )
+
+    // this.playerCountText = this.add.text(
+    //     gameOptions.viewportWidth - 100 * bigScreenRatio  - 200 * bigScreenRatio / 2,
+    //     gameOptions.viewportHeight - 100 * bigScreenRatio,
+    //     "Players: " + playersCount,
+    //     {
+    //       fontFamily: gameOptions.playerTextFont,
+    //       fontSize: 32 * bigScreenRatio,
+    //       fixedWidth: 200 * bigScreenRatio,
+    //       color: "#000000",
+    //       align: "center",
+    //     }
+    // );
+
     this.puzzleCountText = this.add.text(
         gameOptions.viewportWidth - 100 * bigScreenRatio  - 200 * bigScreenRatio / 2,
         gameOptions.viewportHeight - 100 * bigScreenRatio,
@@ -1289,17 +1316,18 @@ class Lobby extends Phaser.Scene {
           align: "center",
         }
     );
-    this.puzzleCountText.setDepth(-101);
+
     // puzzle portal
     this.toggleQR = this.createUIButton(
       bigScreenUISettings,
       bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
       bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonHeight / 2),
-      "Hide Code"
+      "Hide Code",
+      UITextType.button
     )
     this.toggleQR.setInteractive().on("pointerdown", (pointer) => {
       this.QR.setVisible(!this.QR.visible);
-      this.toggleQR.textObject.text = this.QR.visible? "Hide Code" : "Show Code"
+      this.toggleQR.textObject.text = this.QR.visible? "Hide Code" : "Show Code";
       //this.toggleQR.setFillStyle(0x4F2816);
     });
     // this.toggleQR.on("pointerover", () => {
@@ -1323,132 +1351,132 @@ class Lobby extends Phaser.Scene {
     //       align: "center",
     //     });
 
-    this.bigscreenTitle = this.add.text(
-        0,
-        0,
-        bigscreenTitle[curPage],
-        {
-          fontFamily: gameOptions.playerTextFont,
-          fontSize: 450 * bigScreenRatio,
-          color: "#000000",
-          align: "left",
-        }
-    );
+    // this.bigscreenTitle = this.add.text(
+    //     0,
+    //     0,
+    //     bigscreenTitle[curPage],
+    //     {
+    //       fontFamily: gameOptions.playerTextFont,
+    //       fontSize: 450 * bigScreenRatio,
+    //       color: "#000000",
+    //       align: "left",
+    //     }
+    // );
 
-    this.bigscreenTitle.setDepth(-99).setOrigin(0, 0.5);
-    this.bigscreenTitle.setPosition(
-        gameOptions.worldWidth * 0.15,
-        gameOptions.worldHeight * 0.15)
+    // this.bigscreenTitle.setDepth(-99).setOrigin(0, 0.5);
+    // this.bigscreenTitle.setPosition(
+    //     gameOptions.worldWidth * 0.15,
+    //     gameOptions.worldHeight * 0.15)
 
-    this.bigscreenText = this.add.text(
-        0,
-        0,
-        bigscreenText[curPage],
-        {
-          fontFamily: gameOptions.playerTextFont,
-          fontSize: 250 * bigScreenRatio,
-          wordWrap: {width: gameOptions.worldWidth * 0.7},
-          color: "#000000",
-          align: "left",
-        }
-    );
+    // this.bigscreenText = this.add.text(
+    //     0,
+    //     0,
+    //     bigscreenText[curPage],
+    //     {
+    //       fontFamily: gameOptions.playerTextFont,
+    //       fontSize: 250 * bigScreenRatio,
+    //       wordWrap: {width: gameOptions.worldWidth * 0.7},
+    //       color: "#000000",
+    //       align: "left",
+    //     }
+    // );
 
-    this.bigscreenText.setDepth(-99).setOrigin(0, 0.5);
-    this.bigscreenText.setPosition(
-        gameOptions.worldWidth * 0.15,
-        gameOptions.worldHeight * 0.53)
+    // this.bigscreenText.setDepth(-99).setOrigin(0, 0.5);
+    // this.bigscreenText.setPosition(
+    //     gameOptions.worldWidth * 0.15,
+    //     gameOptions.worldHeight * 0.53)
 
 
     // puzzle portal
-    this.portal = this.add.rexRoundRectangle(
-      gameOptions.viewportWidth  - 700 * bigScreenRatio,
-      gameOptions.viewportHeight - 600 * bigScreenRatio,
-      600 * bigScreenRatio,
-      150 * bigScreenRatio,
-      50 * bigScreenRatio,
-      0x946854,
-      1,
-    );
-    this.portal.setDepth(1000);
-    curPage = bigscreenText.length;
+    this.portal = this.createUIButton(
+      bigScreenUISettings,
+      bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
+      bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 1 + bigScreenUISettings.buttonHeight * 1 + bigScreenUISettings.buttonText.fontSize / 2),
+      "Start",
+      UITextType.button
+
+
+    )
+    // this.portal = this.add.rexRoundRectangle(
+    //   gameOptions.viewportWidth  - 700 * bigScreenRatio,
+    //   gameOptions.viewportHeight - 600 * bigScreenRatio,
+    //   600 * bigScreenRatio,
+    //   150 * bigScreenRatio,
+    //   50 * bigScreenRatio,
+    //   0x946854,
+    //   1,
+    // );
+    // curPage = bigscreenText.length;
+    // this.portal.on("pointerover", () => {
+    //   this.portal.setFillStyle(0xA48171);
+    // })
+    // this.portal.on("pointerout", () => {
+    //   this.portal.setFillStyle(0x946854);
+    // })
+    // this.portal.on("pointerup", () => {
+    //   this.portal.setFillStyle(0x946854);
+    // })
+    // this.portalText = this.add.text(
+    //     this.portal.x - 1000 * bigScreenRatio / 2,
+    //     this.portal.y - 100 * bigScreenRatio / 2,
+    //     "Next",
+    //     {
+    //       fontFamily: gameOptions.playerTextFont,
+    //       fontSize: 100 * bigScreenRatio,
+    //       fixedWidth: 1000 * bigScreenRatio,
+    //       color: "#ffffff",
+    //       align: "center",
+    //     })
+    // this.portalText.setDepth(2001);
     this.portal.setInteractive().on("pointerdown", (pointer) => {
-      curPage += 1;
-      this.portal.setFillStyle(0x4F2816);
-      if (curPage < bigscreenText.length) {
-        this.bigscreenTitle.text = bigscreenTitle[curPage];
-        this.bigscreenText.text = bigscreenText[curPage]
-        if (curPage == bigscreenText.length - 1) {
-          this.portalText.text = "Go to the Lobby";
-          this.portal.width = this.portalText.width + 50 * bigScreenRatio;
+      bigscreenLevelCounter += 1;
+      if (bigscreenLevelCounter <= gameOptions.levelCount){
+        if (bigscreenLevelCounter === gameOptions.levelCount) {
+          this.portal.textObject.text = "Report";
         }
-      } else if (curPage <= bigscreenText.length + 2){
-        if (curPage === bigscreenText.length + 1) {
-          this.portalText.text = "Report";
-          this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
-          this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(5).setScrollFactor(1);
-          this.bgWheel.setDepth(-97);
-          this.QR.setVisible(false);
-          this.QR.isVisible = false;
-          this.toggleQR.textObject.text = "Show Code";
-          this.insText.text = "Stars: 0";
-          starGoal = playersCount * STAR_PER_PLAYER;
-          this.countText.setVisible(false);
-          this.puzzleCountText.setDepth(2000);
-          this.progressBar = this.add.graphics();
-          this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
-          this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, 0, false);
-          this.progressBar.x = gameOptions.worldWidth / 2;
-          this.progressBar.y = gameOptions.worldHeight / 2;
-          this.bigscreenPuzzle = true;
-
-        } else {
-          window.open("./bigscreenReport.html");
-          this.portalText.text = "Reset";
-          this.puzzleCountText.setVisible(false);
-          this.countText.setVisible(true);
-
-        }
+        this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
+        this.bgWheelBW.setOrigin(0.5, 0.5).setDepth(-99).setScale(DRP).setScrollFactor(1);
+        this.bgWheel.setDepth(-97);
+        this.QR.setVisible(false);
+        this.QR.isVisible = false;
+        this.toggleQR.textObject.text = "Show Code";
+        this.insText.text = "Stars: 0";
+        starGoal = playersCount * STAR_PER_PLAYER;
+        this.playerCountText.setVisible(false);
+        this.puzzleCountText.setDepth(2000);
+        this.progressBar = this.add.graphics();
+        this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
+        this.progressBar.slice(0, 0, this.bgWheel.width * 5 * 0.5 * (gameOptions.worldWidth / WORLD_SIZE), 0, 0, false);
+        this.progressBar.x = gameOptions.worldWidth / 2;
+        this.progressBar.y = gameOptions.worldHeight / 2;
+        this.bigscreenPuzzle = true;
         this.socket.emit("startPuzzle");
-        if (this.timer1 !== null) {
-          this.time.removeEvent(this.timer1);
-          this.time.removeEvent(this.timer2);
-        }
-      } else {
+      }
+      else if (bigscreenLevelCounter === gameOptions.levelCount + 1) {
+        window.open("./bigscreenReport.html");
+        this.portal.textObject.text = "Reset";
+        this.puzzleCountText.setVisible(false);
+        this.playerCountText.setVisible(true);
+        this.socket.emit("startPuzzle");
+      }
+      else {
         this.socket.emit("reset");
         window.location.reload();
       }
-
+      if (this.timer1 !== null) {
+        this.time.removeEvent(this.timer1);
+        this.time.removeEvent(this.timer2);
+      }
     });
-    this.portal.on("pointerover", () => {
-      this.portal.setFillStyle(0xA48171);
-    })
-    this.portal.on("pointerout", () => {
-      this.portal.setFillStyle(0x946854);
-    })
-    this.portal.on("pointerup", () => {
-      this.portal.setFillStyle(0x946854);
-    })
-    this.portalText = this.add.text(
-        this.portal.x - 1000 * bigScreenRatio / 2,
-        this.portal.y - 100 * bigScreenRatio / 2,
-        "Next",
-        {
-          fontFamily: gameOptions.playerTextFont,
-          fontSize: 100 * bigScreenRatio,
-          fixedWidth: 1000 * bigScreenRatio,
-          color: "#ffffff",
-          align: "center",
-        })
-    this.portalText.setDepth(2001);
 
-    this.portalText.text = "Start";
+    this.portal.textObject.text = "Start";
     this.portal.width = 600 * bigScreenRatio;
     this.bigscreenTitle.setVisible(false);
     this.bigscreenText.setVisible(false);
     this.QR.setDepth(2000);
     this.bgWheel.setDepth(-99);
     this.insText.setDepth(-99);
-    this.countText.setDepth(2000);
+    this.playerCountText.setDepth(2000);
     this.setButtonDepth(this.toggleQR, 2000);
   }
 
@@ -1480,7 +1508,7 @@ class Lobby extends Phaser.Scene {
       }
     }
     if (!isMobile) {
-      this.countText.text = "Players: " + playersCount;
+      this.playerCountText.text = "Players: " + playersCount;
     }
 
     this.initialized = true;
