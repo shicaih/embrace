@@ -102,7 +102,7 @@ const bigScreenUISettings = {
   height: bigScreenWorldHeight,
   titleText: {
     fontFamily: "Nunito",
-    fontSize: 100 * DPR,
+    fontSize: 72 * DPR,
     color: "#946854"
   },
   regularText: {
