@@ -597,7 +597,7 @@ class Lobby extends Phaser.Scene {
       this.insText.text = "Stars: " + totalStars;
       let starDeg = totalStars / starGoal * 360;
       this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
-      console.log(Math.DegToRad(starDeg));
+      console.log(Phaser.Math.DegToRad(starDeg));
     })
     socket.on("puzzlePlayerAdd", () => {
       puzzlePlayerCount += 1;
