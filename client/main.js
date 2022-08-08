@@ -1394,7 +1394,7 @@ class Lobby extends Phaser.Scene {
     this.portal = this.createUIButton(
       bigScreenUISettings,
       bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
-      bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 1 + bigScreenUISettings.buttonHeight * 1 + bigScreenUISettings.buttonText.fontSize / 2),
+      bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 1 + bigScreenUISettings.buttonHeight * 1 + bigScreenUISettings.buttonText.buttonHeight / 2),
       "Start",
       UITextType.button
     );
@@ -1471,7 +1471,6 @@ class Lobby extends Phaser.Scene {
     });
 
     this.portal.textObject.text = "Start";
-    this.portal.width = 600 * bigScreenRatio;
     // this.bigscreenTitle.setVisible(false);
     // this.bigscreenText.setVisible(false);
     this.QR.setDepth(2000);
