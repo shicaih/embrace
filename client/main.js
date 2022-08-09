@@ -1566,9 +1566,9 @@ class Lobby extends Phaser.Scene {
     let thumbUp = this.add.image(0, 0, "thumbUp");
     let smile = this.add.image(0, 0, "smile");
 
-    thumbUp.setScale((0.1 * DPR) / 3).setAlpha(0);
+    thumbUp.setScale(DPR / 3).setAlpha(0);
     thumbUp.canReveal = true;
-    smile.setScale((1 * DPR) / 3).setAlpha(0);
+    smile.setScale(DPR / 3).setAlpha(0);
     smile.canReveal = true;
     player.thumbUp = thumbUp;
     player.smile = smile;
@@ -1587,7 +1587,7 @@ class Lobby extends Phaser.Scene {
       playerContainer.getAt(1).setVisible(false);
       playerContainer.getAt(2).setVisible(false);
       playerContainer.getAt(3).setVisible(false);
-      playerContainer.getAt(5).setScale((1 * DPR) / 3 * bigScreenRatio);
+      playerContainer.getAt(5).setScale(DPR / 3 * bigScreenRatio);
       playerContainer.setScale(0.5);
     }
     player.gameObject = playerContainer;
@@ -1658,6 +1658,8 @@ class Lobby extends Phaser.Scene {
     if (this.mainPlayer.thumbUp.canReveal) {
       this.socket.emit("thumbUp", this.mainPlayer.uuid);
       this.mainPlayer.thumbUp.canReveal = false;
+      this.mainPlayer.thumbUp.scaleX = 0.1 * DPR / 3; // 3 is the highest DPR when we created the image asset
+      this.mainPlayer.thumbUp.scaleY = 0.1 * DPR / 3;
       this.tweens.add({
         targets: this.mainPlayer.thumbUp,
         alpha: 1,
@@ -1668,8 +1670,8 @@ class Lobby extends Phaser.Scene {
       this.tweens.add({
         targets: this.mainPlayer.thumbUp,
         y: -100,
-        scaleX: this.mainPlayer.thumbUp.scaleX * 0.5,
-        scaleY: this.mainPlayer.thumbUp.scaleY * 0.5,
+        scaleX: 0.5 * DPR / 3,
+        scaleY: 0.5 * DPR / 3,
         duration: 300,
         ease: "Back.easeOut",
         //easeParams: [ 0.1, 0.8 ],
@@ -1712,8 +1714,8 @@ class Lobby extends Phaser.Scene {
   showOtherThumbUp(player) {
     if (isMobile) {
       player.thumbUp.y = -100;
-      player.thumbUp.scaleX = 0.1;
-      player.thumbUp.scaleY = 0.1;
+      player.thumbUp.scaleX = 0.1 * DPR / 3;
+      player.thumbUp.scaleY = 0.1 * DPR / 3;
       player.thumbUp.alpha = 1;
       this.tweens.add({
         targets: player.thumbUp,
@@ -1725,8 +1727,8 @@ class Lobby extends Phaser.Scene {
       this.tweens.add({
         targets: player.thumbUp,
         y: -100,
-        scaleX: 0.5,
-        scaleY: 0.5,
+        scaleX: 0.5 * DPR / 3,
+        scaleY: 0.5 * DPR / 3,
         duration: 300,
         ease: "Back.easeOut",
         //easeParams: [ 0.1, 0.8 ],
