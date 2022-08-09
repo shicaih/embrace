@@ -1753,8 +1753,8 @@ class Lobby extends Phaser.Scene {
     } 
     if (isBigScreen) {
       player.thumbUp.y = -100;
-      player.thumbUp.scaleX = 0.5;
-      player.thumbUp.scaleY = 0.5;
+      player.thumbUp.scaleX = 0.5 * bigScreenRatio;
+      player.thumbUp.scaleY = 0.5 * bigScreenRatio;
       player.thumbUp.alpha = 1;
       this.tweens.add({
         targets: player.thumbUp,
@@ -1766,8 +1766,8 @@ class Lobby extends Phaser.Scene {
       this.tweens.add({
         targets: player.thumbUp,
         y: -100,
-        scaleX: 2.5,
-        scaleY: 2.5,
+        scaleX: this.mainPlayer.thumbUp.scaleX * 2.5,
+        scaleY: this.mainPlayer.thumbUp.scaleX * 2.5,
         duration: 800,
         ease: "Sine.easeOut",
         //easeParams: [ 0.1, 0.8 ],
