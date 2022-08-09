@@ -96,3 +96,4 @@ function randomGuyGenerator() {
   window.location.href = "game.html";
 }
 document.getElementById("generator").onclick = function() {randomGuyGenerator()};
+randomGuyGenerator();

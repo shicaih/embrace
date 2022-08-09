@@ -152,7 +152,7 @@ const assignmentPrefixes = {
 
 let bigscreenLevelCounter;
 let levelIndex = eval(window.sessionStorage.getItem("curLevel"));
-if (phase == 1 && levelIndex != null) {
+if (phase == 1 && levelIndex != null) { // phase is only valid for mobile devices
   gameOptions.worldWidth = gameOptions.puzzleWorldSizes[levelIndex];
   gameOptions.worldHeight = gameOptions.puzzleWorldSizes[levelIndex];
 }
@@ -591,6 +591,7 @@ class Lobby extends Phaser.Scene {
       this.insText.text = "Stars: " + totalStars;
       let starDeg = totalStars / starGoal * 360;
       this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
+      console.log("add a star");
     })
     socket.on("puzzlePlayerAdd", () => {
       puzzlePlayerCount += 1;
@@ -1263,7 +1264,6 @@ class Lobby extends Phaser.Scene {
       loop: -1
     });
 
-
     this.playerCountText = this.createTextObject(
       bigScreenUISettings,
       bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
@@ -1307,7 +1307,28 @@ class Lobby extends Phaser.Scene {
       "Start",
       UITextType.button
     );
-
+    bigscreenLevelCounter = levelIndex ? levelIndex : 0;
+    if (levelIndex) {
+      this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
+      this.bgWheelBW
+      .setOrigin(0.5, 0.5)
+      .setDepth(-99)
+      .setScale(5 * (gameOptions.worldWidth / WORLD_SIZE) * (648 / 1080))
+      .setScrollFactor(1);
+      this.bgWheel.setDepth(-97);
+      this.QR.setVisible(false);
+      this.QR.isVisible = false;
+      this.toggleQR.textObject.text = "Show Code";
+      this.insText.text = "Stars: " + stars;
+      starGoal = playersCount * STAR_PER_PLAYER;
+      this.playerCountText.setVisible(false);
+      this.puzzleCountText.setDepth(2000);
+      this.progressBar = this.add.graphics();
+      this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
+      this.progressBar.slice(0, 0, this.bgWheel.width * 5 * 0.5 * (gameOptions.worldWidth / WORLD_SIZE), 0, 0, false);
+      this.progressBar.x = gameOptions.worldWidth / 2;
+      this.progressBar.y = gameOptions.worldHeight / 2;
+    }
     this.portal.setInteractive().on("pointerdown", (pointer) => {
       stars = 0;
       bigscreenLevelCounter += 1;
@@ -1315,7 +1336,9 @@ class Lobby extends Phaser.Scene {
         if (bigscreenLevelCounter === gameOptions.nLevel) {
           this.portal.textObject.text = "Report";
         }
-        this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
+        if (!this.bgWheelBW) {
+          this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
+        }
         this.bgWheelBW
         .setOrigin(0.5, 0.5)
         .setDepth(-99)
@@ -1553,7 +1576,7 @@ class Lobby extends Phaser.Scene {
       playerContainer.getAt(1).setVisible(false);
       playerContainer.getAt(2).setVisible(false);
       playerContainer.getAt(3).setVisible(false);
-      //playerContainer.setScale(0.5);
+      playerContainer.setScale(0.5);
     }
     player.gameObject = playerContainer;
     console.log("createNewPlayer, uuid is " + player.uuid);
