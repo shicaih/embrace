@@ -1307,7 +1307,7 @@ class Lobby extends Phaser.Scene {
       "Start",
       UITextType.button
     );
-    levelIndex = window.sessionStorage.gettItem("levelIndex");
+    levelIndex = window.sessionStorage.getItem("levelIndex");
     bigscreenLevelCounter = levelIndex ? levelIndex : 0;
     if (levelIndex) {
       bigscreenLevelCounter = levelIndex;
@@ -1330,7 +1330,6 @@ class Lobby extends Phaser.Scene {
       this.insText.text = "Stars: " + stars;
       starGoal = playersCount * STAR_PER_PLAYER;
       this.playerCountText.setVisible(false);
-      this.puzzleCountText.setDepth(2000);
       this.progressBar = this.add.graphics();
       this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
       this.progressBar.slice(0, 0, this.bgWheel.width * 5 * 0.5 * (gameOptions.worldWidth / WORLD_SIZE), 0, 0, false);
