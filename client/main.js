@@ -1309,6 +1309,7 @@ class Lobby extends Phaser.Scene {
     );
     levelIndex = window.sessionStorage.getItem("levelIndex");
     bigscreenLevelCounter = levelIndex ? levelIndex : 0;
+    console.log(levelIndex);
     if (levelIndex) {
       bigscreenLevelCounter = levelIndex;
       if (bigscreenLevelCounter === gameOptions.nLevel) {
