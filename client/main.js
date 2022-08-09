@@ -1274,18 +1274,14 @@ class Lobby extends Phaser.Scene {
       bigScreenUISettings.buttonWidth * 0.75,
     )
 
-    this.puzzleCountText = this.add.text(
-        gameOptions.viewportWidth - 100 * DPR  - 200 * DPR / 2,
-        gameOptions.viewportHeight - 100 * DPR,
-        "Player: " + puzzlePlayerCount,
-        {
-          fontFamily: gameOptions.playerTextFont,
-          fontSize: 32 * DPR,
-          fixedWidth: 200 * DPR,
-          color: "#000000",
-          align: "center",
-        }
-    );
+    this.puzzleCountText = this.createTextObject(
+      bigScreenUISettings,
+      bigScreenUISettings.width - (bigScreenUISettings.canvasHorizontalMargin + bigScreenUISettings.buttonWidth / 2),
+      bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 3 + bigScreenUISettings.buttonHeight * 2 + bigScreenUISettings.regularText.fontSize * 1.5),
+      "Players: " + playersCount,
+      UITextType.regular,
+      bigScreenUISettings.buttonWidth * 0.75,
+    )
 
     // puzzle portal
     this.toggleQR = this.createUIButton(
@@ -1403,7 +1399,7 @@ class Lobby extends Phaser.Scene {
     this.bgWheel.setDepth(-99);
     this.insText.setDepth(-99);
     this.playerCountText.setDepth(2000);
-    this.puzzleCountText.setVisible(false);
+    //this.puzzleCountText.setVisible(false);
     this.setButtonDepth(this.toggleQR, 2000);
     this.setButtonDepth(this.portal, 2000);
     console.log("UI finished");
