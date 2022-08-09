@@ -1,5 +1,3 @@
-import { default as shuffle } from "./scripts/utility.js";
-
 let settings;
 fetch("./settings.json")
   .then((response) => {
@@ -19,24 +17,16 @@ var inited = false;
 var playersCount = 0;
 var puzzlePlayerCount = 0;
 var stars;
-let bigScreenWorldWidth, bigScreenWorldHeight;
-let bigScreenRatio = DPR;
+let bigScreenWorldWidth, bigScreenWorldHeight, bigScreenRatio;
 let starGoal;
 let isMobile = clientType === 1;
 let isBigScreen = clientType === 0;
 let isLobby = phase === 0;
 
 if (isBigScreen) {
-  if (innerWidth > innerHeight) {
-    bigScreenWorldHeight = WORLD_SIZE;
-    bigScreenWorldWidth = innerWidth / innerHeight * WORLD_SIZE;
-  } else {
-    bigScreenWorldWidth = WORLD_SIZE;
-    bigScreenWorldHeight = innerHeight / innerWidth * WORLD_SIZE;
-  }
   bigScreenWorldWidth = innerWidth * DPR;
   bigScreenWorldHeight = innerHeight * DPR;
-  
+  bigScreenRatio = bigScreenWorldWidth / WORLD_SIZE;
 }
 
 const gameOptions = {
@@ -162,7 +152,7 @@ const assignmentPrefixes = {
 
 let bigscreenLevelCounter;
 let levelIndex = eval(window.sessionStorage.getItem("curLevel"));
-if (levelIndex != null) {
+if (phase == 1 && levelIndex != null) {
   gameOptions.worldWidth = gameOptions.puzzleWorldSizes[levelIndex];
   gameOptions.worldHeight = gameOptions.puzzleWorldSizes[levelIndex];
 }
@@ -181,7 +171,6 @@ class MainPlayer {
     this._star = val;
     if (this.starUI) this.starUI.text = this._star;
   }
-
   get star() {
     return this._star;
   }
@@ -1228,9 +1217,9 @@ class Lobby extends Phaser.Scene {
     this.socket.emit("admin");
 
     this.bigscreenLeft = this.add.image(0, gameOptions.worldHeight, 'bigscreenLeft');
-    this.bigscreenLeft.setOrigin(0, 1).setScale(bigScreenRatio);
+    this.bigscreenLeft.setOrigin(0, 1).setScale(DPR);
     this.bigscreenRight = this.add.image(gameOptions.worldWidth, 0, "bigscreenRight");
-    this.bigscreenRight.setOrigin(1, 0).setScale(bigScreenRatio);
+    this.bigscreenRight.setOrigin(1, 0).setScale(DPR);
     // let's compose a circle
     this.insText = this.createTextObject(
       bigScreenUISettings,
@@ -1285,13 +1274,13 @@ class Lobby extends Phaser.Scene {
     )
 
     this.puzzleCountText = this.add.text(
-        gameOptions.viewportWidth - 100 * bigScreenRatio  - 200 * bigScreenRatio / 2,
-        gameOptions.viewportHeight - 100 * bigScreenRatio,
+        gameOptions.viewportWidth - 100 * DPR  - 200 * DPR / 2,
+        gameOptions.viewportHeight - 100 * DPR,
         "Player: " + puzzlePlayerCount,
         {
           fontFamily: gameOptions.playerTextFont,
-          fontSize: 32 * bigScreenRatio,
-          fixedWidth: 200 * bigScreenRatio,
+          fontSize: 32 * DPR,
+          fixedWidth: 200 * DPR,
           color: "#000000",
           align: "center",
         }
@@ -1463,19 +1452,13 @@ class Lobby extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", (pointer, localX, localY, event) => {
           console.log('TTTTint')
-          
          newPlayerWheel.setScale(0.9);
          newPlayerWheel.wheelMask.setAlpha(0.2);
-         
-         
          setTimeout(()=> {
            newPlayerWheel.setScale(1);
            newPlayerWheel.wheelMask.setAlpha(0);
          }, 250);
         })
-    if (isBigScreen) {
-      newPlayerWheel.setScale(0.5);
-    }
     var tap = this.rexGestures.add.tap(newPlayerWheel, {
       // enable: true,
       // bounds: undefined,
@@ -1555,12 +1538,6 @@ class Lobby extends Phaser.Scene {
     smile.canReveal = true;
     player.thumbUp = thumbUp;
     player.smile = smile;
-    if (!isMobile) {
-      rrec.setVisible(false);
-      text.setVisible(false);
-      icon.setVisible(false);
-    }
-
     let playerContainer = this.add.container(0, 0, [
       newPlayerWheel,
       rrec,
@@ -1572,6 +1549,12 @@ class Lobby extends Phaser.Scene {
     ]);
     playerContainer.setDepth(25);
     playerContainer.setPosition(player.x, player.y);
+    if (isBigScreen) {
+      playerContainer.rrec.setVisible(false);
+      playerContainer.text.setVisible(false);
+      playerContainer.icon.setVisible(false);
+      playerContainer.setScale(0.5);
+    }
     player.gameObject = playerContainer;
     console.log("createNewPlayer, uuid is " + player.uuid);
   }
