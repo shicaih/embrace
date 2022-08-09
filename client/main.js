@@ -1766,8 +1766,8 @@ class Lobby extends Phaser.Scene {
       this.tweens.add({
         targets: player.thumbUp,
         y: -100,
-        scaleX: player.thumbUp.scaleX * 2.5,
-        scaleY: player.thumbUp.scaleX * 2.5,
+        scaleX: player.thumbUp.scaleX * 5,
+        scaleY: player.thumbUp.scaleX * 5,
         duration: 800,
         ease: "Sine.easeOut",
         //easeParams: [ 0.1, 0.8 ],
