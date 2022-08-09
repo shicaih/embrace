@@ -9,8 +9,8 @@ fetch("./settings.json")
   });
 const DPR = window.devicePixelRatio; //window.devicePixelRatio;
 const WORLD_SIZE = 8000;
-const WORLD_SIZE_Height = 8000 * (939/1680) // 939/1680 is the ratio of my computer
-const STAR_PER_PLAYER = 15;
+const WORLD_SIZE_Height = 8000 * (1080/1920) // 939/1680 is the ratio of my computer
+const STAR_PER_PLAYER = 10;
 
 var iconFrameNames;
 var inited = false;
