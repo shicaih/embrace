@@ -9,7 +9,6 @@ fetch("./settings.json")
   .then((data) => {
     settings = data;
   });
-console.log("fetch async test");
 const DPR = window.devicePixelRatio; //window.devicePixelRatio;
 const WORLD_SIZE = 8000;
 const WORLD_SIZE_Height = 8000 * (939/1680) // 939/1680 is the ratio of my computer
@@ -54,7 +53,7 @@ const gameOptions = {
     "#5482cc",
     "#7755b5",
   ],
-  nLevel: 3,
+  nLevel: 1,
   puzzleWorldSizes: [4000, 4000, 4000],
   colorMapping: {
     music: 0xcc3f8d,
@@ -98,6 +97,7 @@ const gameOptions = {
   confettiY: 120 * DPR,
   selectWheelOffset: 30 * DPR,
 };
+
 const bigScreenUISettings = {
   width: bigScreenWorldWidth,
   height: bigScreenWorldHeight,
@@ -125,6 +125,11 @@ const bigScreenUISettings = {
   buttonColor: 0x946854,
   buttonHoverColor: 0xA48171,
 };
+
+const mobileUISettings = {
+
+};
+
 const UITextType = {
   title: "titleText",
   regular: "regularText",
@@ -136,7 +141,8 @@ var puzzleOptions = {
   points: [],
   expectedPlayerIds: [], // 2d array
 };
-let culturalAspectEmojiMap = {
+
+const culturalAspectEmojiMap = {
   music: "🎧",
   food: "🍴",
   hobby: "⏲",
@@ -145,7 +151,7 @@ let culturalAspectEmojiMap = {
   home: "🏠",
 };
 
-let assignmentPrefixes = {
+const assignmentPrefixes = {
   "food": "Find a person \nwho likes \n",
   "music": "Find a person \nwho likes \n",
   "hobby": "Find a person \nwho likes \n",
@@ -153,6 +159,7 @@ let assignmentPrefixes = {
   "ethnicity": "Find a person who's \n",
   "home": "Find a person \nwho's from \n",
 } 
+
 let bigscreenLevelCounter;
 let levelIndex = eval(window.sessionStorage.getItem("curLevel"));
 if (levelIndex != null) {
@@ -356,7 +363,6 @@ class Lobby extends Phaser.Scene {
     this.input.setTopOnly(false);
   }
 
-  // main game loop
   create() {
     iconFrameNames = this.anims.generateFrameNames("cultureIcon", {
       start: 1,
@@ -376,7 +382,7 @@ class Lobby extends Phaser.Scene {
       window.sessionStorage.setItem("scores", [1, 1, 1, 1, 1, 1]);
     }
     
-    // ******************** START of Phaser Mobile Scene Initialising ********************
+    //#region ******************** START of Phaser Mobile Scene Initialising ********************
     if (isMobile) {
       // -----------------READ DATA FROM SESSIONSTORAGE-----------------
       // array of cultures player chose others and specify their own answer
@@ -396,7 +402,7 @@ class Lobby extends Phaser.Scene {
       }
       let scores = window.sessionStorage.getItem("scores").split(",");
 
-      // -----------------create the mainPlayer object and set up the physics-----------------
+      // ----------------- create the mainPlayer object and set up the physics -----------------
       // generate the custom texture
       this.genWheelTexture(scores, gameOptions.wheelRadius, "userWheel", true);
       let mainPlayerWheel = this.add.image(0, 0, "userWheel");
@@ -508,11 +514,10 @@ class Lobby extends Phaser.Scene {
       );
       this.cameras.main.startFollow(this.mainPlayer.gameObject);
     }
-    // ******************** END of Phaser Mobile Scene Initialising ********************
+    //#endregion ******************** END of Phaser Mobile Scene Initialising ********************
 
-    // ******************** NETWORKING ********************
+    //#region ******************** NETWORKING ********************
     let socket = io.connect(`${config.server.url.replace(/\/+$/, '')}:${config.server.port}`);
-
     this.socket = socket;
     socket.phase = phase;
 
@@ -597,7 +602,6 @@ class Lobby extends Phaser.Scene {
       this.insText.text = "Stars: " + totalStars;
       let starDeg = totalStars / starGoal * 360;
       this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
-      console.log(Phaser.Math.DegToRad(starDeg));
     })
     socket.on("puzzlePlayerAdd", () => {
       puzzlePlayerCount += 1;
@@ -607,6 +611,7 @@ class Lobby extends Phaser.Scene {
       puzzlePlayerCount -= 1;
       this.puzzleCountText.text = "Players: " + puzzlePlayerCount;
     })
+    //#endregion
 
     // create UI
     this.createUI();
