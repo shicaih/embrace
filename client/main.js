@@ -591,6 +591,7 @@ class Lobby extends Phaser.Scene {
       this.insText.text = "Stars: " + totalStars;
       let starDeg = totalStars / starGoal * 360;
       this.progressBar.slice(0, 0, this.bgWheel.width * 2.5, 0, Phaser.Math.DegToRad(starDeg), false);
+      window.sessionStorage.setItem("stars", stars);
       console.log("add a star");
     })
     socket.on("puzzlePlayerAdd", () => {
@@ -1307,10 +1308,13 @@ class Lobby extends Phaser.Scene {
       "Start",
       UITextType.button
     );
+    this.portal.textObject.text = "Start";
     levelIndex = eval(window.sessionStorage.getItem("levelIndex"));
     bigscreenLevelCounter = levelIndex ? levelIndex : 0;
     console.log(levelIndex);
     if (levelIndex) {
+      let starValue = eval(window.sessionStorage.getItem("stars"));
+      stars = starValue ? starValue : 0;
       bigscreenLevelCounter = levelIndex;
       if (bigscreenLevelCounter === gameOptions.nLevel) {
         this.portal.textObject.text = "Report";
@@ -1392,7 +1396,7 @@ class Lobby extends Phaser.Scene {
       }
     });
 
-    this.portal.textObject.text = "Start";
+    
     this.QR.setDepth(2000);
     this.bgWheel.setDepth(-99);
     this.insText.setDepth(-99);
