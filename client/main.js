@@ -1307,7 +1307,7 @@ class Lobby extends Phaser.Scene {
       "Start",
       UITextType.button
     );
-    levelIndex = window.sessionStorage.getItem("levelIndex");
+    levelIndex = eval(window.sessionStorage.getItem("levelIndex"));
     bigscreenLevelCounter = levelIndex ? levelIndex : 0;
     console.log(levelIndex);
     if (levelIndex) {
