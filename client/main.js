@@ -1307,8 +1307,16 @@ class Lobby extends Phaser.Scene {
       "Start",
       UITextType.button
     );
+    levelIndex = window.sessionStorage.gettItem("levelIndex");
     bigscreenLevelCounter = levelIndex ? levelIndex : 0;
     if (levelIndex) {
+      bigscreenLevelCounter = levelIndex;
+      if (bigscreenLevelCounter === gameOptions.nLevel) {
+        this.portal.textObject.text = "Report";
+      }
+      if (bigscreenLevelCounter > gameOptions.nLevel) {
+        this.portal.textObject.text = "Reset";
+      }
       this.bgWheelBW = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheelBW");
       this.bgWheelBW
       .setOrigin(0.5, 0.5)
@@ -1332,6 +1340,7 @@ class Lobby extends Phaser.Scene {
     this.portal.setInteractive().on("pointerdown", (pointer) => {
       stars = 0;
       bigscreenLevelCounter += 1;
+      window.sessionStorage.setItem("levelIndex", bigscreenLevelCounter);
       if (bigscreenLevelCounter <= gameOptions.nLevel){
         if (bigscreenLevelCounter === gameOptions.nLevel) {
           this.portal.textObject.text = "Report";
