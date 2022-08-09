@@ -1553,7 +1553,7 @@ class Lobby extends Phaser.Scene {
       playerContainer.getAt(1).setVisible(false);
       playerContainer.getAt(2).setVisible(false);
       playerContainer.getAt(3).setVisible(false);
-      playerContainer.setScale(0.5);
+      //playerContainer.setScale(0.5);
     }
     player.gameObject = playerContainer;
     console.log("createNewPlayer, uuid is " + player.uuid);
