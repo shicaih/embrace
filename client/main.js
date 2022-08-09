@@ -1550,9 +1550,9 @@ class Lobby extends Phaser.Scene {
     playerContainer.setDepth(25);
     playerContainer.setPosition(player.x, player.y);
     if (isBigScreen) {
-      playerContainer.rrec.setVisible(false);
-      playerContainer.text.setVisible(false);
-      playerContainer.icon.setVisible(false);
+      playerContainer.getAt(1).setVisible(false);
+      playerContainer.getAt(2).setVisible(false);
+      playerContainer.getAt(3).setVisible(false);
       playerContainer.setScale(0.5);
     }
     player.gameObject = playerContainer;
