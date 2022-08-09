@@ -1591,6 +1591,7 @@ class Lobby extends Phaser.Scene {
       playerContainer.getAt(1).setVisible(false);
       playerContainer.getAt(2).setVisible(false);
       playerContainer.getAt(3).setVisible(false);
+      playerContainer.getAt(5).setScale((1 * DPR) / 3 * bigScreenRatio);
       playerContainer.setScale(0.5);
     }
     player.gameObject = playerContainer;
@@ -1671,8 +1672,8 @@ class Lobby extends Phaser.Scene {
       this.tweens.add({
         targets: this.mainPlayer.thumbUp,
         y: -100,
-        scaleX: 0.5,
-        scaleY: 0.5,
+        scaleX: this.mainPlayer.thumbUp.scaleX * 0.5,
+        scaleY: this.mainPlayer.thumbUp.scaleY * 0.5,
         duration: 300,
         ease: "Back.easeOut",
         //easeParams: [ 0.1, 0.8 ],
