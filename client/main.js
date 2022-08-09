@@ -1388,6 +1388,8 @@ class Lobby extends Phaser.Scene {
       }
       else {
         this.socket.emit("reset");
+        window.sessionStorage.removeItem("stars");
+        window.sessionStorage.removeItem("levelIndex");
         window.location.reload();
       }
       if (this.timer1 !== null) {
