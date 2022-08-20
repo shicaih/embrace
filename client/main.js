@@ -509,8 +509,7 @@ class Lobby extends Phaser.Scene {
     let socket = io.connect(`${config.server.url.replace(/\/+$/, '')}:${config.server.port}`);
     this.socket = socket;
     socket.phase = phase;
-
-    socket.emit("init", {
+    let initInfo = {
       phase: phase,
       info: mainPlayerInfo,
       star: window.sessionStorage.getItem("star"),
@@ -520,7 +519,10 @@ class Lobby extends Phaser.Scene {
       lobbyNumber: window.sessionStorage.getItem("lobbyNumber"),
       curLevel: window.sessionStorage.getItem("curLevel"),
       clientType: clientType,
-    });
+    };
+
+    socket.emit("init", initInfo);
+    console.log(initInfo);
     socket.on("uuid", (data) => {
       window.sessionStorage.setItem("uuid", data);
       this.mainPlayer.uuid = data;
