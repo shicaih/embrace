@@ -238,20 +238,14 @@ class Lobby extends Phaser.Scene {
     this.load.plugin(
       "rexroundrectangleplugin", 
       "./plugins/rexroundrectangleplugin.min.js", true);
-    this.load.plugin(
-      "rexwebfontloaderplugin",
-      "./plugins/rexwebfontloaderplugin.min.js", true);
-    this.load.rexWebFont({
-      google: {
-        families:["Nunito"],
-      }
-    })
     this.load.scenePlugin(
       "rexgesturesplugin",
       "./plugins/rexgesturesplugin.min.js",
       "rexGestures",
       "rexGestures"
     );
+    // font
+    this.load.addFile(new WebFontFile(this.load, 'Nunito'));
     // art asset
     this.load.atlas(
       "anim",
