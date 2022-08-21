@@ -36,6 +36,6 @@ class WebFontFile extends Phaser.Loader.File
                 throw new Error('Unsupported font service')
         }
 
-        WebFontLoader.load(config)
+        WebFont.load(config)
     }
 }
