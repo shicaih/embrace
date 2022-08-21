@@ -1,6 +1,4 @@
-
-
-export default class WebFontFile extends Phaser.Loader.File
+class WebFontFile extends Phaser.Loader.File
 {
     /**
      * @param {Phaser.Loader.LoaderPlugin} loader
