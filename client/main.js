@@ -8,7 +8,7 @@ fetch("./settings.json")
     settings = data;
   });
 const DPR = window.devicePixelRatio; //window.devicePixelRatio;
-const WORLD_SIZE = 10000;
+const WORLD_SIZE = 12000;
 const WORLD_SIZE_Height = WORLD_SIZE * (1080/1920) // 939/1680 is the ratio of my computer
 const STAR_PER_PLAYER = 10;
 
