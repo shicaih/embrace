@@ -1,5 +1,5 @@
 pageIndexMap = {
-    
+
 }
 const getPageName = () => {
     let url = window.location.href;
@@ -21,7 +21,7 @@ let myStorage = window.sessionStorage;
 console.log(myStorage);
 let formName = myStorage.getItem("forms").split(",")[FORMINDEX];
 console.log(formName);
-let nameInput = document.getElementById("mainInput");
+let nameInput = document.getElementById("otherInput");
 nameInput.oninput = (event) => {
   let data = event.target.value.trim();
   if (data.length > 10) {
