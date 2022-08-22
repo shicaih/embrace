@@ -95,10 +95,11 @@
     <script>
       const FORMINDEX = 1;
       const getPageName = () => {
-        let url = window.location.href;
+        let url = window.location.pathname;
         let pageName = url.split("/").pop();
         return pageName;
       };
+      console.log(getPageName());
       console.log(document.location);
       console.log(document.URL);
       console.log(document.documentURI);
