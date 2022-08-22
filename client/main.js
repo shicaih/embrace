@@ -8,8 +8,8 @@ fetch("./settings.json")
     settings = data;
   });
 const DPR = window.devicePixelRatio; //window.devicePixelRatio;
-const WORLD_SIZE = 8000;
-const WORLD_SIZE_Height = 8000 * (1080/1920) // 939/1680 is the ratio of my computer
+const WORLD_SIZE = 10000;
+const WORLD_SIZE_Height = WORLD_SIZE * (1080/1920) // 939/1680 is the ratio of my computer
 const STAR_PER_PLAYER = 10;
 
 var iconFrameNames;
@@ -1226,7 +1226,7 @@ class Lobby extends Phaser.Scene {
     this.bigscreenLeft.setOrigin(0, 1).setScale(DPR);
     this.bigscreenRight = this.add.image(gameOptions.worldWidth, 0, "bigscreenRight");
     this.bigscreenRight.setOrigin(1, 0).setScale(DPR);
-    // let's compose a circle
+
     this.insText = this.createTextObject(
       bigScreenUISettings,
       bigScreenUISettings.width / 2,
@@ -1592,7 +1592,7 @@ class Lobby extends Phaser.Scene {
       playerContainer.getAt(2).setVisible(false);
       playerContainer.getAt(3).setVisible(false);
       playerContainer.getAt(5).setScale(DPR / 3 * bigScreenRatio);
-      playerContainer.setScale(0.5);
+      playerContainer.setScale(bigScreenRatio);
     }
     player.gameObject = playerContainer;
     console.log("createNewPlayer, uuid is " + player.uuid);
