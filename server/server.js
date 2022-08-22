@@ -2,7 +2,7 @@
 import { default as config } from "./config.js";
 import { shuffle } from "./utility.js";
 import { v4 as uuidGen } from "uuid";
-import * as fileSystem  from "browserify-fs";
+const fs = require("fs");
 // server
 import { createServer } from "http";
 var server = createServer();
@@ -1110,7 +1110,7 @@ io.sockets.on("connection", function (socket) {
     console.log(bigscreenReportData);
     socket.emit("bigscreenReport", bigscreenReportData);
     let data = JSON.stringify(allPlayers);
-    fileSystem.writeFile(`./${Date.getTime()}.json`, data, err=>{
+    fs.writeFile(`./historyData/${Date.getTime()}.json`, data, err=>{
       if(err){
         console.log("Error writing file" ,err)
       } else {
