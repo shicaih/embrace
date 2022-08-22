@@ -1,77 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>Embrace Lobby</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="this is about cultural humility" />
     <link
-            id="favicon"
-            rel="icon"
-            href="https://glitch.com/edit/favicon-app.ico"
-            type="image/x-icon" />
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
     <!-- link to arcade style font -->
     <link
-            href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
-            rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
     <!-- link to stylesheet -->
-    <link
-            rel="stylesheet"
-            href="/styles/bigscreen.css"/>
+    <link rel="stylesheet" href="/styles/bigscreen.css" />
     <!-- link to Phaser CDN -->
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
     <!-- link to WebSocket CDN -->
     <script
-            src="https://cdn.socket.io/4.4.1/socket.io.min.js"
-            integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
-            crossorigin="anonymous"
+      src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+      integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+      crossorigin="anonymous"
     ></script>
+    <!-- link to WebFontLoader CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+    <!-- WebFontFile Loader for Phaser -->
+    <script src="./scripts/WebFontFile.js"></script>
     <script>
-        var clientType = 0; // 1 stands for mobile devices while 0 stands for big screen.
-        var phase = 0; // 0 stands for lobby process, 1 stands for puzzle process.
-        const innerWidth = window.innerWidth;
-        const innerHeight = window.innerHeight;
-        console.log(`width: ${width}, height: ${height}`) 
+      var clientType = 0; // 1 stands for mobile devices while 0 stands for big screen.
+      var phase = 0; // 0 stands for lobby process, 1 stands for puzzle process.
+      const innerWidth = window.innerWidth;
+      const innerHeight = window.innerHeight;
+      console.log(`width: ${width}, height: ${height}`);
     </script>
-</head>
-<body class="index-body">
-<image class="bg-top-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigRight.svg?v=1650573787709"></image>
-<image class="bg-bottom-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigLeft.svg?v=1650573790728"></image>
-<div class="section">
-    <div class="cultureText">
-        <h1>
-            CULTURE
-        </h1>
+  </head>
+  <body class="index-body">
+    <image
+      class="bg-top-fix"
+      src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigRight.svg?v=1650573787709"
+    ></image>
+    <image
+      class="bg-bottom-fix"
+      src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/bigLeft.svg?v=1650573790728"
+    ></image>
+    <div class="section">
+      <div class="cultureText">
+        <h1>CULTURE</h1>
         <div class="line"></div>
         <div class="zigzag">
-            <p style="text-align: right">
-                <br /><text
-                    style="color: #a42894; display: inline; font-weight: 600"
-            >small</text
+          <p style="text-align: right">
+            <br /><text
+              style="color: #a42894; display: inline; font-weight: 600"
+              >small</text
             >
-                or
-                <text style="color: #a42894; display: inline; font-weight: 600"
-                >large</text
-                >
-            </p>
-            <p>continously <text class="emText">evolving</text></p>
-            <p style="text-align: right">
-                way of
-                <text style="color: #a42894; display: inline; font-weight: 600"
-                >life</text
-                >
-            </p>
+            or
+            <text style="color: #a42894; display: inline; font-weight: 600"
+              >large</text
+            >
+          </p>
+          <p>continously <text class="emText">evolving</text></p>
+          <p style="text-align: right">
+            way of
+            <text style="color: #a42894; display: inline; font-weight: 600"
+              >life</text
+            >
+          </p>
         </div>
-    </div>
-    <div class="gif">
+      </div>
+      <div class="gif">
         <image style="width: 600px" src="assets/culture.gif"></image>
+      </div>
+      <button onclick="window.location.href='onboarding2.html'">Next</button>
     </div>
-    <button onclick="window.location.href='onboarding2.html'">
-        Next
-    </button>
-
-
-</div>
-</body>
+  </body>
 </html>

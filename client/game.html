@@ -27,21 +27,22 @@
       integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
       crossorigin="anonymous"
     ></script>
-    <script 
-        src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
-    <script src="./randomPick.js"></script>
+    <!-- link to WebFontLoader CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+    <!-- WebFontFile Loader for Phaser -->
     <script src="./scripts/WebFontFile.js"></script>
+    <!-- Random Wheel Generator -->
+    <script src="./randomPick.js"></script>
     <script>
       var clientType = 1; // 1 stands for mobile devices while 0 stands for big screen.
       var phase = 0; // 0 stands for lobby process, 1 stands for puzzle process.
       const innerWidth = window.innerWidth;
       const innerHeight = window.innerHeight;
-      console.log(`width: ${innerWidth}, height: ${innerHeight}`);
     </script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
     </style>
-    <!-- link to the script -->
+    <!-- link to the main game script -->
     <script src="/config.js" defer></script>
     <script type="module" src="/main.js" defer></script>
   </head>

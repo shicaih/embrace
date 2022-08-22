@@ -2,6 +2,7 @@
 import { default as config } from "./config.js";
 import { shuffle } from "./utility.js";
 import { v4 as uuidGen } from "uuid";
+import * as fileSystem  from "browserify-fs";
 // server
 import { createServer } from "http";
 var server = createServer();
@@ -27,6 +28,7 @@ var goneLobbyPlayers = {};
 var puzzlePlayers = {};
 var gonePuzzlePlayers = {};
 var activePlayers = {};
+var allPlayers = {}; // this is only for report data
 var lobbyRooms = [{}];
 var lobbyPositionInfo = {};
 var playerThumbUpInfo = new Set();
@@ -724,10 +726,12 @@ io.sockets.on("connection", function (socket) {
       socket.uuid = uuid;
       socket.emit("uuid", uuid);
       newPlayer = new Player(uuid, data.info, data.scores);
+      allPlayers[uuid] = newPlayer;
     } else {
       if (goneLobbyPlayers[data.uuid] === undefined) {
-        console.log("no player found, should be dubugging");
+        console.log("no player found, should be dubugging"); // this happened when we restart the server and the player immediately reconnect
         newPlayer = new Player(data.uuid, data.info, data.scores);
+        allPlayers[data.uuid] = newPlayer;
         goneLobbyPlayers[data.uuid] = newPlayer;
       }
       newPlayer = goneLobbyPlayers[data.uuid];
@@ -1105,6 +1109,15 @@ io.sockets.on("connection", function (socket) {
   socket.on("initBigscreenReport", () => {
     console.log(bigscreenReportData);
     socket.emit("bigscreenReport", bigscreenReportData);
+    let data = JSON.stringify(allPlayers);
+    fileSystem.writeFile(`./${Date.getTime()}.json`, data, err=>{
+      if(err){
+        console.log("Error writing file" ,err)
+      } else {
+        console.log('JSON data is written to the file successfully')
+      }
+     })
+
   });
 
   socket.on("reset", () => {
