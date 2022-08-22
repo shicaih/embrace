@@ -5,21 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Embrace Your Identities</title>
-    <link rel="stylesheet" href="styles/survey.css" />
+    <link
+      id="favicon"
+      rel="icon"
+      href="../assets/EmbraceIcon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../styles/survey.css" />
   </head>
 
   <body>
     <div class="section">
-      <image
-        class="bg-bottom-fix"
-        src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"
-      ></image>
+      <image class="bg-bottom-fix" src="../assets/Decor - Survey.png"></image>
       <!-- Create Form -->
       <form
         name="location"
         id="locationForm"
         onsubmit="return SubmitForm()"
-        action="./HTMLs/6ethnicity.html"
+        action="./6ethnicity.html"
         method="get"
       >
         <!-- Details -->
@@ -47,7 +50,12 @@
             <option value="Prefer not to say">Prefer not to say</option>
           </select>
           <!-- choose USA location from dropdown list -->
-          <select name="location" id="usaInput" class="drop" style="display: none">
+          <select
+            name="location"
+            id="usaInput"
+            class="drop"
+            style="display: none"
+          >
             <option value="">Tap to choose your home state</option>
             <option value="Alabama">Alabama</option>
             <option value="Alaska">Alaska</option>
@@ -93,7 +101,9 @@
             <option value="New York">New York</option>
             <option value="North Carolina">North Carolina</option>
             <option value="North Dakota">North Dakota</option>
-            <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+            <option value="Northern Mariana Islands">
+              Northern Mariana Islands
+            </option>
             <option value="Ohio">Ohio</option>
             <option value="Oklahoma">Oklahoma</option>
             <option value="Oregon">Oregon</option>
@@ -105,8 +115,12 @@
             <option value="South Dakota">South Dakota</option>
             <option value="Tennessee">Tennessee</option>
             <option value="Texas">Texas</option>
-            <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
-            <option value="United States Virgin Islands">United States Virgin Islands</option>
+            <option value="United States Minor Outlying Islands">
+              United States Minor Outlying Islands
+            </option>
+            <option value="United States Virgin Islands">
+              United States Virgin Islands
+            </option>
             <option value="Utah">Utah</option>
             <option value="Vermont">Vermont</option>
             <option value="Virginia">Virginia</option>
@@ -117,13 +131,22 @@
             <option value="Wyoming">Wyoming</option>
           </select>
           <!-- choose International from dropdown list -->
-          <select name="location" id="contInput" class="drop" style="display: none">
+          <select
+            name="location"
+            id="contInput"
+            class="drop"
+            style="display: none"
+          >
             <option value="">Tap to choose your region</option>
             <option value="africa" abbr="africa">Africa</option>
             <option value="asia" abbr="asia">Asia</option>
             <option value="europe" abbr="europe">Europe</option>
-            <option value="latin" abbr="latin">Latin America and the Caribbean</option>
-            <option value="northAmerica" abbr="northAmerica">North America</option>
+            <option value="latin" abbr="latin">
+              Latin America and the Caribbean
+            </option>
+            <option value="northAmerica" abbr="northAmerica">
+              North America
+            </option>
             <option value="oceania" abbr="oceania">Oceania</option>
           </select>
           <select id="africaInput" style="display: none" class="drop">
@@ -364,7 +387,17 @@
     </div>
     <!-- this script relates to current form content -->
     <script>
-      let inputIdList = ["otherInput", "usaInput", "contInput", "africaInput", "asiaInput", "europeInput", "latinInput", "oceaniaInput", "northAmericaInput"];
+      let inputIdList = [
+        "otherInput",
+        "usaInput",
+        "contInput",
+        "africaInput",
+        "asiaInput",
+        "europeInput",
+        "latinInput",
+        "oceaniaInput",
+        "northAmericaInput",
+      ];
       let mainInput = document.getElementById("mainInput");
       let otherInput = document.getElementById("otherInput");
       let usaInput = document.getElementById("usaInput");
@@ -375,13 +408,15 @@
       let latinInput = document.getElementById("latinInput");
       let oceaniaInput = document.getElementById("oceaniaInput");
       let northAmericaInput = document.getElementById("northAmericaInput");
-      let contInputMapping = {africa: africaInput, 
-                              asia: asiaInput,
-                              europe: europeInput,
-                              latin: latinInput,
-                              oceania: oceaniaInput,
-                              northAmerica: northAmericaInput};
-        
+      let contInputMapping = {
+        africa: africaInput,
+        asia: asiaInput,
+        europe: europeInput,
+        latin: latinInput,
+        oceania: oceaniaInput,
+        northAmerica: northAmericaInput,
+      };
+
       function inputManage(revealList) {
         let hideIdList = [...inputIdList];
         for (let i = 0; i < revealList.length; i++) {
@@ -389,12 +424,12 @@
           document.getElementById(revealList[i]).style.display = "block";
           hideIdList.splice(index, 1);
         }
-        
+
         for (let i = 0; i < hideIdList.length; i++) {
           document.getElementById(hideIdList[i]).style.display = "none";
         }
       }
-      
+
       mainInput.addEventListener("change", (event) => {
         if (mainInput.value === "Other") {
           inputManage(["otherInput"]);
@@ -406,18 +441,15 @@
           inputManage([]);
         }
       });
-      
+
       contInput.addEventListener("change", (event) => {
         if (contInput.value === "") {
           inputManage(["contInput"]);
           return;
         }
         contInputMapping[contInput.value].style.display = "block";
-        inputManage(["contInput", contInput.value+"Input"]);
-      })
-      
-      
-      
+        inputManage(["contInput", contInput.value + "Input"]);
+      });
     </script>
 
     <!-- this script only relates to submit process -->
@@ -436,13 +468,16 @@
           isOther = true;
         } else if (document.getElementById("mainInput").value === "USA") {
           dataEle = document.getElementById("usaInput");
-        } else if (document.getElementById("mainInput").value === "International") {
+        } else if (
+          document.getElementById("mainInput").value === "International"
+        ) {
           if (document.getElementById("contInput").value !== "") {
-            dataEle = document.getElementById(document.getElementById("contInput").value + "Input");
+            dataEle = document.getElementById(
+              document.getElementById("contInput").value + "Input"
+            );
           } else {
             dataEle = document.getElementById("contInput");
           }
-          
         } else {
           dataEle = document.getElementById("mainInput");
         }

@@ -1,5 +1,5 @@
 let settings;
-fetch("./json/settings.json")
+fetch("../json/settings.json")
   .then((response) => {
     console.log("Fetch test");
     return response.json();
@@ -234,13 +234,13 @@ class Lobby extends Phaser.Scene {
     // plugins
     this.load.plugin(
       "rexvirtualjoystickplugin", 
-      "./plugins/rexvirtualjoystickplugin.min.js", true);
+      "../plugins/rexvirtualjoystickplugin.min.js", true);
     this.load.plugin(
       "rexroundrectangleplugin", 
-      "./plugins/rexroundrectangleplugin.min.js", true);
+      "../plugins/rexroundrectangleplugin.min.js", true);
     this.load.scenePlugin(
       "rexgesturesplugin",
-      "./plugins/rexgesturesplugin.min.js",
+      "../plugins/rexgesturesplugin.min.js",
       "rexGestures",
       "rexGestures"
     );
@@ -249,111 +249,111 @@ class Lobby extends Phaser.Scene {
     // art asset
     this.load.atlas(
       "anim",
-      "./assets/anim.png",
-      "./json/anim2.json"
+      "../assets/anim.png",
+      "../json/anim2.json"
     );
     this.load.image(
       "arrowBackward",
-      "./assets/arrowBackward.png"
+      "../assets/arrowBackward.png"
     );
     this.load.image(
       "arrowForward",
-      "./assets/arrowForward.png"
+      "../assets/arrowForward.png"
     );
     this.load.image(
       "BG",
-      "./assets/BG.png"
+      "../assets/BG.png"
     );
     this.load.image(
       "seamlessBG",
-      "./assets/seamlessBG_1000x1000.png"
+      "../assets/seamlessBG_1000x1000.png"
     )
     this.load.image(
       "bgWheel",
-      "./assets/bgWheel.png"
+      "../assets/bgWheel.png"
     )
     this.load.image(
       "bgWheelBW",
-      "./assets/bgWheelBW.png"
+      "../assets/bgWheelBW.png"
     )
     this.load.svg(
       "bigscreenLeft", 
-      "./assets/bigscreenLeft.svg"
+      "../assets/bigscreenLeft.svg"
     );
     this.load.svg(
       "bigscreenRight", 
-      "./assets/bigscreenRight.svg"
+      "../assets/bigscreenRight.svg"
     );
     this.load.atlas(
       "confetti",
-      "./assets/confetti.png",
-      "./json/confetti_GJ.json"
+      "../assets/confetti.png",
+      "../json/confetti_GJ.json"
     );
     this.load.atlas(
       "cultureIcon",
-      "./assets/cultureIcon.png",
-      "./json/icon.json"
+      "../assets/cultureIcon.png",
+      "../json/icon.json"
     );
     this.load.image(
       "ethnicityIcon",
-      "./assets/ethnicityIcon.png"
+      "../assets/ethnicityIcon.png"
     );
     this.load.svg(
       'help1', 
-      "./assets/help1.svg"
+      "../assets/help1.svg"
     );
     this.load.svg(
       'help2', 
-      "./assets/help2.svg"
+      "../assets/help2.svg"
     );
     this.load.svg(
       'help3', 
-      "./assets/help3.svg"
+      "../assets/help3.svg"
     )
     this.load.image(
       "helpIcon",
-      "./assets/helpIcon.svg"
+      "../assets/helpIcon.svg"
     );
     this.load.image(
       "mask",
-      "./assets/mask.png"
+      "../assets/mask.png"
     );
     this.load.image(
       "portal",
-      "./assets/portal.png"
+      "../assets/portal.png"
     );
     this.load.image(
       "QRCode",
-      "./assets/qr-code (4)-bg.png"
+      "../assets/qr-code (4)-bg.png"
     );
     this.load.image(
       "selectWheel",
-      "./assets/selectWheel.png"
+      "../assets/selectWheel.png"
     );
     this.load.image(
       "smile",
-      "./assets/smile.png"
+      "../assets/smile.png"
     );
     this.load.image(
       "starCounterIcon",
-      "./assets/starCounterIcon.png"
+      "../assets/starCounterIcon.png"
     );
     this.load.image(
       "thumbUp",
-      "./assets/thumbUp.png"
+      "../assets/thumbUp.png"
     );
     this.load.image(
       "timerIcon",
-      "./assets/timerIcon.svg"
+      "../assets/timerIcon.svg"
     );
     this.load.image(
       'wheelMask', 
-      './assets/wheelMask.png'
+      '../assets/wheelMask.png'
     );
     this.load.atlas(
         "wrong",
-        "./assets/wrong.png",
-        "./json/wrong.json"
+        "../assets/wrong.png",
+        "../json/wrong.json"
     );
     this.input.setTopOnly(false);
   }
@@ -574,9 +574,9 @@ class Lobby extends Phaser.Scene {
     });
     socket.on("reconnect", (to) => {
       if (to === 0 || phase === 0) {
-        window.location.href = "/HTMLs/game.html";
+        window.location.href = "../HTMLs/game.html";
       } else {
-        window.location.href = "/HTMLs/puzzle.html";
+        window.location.href = "../HTMLs/seek.html";
       }
     });
     socket.on("thumbUp", (thumbUpIdArr) => {
@@ -589,7 +589,7 @@ class Lobby extends Phaser.Scene {
       })
     });
     socket.on("timeUp", () => {
-      window.location.href = "/HTMLs/game.html";
+      window.location.href = "../HTMLs/game.html";
     });
     socket.on("timeUpdate", (time) => {
       this.timerText.text = time;
@@ -1384,7 +1384,7 @@ class Lobby extends Phaser.Scene {
         this.socket.emit("startPuzzle");
       }
       else if (bigscreenLevelCounter === gameOptions.nLevel + 1) {
-        window.open("./HTMLs/bigscreenReport.html");
+        window.open("../HTMLs/bigscreenReport.html");
         this.portal.textObject.text = "Reset";
         this.puzzleCountText.setVisible(false);
         this.playerCountText.setVisible(true);
@@ -1868,7 +1868,7 @@ class Lobby extends Phaser.Scene {
     console.log("Puzzle room number is" + roomNumber);
     console.log("Current level is" + curLevel);
     if (isMobile) {
-      window.location.href = "/HTMLs/puzzle.html";
+      window.location.href = "../HTMLs/seek.html";
     }
   }
 
@@ -2118,12 +2118,12 @@ class Lobby extends Phaser.Scene {
 
   startIns() {
     if (isMobile) {
-      window.location.href = "/PuzzleIns1.html";
+      window.location.href = "../PuzzleIns1.html";
     }
   }
 
   startReport() {
-    window.location.href = "/HTMLs/report.html";
+    window.location.href = "../HTMLs/report.html";
   }
 
   onPuzzleSolved() {

@@ -1,122 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content=
-        "width=device-width, initial-scale=1.0">
-    <title>
-      Embrace Your Identities
-    </title>
-    <link rel="stylesheet" href="styles/survey.css">
-    
-</head>
-  
-<body>
-  <div class="section">  
-    <image class="bg-bottom-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"></image>
-    <!-- Create Form -->
-    <form name="food" id="foodForm" onsubmit="return SubmitForm()" action="./HTMLs/3hobby.html" method="get">
-          <div class="progress">
-            <div class="pblock-fill"></div>
-            <div class="pblock-fill"></div>
-            <div class="pblock-fill"></div>
-            <div class="pblock"></div>
-            <div class="pblock"></div>
-            <div class="pblock"></div>
-            <div class="pblock"></div>
-            <div class="pblock"></div>
-            <div class="pblock"></div>
-          </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embrace Your Identities</title>
+    <link
+      id="favicon"
+      rel="icon"
+      href="../assets/EmbraceIcon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../styles/survey.css" />
+    <script src="../scripts/formControl.js" defer></script>
+  </head>
+
+  <body>
+    <div class="section">
+      <image class="bg-bottom-fix" src="../assets/Decor - Survey.png"></image>
+      <!-- Create Form -->
+      <form
+        name="food"
+        id="foodForm"
+        onsubmit="return SubmitForm()"
+        action="./3hobby.html"
+        method="get"
+      >
+        <div class="progress">
+          <div class="pblock-fill"></div>
+          <div class="pblock-fill"></div>
+          <div class="pblock-fill"></div>
+          <div class="pblock"></div>
+          <div class="pblock"></div>
+          <div class="pblock"></div>
+          <div class="pblock"></div>
+          <div class="pblock"></div>
+          <div class="pblock"></div>
+        </div>
         <!-- Details -->
         <div class="form-control">
           <h2>Food</h2>
-            <h3>What is your favorite cuisine?</h3>
- 
-            <!-- choose food from dropdown list -->
-            <select name="food" id="mainInput" class="drop">
-                  <option value="">Tap to choose your favorite food</option>
-                  <option value="Italian Food">Italian</option>
-                  <option value="Mexican Food">Mexican</option>
-                  <option value="Chinese Food">Chinese</option>
-                  <option value="Regional American Food">Regional American</option>
-                  <option value="Mediterranean Food">Mediterranean</option>
-                  <option value="Japanese Food">Japanese</option>
-                  <option value="Indian Food">Indian</option>
-                  <option value="Fusion Food">Fusion</option>
-                  <option value="Spanish Food">Spanish</option>
-                  <option value="Korean Food">Korean</option>
-                  <option value="Southeast Asia Food">Southeast Asia(Thai, Vietnamese, Malaysian)</option>
-                  <option value="Other">Other...</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
-            </select>
-            <input type="text"
-                   id="otherInput"
-                   placeholder="Please specify here"
-                   style="display: none;">
+          <h3>What is your favorite cuisine?</h3>
+
+          <!-- choose food from dropdown list -->
+          <select name="food" id="mainInput" class="drop">
+            <option value="">Tap to choose your favorite food</option>
+            <option value="Italian Food">Italian</option>
+            <option value="Mexican Food">Mexican</option>
+            <option value="Chinese Food">Chinese</option>
+            <option value="Regional American Food">Regional American</option>
+            <option value="Mediterranean Food">Mediterranean</option>
+            <option value="Japanese Food">Japanese</option>
+            <option value="Indian Food">Indian</option>
+            <option value="Fusion Food">Fusion</option>
+            <option value="Spanish Food">Spanish</option>
+            <option value="Korean Food">Korean</option>
+            <option value="Southeast Asia Food">
+              Southeast Asia(Thai, Vietnamese, Malaysian)
+            </option>
+            <option value="Other">Other...</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+          <input
+            type="text"
+            id="otherInput"
+            placeholder="Please specify here"
+            style="display: none"
+          />
+          <label
+            class="comment"
+            style="color: darkred; display: none"
+            id="lengthIns"
+            >Text length cannot exceed x characters.</label
+          >
+          <!-- the number of x will be decided by formControl.js-->
           <div class="comment">
-            <input type="checkbox" name="notToShow" id="notToShow" value="no">
-            <label for="notToShow" style="display: inline">Don't show this to others</label>
+            <input type="checkbox" name="notToShow" id="notToShow" value="no" />
+            <label for="notToShow" style="display: inline"
+              >Don't show this to others</label
+            >
           </div>
         </div>
-        <button type="submit" value="submit">
-            Next
-        </button>
-    </form>
-        
-  </div>
-  
-    <!-- this script relates to current form content -->
-    <script>
-        let dataEle = document.getElementById('mainInput'); 
-        dataEle.addEventListener("change", (event) => {
-            let otherInput = document.getElementById("otherInput");
-            if(dataEle.value === "Other") {
-              otherInput.style.display = "block";
-            } else {
-              otherInput.style.display = "none";
-            }
-        })
-    </script>
-  
-    <!-- this script only relates to submit process -->
-    <script>
-        const FORMINDEX = 2;
-        let myStorage = window.sessionStorage;
-        console.log(myStorage);
-        let formName = myStorage.getItem('forms').split(',')[FORMINDEX];
-        console.log(formName);
-      
-      
-        function SubmitForm() {
-            let dataEle, isOther = false;
-            if  (document.getElementById("mainInput").value === "Other") {
-                dataEle = document.getElementById("otherInput");
-                isOther = true;
-            } else {
-                dataEle = document.getElementById("mainInput");
-            };
-            let notToShowEle = document.getElementById("notToShow");
-            let data = [];
-            data.push(dataEle.value.trim());
-            data.push(!notToShowEle.checked);
-            data.push(isOther);
-            myStorage.setItem(formName, data);
-            return Validate(dataEle);
-        }
-      
-      
-        function Validate(dataEle) {
-          if (dataEle.value.trim() === "") {
-            window.alert("Please enter your answer.");
-            dataEle.focus();
-            return false;
-          }
-          return true;
-        };
-    </script>
-
-</body>
-  
+        <button type="submit" value="submit">Next</button>
+      </form>
+    </div>
+  </body>
 </html>

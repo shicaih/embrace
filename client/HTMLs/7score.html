@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content=
-        "width=device-width, initial-scale=1.0">
-    <title>
-        Embrace Your Identities
-    </title>
-    <link rel="stylesheet" href="styles/survey.css">
-    
-</head>
-  
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embrace Your Identities</title>
+    <link
+      id="favicon"
+      rel="icon"
+      href="../assets/EmbraceIcon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../styles/survey.css" />
+  </head>
+
+  <body>
     <div class="section-long">
-    <!-- Create Form -->
-    <form name="score" id="scoreForm" onsubmit="return SubmitForm()" action="./HTMLs/8wheel.html">
- 
+      <!-- Create Form -->
+      <form
+        name="score"
+        id="scoreForm"
+        onsubmit="return SubmitForm()"
+        action="./8wheel.html"
+      >
         <!-- Details -->
         <div class="form-control">
-            <div class="progress">
+          <div class="progress">
             <div class="pblock-fill"></div>
             <div class="pblock-fill"></div>
             <div class="pblock-fill"></div>
@@ -31,139 +36,150 @@
             <div class="pblock-fill"></div>
             <div class="pblock"></div>
           </div>
-            <h2>Importance Evaluation</h2>
+          <h2>Importance Evaluation</h2>
           <div class="instruction">
             <p>
-                For this activity, please rate what parts of your identity are most <strong>present</strong> in your life at this moment.
+              For this activity, please rate what parts of your identity are
+              most <strong>present</strong> in your life at this moment.
             </p>
-            <p style="font-weight: bold">
-                  1 - Not at all important
-            </p>
-            <p style="font-weight: bold">
-                  5 - Extremely important
-            </p>
+            <p style="font-weight: bold">1 - Not at all important</p>
+            <p style="font-weight: bold">5 - Extremely important</p>
           </div>
 
- 
-            <!-- choose location from dropdown list -->
-            <label class="category">Music</label>
-            <input type="range"
-                   class="slider"
-                   id="musicP"
-                   placeholder="integer 1-5"
-                   value="3"
-                   min="1"
-                   max="5">
-            <div class="score">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-            </div>
+          <!-- choose location from dropdown list -->
+          <label class="category">Music</label>
+          <input
+            type="range"
+            class="slider"
+            id="musicP"
+            placeholder="integer 1-5"
+            value="3"
+            min="1"
+            max="5"
+          />
+          <div class="score">
+            <span>1</span><span>2</span><span>3</span><span>4</span
+            ><span>5</span>
+          </div>
 
-            <label class="category">Food</label>
-            <input class="slider"
-                   type="range"
-                   inputmode="decimal"
-                   id="foodP"
-                   value="3"
-                   placeholder="integer 1-5"
-                   min="1"
-                   max="5">
-            <div class="score">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-            </div>
-          
-            <label class="category">Hobby</label>
-            <input class="slider"
-                   type="range"
-                   inputmode="decimal"
-                   id="hobbyP"
-                   placeholder="integer 1-5"
-                   value="3"
-                   min="1"
-                   max="5">
-            <div class="score">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-            </div>
-          
-            <label class="category">Home</label>
-            <input class="slider"
-                   type="range"
-                   inputmode="decimal"
-                   id="homeP"
-                   placeholder="integer 1-5"
-                   value="3"
-                   min="1"
-                   max="5">
-            <div class="score">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-            </div>
-          
-            <label class="category">Finances</label>
-            <input class="slider"
-                   type="range"
-                   inputmode="decimal"
-                   id="financesP"
-                   placeholder="integer 1-5"
-                   value="3"
-                   min="1"
-                   max="5">
-            <div class="score">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-            </div>
-          
-            <label class="category">Ethnicity</label>
-            <input class="slider"
-                   type="range"
-                   inputmode="decimal"
-                   id="ethnicityP"
-                   placeholder="integer 1-5"
-                   value="3"
-                   min="1"
-                   max="5">
-            <div class="score">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-            </div>
+          <label class="category">Food</label>
+          <input
+            class="slider"
+            type="range"
+            inputmode="decimal"
+            id="foodP"
+            value="3"
+            placeholder="integer 1-5"
+            min="1"
+            max="5"
+          />
+          <div class="score">
+            <span>1</span><span>2</span><span>3</span><span>4</span
+            ><span>5</span>
+          </div>
 
+          <label class="category">Hobby</label>
+          <input
+            class="slider"
+            type="range"
+            inputmode="decimal"
+            id="hobbyP"
+            placeholder="integer 1-5"
+            value="3"
+            min="1"
+            max="5"
+          />
+          <div class="score">
+            <span>1</span><span>2</span><span>3</span><span>4</span
+            ><span>5</span>
+          </div>
+
+          <label class="category">Home</label>
+          <input
+            class="slider"
+            type="range"
+            inputmode="decimal"
+            id="homeP"
+            placeholder="integer 1-5"
+            value="3"
+            min="1"
+            max="5"
+          />
+          <div class="score">
+            <span>1</span><span>2</span><span>3</span><span>4</span
+            ><span>5</span>
+          </div>
+
+          <label class="category">Finances</label>
+          <input
+            class="slider"
+            type="range"
+            inputmode="decimal"
+            id="financesP"
+            placeholder="integer 1-5"
+            value="3"
+            min="1"
+            max="5"
+          />
+          <div class="score">
+            <span>1</span><span>2</span><span>3</span><span>4</span
+            ><span>5</span>
+          </div>
+
+          <label class="category">Ethnicity</label>
+          <input
+            class="slider"
+            type="range"
+            inputmode="decimal"
+            id="ethnicityP"
+            placeholder="integer 1-5"
+            value="3"
+            min="1"
+            max="5"
+          />
+          <div class="score">
+            <span>1</span><span>2</span><span>3</span><span>4</span
+            ><span>5</span>
+          </div>
         </div>
-        <button type="submit" value="submit">
-            Generate My Wheel
-        </button>
-    </form>
-  <image class="bg-bottom" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Importance.png?v=1650260437877"></image>
-  </div>
+        <button type="submit" value="submit">Generate My Wheel</button>
+      </form>
+      <image
+        class="bg-bottom"
+        src="../assets/Decor - Importance.png"
+      ></image>
+    </div>
     <!-- this script only relates to submit process -->
     <script>
-        function SubmitForm() {
-            myStorage = window.sessionStorage;
-            let featureNames = myStorage.getItem('forms').split(',');
-            let dataEle;
-            let data = [];
-            for (let step = 1; step < featureNames.length; step++) {
-                console.log(featureNames[step]);
-                
-                dataEle = document.getElementById(featureNames[step] + 'P')
-                if (Validate(dataEle) === false) {
-                  return false;
-                };
-            }
-            for (let step = 1; step < featureNames.length; step++) {
-                dataEle = document.getElementById(featureNames[step] + 'P')
-                data.push(dataEle.value.trim());
-            }
-            myStorage.setItem("scores", data);
-            return true;
-        };
-      
-      
-        function Validate(dataEle) {
-            if (dataEle.value === "") {
-                window.alert("Please enter your answer.");
-                dataEle.focus();
-                return false;
-            }
-            return true;
-        };
-    </script>
+      function SubmitForm() {
+        myStorage = window.sessionStorage;
+        let featureNames = myStorage.getItem("forms").split(",");
+        let dataEle;
+        let data = [];
+        for (let step = 1; step < featureNames.length; step++) {
+          console.log(featureNames[step]);
 
-</body>
-  
+          dataEle = document.getElementById(featureNames[step] + "P");
+          if (Validate(dataEle) === false) {
+            return false;
+          }
+        }
+        for (let step = 1; step < featureNames.length; step++) {
+          dataEle = document.getElementById(featureNames[step] + "P");
+          data.push(dataEle.value.trim());
+        }
+        myStorage.setItem("scores", data);
+        return true;
+      }
+
+      function Validate(dataEle) {
+        if (dataEle.value === "") {
+          window.alert("Please enter your answer.");
+          dataEle.focus();
+          return false;
+        }
+        return true;
+      }
+    </script>
+  </body>
 </html>

@@ -1,4 +1,5 @@
-pageIndexMap = {
+const MAX_CHARS = 20;
+const pageIndexMap = {
     "index.html": 0,
     "1music.html": 1,
     "2food.html": 2,
@@ -7,13 +8,24 @@ pageIndexMap = {
     "5location.html": 5,
     "6ethnicity.html": 6,
 }
+// get the name of the html file the script currently running on
 const getPageName = () => {
     let url = window.location.pathname;
     let pageName = url.split("/").pop();
     return pageName;
 }
 const FORMINDEX = pageIndexMap[getPageName()];
-let dataEle = document.getElementById("mainInput");
+
+
+let dataEle = document.getElementById("mainInput"); // the culture value droplist element
+let myStorage = window.sessionStorage; // can be sessionStorage or localStorage
+let formName = myStorage.getItem("forms").split(",")[FORMINDEX]; // key for culture info
+let nameInput = document.getElementById("otherInput");
+console.log(myStorage);
+console.log(formName);
+
+
+// show/hide the other input bar
 dataEle.addEventListener("change", (event) => {
   let otherInput = document.getElementById("otherInput");
   if (dataEle.value === "Other") {
@@ -23,20 +35,21 @@ dataEle.addEventListener("change", (event) => {
   }
 });
 
-
-let myStorage = window.sessionStorage;
-console.log(myStorage);
-let formName = myStorage.getItem("forms").split(",")[FORMINDEX];
-console.log(formName);
-let nameInput = document.getElementById("otherInput");
+// show/hide the tip about text length
 nameInput.oninput = (event) => {
   let data = event.target.value.trim();
-  if (data.length > 10) {
+  let ins = document.getElementById("lengthIns");
+  ins.textContent = `Text length cannot exceed ${MAX_CHARS} characters.`
+  if (data.length > MAX_CHARS) {
     document.getElementById("lengthIns").style.display = "block";
   } else {
     document.getElementById("lengthIns").style.display = "none";
   }
 };
+
+// save the culture info as a list into storage with key as culture name
+// the list will be turned into a string by javascript automatically
+// use split(",") to deserialise 
 function SubmitForm() {
   let dataEle,
     isOther = false;
@@ -55,13 +68,16 @@ function SubmitForm() {
   return Validate(dataEle);
 }
 
+// Validate if the input is: not empty and length not exceeds MAX_CHAR
 function Validate(dataEle) {
+  // alert when no input
   if (dataEle.value.trim() === "") {
     window.alert("Please enter your answer.");
     dataEle.focus();
     return false;
   }
-  if (dataEle.value.trim().length > 10) {
+  // alert when text length exceeds
+  if (dataEle.value.trim().length > MAX_CHARS) {
     window.alert("Nickname length cannot exceed 10 characters.");
     dataEle.focus();
     return false;

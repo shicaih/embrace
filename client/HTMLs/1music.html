@@ -5,22 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Embrace Your Identities</title>
-    <link rel="stylesheet" href="styles/survey.css" />
-    <script src="./scripts/formControl.js" defer></script>
+    <link
+      id="favicon"
+      rel="icon"
+      href="../assets/EmbraceIcon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../styles/survey.css" />
+    <script src="../scripts/formControl.js" defer></script>
   </head>
 
   <body>
     <div class="section">
       <image
         class="bg-bottom-fix"
-        src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"
+        src="../assets/Decor - Survey.png"
       ></image>
       <!-- Create Form -->
       <form
         name="music"
         id="musicForm"
         onsubmit="return SubmitForm()"
-        action="./HTMLs/2food.html"
+        action="./2food.html"
         method="get"
       >
         <!-- Details -->
@@ -67,8 +73,8 @@
             class="comment"
             style="color: darkred; display: none"
             id="lengthIns"
-            >Text length cannot exceed 10 characters.</label
-          >
+            >Text length cannot exceed x characters.</label
+          > <!-- the number of x will be decided by formControl.js-->
           <div class="comment">
             <input type="checkbox" name="notToShow" id="notToShow" value="no" />
             <label for="notToShow" style="display: inline"

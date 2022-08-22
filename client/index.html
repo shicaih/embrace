@@ -5,13 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Build your own culture wheel</title>
-    <link rel="stylesheet" href="styles/survey.css" />
+    <link
+      id="favicon"
+      rel="icon"
+      href="./assets/EmbraceIcon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./styles/survey.css" />
   </head>
 
   <body>
     <div class="section-long">
-      <img class="bg-top" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor-Title-Top.png?v=1650139921308">
-  
+      <img
+        class="bg-top"
+        src="./assets/Decor-Title-Top.png"
+      />
+
       <form
         name="name"
         id="nameForm"
@@ -22,13 +31,27 @@
         <h1>Welcome to<br />Embrace</h1>
         <div class="form-control">
           <label class="category">Nickname</label>
-          <input type="text" id="mainInput" placeholder=" Enter your nickname..." />
-          <label class="comment" style="color: darkred; display: none" id="lengthIns">Nickname length cannot exceed 10 characters.</label>
-          <label class="comment">Your nickname will only be visible to you.</label>
+          <input
+            type="text"
+            id="mainInput"
+            placeholder=" Enter your nickname..."
+          />
+          <label
+            class="comment"
+            style="color: darkred; display: none"
+            id="lengthIns"
+            >Nickname length cannot exceed 10 characters.</label
+          >
+          <label class="comment"
+            >Your nickname will only be visible to you.</label
+          >
         </div>
         <button type="submit" value="submit">Continue</button>
       </form>
-      <img class="bg-bottom" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor-Title-Bottom.png?v=1650139919114">
+      <img
+        class="bg-bottom"
+        src="./assets/Decor-Title-Bottom.png"
+      />
       <!-- <button id="generator">
           Random Generator
       </button>  -->
@@ -71,7 +94,7 @@
         } else {
           document.getElementById("lengthIns").style.display = "none";
         }
-      }
+      };
 
       function SubmitForm() {
         let dataEle = document.getElementById("mainInput");
@@ -88,7 +111,7 @@
           return false;
         }
         if (dataEle.value.trim().length > 10) {
-          window.alert("Nickname length cannot exceed 10 characters.")
+          window.alert("Nickname length cannot exceed 10 characters.");
           dataEle.focus();
           return false;
         }
