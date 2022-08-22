@@ -60,6 +60,7 @@
             <input type="checkbox" name="notToShow" id="notToShow" value="no">
             <label for="notToShow" style="display: inline">Don't show this to others</label>
           </div>
+          <label class="comment" style="color: darkred; display: none" id="lengthIns">Nickname length cannot exceed 10 characters.</label>
 
         </div>
         <button type="submit" value="submit">
@@ -87,8 +88,15 @@
         console.log(myStorage);
         let formName = myStorage.getItem('forms').split(',')[FORMINDEX];
         console.log(formName);
-      
-      
+        let nameInput = document.getElementById("mainInput");
+      nameInput.oninput = (event) => {
+        let data = event.target.value.trim();
+        if (data.length > 10) {
+          document.getElementById("lengthIns").style.display = "block";
+        } else {
+          document.getElementById("lengthIns").style.display = "none";
+        }
+      }
         function SubmitForm() {
             let dataEle, isOther = false;
             if  (document.getElementById("mainInput").value === "Other") {
@@ -110,6 +118,11 @@
         function Validate(dataEle) {
           if (dataEle.value.trim() === "") {
             window.alert("Please enter your answer.");
+            dataEle.focus();
+            return false;
+          }
+          if (dataEle.value.trim().length > 10) {
+            window.alert("Nickname length cannot exceed 10 characters.")
             dataEle.focus();
             return false;
           }
