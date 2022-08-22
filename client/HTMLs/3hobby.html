@@ -16,10 +16,10 @@
       ></image>
       <!-- Create Form -->
       <form
-        name="economics"
-        id="economicsForm"
+        name="hobby"
+        id="hobbyForm"
         onsubmit="return SubmitForm()"
-        action="\5location.html"
+        action="./HTMLs/4economics.html"
         method="get"
       >
         <!-- Details -->
@@ -29,29 +29,33 @@
             <div class="pblock-fill"></div>
             <div class="pblock-fill"></div>
             <div class="pblock-fill"></div>
-            <div class="pblock-fill"></div>
+            <div class="pblock"></div>
             <div class="pblock"></div>
             <div class="pblock"></div>
             <div class="pblock"></div>
             <div class="pblock"></div>
           </div>
-          <h2>Finances</h2>
-          <h3>What is your main source of tuition payment?</h3>
+          <h2>Hobby</h2>
+          <h3>What is your favorite hobby?</h3>
 
-          <!-- choose location from dropdown list -->
-          <select name="location" id="mainInput" class="drop">
-            <option value="">Tap to choose the way you pay your tuition</option>
-            <option value="Federal Loan">Federal Loan</option>
-            <option value="Private Loan">Private Loan</option>
-            <option value="Scholarship">Scholarship</option>
-            <option value="Financial Aid/Grants">Financial Aid/Grants</option>
-            <option value="Parent’s or Parents’ Sponsorship">Parent’s or Parents’ Sponsorship</option>
-            <option value="Personal Funds">Personal Funds</option>
-            <option value="Other Sponsorship">Other Sponsorship</option>
+          <!-- choose hobby from dropdown list -->
+          <select name="hobby" id="mainInput" class="drop">
+            <option value="">Tap to choose your hobby</option>
+            <option value="Collecting">Collecting</option>
+            <option value="Arts">Arts</option>
+            <option value="Crafts">Crafts</option>
+            <option value="Games">Games</option>
+            <option value="Model & Electronic">Model & Electronic</option>
+            <option value="Sports & Outdoors">Sports & Outdoors</option>
+            <option value="Performing Arts">Performing Arts</option>
+            <option value="Music">Music</option>
+            <option value="Spiritual & Mental">Spiritual & Mental</option>
+            <option value="Food & Drinks">Food & Drinks</option>
+            <option value="Pets">Pets</option>
+            <option value="Travel">Travel</option>
             <option value="Other">Other...</option>
             <option value="Prefer not to say">Prefer not to say</option>
           </select>
-
           <input
             type="text"
             id="otherInput"
@@ -84,7 +88,7 @@
 
     <!-- this script only relates to submit process -->
     <script>
-      const FORMINDEX = 4;
+      const FORMINDEX = 3;
       let myStorage = window.sessionStorage;
       console.log(myStorage);
       let formName = myStorage.getItem("forms").split(",")[FORMINDEX];

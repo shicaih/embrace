@@ -1,5 +1,5 @@
 let settings;
-fetch("./settings.json")
+fetch("./json/settings.json")
   .then((response) => {
     console.log("Fetch test");
     return response.json();
@@ -250,7 +250,7 @@ class Lobby extends Phaser.Scene {
     this.load.atlas(
       "anim",
       "./assets/anim.png",
-      "anim2.json"
+      "./json/anim2.json"
     );
     this.load.image(
       "arrowBackward",
@@ -292,7 +292,7 @@ class Lobby extends Phaser.Scene {
     this.load.atlas(
       "cultureIcon",
       "./assets/cultureIcon.png",
-      "icon.json"
+      "./json/icon.json"
     );
     this.load.image(
       "ethnicityIcon",
@@ -353,7 +353,7 @@ class Lobby extends Phaser.Scene {
     this.load.atlas(
         "wrong",
         "./assets/wrong.png",
-        "wrong.json"
+        "./json/wrong.json"
     );
     this.input.setTopOnly(false);
   }
@@ -574,9 +574,9 @@ class Lobby extends Phaser.Scene {
     });
     socket.on("reconnect", (to) => {
       if (to === 0 || phase === 0) {
-        window.location.href = "/game.html";
+        window.location.href = "/HTMLs/game.html";
       } else {
-        window.location.href = "/puzzle.html";
+        window.location.href = "/HTMLs/puzzle.html";
       }
     });
     socket.on("thumbUp", (thumbUpIdArr) => {
@@ -589,7 +589,7 @@ class Lobby extends Phaser.Scene {
       })
     });
     socket.on("timeUp", () => {
-      window.location.href = "/game.html";
+      window.location.href = "/HTMLs/game.html";
     });
     socket.on("timeUpdate", (time) => {
       this.timerText.text = time;
@@ -1384,7 +1384,7 @@ class Lobby extends Phaser.Scene {
         this.socket.emit("startPuzzle");
       }
       else if (bigscreenLevelCounter === gameOptions.nLevel + 1) {
-        window.open("./bigscreenReport.html");
+        window.open("./HTMLs/bigscreenReport.html");
         this.portal.textObject.text = "Reset";
         this.puzzleCountText.setVisible(false);
         this.playerCountText.setVisible(true);
@@ -1868,7 +1868,7 @@ class Lobby extends Phaser.Scene {
     console.log("Puzzle room number is" + roomNumber);
     console.log("Current level is" + curLevel);
     if (isMobile) {
-      window.location.href = "/puzzle.html";
+      window.location.href = "/HTMLs/puzzle.html";
     }
   }
 
@@ -2123,7 +2123,7 @@ class Lobby extends Phaser.Scene {
   }
 
   startReport() {
-    window.location.href = "/report.html";
+    window.location.href = "/HTMLs/report.html";
   }
 
   onPuzzleSolved() {

@@ -1,5 +1,5 @@
 // import uuid module. We call uuid() to generate a new uuid
-import { default as config } from "./config.js";
+import { default as config } from "./scripts/config.js";
 import { shuffle } from "./utility.js";
 import { v4 as uuidGen } from "uuid";
 import * as fs from "fs";

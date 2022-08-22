@@ -93,7 +93,7 @@ function randomGuyGenerator() {
   }
   console.log(window.sessionStorage);
   window.sessionStorage.setItem("scores", scores);
-  //window.location.href = "game.html";
+  //window.location.href = "HTMLs/game.html";
 }
 //document.getElementById("generator").onclick = function() {randomGuyGenerator()};
 randomGuyGenerator();

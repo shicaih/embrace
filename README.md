@@ -16,5 +16,5 @@ To start the whole experience, you need to start the client and the server app.
 After the server starts running, all necessary interactions can be done via the front-end on the bigscreen. So no extra maintainace is needed except the server crash.
 No data is stored on the server disk so it's safe to reboot the server once any session is done.
 
-The client will read the server address in the file config.js, and the server address should be changed if you want to deploy on another server.
+The client will read the server address in the file scripts/config.js, and the server address should be changed if you want to deploy on another server.
 

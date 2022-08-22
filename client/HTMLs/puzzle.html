@@ -2,8 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Embrace Lobby</title>
+    <title>Embrace Puzzle</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="this is about cultural humility" />
     <link
       id="favicon"
@@ -18,8 +19,6 @@
     />
     <!-- link to stylesheet -->
     <link rel="stylesheet" href="/styles/style.css" />
-    <!-- link to WebFontLoader -->
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
     <!-- link to Phaser CDN -->
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
     <!-- link to WebSocket CDN -->
@@ -33,20 +32,20 @@
     <!-- WebFontFile Loader for Phaser -->
     <script src="./scripts/WebFontFile.js"></script>
     <script>
-      var clientType = 0; // 1 stands for mobile devices while 0 stands for big screen.
-      var phase = 0; // 0 stands for lobby process, 1 stands for puzzle process.
+      var clientType = 1; // 1 stands for mobile devices while 0 stands for big screen.
+      var phase = 1; // 0 stands for lobby process, 1 stands for puzzle process.
+      const innerWidth = window.innerWidth;
+      const innerHeight = window.innerHeight;
     </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+    </style>
     <!-- link to the script -->
-    <script src="/config.js" defer></script>
-    <script type="module" src="/main.js" defer></script>
+    <script src="/scripts/config.js" defer></script>
+    <script type="module" src="/scripts/main.js" defer></script>
   </head>
   <body class="index-body">
     <!-- this div will house our game canvas -->
     <div class="game-div" id="gameContainer"></div>
-    <div
-      style="font-family: 'Nunito'; position: fixed; top: -20px; left: -20px"
-    >
-      .
-    </div>
   </body>
 </html>
