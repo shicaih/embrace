@@ -100,9 +100,10 @@
         return pageName;
       };
       console.log(getPageName());
-      console.log(Document.location);
-      console.log(Document.URL);
-      console.log(Document.documentURI);
+      let document = new Document();
+      console.log(document.location);
+      console.log(document.URL);
+      console.log(document.documentURI);
       let myStorage = window.sessionStorage;
       console.log(myStorage);
       let formName = myStorage.getItem("forms").split(",")[FORMINDEX];
