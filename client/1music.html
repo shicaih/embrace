@@ -94,6 +94,12 @@
     <!-- this script only relates to submit process -->
     <script>
       const FORMINDEX = 1;
+      const getPageName = () => {
+        let url = window.location.href;
+        let pageName = url.split("/").pop();
+        return pageName;
+      };
+      console.log(getPageName());
       let myStorage = window.sessionStorage;
       console.log(myStorage);
       let formName = myStorage.getItem("forms").split(",")[FORMINDEX];
