@@ -1,11 +1,18 @@
 pageIndexMap = {
-
+    "index.html": 0,
+    "1music.html": 1,
+    "2food.html": 2,
+    "3hobby.html": 3,
+    "4economics.html": 4,
+    "5location.html": 5,
+    "6ethnicity.html": 6,
 }
 const getPageName = () => {
-    let url = window.location.href;
+    let url = window.location.pathname;
     let pageName = url.split("/").pop();
     return pageName;
 }
+const FORMINDEX = pageIndexMap[getPageName()];
 let dataEle = document.getElementById("mainInput");
 dataEle.addEventListener("change", (event) => {
   let otherInput = document.getElementById("otherInput");
@@ -16,7 +23,7 @@ dataEle.addEventListener("change", (event) => {
   }
 });
 
-const FORMINDEX = 1;
+
 let myStorage = window.sessionStorage;
 console.log(myStorage);
 let formName = myStorage.getItem("forms").split(",")[FORMINDEX];
