@@ -2,7 +2,7 @@
 import { default as config } from "./config.js";
 import { shuffle } from "./utility.js";
 import { v4 as uuidGen } from "uuid";
-const fs = require("fs");
+import * as fs from "fs";
 // server
 import { createServer } from "http";
 var server = createServer();
