@@ -1110,7 +1110,8 @@ io.sockets.on("connection", function (socket) {
     console.log(bigscreenReportData);
     socket.emit("bigscreenReport", bigscreenReportData);
     let data = JSON.stringify(allPlayers);
-    fs.writeFile(`./historyData/${Date.getTime()}.json`, data, err=>{
+    let date = new Date();
+    fs.writeFile(`./historyData/${date.getTime()}.json`, data, err=>{
       if(err){
         console.log("Error writing file" ,err)
       } else {
