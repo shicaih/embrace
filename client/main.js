@@ -714,8 +714,8 @@ class Lobby extends Phaser.Scene {
 
   createMobileUI() {
     // background 
-    this.bgImage = this.add.image(0, 0, "BG").setOrigin(0).setScrollFactor(1).setScale(2);
-    this.bgImage.setDepth(-100);
+    this.bgImage = this.add.tileSprite(0, 0, gameOptions.worldWidth, gameOptions.worldHeight, 'BG');
+    this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     //wrong text
     this.wrongText = this.add.text(gameOptions.viewportWidth * 0.5, gameOptions.viewportHeight * 0.75,
         "Wrong Wheel",
