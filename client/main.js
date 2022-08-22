@@ -266,7 +266,7 @@ class Lobby extends Phaser.Scene {
     );
     this.load.image(
       "seamlessBG",
-      "./assets/seamlessBG_1080x1080.png"
+      "./assets/seamlessBG_1000x1000.png"
     )
     this.load.image(
       "bgWheel",
