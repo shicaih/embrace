@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content=
-        "width=device-width, initial-scale=1.0">
-    <title>
-        Embrace Your Identities
-    </title>
-    <link rel="stylesheet" href="styles/survey.css">
-    
-</head>
-  
-<body>
-  <div class="section">
-    <image class="bg-bottom-fix" src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"></image>
-    <!-- Create Form -->
-    <form name="music" id="musicForm" onsubmit="return SubmitForm()" action="\2food.html" method="get">
- 
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embrace Your Identities</title>
+    <link rel="stylesheet" href="styles/survey.css" />
+  </head>
+
+  <body>
+    <div class="section">
+      <image
+        class="bg-bottom-fix"
+        src="https://cdn.glitch.global/41cfbc99-0cac-46f3-96da-fc7dae72a57b/Decor%20-%20Survey.png?v=1650213365882"
+      ></image>
+      <!-- Create Form -->
+      <form
+        name="music"
+        id="musicForm"
+        onsubmit="return SubmitForm()"
+        action="\2food.html"
+        method="get"
+      >
         <!-- Details -->
         <div class="form-control">
           <div class="progress">
@@ -32,63 +36,69 @@
             <div class="pblock"></div>
           </div>
 
-            <h2>Music</h2>
-            <h3>What is your favorite music?</h3>
-            <!-- choose music from dropdown list -->
-            <div class="select">
+          <h2>Music</h2>
+          <h3>What is your favorite music?</h3>
+          <!-- choose music from dropdown list -->
+          <div class="select">
             <select name="music" id="mainInput">
-                  <option value="">Tap to choose your favorite music</option>
-                  <option value="Pop">Pop</option>
-                  <option value="Hip hop/Rap">Hip Hop/Rap</option>
-                  <option value="Rock">Rock</option>
-                  <option value="R&B">R&B</option>
-                  <option value="Country/Western">Country/Western</option>
-                  <option value="EDM">Electronic Dance Music (EDM)</option>
-                  <option value="KPOP">KPOP</option>
-                  <option value="Musicals">Show Music/Musicals</option>
-                  <option value="Classical">Classical</option>
-                  <option value="Latin Music">Latin Music</option>
-                  <option value="Other">Other...</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
+              <option value="">Tap to choose your favorite music</option>
+              <option value="Pop">Pop</option>
+              <option value="Hip hop/Rap">Hip Hop/Rap</option>
+              <option value="Rock">Rock</option>
+              <option value="R&B">R&B</option>
+              <option value="Country/Western">Country/Western</option>
+              <option value="EDM">Electronic Dance Music (EDM)</option>
+              <option value="KPOP">KPOP</option>
+              <option value="Musicals">Show Music/Musicals</option>
+              <option value="Classical">Classical</option>
+              <option value="Latin Music">Latin Music</option>
+              <option value="Other">Other...</option>
+              <option value="Prefer not to say">Prefer not to say</option>
             </select>
-            </div>
-            <input type="text"
-                   id="otherInput"
-                   placeholder="Please specify here"
-                   style="display: none;">
-          <div class="comment">
-            <input type="checkbox" name="notToShow" id="notToShow" value="no">
-            <label for="notToShow" style="display: inline">Don't show this to others</label>
           </div>
-          <label class="comment" style="color: darkred; display: none" id="lengthIns">Nickname length cannot exceed 10 characters.</label>
-
+          <input
+            type="text"
+            id="otherInput"
+            placeholder="Please specify here"
+            style="display: none"
+          />
+          <label
+            class="comment"
+            style="color: darkred; display: none"
+            id="lengthIns"
+            >Nickname length cannot exceed 10 characters.</label
+          >
+          <div class="comment">
+            <input type="checkbox" name="notToShow" id="notToShow" value="no" />
+            <label for="notToShow" style="display: inline"
+              >Don't show this to others</label
+            >
+          </div>
         </div>
-        <button type="submit" value="submit">
-            Next
-        </button>
-    </form>
+        <button type="submit" value="submit">Next</button>
+      </form>
     </div>
     <!-- this script relates to current form content -->
     <script>
-        let dataEle = document.getElementById('mainInput'); 
-        dataEle.addEventListener("change", (event) => {
-            let otherInput = document.getElementById("otherInput");
-            if(dataEle.value === "Other") {
-              otherInput.style.display = "block";
-            } else {
-              otherInput.style.display = "none";
-            }
-        })
+      let dataEle = document.getElementById("mainInput");
+      dataEle.addEventListener("change", (event) => {
+        let otherInput = document.getElementById("otherInput");
+        if (dataEle.value === "Other") {
+          otherInput.style.display = "block";
+        } else {
+          otherInput.style.display = "none";
+        }
+      });
     </script>
-  
+
     <!-- this script only relates to submit process -->
     <script>
-        const FORMINDEX = 1;
-        let myStorage = window.sessionStorage;
-        console.log(myStorage);
-        let formName = myStorage.getItem('forms').split(',')[FORMINDEX];
-        console.log(formName);
-        let nameInput = document.getElementById("mainInput");
+      const FORMINDEX = 1;
+      let myStorage = window.sessionStorage;
+      console.log(myStorage);
+      let formName = myStorage.getItem("forms").split(",")[FORMINDEX];
+      console.log(formName);
+      let nameInput = document.getElementById("mainInput");
       nameInput.oninput = (event) => {
         let data = event.target.value.trim();
         if (data.length > 10) {
@@ -96,40 +106,38 @@
         } else {
           document.getElementById("lengthIns").style.display = "none";
         }
-      }
-        function SubmitForm() {
-            let dataEle, isOther = false;
-            if  (document.getElementById("mainInput").value === "Other") {
-                dataEle = document.getElementById("otherInput");
-                isOther = true;
-            } else {
-                dataEle = document.getElementById("mainInput");
-            };
-            let notToShowEle = document.getElementById("notToShow");
-            let data = [];
-            data.push(dataEle.value.trim());
-            data.push(!notToShowEle.checked);
-            data.push(isOther);
-            myStorage.setItem(formName, data);
-            return Validate(dataEle);
+      };
+      function SubmitForm() {
+        let dataEle,
+          isOther = false;
+        if (document.getElementById("mainInput").value === "Other") {
+          dataEle = document.getElementById("otherInput");
+          isOther = true;
+        } else {
+          dataEle = document.getElementById("mainInput");
         }
-      
-      
-        function Validate(dataEle) {
-          if (dataEle.value.trim() === "") {
-            window.alert("Please enter your answer.");
-            dataEle.focus();
-            return false;
-          }
-          if (dataEle.value.trim().length > 10) {
-            window.alert("Nickname length cannot exceed 10 characters.")
-            dataEle.focus();
-            return false;
-          }
-          return true;
-        };
-    </script>
+        let notToShowEle = document.getElementById("notToShow");
+        let data = [];
+        data.push(dataEle.value.trim());
+        data.push(!notToShowEle.checked);
+        data.push(isOther);
+        myStorage.setItem(formName, data);
+        return Validate(dataEle);
+      }
 
-</body>
-  
+      function Validate(dataEle) {
+        if (dataEle.value.trim() === "") {
+          window.alert("Please enter your answer.");
+          dataEle.focus();
+          return false;
+        }
+        if (dataEle.value.trim().length > 10) {
+          window.alert("Nickname length cannot exceed 10 characters.");
+          dataEle.focus();
+          return false;
+        }
+        return true;
+      }
+    </script>
+  </body>
 </html>
