@@ -75,6 +75,7 @@ const gameOptions = {
   playerTextColor: "#ffffff",
   playerTextBackgroundColor: "#f8f0dd",
   playerTextHeightCo: 1.5 * DPR,
+  playerCulturePadding: 20 * DPR,
   identityBoxStrokeWidth: 1.5 * DPR,
   assignmentTextWidth: 275 * DPR,
   assignmentBoxWidth: 300 * DPR,
@@ -445,7 +446,7 @@ class Lobby extends Phaser.Scene {
       let centerRrec = this.add.rexRoundRectangle(
         0,
         0,
-        gameOptions.wheelRadius,
+        gameOptions.wheelRadius * 2,
         gameOptions.wheelRadius - 50,
         16,
         0xffffff,
@@ -892,9 +893,9 @@ class Lobby extends Phaser.Scene {
           gameOptions.viewportHeight -
           (gameOptions.joyStickRadius + gameOptions.joyStickPadding),
         radius: gameOptions.joyStickRadius,
-        base: this.add.circle(0, 0, gameOptions.joyStickRadius, 0x000000),
+        base: this.add.circle(0, 0, gameOptions.joyStickRadius, 0x222222),
         thumb: this.add
-          .circle(0, 0, gameOptions.joyStickRadius / 2, 0x000000)
+          .circle(0, 0, gameOptions.joyStickRadius / 2, 0x222222)
           .setScrollFactor(0),
         // dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
         // forceMin: 16,
@@ -1831,7 +1832,7 @@ class Lobby extends Phaser.Scene {
         this.players[uuid].text.text =
           gameOptions.iconPlaceHolder + this.players[uuid].wheelInfo[culture];
         this.players[uuid].rrec.setFillStyle(gameOptions.colors[index], 1);
-        this.players[uuid].rrec.width = this.players[uuid].text.width + 100;
+        this.players[uuid].rrec.width = this.players[uuid].text.width + gameOptions.playerCulturePadding;
         this.players[uuid].icon.setFrame(
           iconFrameNames[gameOptions.curIndex].frame
         );
@@ -1844,7 +1845,7 @@ class Lobby extends Phaser.Scene {
           gameOptions.iconPlaceHolder +
           this.mainPlayer.info[gameOptions.curCulture];
         this.mainPlayer.rrec.setFillStyle(gameOptions.colors[index], 1);
-        this.mainPlayer.rrec.width = this.mainPlayer.text.width + 100;
+        this.mainPlayer.rrec.width = this.mainPlayer.text.width + gameOptions.playerCulturePadding;
         this.mainPlayer.icon.setFrame(
           iconFrameNames[gameOptions.curIndex].frame
         );

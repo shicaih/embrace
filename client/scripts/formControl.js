@@ -1,4 +1,4 @@
-const MAX_CHARS = 22;
+const MAX_CHARS = 25;
 const pageIndexMap = {
     "index.html": 0,
     "1music.html": 1,
