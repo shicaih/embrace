@@ -1,4 +1,4 @@
-const MAX_CHARS = 20;
+const MAX_CHARS = 22;
 const pageIndexMap = {
     "index.html": 0,
     "1music.html": 1,
@@ -28,7 +28,7 @@ console.log(formName);
 // show/hide the other input bar
 dataEle.addEventListener("change", (event) => {
   let otherInput = document.getElementById("otherInput");
-  if (dataEle.value === "Other") {
+  if (dataEle.value === "Other" || dataEle.value === "Multi") { // Multi only applies for Ethnicity
     otherInput.style.display = "block";
   } else {
     otherInput.style.display = "none";
@@ -53,7 +53,8 @@ nameInput.oninput = (event) => {
 function SubmitForm() {
   let dataEle,
     isOther = false;
-  if (document.getElementById("mainInput").value === "Other") {
+  // Multi only applies for Ethnicity
+  if (document.getElementById("mainInput").value === "Other" || document.getElementById("mainInput").value === "Multi") {
     dataEle = document.getElementById("otherInput");
     isOther = true;
   } else {
@@ -78,7 +79,7 @@ function Validate(dataEle) {
   }
   // alert when text length exceeds
   if (dataEle.value.trim().length > MAX_CHARS) {
-    window.alert("Nickname length cannot exceed 10 characters.");
+    window.alert(`Nickname length cannot exceed ${MAX_CHARS} characters.`);
     dataEle.focus();
     return false;
   }
