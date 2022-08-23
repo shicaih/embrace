@@ -325,7 +325,7 @@ class Lobby extends Phaser.Scene {
     );
     this.load.image(
       "QRCode",
-      "../assets/qr-code (4)-bg.png"
+      "../assets/DietrichCode.png"
     );
     this.load.image(
       "selectWheel",
@@ -1281,7 +1281,7 @@ class Lobby extends Phaser.Scene {
       bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 2 + bigScreenUISettings.buttonHeight * 2 + bigScreenUISettings.regularText.fontSize / 2),
       "Players: " + playersCount,
       UITextType.regular,
-      bigScreenUISettings.buttonWidth * 0.75,
+      bigScreenUISettings.buttonWidth,
     )
 
     this.puzzleCountText = this.createTextObject(
@@ -1290,7 +1290,7 @@ class Lobby extends Phaser.Scene {
       bigScreenUISettings.height - (bigScreenUISettings.canvasVerticalMargin + bigScreenUISettings.buttonOutlineDistance * 3 + bigScreenUISettings.buttonHeight * 2 + bigScreenUISettings.regularText.fontSize * 1.5),
       "Players: " + playersCount,
       UITextType.regular,
-      bigScreenUISettings.buttonWidth * 0.75,
+      bigScreenUISettings.buttonWidth,
     )
 
     // puzzle portal
