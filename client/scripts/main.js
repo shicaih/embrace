@@ -8,7 +8,7 @@ fetch("../json/settings.json")
     settings = data;
   });
 const DPR = window.devicePixelRatio; //window.devicePixelRatio;
-const WORLD_SIZE = 12000;
+const WORLD_SIZE = 9000;
 const WORLD_SIZE_Height = WORLD_SIZE * (1080/1920) // 939/1680 is the ratio of my computer
 const STAR_PER_PLAYER = 10;
 
@@ -719,8 +719,9 @@ class Lobby extends Phaser.Scene {
 
   createMobileUI() {
     // background 
-    this.bgImage = this.add.tileSprite(0, 0, 4000, 4000, 'seamlessBG');
-    this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100).setScale(gameOptions.worldWidth / 4000);
+    let tileSize = 3000;
+    this.bgImage = this.add.tileSprite(0, 0, tileSize, tileSize, 'seamlessBG');
+    this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100).setScale(gameOptions.worldWidth / tileSize);
     //wrong text
     this.wrongText = this.add.text(gameOptions.viewportWidth * 0.5, gameOptions.viewportHeight * 0.75,
         "Wrong Wheel",
