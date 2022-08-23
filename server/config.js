@@ -1,10 +1,10 @@
 export default {
     server :{
-        url: 'http://embrace.etc.cmu.edu/',
+        url: 'http://dc-etc-dei.hss.cmu.edu/',
         port: 8080,
     },
     client : {
-        url: 'http://embrace.etc.cmu.edu/',
+        url: 'http://dc-etc-dei.hss.cmu.edu/',
         port: 9000,
     }
 }
