@@ -1375,6 +1375,7 @@ class Lobby extends Phaser.Scene {
         this.insText.text = "Stars: " + stars;
         starGoal = playersCount * STAR_PER_PLAYER;
         this.playerCountText.setVisible(false);
+        this.puzzleCountText.setVisible(true);
         this.puzzleCountText.setDepth(2000);
         if (this.progressBar) {
           this.progressBar.destroy();
