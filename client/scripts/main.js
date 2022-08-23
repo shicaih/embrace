@@ -65,6 +65,7 @@ const gameOptions = {
   buttonPadding: 50,
   joyStickRadius: 100,
   joyStickPadding: 100,
+  bgWheelScaleFactor: 5 * 1.25,
   // Options for text display
   cultureTextFontSize: 18 * DPR,
   playerTextDistance: (250 * DPR) / 3,
@@ -662,7 +663,7 @@ class Lobby extends Phaser.Scene {
 
   createUI() {
     this.bgWheel = this.add.image(gameOptions.worldWidth / 2, gameOptions.worldHeight / 2, "bgWheel");
-    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(5).setScrollFactor(1);
+    this.bgWheel.setOrigin(0.5, 0.5).setDepth(-99).setScale(gameOptions.bgWheelScaleFactor).setScrollFactor(1);
 
     if (isMobile) {
       this.createMobileUI();
@@ -1225,7 +1226,7 @@ class Lobby extends Phaser.Scene {
   createBigScreenUI() {
     bigscreenLevelCounter = 0;
     this.bgWheel.setDepth(-101);
-    this.bgWheel.setScale(5 * (gameOptions.worldWidth / WORLD_SIZE));
+    this.bgWheel.setScale(gameOptions.bgWheelScaleFactor * (gameOptions.worldWidth / WORLD_SIZE));
     this.bgImage = this.add.tileSprite(0, 0, bigScreenWorldWidth, bigScreenWorldHeight, 'BG');
     this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.socket.emit("admin");
@@ -1259,10 +1260,11 @@ class Lobby extends Phaser.Scene {
       gameOptions.viewportHeight / 2,
       "QRCode"
     );
-    this.QR.setScale(bigScreenRatio);
+    const qrScaleFactor =  bigScreenRatio * 1.25
+    this.QR.setScale(qrScaleFactor);
     this.tweens.add({
       targets: this.QR,
-      scale: 0.9 * bigScreenRatio,
+      scale: 0.9 * qrScaleFactor,
       duration: 5000,
       yoyo: true,
       callbackScope: this,
@@ -1334,7 +1336,7 @@ class Lobby extends Phaser.Scene {
       this.bgWheelBW
       .setOrigin(0.5, 0.5)
       .setDepth(-99)
-      .setScale(5 * (gameOptions.worldWidth / WORLD_SIZE) * (648 / 1080))
+      .setScale(gameOptions.bgWheelScaleFactor * (gameOptions.worldWidth / WORLD_SIZE) * (648 / 1080))
       .setScrollFactor(1);
       this.bgWheel.setDepth(-97);
       this.QR.setVisible(false);
@@ -1345,7 +1347,7 @@ class Lobby extends Phaser.Scene {
       this.playerCountText.setVisible(false);
       this.progressBar = this.add.graphics();
       this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
-      this.progressBar.slice(0, 0, this.bgWheel.width * 5 * 0.5 * (gameOptions.worldWidth / WORLD_SIZE), 0, 0, false);
+      this.progressBar.slice(0, 0, this.bgWheel.width * gameOptions.bgWheelScaleFactor * 0.5 * (gameOptions.worldWidth / WORLD_SIZE), 0, 0, false);
       this.progressBar.x = gameOptions.worldWidth / 2;
       this.progressBar.y = gameOptions.worldHeight / 2;
     }
@@ -1600,7 +1602,7 @@ class Lobby extends Phaser.Scene {
       playerContainer.getAt(2).setVisible(false);
       playerContainer.getAt(3).setVisible(false);
       playerContainer.getAt(5).setScale(DPR / 3 * bigScreenRatio);
-      playerContainer.setScale(bigScreenRatio * 3 / DPR);
+      playerContainer.setScale(bigScreenRatio * 3 / DPR * 0.8);
     }
     player.gameObject = playerContainer;
     console.log("createNewPlayer, uuid is " + player.uuid);
