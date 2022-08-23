@@ -1111,7 +1111,7 @@ io.sockets.on("connection", function (socket) {
     socket.emit("bigscreenReport", bigscreenReportData);
     let data = JSON.stringify(allPlayers);
     let date = new Date();
-    fs.writeFile(`~/embrace/server/historyData/${date.getTime()}.json`, data, err=>{
+    fs.writeFile(`/home/shicaih/embrace/server/historyData/${date.getTime()}.json`, data, err=>{
       if(err){
         console.log("Error writing file" ,err)
       } else {
