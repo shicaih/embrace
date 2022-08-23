@@ -1226,7 +1226,7 @@ class Lobby extends Phaser.Scene {
   createBigScreenUI() {
     bigscreenLevelCounter = 0;
     this.bgWheel.setDepth(-101);
-    this.bgWheel.setScale(gameOptions.bgWheelScaleFactor * (gameOptions.worldWidth / WORLD_SIZE));
+    this.bgWheel.setScale(gameOptions.bgWheelScaleFactor * bigScreenRatio);
     this.bgImage = this.add.tileSprite(0, 0, bigScreenWorldWidth, bigScreenWorldHeight, 'BG');
     this.bgImage.setOrigin(0).setScrollFactor(1).setDepth(-100);
     this.socket.emit("admin");
@@ -1296,6 +1296,7 @@ class Lobby extends Phaser.Scene {
       UITextType.regular,
       bigScreenUISettings.buttonWidth,
     )
+    this.puzzleCountText.setVisible(false);
 
     // puzzle portal
     this.toggleQR = this.createUIButton(
@@ -1336,7 +1337,7 @@ class Lobby extends Phaser.Scene {
       this.bgWheelBW
       .setOrigin(0.5, 0.5)
       .setDepth(-99)
-      .setScale(gameOptions.bgWheelScaleFactor * (gameOptions.worldWidth / WORLD_SIZE) * (648 / 1080))
+      .setScale(gameOptions.bgWheelScaleFactor * bigScreenRatio * (648 / 1080))
       .setScrollFactor(1);
       this.bgWheel.setDepth(-97);
       this.QR.setVisible(false);
@@ -1347,7 +1348,7 @@ class Lobby extends Phaser.Scene {
       this.playerCountText.setVisible(false);
       this.progressBar = this.add.graphics();
       this.bgWheel.mask = new Phaser.Display.Masks.GeometryMask(this, this.progressBar);
-      this.progressBar.slice(0, 0, this.bgWheel.width * gameOptions.bgWheelScaleFactor * 0.5 * (gameOptions.worldWidth / WORLD_SIZE), 0, 0, false);
+      this.progressBar.slice(0, 0, this.bgWheel.width * gameOptions.bgWheelScaleFactor * 0.5 * bigScreenRatio, 0, 0, false);
       this.progressBar.x = gameOptions.worldWidth / 2;
       this.progressBar.y = gameOptions.worldHeight / 2;
     }
@@ -1365,7 +1366,7 @@ class Lobby extends Phaser.Scene {
         this.bgWheelBW
         .setOrigin(0.5, 0.5)
         .setDepth(-99)
-        .setScale(5 * (gameOptions.worldWidth / WORLD_SIZE) * (648 / 1080))
+        .setScale(gameOptions.bgWheelScaleFactor * bigScreenRatio * (648 / 1080))
         .setScrollFactor(1);
         this.bgWheel.setDepth(-97);
         this.QR.setVisible(false);
