@@ -448,7 +448,7 @@ class Lobby extends Phaser.Scene {
         0,
         gameOptions.wheelRadius * 2,
         gameOptions.wheelRadius - 50,
-        16,
+        (gameOptions.wheelRadius - 50) / 2,
         0xffffff,
         0.75
       );
@@ -581,6 +581,9 @@ class Lobby extends Phaser.Scene {
       }
     });
     socket.on("thumbUp", (thumbUpIdArr) => {
+      if (!thumbUpIdArr) {
+        return;
+      }
       console.log(thumbUpIdArr)
       thumbUpIdArr.forEach(uuid => {   
         console.log("ThumbUp received");
@@ -1598,7 +1601,7 @@ class Lobby extends Phaser.Scene {
       playerContainer.getAt(2).setVisible(false);
       playerContainer.getAt(3).setVisible(false);
       playerContainer.getAt(5).setScale(DPR / 3 * bigScreenRatio);
-      playerContainer.setScale(bigScreenRatio * 1.5);
+      playerContainer.setScale(bigScreenRatio * 3 / DPR);
     }
     player.gameObject = playerContainer;
     console.log("createNewPlayer, uuid is " + player.uuid);
