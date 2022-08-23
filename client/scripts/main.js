@@ -581,15 +581,14 @@ class Lobby extends Phaser.Scene {
       }
     });
     socket.on("thumbUp", (thumbUpIdArr) => {
-      if (!thumbUpIdArr) {
-        return;
-      }
       console.log(thumbUpIdArr)
       thumbUpIdArr.forEach(uuid => {   
         console.log("ThumbUp received");
         console.log(uuid);
         console.log(this.players[uuid]);
-        this.showOtherThumbUp(this.players[uuid]);
+        if (uuid != this.mainPlayer.uuid) {
+          this.showOtherThumbUp(this.players[uuid]);
+        }
       })
     });
     socket.on("timeUp", () => {
