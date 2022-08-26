@@ -28,7 +28,7 @@ var goneLobbyPlayers = {};
 var puzzlePlayers = {};
 var gonePuzzlePlayers = {};
 var activePlayers = {};
-var allPlayers = {}; // this is only for report data
+var allPlayersData = {}; // this is only for report data
 var lobbyRooms = [{}];
 var lobbyPositionInfo = {};
 var playerThumbUpInfo = new Set();
@@ -726,12 +726,12 @@ io.sockets.on("connection", function (socket) {
       socket.uuid = uuid;
       socket.emit("uuid", uuid);
       newPlayer = new Player(uuid, data.info, data.scores);
-      allPlayers[uuid] = newPlayer;
+      allPlayersData[uuid] = newPlayer;
     } else {
       if (goneLobbyPlayers[data.uuid] === undefined) {
         console.log("no player found, should be dubugging"); // this happened when we restart the server and the player immediately reconnect
         newPlayer = new Player(data.uuid, data.info, data.scores);
-        allPlayers[data.uuid] = newPlayer;
+        allPlayersData[data.uuid] = newPlayer;
         goneLobbyPlayers[data.uuid] = newPlayer;
       }
       newPlayer = goneLobbyPlayers[data.uuid];
@@ -1109,7 +1109,7 @@ io.sockets.on("connection", function (socket) {
   socket.on("initBigscreenReport", () => {
     console.log(bigscreenReportData);
     socket.emit("bigscreenReport", bigscreenReportData);
-    let data = JSON.stringify(allPlayers);
+    let data = JSON.stringify(allPlayersData);
     let date = new Date();
     fs.writeFile(`/home/shicaih/embrace/server/historyData/${date.getTime()}.json`, data, err=>{
       if(err){
@@ -1123,6 +1123,7 @@ io.sockets.on("connection", function (socket) {
 
   socket.on("reset", () => {
     isTransitting = false;
+    allPlayersData = {};
     lobbyPlayers = {};
     goneLobbyPlayers = {};
     puzzlePlayers = {};
